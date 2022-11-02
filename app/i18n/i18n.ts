@@ -1,11 +1,10 @@
-import * as Localization from "expo-localization"
-import i18n from "i18n-js"
-import { I18nManager } from "react-native"
+import * as Localization from 'expo-localization'
+import i18n from 'i18n-js'
+import { I18nManager } from 'react-native'
 
 // if English isn't your default language, move Translations to the appropriate language file.
-import en, { Translations } from "./en"
-import ar from "./ar"
-import ko from "./ko"
+import en, { Translations } from './en'
+import zh from './zh'
 
 i18n.fallbacks = true
 /**
@@ -13,7 +12,7 @@ i18n.fallbacks = true
  * the language code is the suffixed with "-US". i.e. if a device is set to English ("en"),
  * if you change to another language and then return to English language code is now "en-US".
  */
-i18n.translations = { ar, en, "en-US": en, ko }
+i18n.translations = { en, 'en-US': en, zh }
 
 i18n.locale = Localization.locale
 

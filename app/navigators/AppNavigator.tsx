@@ -9,20 +9,17 @@ import {
   DefaultTheme,
   NavigationContainer,
   NavigatorScreenParams, // @demo remove-current-line
-} from "@react-navigation/native"
-import { createNativeStackNavigator } from "@react-navigation/native-stack"
-import { StackScreenProps } from "@react-navigation/stack"
-import { observer } from "mobx-react-lite"
-import React from "react"
-import { useColorScheme } from "react-native"
-import Config from "../config"
-import { useStores } from "../models" // @demo remove-current-line
-import {
-  LoginScreen, // @demo remove-current-line
-  WelcomeScreen,
-} from "../screens"
-import { DemoNavigator, DemoTabParamList } from "./DemoNavigator" // @demo remove-current-line
-import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
+} from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { StackScreenProps } from '@react-navigation/stack';
+import { observer } from 'mobx-react-lite';
+import React from 'react';
+import { useColorScheme } from 'react-native';
+import Config from '../config';
+import { useStores } from '../models'; // @demo remove-current-line
+import { PasscodeLockScreen } from '../screens';
+import { ContentNavigator, ContentTabParamList } from './ContentNavigator'; // @demo remove-current-line
+import { navigationRef, useBackButtonHandler } from './navigationUtilities';
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -38,71 +35,54 @@ import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
  *   https://reactnavigation.org/docs/typescript/#organizing-types
  */
 export type AppStackParamList = {
-  Welcome: undefined
-  Login: undefined // @demo remove-current-line
-  Demo: NavigatorScreenParams<DemoTabParamList> // @demo remove-current-line
+  PasscodeLock: typeof PasscodeLockScreen;
+  Content: NavigatorScreenParams<ContentTabParamList>;
   // 🔥 Your screens go here
-}
+};
 
 /**
  * This is a list of all the route names that will exit the app if the back button
  * is pressed while in that screen. Only affects Android.
  */
-const exitRoutes = Config.exitRoutes
+const exitRoutes = Config.exitRoutes;
 
 export type AppStackScreenProps<T extends keyof AppStackParamList> = StackScreenProps<
   AppStackParamList,
   T
->
+>;
 
 // Documentation: https://reactnavigation.org/docs/stack-navigator/
-const Stack = createNativeStackNavigator<AppStackParamList>()
+const Stack = createNativeStackNavigator<AppStackParamList>();
 
 const AppStack = observer(function AppStack() {
   // @demo remove-block-start
   const {
     authenticationStore: { isAuthenticated },
-  } = useStores()
+  } = useStores();
 
   // @demo remove-block-end
   return (
-    <Stack.Navigator
-      screenOptions={{ headerShown: false }}
-      initialRouteName={isAuthenticated ? "Welcome" : "Login"} // @demo remove-current-line
-    >
-      {/* @demo remove-block-start */}
-      {isAuthenticated ? (
-        <>
-          {/* @demo remove-block-end */}
-          <Stack.Screen name="Welcome" component={WelcomeScreen} />
-          {/* @demo remove-block-start */}
-          <Stack.Screen name="Demo" component={DemoNavigator} />
-        </>
-      ) : (
-        <>
-          <Stack.Screen name="Login" component={LoginScreen} />
-        </>
-      )}
-      {/* @demo remove-block-end */}
-      {/** 🔥 Your screens go here */}
+    <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={'PasscodeLock'}>
+      <Stack.Screen name="PasscodeLock" component={PasscodeLockScreen} />
+      <Stack.Screen name="Content" component={ContentNavigator} />
     </Stack.Navigator>
-  )
-})
+  );
+});
 
 interface NavigationProps extends Partial<React.ComponentProps<typeof NavigationContainer>> {}
 
 export const AppNavigator = observer(function AppNavigator(props: NavigationProps) {
-  const colorScheme = useColorScheme()
+  const colorScheme = useColorScheme();
 
-  useBackButtonHandler((routeName) => exitRoutes.includes(routeName))
+  useBackButtonHandler((routeName) => exitRoutes.includes(routeName));
 
   return (
     <NavigationContainer
       ref={navigationRef}
-      theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
       {...props}
     >
       <AppStack />
     </NavigationContainer>
-  )
-})
+  );
+});

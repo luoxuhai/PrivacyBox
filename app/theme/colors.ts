@@ -12,15 +12,15 @@ const darkPalette = {
   primary9: '#463c74',
   primary10: '#302a4d',
 
-  neutral100: '#FFFFFF',
-  neutral200: '#F4F2F1',
-  neutral300: '#D7CEC9',
-  neutral400: '#B6ACA6',
-  neutral500: '#978F8A',
-  neutral600: '#564E4A',
-  neutral700: '#3C3836',
-  neutral800: '#191015',
-  neutral900: '#000000',
+  neutral1: '#FFFFFF',
+  neutral2: '#F4F2F1',
+  neutral3: '#D7CEC9',
+  neutral4: '#B6ACA6',
+  neutral5: '#978F8A',
+  neutral6: '#564E4A',
+  neutral7: '#3C3836',
+  neutral8: '#191015',
+  neutral9: '#000000',
 
   systemRed: '#FF3B30',
   systemOrange: '#FF9500',
@@ -38,12 +38,6 @@ const darkPalette = {
   systemGray4: '#D1D1D6',
   systemGray5: '#E5E5EA',
   systemGray6: '#F2F2F7',
-
-  secondary100: '#DCDDE9',
-  secondary200: '#BCC0D6',
-  secondary300: '#9196B9',
-  secondary400: '#626894',
-  secondary500: '#41476E',
 
   accent100: '#FFEED4',
   accent200: '#FFE1B2',
@@ -166,3 +160,4 @@ function generateColors(palette: typeof darkPalette | typeof lightPalette) {
 
 export const darkColors = generateColors(darkPalette);
 export const lightColors = generateColors(lightPalette);
+export const colors = generateColors(lightPalette);

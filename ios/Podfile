@@ -9,8 +9,13 @@ install! 'cocoapods', :deterministic_uuids => false
 
 production = ENV["PRODUCTION"] == "1"
 
+$RNFirebaseAsStaticFramework = true
+# 避免使用 IDFA
+$RNFirebaseAnalyticsWithoutAdIdSupport = true
+
 target 'PrivacyBox' do
   use_expo_modules!
+  use_frameworks! :linkage => :static
   post_integrate do |installer|
     begin
       expo_patch_react_imports!(installer)
@@ -28,8 +33,8 @@ target 'PrivacyBox' do
     :production => production,
     # to disable hermes on iOS, change `true` to `flags[:hermes_enabled]` and then install pods
     :hermes_enabled => true,
-    :fabric_enabled => flags[:fabric_enabled],
-    :flipper_configuration => FlipperConfiguration.enabled(["Debug"], { 'Flipper' => '0.157.0' }),
+    :fabric_enabled => false,
+    # :flipper_configuration => FlipperConfiguration.enabled(["Debug"], { 'Flipper' => '0.157.0' }),
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )

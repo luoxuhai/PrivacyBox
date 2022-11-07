@@ -17,6 +17,9 @@
 
 #import <react/config/ReactNativeConfig.h>
 
+#import <Firebase.h>
+
+
 static NSString *const kRNConcurrentRoot = @"concurrentRoot";
 
 @interface AppDelegate () <RCTCxxBridgeDelegate, RCTTurboModuleManagerDelegate> {
@@ -35,6 +38,11 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
   RCTAppSetupPrepareApp(application);
 
   RCTBridge *bridge = [self.reactDelegate createBridgeWithDelegate:self launchOptions:launchOptions];
+  
+#if !DEBUG
+  // Firebase https://rnfirebase.io/#3-ios-setup
+  [FIRApp configure];
+#endif
 
 #if RCT_NEW_ARCH_ENABLED
   _contextContainer = std::make_shared<facebook::react::ContextContainer const>();

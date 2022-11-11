@@ -62,7 +62,10 @@ const AppStack = observer(function AppStack() {
 
   // @demo remove-block-end
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={'PasscodeLock'}>
+    <Stack.Navigator
+      screenOptions={{ headerShown: true, headerLargeTitle: true }}
+      initialRouteName={'PasscodeLock'}
+    >
       <Stack.Screen name="PasscodeLock" component={PasscodeLockScreen} />
       <Stack.Screen name="Content" component={ContentNavigator} />
     </Stack.Navigator>

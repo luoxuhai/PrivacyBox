@@ -12,7 +12,6 @@ import { AppStackParamList, AppStackScreenProps } from './AppNavigator';
 export type ContentTabParamList = {
   Album: undefined;
   File: undefined;
-  Browser: undefined;
   More: undefined;
   Setting: undefined;
 };
@@ -62,14 +61,14 @@ export function ContentNavigator() {
         }}
       />
 
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Browser"
         component={BrowserScreen}
         options={{
           tabBarLabel: translate('demoNavigator.podcastListTab'),
           tabBarIcon: ({ focused }) => <Icon icon="podcast" color={focused && colors.tint} />,
         }}
-      />
+      /> */}
 
       <Tab.Screen
         name="More"

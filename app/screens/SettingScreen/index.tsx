@@ -1,12 +1,18 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, ScrollView, ViewStyle } from 'react-native';
 
-function SettingScreen() {
+import { PurchaseBanner } from './PurchaseBanner';
+import { ScrollSafeAreaView } from '../../components';
+
+export function SettingScreen() {
   return (
-    <View>
+    <ScrollSafeAreaView style={$scrollView} safeAreaProps={{ edges: ['bottom', 'left', 'right'] }}>
+      <PurchaseBanner />
       <Text>SettingScreen</Text>
-    </View>
+    </ScrollSafeAreaView>
   );
 }
 
-export { SettingScreen };
+const $scrollView: ViewStyle = {
+  flex: 1,
+};

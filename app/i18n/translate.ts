@@ -1,5 +1,5 @@
-import i18n from "i18n-js"
-import { TxKeyPath } from "./i18n"
+import i18n, { TOptions } from 'i18next';
+import { TextKeyPath } from './i18n';
 
 /**
  * Translates text.
@@ -25,6 +25,6 @@ import { TxKeyPath } from "./i18n"
  * // => "Hello world!"
  * ```
  */
-export function translate(key: TxKeyPath, options?: i18n.TranslateOptions) {
-  return i18n.t(key, options)
+export function translate(key: TextKeyPath, options?: TOptions) {
+  return i18n.t(key, options);
 }

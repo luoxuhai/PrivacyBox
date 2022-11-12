@@ -1,45 +1,61 @@
-import * as Localization from 'expo-localization'
-import i18n from 'i18n-js'
-import { I18nManager } from 'react-native'
+import * as Localization from 'react-native-localize';
+import i18n from 'i18next';
 
-// if English isn't your default language, move Translations to the appropriate language file.
-import en, { Translations } from './en'
-import zh from './zh'
+import en, { Translations } from './en';
+import zh from './zh';
 
-i18n.fallbacks = true
-/**
- * we need always include "*-US" for some valid language codes because when you change the system language,
- * the language code is the suffixed with "-US". i.e. if a device is set to English ("en"),
- * if you change to another language and then return to English language code is now "en-US".
- */
-i18n.translations = { en, 'en-US': en, zh }
+/* -> [
+  { countryCode: "GB", languageTag: "en-GB", languageCode: "en", isRTL: false },
+  { countryCode: "US", languageTag: "en-US", languageCode: "en", isRTL: false },
+  { countryCode: "FR", languageTag: "fr-FR", languageCode: "fr", isRTL: false },
+] */
+export const locale = {
+  ...Localization.getLocales()[0],
+  currencies: Localization.getCurrencies()[0],
+  country: Localization.getCountry(),
+  timeZone: Localization.getTimeZone(),
+};
 
-i18n.locale = Localization.locale
+export enum SupportedLanguage {
+  EN = 'en',
+  ZH = 'zh',
+}
 
-// handle RTL languages
-export const isRTL = Localization.isRTL
-I18nManager.allowRTL(isRTL)
-I18nManager.forceRTL(isRTL)
+i18n.init({
+  debug: __DEV__,
+  lng: locale.languageCode,
+  fallbackLng: SupportedLanguage.EN,
+  supportedLngs: [SupportedLanguage.EN, SupportedLanguage.ZH],
+  nonExplicitSupportedLngs: true,
+  resources: {
+    en: {
+      translation: en,
+    },
+    zh: {
+      translation: zh,
+    },
+  },
+});
 
 /**
  * Builds up valid keypaths for translations.
  */
-export type TxKeyPath = RecursiveKeyOf<Translations>
+export type TextKeyPath = RecursiveKeyOf<Translations>;
 
 // via: https://stackoverflow.com/a/65333050
 type RecursiveKeyOf<TObj extends object> = {
-  [TKey in keyof TObj & (string | number)]: RecursiveKeyOfHandleValue<TObj[TKey], `${TKey}`>
-}[keyof TObj & (string | number)]
+  [TKey in keyof TObj & (string | number)]: RecursiveKeyOfHandleValue<TObj[TKey], `${TKey}`>;
+}[keyof TObj & (string | number)];
 
 type RecursiveKeyOfInner<TObj extends object> = {
   [TKey in keyof TObj & (string | number)]: RecursiveKeyOfHandleValue<
     TObj[TKey],
     `['${TKey}']` | `.${TKey}`
-  >
-}[keyof TObj & (string | number)]
+  >;
+}[keyof TObj & (string | number)];
 
 type RecursiveKeyOfHandleValue<TValue, Text extends string> = TValue extends any[]
   ? Text
   : TValue extends object
   ? Text | `${Text}${RecursiveKeyOfInner<TValue>}`
-  : Text
+  : Text;

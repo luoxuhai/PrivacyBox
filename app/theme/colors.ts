@@ -161,3 +161,5 @@ function generateColors(palette: typeof darkPalette | typeof lightPalette) {
 export const darkColors = generateColors(darkPalette);
 export const lightColors = generateColors(lightPalette);
 export const colors = generateColors(lightPalette);
+
+export type Colors = typeof darkColors;

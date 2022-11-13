@@ -568,8 +568,6 @@ PODS:
     - React-perflogger (= 0.69.7)
   - RNBootSplash (4.3.2):
     - React-Core
-  - RNCAsyncStorage (1.17.10):
-    - React-Core
   - RNFastImage (8.6.3):
     - React-Core
     - SDWebImage (~> 5.11.1)
@@ -734,7 +732,6 @@ DEPENDENCIES:
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - RNBootSplash (from `../node_modules/react-native-bootsplash`)
-  - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - RNFastImage (from `../node_modules/react-native-fast-image`)
   - "RNFBAnalytics (from `../node_modules/@react-native-firebase/analytics`)"
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
@@ -907,8 +904,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   RNBootSplash:
     :path: "../node_modules/react-native-bootsplash"
-  RNCAsyncStorage:
-    :path: "../node_modules/@react-native-async-storage/async-storage"
   RNFastImage:
     :path: "../node_modules/react-native-fast-image"
   RNFBAnalytics:
@@ -1029,7 +1024,6 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: 65cd2782a57e1d59a68aa5d504edf94278578e41
   ReactCommon: 1e783348b9aa73ae68236271df972ba898560a95
   RNBootSplash: 5f346163977573d6b2aeba1b25df9d2245c0d73c
-  RNCAsyncStorage: 0c357f3156fcb16c8589ede67cc036330b6698ca
   RNFastImage: 5c9c9fed9c076e521b3f509fe79e790418a544e8
   RNFBAnalytics: db5c92053dc552f268a233228b565c538e058547
   RNFBApp: 90153cce9b119f4546a4e5fb1427bca963448dc5

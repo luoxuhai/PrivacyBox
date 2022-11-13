@@ -1,28 +1,20 @@
 import { MMKV } from 'react-native-mmkv';
 
 export const mmkv = new MMKV({
-  id: 'default',
+  id: 'encryption',
+  encryptionKey: 'xxx',
 });
 
 export function set(key: string, value: boolean | string | number | Uint8Array) {
-  mmkv.set(key, typeof value === 'object' ? JSON.stringify(value) : value);
+  mmkv.set(key, value);
 }
 
 export function setObject(key: string, value: object) {
   mmkv.set(key, JSON.stringify(value));
 }
 
-export function get(key: string, type: 'number' | 'string' | 'boolean' | 'object' = 'string') {
-  switch (type) {
-    case 'boolean':
-      return mmkv.getBoolean(key);
-    case 'number':
-      return mmkv.getNumber(key);
-    case 'object':
-      return JSON.parse(mmkv.getString(key));
-    default:
-      return mmkv.getString(key);
-  }
+export function get(key: string) {
+  return mmkv.getString(key);
 }
 
 export function remove(key: string) {

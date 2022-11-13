@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, ScrollView, ViewStyle } from 'react-native';
 
 import { PurchaseBanner } from './PurchaseBanner';
-import { ScrollSafeAreaView } from '../../components';
+import { ScrollSafeAreaView } from '@/components';
 
 export function SettingScreen() {
   return (

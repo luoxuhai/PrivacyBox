@@ -7,7 +7,7 @@ interface WelcomeScreenProps extends AppStackScreenProps<'PasscodeLock'> {} // @
 
 function PasscodeLockScreen(props: WelcomeScreenProps) {
   const { episodeStore } = useStores();
-  const [content, setContent] = useState(episodeStore.episodes?.[0].content);
+  const [content, setContent] = useState(episodeStore.episodes?.[0]?.content);
   const { navigation } = props;
 
   return (
@@ -15,10 +15,10 @@ function PasscodeLockScreen(props: WelcomeScreenProps) {
       <Pressable
         onPress={() => {
           navigation.navigate('Content', { screen: 'Album' });
-          setContent(episodeStore.episodes?.[1].content);
+          setContent(episodeStore.episodes?.[1]?.content);
         }}
       >
-        <Text>{content}</Text>
+        <Text>{content || 'xxxxxx'}</Text>
       </Pressable>
     </ScrollView>
   );

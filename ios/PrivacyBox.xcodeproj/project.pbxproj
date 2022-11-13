@@ -8,15 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* PrivacyBoxTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* PrivacyBoxTests.m */; };
+		0DF6C361ACB1578591DC791C /* libPods-PrivacyBox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE06CDF100B9AA0FF7D820A3 /* libPods-PrivacyBox.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2215ACBC1E62C44583DB69A9 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5AFED2E09CC2E86D1338C0F /* ExpoModulesProvider.swift */; };
+		35106825291FD2C000E8F0D7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 35106827291FD2C000E8F0D7 /* InfoPlist.strings */; };
+		3510682B29208F6200E8F0D7 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3510682A29208F6200E8F0D7 /* StoreKit.framework */; };
 		35A62201291898BC0059A53D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 35A62200291898BB0059A53D /* GoogleService-Info.plist */; };
 		400EB2C1E1807E6CBC68B7AB /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951E59D51E504BC9C5F46169 /* ExpoModulesProvider.swift */; };
-		43A35DB5579B9588FB62A7AB /* Pods_PrivacyBox_PrivacyBoxTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EC1DD38D0FA33ECDEBB6D1D /* Pods_PrivacyBox_PrivacyBoxTests.framework */; };
+		61C8591E7ADE002B28890453 /* libPods-PrivacyBox-PrivacyBoxTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B25F8635391834428A9A919A /* libPods-PrivacyBox-PrivacyBoxTests.a */; };
 		BE406F562862D73000A81E39 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE406F552862D73000A81E39 /* BootSplash.storyboard */; };
-		ECD4CBB82947B6D994582E92 /* Pods_PrivacyBox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DEB34C61E7EF569073B1EDF3 /* Pods_PrivacyBox.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +31,18 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		3510682D292092ED00E8F0D7 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		00E356EE1AD99517003FC87E /* PrivacyBoxTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PrivacyBoxTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -39,16 +53,21 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = PrivacyBox/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = PrivacyBox/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = PrivacyBox/main.m; sourceTree = "<group>"; };
+		35106826291FD2C000E8F0D7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		35106828291FD2C400E8F0D7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		3510682929208F4400E8F0D7 /* PrivacyBox.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = PrivacyBox.entitlements; path = PrivacyBox/PrivacyBox.entitlements; sourceTree = "<group>"; };
+		3510682A29208F6200E8F0D7 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		3510682E2920932500E8F0D7 /* hermes.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = hermes.xcframework; path = "Pods/hermes-engine/destroot/Library/Frameworks/universal/hermes.xcframework"; sourceTree = "<group>"; };
 		35A62200291898BB0059A53D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "PrivacyBox/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-PrivacyBox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrivacyBox.debug.xcconfig"; path = "Target Support Files/Pods-PrivacyBox/Pods-PrivacyBox.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-PrivacyBox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrivacyBox.release.xcconfig"; path = "Target Support Files/Pods-PrivacyBox/Pods-PrivacyBox.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-PrivacyBox-PrivacyBoxTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrivacyBox-PrivacyBoxTests.debug.xcconfig"; path = "Target Support Files/Pods-PrivacyBox-PrivacyBoxTests/Pods-PrivacyBox-PrivacyBoxTests.debug.xcconfig"; sourceTree = "<group>"; };
-		5EC1DD38D0FA33ECDEBB6D1D /* Pods_PrivacyBox_PrivacyBoxTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrivacyBox_PrivacyBoxTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-PrivacyBox-PrivacyBoxTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrivacyBox-PrivacyBoxTests.release.xcconfig"; path = "Target Support Files/Pods-PrivacyBox-PrivacyBoxTests/Pods-PrivacyBox-PrivacyBoxTests.release.xcconfig"; sourceTree = "<group>"; };
 		951E59D51E504BC9C5F46169 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-PrivacyBox/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
+		B25F8635391834428A9A919A /* libPods-PrivacyBox-PrivacyBoxTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PrivacyBox-PrivacyBoxTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE406F552862D73000A81E39 /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = PrivacyBox/BootSplash.storyboard; sourceTree = "<group>"; };
+		CE06CDF100B9AA0FF7D820A3 /* libPods-PrivacyBox.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PrivacyBox.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5AFED2E09CC2E86D1338C0F /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-PrivacyBox-PrivacyBoxTests/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
-		DEB34C61E7EF569073B1EDF3 /* Pods_PrivacyBox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrivacyBox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -57,7 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				43A35DB5579B9588FB62A7AB /* Pods_PrivacyBox_PrivacyBoxTests.framework in Frameworks */,
+				61C8591E7ADE002B28890453 /* libPods-PrivacyBox-PrivacyBoxTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,7 +84,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ECD4CBB82947B6D994582E92 /* Pods_PrivacyBox.framework in Frameworks */,
+				0DF6C361ACB1578591DC791C /* libPods-PrivacyBox.a in Frameworks */,
+				3510682B29208F6200E8F0D7 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +112,7 @@
 		13B07FAE1A68108700A75B9A /* PrivacyBox */ = {
 			isa = PBXGroup;
 			children = (
+				3510682929208F4400E8F0D7 /* PrivacyBox.entitlements */,
 				35A62200291898BB0059A53D /* GoogleService-Info.plist */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
@@ -99,6 +120,7 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				BE406F552862D73000A81E39 /* BootSplash.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				35106827291FD2C000E8F0D7 /* InfoPlist.strings */,
 			);
 			name = PrivacyBox;
 			sourceTree = "<group>";
@@ -106,9 +128,11 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3510682E2920932500E8F0D7 /* hermes.xcframework */,
+				3510682A29208F6200E8F0D7 /* StoreKit.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				DEB34C61E7EF569073B1EDF3 /* Pods_PrivacyBox.framework */,
-				5EC1DD38D0FA33ECDEBB6D1D /* Pods_PrivacyBox_PrivacyBoxTests.framework */,
+				CE06CDF100B9AA0FF7D820A3 /* libPods-PrivacyBox.a */,
+				B25F8635391834428A9A919A /* libPods-PrivacyBox-PrivacyBoxTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -183,6 +207,16 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		3510682C292092E900E8F0D7 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		00E356ED1AD99517003FC87E /* PrivacyBoxTests */ = {
 			isa = PBXNativeTarget;
@@ -211,6 +245,7 @@
 			buildPhases = (
 				C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
+				3510682C292092E900E8F0D7 /* Headers */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
@@ -218,6 +253,7 @@
 				00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */,
 				E235C05ADACE081382539298 /* [CP] Copy Pods Resources */,
 				96DCD2A12FBCD37CACADD402 /* [CP-User] [RNFB] Core Configuration */,
+				3510682D292092ED00E8F0D7 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -252,6 +288,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
@@ -277,6 +314,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE406F562862D73000A81E39 /* BootSplash.storyboard in Resources */,
+				35106825291FD2C000E8F0D7 /* InfoPlist.strings in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				35A62201291898BC0059A53D /* GoogleService-Info.plist in Resources */,
 			);
@@ -477,6 +515,18 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		35106827291FD2C000E8F0D7 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				35106826291FD2C000E8F0D7 /* en */,
+				35106828291FD2C400E8F0D7 /* zh-Hans */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -484,6 +534,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEAD_CODE_STRIPPING = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -495,12 +546,18 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(SDKROOT)/usr/lib/swift",
+					"$(SDKROOT)/System/iOSSupport/usr/lib/swift",
+					"$(inherited)",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
 					"$(inherited)",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
+				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.helloworld;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -515,6 +572,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				INFOPLIST_FILE = PrivacyBoxTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -522,12 +580,18 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(SDKROOT)/usr/lib/swift",
+					"$(SDKROOT)/System/iOSSupport/usr/lib/swift",
+					"$(inherited)",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
 					"$(inherited)",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
+				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.helloworld;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -541,7 +605,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = PrivacyBox/PrivacyBox.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = MH9G89WBAL;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = PrivacyBox/Info.plist;
@@ -550,12 +616,18 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(SDKROOT)/usr/lib/swift",
+					"$(SDKROOT)/System/iOSSupport/usr/lib/swift",
+					"$(inherited)",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
+				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = net.darkce.privatespace;
 				PRODUCT_NAME = PrivacyBox;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -570,7 +642,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = PrivacyBox/PrivacyBox.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = MH9G89WBAL;
 				INFOPLIST_FILE = PrivacyBox/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -578,12 +652,18 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(SDKROOT)/usr/lib/swift",
+					"$(SDKROOT)/System/iOSSupport/usr/lib/swift",
+					"$(inherited)",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
+				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = net.darkce.privatespace;
 				PRODUCT_NAME = PrivacyBox;
 				SWIFT_VERSION = 5.0;

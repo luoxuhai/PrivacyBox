@@ -1,11 +1,15 @@
 #import "AppDelegate.h"
 #import "RNBootSplash.h"
+#import "Orientation.h"
 
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 
 #import <React/RCTAppSetupUtils.h>
+
+#import <Firebase.h>
+#import <OverrideColorScheme.h>
 
 #if RCT_NEW_ARCH_ENABLED
 #import <React/CoreModulesPlugins.h>
@@ -17,7 +21,6 @@
 
 #import <react/config/ReactNativeConfig.h>
 
-#import <Firebase.h>
 
 
 static NSString *const kRNConcurrentRoot = @"concurrentRoot";
@@ -43,6 +46,8 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
   // Firebase https://rnfirebase.io/#3-ios-setup
   [FIRApp configure];
 #endif
+  
+  [OverrideColorScheme enableAlertSupport];
 
 #if RCT_NEW_ARCH_ENABLED
   _contextContainer = std::make_shared<facebook::react::ContextContainer const>();
@@ -69,6 +74,10 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
   [super application:application didFinishLaunchingWithOptions:launchOptions];
   [RNBootSplash initWithStoryboard:@"BootSplash" rootView:rootView];
   return YES;
+}
+
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+  return [Orientation getOrientation];
 }
 
 /// This method controls whether the `concurrentRoot`feature of React18 is turned on or off.

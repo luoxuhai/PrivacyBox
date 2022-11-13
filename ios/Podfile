@@ -7,15 +7,8 @@ require File.join(File.dirname(`cd #{pod_folder} && node --print "require.resolv
 platform :ios, '14.0'
 install! 'cocoapods', :deterministic_uuids => false
 
-production = ENV["PRODUCTION"] == "1"
-
-$RNFirebaseAsStaticFramework = true
-# 避免使用 IDFA
-$RNFirebaseAnalyticsWithoutAdIdSupport = true
-
 target 'PrivacyBox' do
   use_expo_modules!
-  use_frameworks! :linkage => :static
   post_integrate do |installer|
     begin
       expo_patch_react_imports!(installer)
@@ -30,14 +23,31 @@ target 'PrivacyBox' do
 
   use_react_native!(
     :path => config[:reactNativePath],
-    :production => production,
     # to disable hermes on iOS, change `true` to `flags[:hermes_enabled]` and then install pods
     :hermes_enabled => true,
     :fabric_enabled => false,
-    # :flipper_configuration => FlipperConfiguration.enabled(["Debug"], { 'Flipper' => '0.157.0' }),
+    :flipper_configuration => FlipperConfiguration.enabled(["Debug"], { 'Flipper' => '0.157.0' }),
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
+
+  # See: https://github.com/zoontek/react-native-permissions#ios
+  permissions_path = '../node_modules/react-native-permissions/ios'
+  pod 'Permission-FaceID', :path => "#{permissions_path}/FaceID"
+  pod 'Permission-PhotoLibrary', :path => "#{permissions_path}/PhotoLibrary"
+  pod 'Permission-PhotoLibraryAddOnly', :path => "#{permissions_path}/PhotoLibraryAddOnly"
+  pod 'Permission-Camera', :path => "#{permissions_path}/Camera"
+  pod 'Permission-Microphone', :path => "#{permissions_path}/Microphone"
+  pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse"
+  pod 'Permission-MediaLibrary', :path => "#{permissions_path}/MediaLibrary"
+  pod 'Permission-Motion', :path => "#{permissions_path}/Motion"
+
+  # Firebase
+  pod 'Firebase', :modular_headers => true
+  pod 'FirebaseCore', :modular_headers => true
+  pod 'GoogleUtilities', :modular_headers => true
+  # 避免使用 IDFA
+  $RNFirebaseAnalyticsWithoutAdIdSupport = true
 
   target 'PrivacyBoxTests' do
     inherit! :complete

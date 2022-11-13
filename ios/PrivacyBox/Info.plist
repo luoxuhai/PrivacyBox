@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>PrivacyBox</string>
+	<string>$CFBundleDisplayName</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -35,8 +35,6 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
 	<key>UILaunchStoryboardName</key>
 	<string>BootSplash</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -51,5 +49,21 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>$NSAppleMusicUsageDescription</string>
+	<key>NSCameraUsageDescription</key>
+	<string>$NSCameraUsageDescription</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>$NSFaceIDUsageDescription</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>$NSMicrophoneUsageDescription</string>
+	<key>NSMotionUsageDescription</key>
+	<string>$NSMotionUsageDescription</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>$NSPhotoLibraryAddUsageDescription</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>$NSLocationWhenInUseUsageDescription</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>$NSPhotoLibraryUsageDescription</string>
 </dict>
 </plist>

@@ -23,7 +23,7 @@ export enum SupportedLanguage {
 
 i18n.init({
   compatibilityJSON: 'v3',
-  debug: __DEV__,
+  debug: false,
   lng: locale.languageCode,
   fallbackLng: SupportedLanguage.EN,
   supportedLngs: [SupportedLanguage.EN, SupportedLanguage.ZH],

@@ -11,14 +11,12 @@
  */
 import './i18n';
 import './utils/ignoreWarnings';
-import { useFonts } from 'expo-font';
 import React from 'react';
 import { initialWindowMetrics, SafeAreaProvider } from 'react-native-safe-area-context';
 import { useInitialRootStore } from './models';
 import { AppNavigator, useNavigationPersistence } from './navigators';
 import { ErrorBoundary } from './screens/ErrorScreen/ErrorBoundary';
 import { storage } from './storage';
-import { customFontsToLoad } from './theme';
 import { setupReactotron } from './services/reactotron';
 import Config from './config';
 
@@ -54,9 +52,7 @@ function App(props: AppProps) {
     isRestored: isNavigationStateRestored,
   } = useNavigationPersistence(storage, NAVIGATION_PERSISTENCE_KEY);
 
-  const [areFontsLoaded] = useFonts(customFontsToLoad);
-
-  const { rehydrated } = useInitialRootStore(() => {
+  const { rehydrated, rootStore } = useInitialRootStore(() => {
     // This runs after the root store has been initialized and rehydrated.
 
     // If your initialization scripts run very fast, it's good to show the splash screen for just a bit longer to prevent flicker.
@@ -66,13 +62,15 @@ function App(props: AppProps) {
     setTimeout(hideSplashScreen, 500);
   });
 
+  console.log(rootStore.themeStore.appearance);
+
   // Before we show the app, we have to wait for our state to be ready.
   // In the meantime, don't render anything. This will be the background
   // color set in native by rootView's background color.
   // In iOS: application:didFinishLaunchingWithOptions:
   // In Android: https://stackoverflow.com/a/45838109/204044
   // You can replace with your own loading component if you wish.
-  if (!rehydrated || !isNavigationStateRestored || !areFontsLoaded) return null;
+  if (!rehydrated || !isNavigationStateRestored) return null;
 
   // otherwise, we're ready to render the app
   return (

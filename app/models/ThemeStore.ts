@@ -1,5 +1,5 @@
 import { Instance, SnapshotOut, types } from 'mobx-state-tree';
-import { colors, Colors, typography, spacing } from '../theme';
+import { colors } from '../theme';
 
 export enum AppIcon {
   Default = 'default',
@@ -13,12 +13,6 @@ export enum AppIcon {
 
 export const ThemeStoreModel = types
   .model('ThemeStore', {
-    /** App 颜色 */
-    colors: types.frozen(colors.light),
-    /** 文本排版 */
-    typography: types.frozen(typography),
-    /** 间距 */
-    spacing: types.frozen(spacing),
     /** App 外观 */
     appearance: types.optional(types.union(types.literal('light'), types.literal('dark')), 'light'),
     /** 是否跟随系统外观 */
@@ -33,6 +27,10 @@ export const ThemeStoreModel = types
     get isDark() {
       return self.appearance === 'dark';
     },
+
+    get colors() {
+      return colors[self.appearance];
+    },
   }))
   .actions((self) => ({
     // 设置 App 外观
@@ -42,7 +40,6 @@ export const ThemeStoreModel = types
       }
 
       self.appearance = appearance;
-      self.colors = colors[appearance];
     },
     // 设置 App 图标
     setAppIcon(appIcon: AppIcon) {

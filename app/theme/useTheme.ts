@@ -5,8 +5,6 @@ export function useTheme() {
 
   return {
     colors: themeStore.colors,
-    typography: themeStore.typography,
-    spacing: themeStore.spacing,
     appearance: themeStore.appearance,
     isDark: themeStore.isDark,
     appIcon: themeStore.appIcon,

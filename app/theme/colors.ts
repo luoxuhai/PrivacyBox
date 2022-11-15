@@ -1,6 +1,13 @@
 // https://www.figma.com/file/CGjlBM0qcqtLKUVemRtl5R/APP?node-id=2%3A19
 
+const BASE_COLORS = {
+  black: '#000000',
+  white: '#FFFFFF',
+};
+
 export const darkPalette = {
+  ...BASE_COLORS,
+
   primary1: '#ede8ff',
   primary2: '#dbd1fe',
   primary3: '#c9bafd',
@@ -47,6 +54,8 @@ export const darkPalette = {
 } as const;
 
 export const lightPalette = {
+  ...BASE_COLORS,
+
   primary1: '#ede8ff',
   primary2: '#dbd1fe',
   primary3: '#c9bafd',
@@ -92,75 +101,93 @@ export const lightPalette = {
   overlay80: 'rgba(25, 16, 21, 0.8)',
 } as const;
 
-function generateColors(palette: typeof darkPalette | typeof lightPalette) {
-  return {
-    /**
-     * The palette is available to use, but prefer using the name.
-     * This is only included for rare, one-off cases. Try to use
-     * semantic names as much as possible.
-     */
-    palette,
-    /**
-     * A helper for making something see-thru.
-     */
-    transparent: 'rgba(0, 0, 0, 0)',
-    /**
-     * The default text color in many components.
-     */
-    text: palette.neutral800,
-    /**
-     * Secondary text information.
-     */
-    textDim: palette.neutral600,
-    /**
-     * The default color of the screen background.
-     */
-    background: palette.neutral200,
-    /**
-     * The default border color.
-     */
-    border: palette.neutral400,
-    /**
-     * The main tinting color.
-     */
-    tint: palette.primary5,
-    /**
-     * A subtle color used for lines.
-     */
-    separator: palette.neutral300,
-    /**
-     * Error messages.
-     */
-    error: palette.systemRed,
-    error2: palette.angry500,
+const lightColors = {
+  /**
+   * The palette is available to use, but prefer using the name.
+   * This is only included for rare, one-off cases. Try to use
+   * semantic names as much as possible.
+   */
+  palette: lightPalette,
+  /**
+   * A helper for making something see-thru.
+   */
+  transparent: 'rgba(0, 0, 0, 0)',
 
-    success: palette.systemGreen,
+  error: lightPalette.systemRed,
 
-    warning: palette.systemOrange,
+  success: lightPalette.systemGreen,
 
-    
-    label: BASE_COLORS.black,
-    secondaryLabel: chroma('#3C3C43').alpha(0.6).css(),
-    tertiaryLabel: chroma('#3C3C43').alpha(0.3).css(),
-    quaternaryLabel: chroma('#3C3C43').alpha(0.18).css(),
-    placeholderText: '',
-    separator: '',
-    opaqueSeparator,
-    link: '',
+  warning: lightPalette.systemOrange,
 
-    background: '',
-    secondaryBackground: '',
-    tertiaryBackground: '',
-  };
-}
+  label: lightPalette.black,
+  secondaryLabel: 'rgba(235, 235, 245, 0.6)',
+  tertiaryLabel: 'rgba(235, 235, 245, 0.3)',
+  quaternaryLabel: 'rgba(235, 235, 245, 0.18)',
 
-export const colors = {
-  light: generateColors(lightPalette),
-  dark: generateColors(darkPalette),
-  ...generateColors(lightPalette),
+  placeholderText: '',
+
+  separator: '#C6C6C8',
+  opaqueSeparator: 'rgba(60, 60, 67, 0.33)',
+
+  link: lightPalette.systemBlue,
+
+  background: '#FFFFFF',
+  secondaryBackground: '#F2F2F7',
+  tertiaryBackground: 'rgba(0, 0, 0, 0.02)',
+
+  fill: 'rgba(120, 120, 128, 0.2)',
+  secondaryFill: 'rgba(120, 120, 128, 0.16)',
+  tertiaryFill: 'rgba(120, 120, 128, 0.12)',
+  quaternaryFill: 'rgba(120, 120, 128, 0.08)',
+
+  disabled: '#979592',
 };
 
-export type Colors = typeof colors.light;
+const darkColors = {
+  /**
+   * The palette is available to use, but prefer using the name.
+   * This is only included for rare, one-off cases. Try to use
+   * semantic names as much as possible.
+   */
+  palette: darkPalette,
+  /**
+   * A helper for making something see-thru.
+   */
+  transparent: 'rgba(0, 0, 0, 0)',
 
-// const { colors, typography, spacing, isDark } = useTheme();
-// <View style={{ backgroundColor: colors.primary6 }} />
+  error: darkPalette.systemRed,
+
+  success: darkPalette.systemGreen,
+
+  warning: darkPalette.systemOrange,
+
+  label: darkPalette.white,
+  secondaryLabel: 'rgba(235, 235, 245, 0.6)',
+  tertiaryLabel: 'rgba(235, 235, 245, 0.3)',
+  quaternaryLabel: 'rgba(235, 235, 245, 0.18)',
+
+  placeholderText: '',
+
+  separator: '#252627',
+  opaqueSeparator: 'rgba(84, 84, 88, 0.7)',
+
+  link: darkPalette.systemBlue,
+
+  background: darkPalette.black,
+  secondaryBackground: '#1C1C1E',
+  tertiaryBackground: '#2C2C2E',
+
+  fill: 'rgba(120, 120, 128, 0.5)',
+  secondaryFill: 'rgba(120, 120, 128, 0.32)',
+  tertiaryFill: 'rgba(111, 114, 120, 0.24)',
+  quaternaryFill: 'rgba(116, 116, 128, 0.18)',
+
+  disabled: '#757575',
+};
+
+export const colors = {
+  light: lightColors,
+  dark: darkColors,
+};
+
+export type Colors = typeof lightColors;

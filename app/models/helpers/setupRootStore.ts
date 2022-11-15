@@ -9,7 +9,8 @@
  *
  * @refresh reset
  */
-import { applySnapshot, IDisposer, onSnapshot } from 'mobx-state-tree';
+import { persist } from 'mst-persist';
+
 import type { RootStore } from '../RootStore';
 import { storage } from '../../storage';
 
@@ -21,31 +22,19 @@ const ROOT_STATE_STORAGE_KEY = 'root-v1';
 /**
  * Setup the root state.
  */
-let _disposer: IDisposer;
 export async function setupRootStore(rootStore: RootStore) {
-  let restoredState: any;
-
   try {
-    // load the last known state from AsyncStorage
-    restoredState = (await storage.load(ROOT_STATE_STORAGE_KEY)) || {};
-    applySnapshot(rootStore, restoredState);
+    const _storage = {
+      setItem: storage.set,
+      getItem: storage.get,
+      removeItem: storage.remove,
+      clear: storage.clear,
+    };
+    await persist('theme-v1', rootStore.themeStore, { storage: _storage });
+    await persist('authentication-v1', rootStore.authenticationStore, { storage: _storage });
   } catch (e) {
-    // if there's any problems loading, then inform the dev what happened
     if (__DEV__) {
       console.tron.error(e.message, null);
     }
   }
-
-  // stop tracking state changes if we've already setup
-  if (_disposer) _disposer();
-
-  // track changes & save to AsyncStorage
-  _disposer = onSnapshot(rootStore, (snapshot) => storage.set(ROOT_STATE_STORAGE_KEY, snapshot));
-
-  const unsubscribe = () => {
-    _disposer();
-    _disposer = undefined;
-  };
-
-  return { rootStore, restoredState, unsubscribe };
 }

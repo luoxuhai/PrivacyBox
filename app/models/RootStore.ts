@@ -1,7 +1,6 @@
 import { Instance, SnapshotOut, types } from 'mobx-state-tree';
 
 import { AuthenticationStoreModel } from './AuthenticationStore'; // @demo remove-current-line
-import { EpisodeStoreModel } from './EpisodeStore'; // @demo remove-current-line
 import { ThemeStoreModel } from './ThemeStore';
 
 /**
@@ -9,9 +8,10 @@ import { ThemeStoreModel } from './ThemeStore';
  */
 export const RootStoreModel = types.model('RootStore').props({
   authenticationStore: types.optional(AuthenticationStoreModel, {}),
-  episodeStore: types.optional(EpisodeStoreModel, {}),
   themeStore: types.optional(ThemeStoreModel, {}),
 });
+
+console.log('RootStoreModel', RootStoreModel);
 
 /**
  * The RootStore instance.

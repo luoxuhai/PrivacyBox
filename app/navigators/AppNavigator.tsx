@@ -15,9 +15,9 @@ import { StackScreenProps } from '@react-navigation/stack';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 import { useColorScheme } from 'react-native';
-import Config from '../config';
-import { useStores } from '../models'; // @demo remove-current-line
-import { PasscodeLockScreen } from '../screens';
+import Config from '@/config';
+import { useStores } from '@/models'; // @demo remove-current-line
+import { PasscodeLockScreen } from '@/screens';
 import { ContentNavigator, ContentTabParamList } from './ContentNavigator'; // @demo remove-current-line
 import { navigationRef, useBackButtonHandler } from './navigationUtilities';
 

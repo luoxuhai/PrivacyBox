@@ -6,9 +6,9 @@ import {
   NavigationAction,
   createNavigationContainerRef,
 } from '@react-navigation/native';
-import Config from '../config';
-import type { PersistNavigationConfig } from '../config/config.base';
-import { useIsMounted } from '../utils/hooks';
+import Config from '@/config';
+import type { PersistNavigationConfig } from '@/config/config.base';
+import { useIsMounted } from '@/utils/hooks';
 import { storage } from '@/storage';
 
 type Storage = typeof storage;
@@ -122,7 +122,7 @@ export function useNavigationPersistence(storage: Storage, persistenceKey: strin
     if (previousRouteName !== currentRouteName) {
       // track screens.
       if (__DEV__) {
-        console.tron.log(currentRouteName);
+        console.log(currentRouteName);
       }
     }
 

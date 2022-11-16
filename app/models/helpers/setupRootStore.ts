@@ -9,10 +9,8 @@
  *
  * @refresh reset
  */
-import { persist } from 'mst-persist';
-
 import type { RootStore } from '../RootStore';
-import { storage } from '../../storage';
+import { persist } from './persist';
 
 /**
  * The key we'll be saving our state as within async storage.
@@ -24,17 +22,11 @@ const ROOT_STATE_STORAGE_KEY = 'root-v1';
  */
 export async function setupRootStore(rootStore: RootStore) {
   try {
-    const _storage = {
-      setItem: storage.set,
-      getItem: storage.get,
-      removeItem: storage.remove,
-      clear: storage.clear,
-    };
-    await persist('theme-v1', rootStore.themeStore, { storage: _storage });
-    await persist('authentication-v1', rootStore.authenticationStore, { storage: _storage });
+    persist('theme-v1', rootStore.themeStore);
+    persist('authentication-v1', rootStore.authenticationStore);
   } catch (e) {
     if (__DEV__) {
-      console.tron.error(e.message, null);
+      console.error('setupRootStore', e.message, null);
     }
   }
 }

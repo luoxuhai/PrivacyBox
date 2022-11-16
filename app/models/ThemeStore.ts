@@ -1,5 +1,5 @@
 import { Instance, SnapshotOut, types } from 'mobx-state-tree';
-import { colors } from '../theme';
+import { colors } from '@/theme';
 
 export enum AppIcon {
   Default = 'default',

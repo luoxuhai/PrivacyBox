@@ -3,10 +3,10 @@ import { CompositeScreenProps } from '@react-navigation/native';
 import React from 'react';
 import { TextStyle, ViewStyle } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Icon } from '../components';
-import { translate } from '../i18n';
-import { AlbumScreen, SettingScreen, FileScreen, MoreScreen, BrowserScreen } from '../screens';
-import { colors, spacing, typography } from '../theme';
+import { Icon } from '@/components';
+import { translate } from '@/i18n';
+import { AlbumScreen, SettingScreen, FileScreen, MoreScreen } from '@/screens';
+import { spacing, typography, useTheme } from '@/theme';
 import { AppStackParamList, AppStackScreenProps } from './AppNavigator';
 
 export type ContentTabParamList = {
@@ -30,15 +30,20 @@ const Tab = createBottomTabNavigator<ContentTabParamList>();
 
 export function ContentNavigator() {
   const { bottom } = useSafeAreaInsets();
+  const { colors } = useTheme();
 
   return (
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
         tabBarHideOnKeyboard: true,
-        tabBarStyle: [$tabBar, { height: bottom + 70 }],
-        tabBarActiveTintColor: colors.text,
-        tabBarInactiveTintColor: colors.text,
+        tabBarStyle: {
+          height: bottom + 70,
+          backgroundColor: colors.background,
+          borderTopColor: colors.transparent,
+        },
+        tabBarActiveTintColor: colors.label,
+        tabBarInactiveTintColor: colors.label,
         tabBarLabelStyle: $tabBarLabel,
         tabBarItemStyle: $tabBarItem,
       }}
@@ -48,7 +53,9 @@ export function ContentNavigator() {
         component={AlbumScreen}
         options={{
           tabBarLabel: translate('demoNavigator.componentsTab'),
-          tabBarIcon: ({ focused }) => <Icon icon="components" color={focused && colors.tint} />,
+          tabBarIcon: ({ focused }) => (
+            <Icon icon="components" color={focused && colors.palette.primary6} />
+          ),
         }}
       />
 
@@ -57,7 +64,9 @@ export function ContentNavigator() {
         component={FileScreen}
         options={{
           tabBarLabel: translate('demoNavigator.communityTab'),
-          tabBarIcon: ({ focused }) => <Icon icon="community" color={focused && colors.tint} />,
+          tabBarIcon: ({ focused }) => (
+            <Icon icon="community" color={focused && colors.palette.primary6} />
+          ),
         }}
       />
 
@@ -75,7 +84,9 @@ export function ContentNavigator() {
         component={MoreScreen}
         options={{
           tabBarLabel: translate('demoNavigator.debugTab'),
-          tabBarIcon: ({ focused }) => <Icon icon="debug" color={focused && colors.tint} />,
+          tabBarIcon: ({ focused }) => (
+            <Icon icon="debug" color={focused && colors.palette.primary6} />
+          ),
         }}
       />
       <Tab.Screen
@@ -83,27 +94,20 @@ export function ContentNavigator() {
         component={SettingScreen}
         options={{
           tabBarLabel: translate('demoNavigator.debugTab'),
-          tabBarIcon: ({ focused }) => <Icon icon="debug" color={focused && colors.tint} />,
+          tabBarIcon: ({ focused }) => (
+            <Icon icon="debug" color={focused && colors.palette.primary6} />
+          ),
         }}
       />
     </Tab.Navigator>
   );
 }
 
-const $tabBar: ViewStyle = {
-  backgroundColor: colors.background,
-  borderTopColor: colors.transparent,
-};
-
 const $tabBarItem: ViewStyle = {
-  paddingTop: spacing.medium,
+  paddingTop: spacing[3],
 };
 
 const $tabBarLabel: TextStyle = {
-  fontSize: 12,
-  fontFamily: typography.primary.medium,
-  lineHeight: 16,
+  ...typography.caption1,
   flex: 1,
 };
-
-// @demo remove-file

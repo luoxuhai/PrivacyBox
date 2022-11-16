@@ -4,7 +4,7 @@ export const mmkv = new MMKV({
   id: 'default',
 });
 
-export function set(key: string, value: boolean | string | number | Uint8Array) {
+export function set(key: string, value: boolean | string | number | Uint8Array | object) {
   mmkv.set(key, typeof value === 'object' ? JSON.stringify(value) : value);
 }
 
@@ -19,7 +19,7 @@ export function get(key: string, type: 'number' | 'string' | 'boolean' | 'object
     case 'number':
       return mmkv.getNumber(key);
     case 'object':
-      return JSON.parse(mmkv.getString(key));
+      return JSONParse(mmkv.getString(key));
     default:
       return mmkv.getString(key);
   }
@@ -35,4 +35,15 @@ export function clear() {
 
 export function getAllKeys() {
   return mmkv.getAllKeys();
+}
+
+function JSONParse(data: string) {
+  try {
+    return JSON.parse(data);
+  } catch (error) {
+    if (__DEV__) {
+      console.error('[JSONParse]', error);
+    }
+    return null;
+  }
 }

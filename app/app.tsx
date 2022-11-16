@@ -17,24 +17,7 @@ import { useInitialRootStore } from './models';
 import { AppNavigator, useNavigationPersistence } from './navigators';
 import { ErrorBoundary } from './screens/ErrorScreen/ErrorBoundary';
 import { storage } from './storage';
-import { setupReactotron } from './services/reactotron';
 import Config from './config';
-import { Text } from './components';
-
-// Set up Reactotron, which is a free desktop app for inspecting and debugging
-// React Native apps. Learn more here: https://github.com/infinitered/reactotron
-setupReactotron({
-  // clear the Reactotron window when the app loads/reloads
-  clearOnLoad: true,
-  // generally going to be localhost
-  host: 'localhost',
-  // Reactotron can monitor AsyncStorage for you
-  useAsyncStorage: true,
-  // log the initial restored state from AsyncStorage
-  logInitialState: true,
-  // log out any snapshots as they happen (this is useful for debugging but slow)
-  logSnapshots: false,
-});
 
 export const NAVIGATION_PERSISTENCE_KEY = 'NAVIGATION_STATE';
 
@@ -46,20 +29,15 @@ interface AppProps {
  * This is the root component of our app.
  */
 function App(props: AppProps) {
-  console.log('rootStore.themeStore.appearance');
   const { hideSplashScreen } = props;
 
-  hideSplashScreen();
-
-  return <Text>dddd</Text>;
   const {
     initialNavigationState,
     onNavigationStateChange,
     isRestored: isNavigationStateRestored,
   } = useNavigationPersistence(storage, NAVIGATION_PERSISTENCE_KEY);
-  console.log('rootStore.themeStore.appearance');
 
-  const { rehydrated, rootStore } = useInitialRootStore(() => {
+  const { rehydrated } = useInitialRootStore(() => {
     // This runs after the root store has been initialized and rehydrated.
 
     // If your initialization scripts run very fast, it's good to show the splash screen for just a bit longer to prevent flicker.

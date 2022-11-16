@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { Text, Pressable, ScrollView } from 'react-native';
-import { useStores } from '../../models';
-import { AppStackScreenProps } from '../../navigators'; // @demo remove-current-line
+import { AppStackScreenProps } from '@/navigators';
 
-interface WelcomeScreenProps extends AppStackScreenProps<'PasscodeLock'> {} // @demo remove-current-line
+interface WelcomeScreenProps extends AppStackScreenProps<'PasscodeLock'> {}
 
 function PasscodeLockScreen(props: WelcomeScreenProps) {
-  const { episodeStore } = useStores();
-  const [content, setContent] = useState(episodeStore.episodes?.[0]?.content);
+  const [content, setContent] = useState('episodeStore.episodes?.[0]?.content');
   const { navigation } = props;
 
   return (
@@ -15,7 +13,7 @@ function PasscodeLockScreen(props: WelcomeScreenProps) {
       <Pressable
         onPress={() => {
           navigation.navigate('Content', { screen: 'Album' });
-          setContent(episodeStore.episodes?.[1]?.content);
+          setContent('episodeStore.episodes?.[1]?.content');
         }}
       >
         <Text>{content || 'xxxxxx'}</Text>

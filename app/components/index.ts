@@ -2,7 +2,7 @@
 export * from "./Button"
 // export * from "./Card"
 // export * from "./Header"
-// export * from "./Icon"
+export * from "./Icon"
 // export * from "./ListItem"
 export * from "./Screen"
 export * from "./Text"

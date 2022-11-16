@@ -1,84 +1,81 @@
-import React, { ErrorInfo } from "react"
-import { ScrollView, TextStyle, View, ViewStyle } from "react-native"
-import { Button, Icon, Screen, Text } from "../../components"
-import { colors, spacing } from "../../theme"
+import React, { ErrorInfo } from 'react';
+import { ScrollView, TextStyle, ViewStyle } from 'react-native';
+import { Button, Screen, Text } from '@/components';
+import { spacing, useTheme } from '@/theme';
 
 export interface ErrorDetailsProps {
-  error: Error
-  errorInfo: ErrorInfo
-  onReset(): void
+  error: Error;
+  errorInfo: ErrorInfo;
+  onReset(): void;
 }
 
 export function ErrorDetails(props: ErrorDetailsProps) {
+  const { colors } = useTheme();
+
   return (
     <Screen
       preset="fixed"
-      safeAreaEdges={["top", "bottom"]}
+      safeAreaEdges={['top', 'bottom']}
       contentContainerStyle={$contentContainer}
     >
-      <View style={$topSection}>
-        <Icon icon="ladybug" size={64} />
-        <Text style={$heading} preset="subheading" tx="errorScreen.title" />
-        <Text tx="errorScreen.friendlySubtitle" />
-      </View>
-
-      <ScrollView style={$errorSection} contentContainerStyle={$errorSectionContentContainer}>
-        <Text style={$errorContent} weight="bold" text={`${props.error}`.trim()} />
+      <ScrollView
+        style={[
+          $errorSection,
+          {
+            backgroundColor: colors.separator,
+          },
+        ]}
+        contentContainerStyle={$errorSectionContentContainer}
+      >
+        <Text
+          style={{
+            color: colors.error,
+          }}
+          text={`${props.error}`.trim()}
+        />
         <Text
           selectable
-          style={$errorBacktrace}
+          style={[$errorBacktrace, { color: colors.tertiaryLabel }]}
           text={`${props.errorInfo.componentStack}`.trim()}
         />
       </ScrollView>
 
       <Button
         preset="reversed"
-        style={$resetButton}
+        style={[
+          $resetButton,
+          {
+            backgroundColor: colors.error,
+          },
+        ]}
         onPress={props.onReset}
-        tx="errorScreen.reset"
+        tk="errorScreen.reset"
       />
     </Screen>
-  )
+  );
 }
 
 const $contentContainer: ViewStyle = {
-  alignItems: "center",
-  paddingHorizontal: spacing.large,
-  paddingTop: spacing.extraLarge,
+  alignItems: 'center',
+  paddingHorizontal: spacing[6],
+  paddingTop: spacing[10],
   flex: 1,
-}
-
-const $topSection: ViewStyle = {
-  flex: 1,
-  alignItems: "center",
-}
-
-const $heading: TextStyle = {
-  color: colors.error,
-  marginBottom: spacing.medium,
-}
+};
 
 const $errorSection: ViewStyle = {
   flex: 2,
-  backgroundColor: colors.separator,
-  marginVertical: spacing.medium,
+  marginVertical: spacing[5],
   borderRadius: 6,
-}
+};
 
 const $errorSectionContentContainer: ViewStyle = {
-  padding: spacing.medium,
-}
-
-const $errorContent: TextStyle = {
-  color: colors.error,
-}
+  padding: spacing[5],
+};
 
 const $errorBacktrace: TextStyle = {
-  marginTop: spacing.medium,
-  color: colors.textDim,
-}
+  marginTop: spacing[5],
+};
 
 const $resetButton: ViewStyle = {
-  backgroundColor: colors.error,
-  paddingHorizontal: spacing.huge,
-}
+  paddingHorizontal: spacing[5],
+};

@@ -6,6 +6,9 @@ const zh: Translations = {
     cancel: '取消',
     back: '返回',
   },
+  errorScreen: {
+    reset: '重置',
+  },
 };
 
 export default zh;

@@ -1,6 +1,19 @@
 import { TextStyle } from 'react-native';
 
-export const typography: { [key: string]: TextStyle } = {
+type Key =
+  | 'largeTitle'
+  | 'title1'
+  | 'title2'
+  | 'title3'
+  | 'headline'
+  | 'body'
+  | 'callout'
+  | 'subhead'
+  | 'footnote'
+  | 'caption1'
+  | 'caption2';
+
+export const typography: { [key in Key]: TextStyle } = {
   largeTitle: {
     fontSize: 34,
     lineHeight: 41,

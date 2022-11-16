@@ -4,6 +4,9 @@ const en = {
     cancel: 'Cancel',
     back: 'Back',
   },
+  errorScreen: {
+    reset: 'Reset',
+  },
 };
 
 export default en;

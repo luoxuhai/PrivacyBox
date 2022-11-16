@@ -8,12 +8,12 @@ import {
 } from 'react-native';
 import { TOptions } from 'i18next';
 
-import { colors, typography } from '../theme';
+// import { colors, typography } from '../theme';
 import { TextKeyPath, translate } from '../i18n';
 
 type Sizes = keyof typeof $sizeStyles;
-type Weights = keyof typeof typography.primary;
-type Presets = keyof typeof $presets;
+// type Weights = keyof typeof typography.primary;
+// type Presets = keyof typeof $presets;
 
 export interface TextProps extends RNTextProps {
   /**
@@ -32,14 +32,14 @@ export interface TextProps extends RNTextProps {
    * An optional style override useful for padding & margin.
    */
   style?: StyleProp<TextStyle>;
-  /**
-   * One of the different types of text presets.
-   */
-  preset?: Presets;
-  /**
-   * Text weight modifier.
-   */
-  weight?: Weights;
+  // /**
+  //  * One of the different types of text presets.
+  //  */
+  // preset?: Presets;
+  // /**
+  //  * Text weight modifier.
+  //  */
+  // weight?: Weights;
   /**
    * Text size modifier.
    */
@@ -61,25 +61,15 @@ export interface TextProps extends RNTextProps {
  * - [Documentation and Examples](https://github.com/infinitered/ignite/blob/master/docs/Components-Text.md)
  */
 export function Text(props: TextProps) {
-  const {
-    weight,
-    size,
-    tk,
-    tkOptions,
-    text,
-    color,
-    children,
-    style: $styleOverride,
-    ...rest
-  } = props;
+  const { size, tk, tkOptions, text, color, children, style: $styleOverride, ...rest } = props;
 
   const content = useMemo(() => translate(tk, tkOptions), [tk, tkOptions]);
 
-  const preset: Presets = $presets[props.preset] ? props.preset : 'default';
+  // const preset: Presets = $presets[props.preset] ? props.preset : 'default';
   const $styles = [
     { color },
-    $presets[preset],
-    $fontWeightStyles[weight],
+    // $presets[preset],
+    // $fontWeightStyles[weight],
     $sizeStyles[size],
     $styleOverride,
   ];
@@ -101,26 +91,25 @@ const $sizeStyles = {
   xxs: { fontSize: 12, lineHeight: 18 } as TextStyle,
 };
 
-const $fontWeightStyles = Object.entries(typography.primary).reduce((acc, [weight, fontFamily]) => {
-  return { ...acc, [weight]: { fontFamily } };
-}, {}) as Record<Weights, TextStyle>;
+// const $fontWeightStyles = Object.entries(typography.body).reduce((acc, [weight, fontFamily]) => {
+//   return { ...acc, [weight]: { fontFamily } };
+// }, {}) as Record<Weights, TextStyle>;
 
-const $baseStyle: StyleProp<TextStyle> = [
-  $sizeStyles.sm,
-  $fontWeightStyles.normal,
-  { color: colors.text },
-];
+// const $baseStyle: StyleProp<TextStyle> = [
+//   $sizeStyles.sm,
+//   $fontWeightStyles.normal,
+//   { color: colors.text },
+// ];
+// const $presets = {
+//   default: $baseStyle,
 
-const $presets = {
-  default: $baseStyle,
+//   bold: [$baseStyle, typography.body],
 
-  bold: [$baseStyle, $fontWeightStyles.bold] as StyleProp<TextStyle>,
+//   heading: [$baseStyle, $sizeStyles.xxl, $fontWeightStyles.bold] as StyleProp<TextStyle>,
 
-  heading: [$baseStyle, $sizeStyles.xxl, $fontWeightStyles.bold] as StyleProp<TextStyle>,
+//   subheading: [$baseStyle, $sizeStyles.lg, $fontWeightStyles.medium] as StyleProp<TextStyle>,
 
-  subheading: [$baseStyle, $sizeStyles.lg, $fontWeightStyles.medium] as StyleProp<TextStyle>,
+//   formLabel: [$baseStyle, $fontWeightStyles.medium] as StyleProp<TextStyle>,
 
-  formLabel: [$baseStyle, $fontWeightStyles.medium] as StyleProp<TextStyle>,
-
-  formHelper: [$baseStyle, $sizeStyles.sm, $fontWeightStyles.normal] as StyleProp<TextStyle>,
-};
+//   formHelper: [$baseStyle, $sizeStyles.sm, $fontWeightStyles.normal] as StyleProp<TextStyle>,
+// };

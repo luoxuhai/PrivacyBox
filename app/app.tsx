@@ -19,6 +19,7 @@ import { ErrorBoundary } from './screens/ErrorScreen/ErrorBoundary';
 import { storage } from './storage';
 import { setupReactotron } from './services/reactotron';
 import Config from './config';
+import { Text } from './components';
 
 // Set up Reactotron, which is a free desktop app for inspecting and debugging
 // React Native apps. Learn more here: https://github.com/infinitered/reactotron
@@ -45,12 +46,18 @@ interface AppProps {
  * This is the root component of our app.
  */
 function App(props: AppProps) {
+  console.log('rootStore.themeStore.appearance');
   const { hideSplashScreen } = props;
+
+  hideSplashScreen();
+
+  return <Text>dddd</Text>;
   const {
     initialNavigationState,
     onNavigationStateChange,
     isRestored: isNavigationStateRestored,
   } = useNavigationPersistence(storage, NAVIGATION_PERSISTENCE_KEY);
+  console.log('rootStore.themeStore.appearance');
 
   const { rehydrated, rootStore } = useInitialRootStore(() => {
     // This runs after the root store has been initialized and rehydrated.
@@ -61,8 +68,6 @@ function App(props: AppProps) {
     // Note: (vanilla iOS) You might notice the splash-screen logo change size. This happens in debug/development mode. Try building the app for release.
     setTimeout(hideSplashScreen, 500);
   });
-
-  console.log(rootStore.themeStore.appearance);
 
   // Before we show the app, we have to wait for our state to be ready.
   // In the meantime, don't render anything. This will be the background

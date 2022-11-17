@@ -11,8 +11,6 @@ export const RootStoreModel = types.model('RootStore').props({
   themeStore: types.optional(ThemeStoreModel, {}),
 });
 
-console.log('RootStoreModel', RootStoreModel);
-
 /**
  * The RootStore instance.
  */

@@ -37,7 +37,11 @@ export function getAllKeys() {
   return mmkv.getAllKeys();
 }
 
-function JSONParse(data: string) {
+function JSONParse(data?: string) {
+  if (!data) {
+    return null;
+  }
+
   try {
     return JSON.parse(data);
   } catch (error) {

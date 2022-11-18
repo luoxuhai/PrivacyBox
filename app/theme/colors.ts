@@ -1,57 +1,10 @@
 // https://www.figma.com/file/CGjlBM0qcqtLKUVemRtl5R/APP?node-id=2%3A19
+// https://www.radix-ui.com/docs/colors/palette-composition/the-scales
 
 const BASE_COLORS = {
   black: '#000000',
   white: '#FFFFFF',
 };
-
-export const darkPalette = {
-  ...BASE_COLORS,
-
-  primary1: '#ede8ff',
-  primary2: '#dbd1fe',
-  primary3: '#c9bafd',
-  primary4: '#b6a4fc',
-  primary5: '#a18efa',
-  primary6: '#8b79f8', // Basic
-  primary7: '#7364ca',
-  primary8: '#5c509e',
-  primary9: '#463c74',
-  primary10: '#302a4d',
-
-  neutral100: '#FFFFFF',
-  neutral200: '#F4F2F1',
-  neutral300: '#D7CEC9',
-  neutral400: '#B6ACA6',
-  neutral500: '#978F8A',
-  neutral600: '#564E4A',
-  neutral700: '#3C3836',
-  neutral800: '#191015',
-  neutral900: '#000000',
-
-  systemRed: '#FF453A',
-  systemOrange: '#FF9F0A',
-  systemYellow: '#FFD60A',
-  systemGreen: '#32D74B',
-  systemTeal: '#64D2FF',
-  systemBlue: '#0A84FF',
-  systemIndigo: '#7D7AFF',
-  systemPurple: '#BF5AF2',
-  systemPink: '#FF2D55',
-
-  systemGray1: '#8E8E93',
-  systemGray2: '#636366',
-  systemGray3: '#48484A',
-  systemGray4: '#3A3A3C',
-  systemGray5: '#2C2C2E',
-  systemGray6: '#1C1C1E',
-
-  overlay10: 'rgba(25, 16, 21, 0.1)',
-  overlay20: 'rgba(25, 16, 21, 0.2)',
-  overlay30: 'rgba(25, 16, 21, 0.3)',
-  overlay50: 'rgba(25, 16, 21, 0.5)',
-  overlay80: 'rgba(25, 16, 21, 0.8)',
-} as const;
 
 export const lightPalette = {
   ...BASE_COLORS,
@@ -67,38 +20,106 @@ export const lightPalette = {
   primary9: '#463c74',
   primary10: '#302a4d',
 
-  neutral100: '#FFFFFF',
-  neutral200: '#F4F2F1',
-  neutral300: '#D7CEC9',
-  neutral400: '#B6ACA6',
-  neutral500: '#978F8A',
-  neutral600: '#564E4A',
-  neutral700: '#3C3836',
-  neutral800: '#191015',
-  neutral900: '#000000',
+  neutral1: '#fcfcfc',
+  neutral2: '#f8f8f8',
+  neutral3: '#f3f3f3',
+  neutral4: '#ededed',
+  neutral5: '#e8e8e8',
+  neutral6: '#e2e2e2',
+  neutral7: '#dbdbdb',
+  neutral8: '#c7c7c7',
+  neutral9: '#8f8f8f',
+  neutral10: '#858585',
+  neutral11: '#6f6f6f',
+  neutral12: '#171717',
 
-  systemRed: '#FF3B30',
-  systemOrange: '#FF9500',
-  systemYellow: '#FFCC00',
-  systemGreen: '#34C759',
-  systemTeal: '#5AC8FA',
-  systemBlue: '#007AFF',
-  systemIndigo: '#5E5CE6',
-  systemPurple: '#AF52DE',
-  systemPink: '#FF2D55',
+  red: '#FF3B30',
+  orange: '#FF9500',
+  yellow: '#FFCC00',
+  green: '#34C759',
+  teal: '#5AC8FA',
+  blue: '#007AFF',
+  indigo: '#5E5CE6',
+  purple: '#AF52DE',
+  pink: '#FF2D55',
 
-  systemGray1: '#8E8E93',
-  systemGray2: '#AEAEB2',
-  systemGray3: '#C7C7CC',
-  systemGray4: '#D1D1D6',
-  systemGray5: '#E5E5EA',
-  systemGray6: '#F2F2F7',
+  gray1: '#8E8E93',
+  gray2: '#AEAEB2',
+  gray3: '#C7C7CC',
+  gray4: '#D1D1D6',
+  gray5: '#E5E5EA',
+  gray6: '#F2F2F7',
 
-  overlay10: 'rgba(25, 16, 21, 0.1)',
-  overlay20: 'rgba(25, 16, 21, 0.2)',
-  overlay30: 'rgba(25, 16, 21, 0.3)',
-  overlay50: 'rgba(25, 16, 21, 0.5)',
-  overlay80: 'rgba(25, 16, 21, 0.8)',
+  overlay1: 'hsla(0, 0%, 0%, 0.012)',
+  overlay2: 'hsla(0, 0%, 0%, 0.027)',
+  overlay3: 'hsla(0, 0%, 0%, 0.047)',
+  overlay4: 'hsla(0, 0%, 0%, 0.071)',
+  overlay5: 'hsla(0, 0%, 0%, 0.090)',
+  overlay6: 'hsla(0, 0%, 0%, 0.114)',
+  overlay7: 'hsla(0, 0%, 0%, 0.141)',
+  overlay8: 'hsla(0, 0%, 0%, 0.220)',
+  overlay9: 'hsla(0, 0%, 0%, 0.439)',
+  overlay10: 'hsla(0, 0%, 0%, 0.478)',
+  overlay11: 'hsla(0, 0%, 0%, 0.565)',
+  overlay12: 'hsla(0, 0%, 0%, 0.910)',
+} as const;
+
+export const darkPalette = {
+  ...BASE_COLORS,
+
+  primary1: '#ede8ff',
+  primary2: '#dbd1fe',
+  primary3: '#c9bafd',
+  primary4: '#b6a4fc',
+  primary5: '#a18efa',
+  primary6: '#8b79f8', // Basic
+  primary7: '#7364ca',
+  primary8: '#5c509e',
+  primary9: '#463c74',
+  primary10: '#302a4d',
+
+  neutral1: '#161616',
+  neutral2: '#1c1c1c',
+  neutral3: '#232323',
+  neutral4: '#282828',
+  neutral5: '#2e2e2e',
+  neutral6: '#343434',
+  neutral7: '#3e3e3e',
+  neutral8: '#505050',
+  neutral9: '#707070',
+  neutral10: '#7e7e7e',
+  neutral11: '#a0a0a0',
+  neutral12: '#ededed',
+
+  red: '#FF453A',
+  orange: '#FF9F0A',
+  yellow: '#FFD60A',
+  green: '#32D74B',
+  teal: '#64D2FF',
+  blue: '#0A84FF',
+  indigo: '#7D7AFF',
+  purple: '#BF5AF2',
+  pink: '#FF2D55',
+
+  gray1: '#8E8E93',
+  gray2: '#636366',
+  gray3: '#48484A',
+  gray4: '#3A3A3C',
+  gray5: '#2C2C2E',
+  gray6: '#1C1C1E',
+
+  overlay1: 'hsla(0, 0%, 100%, 0)',
+  overlay2: 'hsla(0, 0%, 100%, 0.013)',
+  overlay3: 'hsla(0, 0%, 100%, 0.034)',
+  overlay4: 'hsla(0, 0%, 100%, 0.056)',
+  overlay5: 'hsla(0, 0%, 100%, 0.086)',
+  overlay6: 'hsla(0, 0%, 100%, 0.124)',
+  overlay7: 'hsla(0, 0%, 100%, 0.176)',
+  overlay8: 'hsla(0, 0%, 100%, 0.249)',
+  overlay9: 'hsla(0, 0%, 100%, 0.386)',
+  overlay10: 'hsla(0, 0%, 100%, 0.446)',
+  overlay11: 'hsla(0, 0%, 100%, 0.592)',
+  overlay12: 'hsla(0, 0%, 100%, 0.923)',
 } as const;
 
 const lightColors = {
@@ -113,11 +134,13 @@ const lightColors = {
    */
   transparent: 'rgba(0, 0, 0, 0)',
 
-  error: lightPalette.systemRed,
+  success: lightPalette.green,
 
-  success: lightPalette.systemGreen,
+  warning: lightPalette.orange,
 
-  warning: lightPalette.systemOrange,
+  error: lightPalette.red,
+
+  danger: lightPalette.red,
 
   label: lightPalette.black,
   secondaryLabel: 'rgba(235, 235, 245, 0.6)',
@@ -129,7 +152,7 @@ const lightColors = {
   separator: '#C6C6C8',
   opaqueSeparator: 'rgba(60, 60, 67, 0.33)',
 
-  link: lightPalette.systemBlue,
+  link: lightPalette.blue,
 
   background: '#FFFFFF',
   secondaryBackground: '#F2F2F7',
@@ -155,11 +178,13 @@ const darkColors = {
    */
   transparent: 'rgba(0, 0, 0, 0)',
 
-  error: darkPalette.systemRed,
+  success: darkPalette.green,
 
-  success: darkPalette.systemGreen,
+  warning: darkPalette.orange,
 
-  warning: darkPalette.systemOrange,
+  error: darkPalette.red,
+
+  danger: darkPalette.red,
 
   label: darkPalette.white,
   secondaryLabel: 'rgba(235, 235, 245, 0.6)',
@@ -171,7 +196,7 @@ const darkColors = {
   separator: '#252627',
   opaqueSeparator: 'rgba(84, 84, 88, 0.7)',
 
-  link: darkPalette.systemBlue,
+  link: darkPalette.blue,
 
   background: darkPalette.black,
   secondaryBackground: '#1C1C1E',

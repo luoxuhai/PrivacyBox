@@ -22,7 +22,7 @@ export function ErrorDetails(props: ErrorDetailsProps) {
         style={[
           $errorSection,
           {
-            backgroundColor: colors.separator,
+            backgroundColor: colors.background,
           },
         ]}
         contentContainerStyle={$errorSectionContentContainer}
@@ -57,7 +57,7 @@ export function ErrorDetails(props: ErrorDetailsProps) {
 
 const $contentContainer: ViewStyle = {
   alignItems: 'center',
-  paddingHorizontal: spacing[6],
+  paddingHorizontal: spacing[4],
   paddingTop: spacing[10],
   flex: 1,
 };

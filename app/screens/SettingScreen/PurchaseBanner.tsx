@@ -16,7 +16,7 @@ export function PurchaseBanner(props: PurchaseBannerProps) {
           y: 0,
         }}
         angle={135}
-        colors={['rgb(0, 58, 247)', 'rgb(224, 0, 240)']}
+        colors={['#C644FC', '#5856D6']}
       />
       <View style={$content}>
         <Text tk="common.ok">xx</Text>

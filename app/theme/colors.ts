@@ -143,39 +143,32 @@ const lightColors = {
   danger: lightPalette.red,
 
   label: lightPalette.black,
-  secondaryLabel: 'rgba(235, 235, 245, 0.6)',
-  tertiaryLabel: 'rgba(235, 235, 245, 0.3)',
-  quaternaryLabel: 'rgba(235, 235, 245, 0.18)',
+  secondaryLabel: lightPalette.gray1,
+  tertiaryLabel: lightPalette.gray2,
+  quaternaryLabel: lightPalette.gray3,
 
-  placeholderText: '',
-
-  separator: '#C6C6C8',
-  opaqueSeparator: 'rgba(60, 60, 67, 0.33)',
+  placeholderText: lightPalette.neutral10,
 
   link: lightPalette.blue,
 
-  background: '#FFFFFF',
-  secondaryBackground: '#F2F2F7',
-  tertiaryBackground: 'rgba(0, 0, 0, 0.02)',
+  background: lightPalette.white,
+  secondaryBackground: lightPalette.neutral3,
+  tertiaryBackground: lightPalette.neutral4,
 
   fill: 'rgba(120, 120, 128, 0.2)',
   secondaryFill: 'rgba(120, 120, 128, 0.16)',
   tertiaryFill: 'rgba(120, 120, 128, 0.12)',
   quaternaryFill: 'rgba(120, 120, 128, 0.08)',
 
-  disabled: '#979592',
+  separator: 'rgb(60, 60, 67)',
+  opaqueSeparator: 'rgba(60, 60, 67, 0.33)',
+
+  disabled: lightPalette.neutral9,
 };
 
 const darkColors = {
-  /**
-   * The palette is available to use, but prefer using the name.
-   * This is only included for rare, one-off cases. Try to use
-   * semantic names as much as possible.
-   */
   palette: darkPalette,
-  /**
-   * A helper for making something see-thru.
-   */
+
   transparent: 'rgba(0, 0, 0, 0)',
 
   success: darkPalette.green,
@@ -187,27 +180,27 @@ const darkColors = {
   danger: darkPalette.red,
 
   label: darkPalette.white,
-  secondaryLabel: 'rgba(235, 235, 245, 0.6)',
-  tertiaryLabel: 'rgba(235, 235, 245, 0.3)',
-  quaternaryLabel: 'rgba(235, 235, 245, 0.18)',
+  secondaryLabel: darkPalette.gray1,
+  tertiaryLabel: darkPalette.gray2,
+  quaternaryLabel: darkPalette.gray3,
 
-  placeholderText: '',
-
-  separator: '#252627',
-  opaqueSeparator: 'rgba(84, 84, 88, 0.7)',
+  placeholderText: darkPalette.neutral10,
 
   link: darkPalette.blue,
 
   background: darkPalette.black,
-  secondaryBackground: '#1C1C1E',
-  tertiaryBackground: '#2C2C2E',
+  secondaryBackground: darkPalette.neutral3,
+  tertiaryBackground: darkPalette.neutral4,
 
   fill: 'rgba(120, 120, 128, 0.5)',
   secondaryFill: 'rgba(120, 120, 128, 0.32)',
-  tertiaryFill: 'rgba(111, 114, 120, 0.24)',
-  quaternaryFill: 'rgba(116, 116, 128, 0.18)',
+  tertiaryFill: 'rgba(120, 120, 128, 0.24)',
+  quaternaryFill: 'rgba(120, 120, 128, 0.18)',
 
-  disabled: '#757575',
+  separator: 'rgb(84, 84, 88)',
+  opaqueSeparator: 'rgba(84, 84, 88, 0.7)',
+
+  disabled: lightPalette.neutral9,
 };
 
 export const colors = {

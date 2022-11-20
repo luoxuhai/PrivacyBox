@@ -5,7 +5,6 @@
  * and a "main" flow which the user will use once logged in.
  */
 import {
-  DarkTheme,
   DefaultTheme,
   NavigationContainer,
   NavigatorScreenParams, // @demo remove-current-line
@@ -13,13 +12,14 @@ import {
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StackScreenProps } from '@react-navigation/stack';
 import { observer } from 'mobx-react-lite';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useColorScheme } from 'react-native';
 import Config from '@/config';
 import { useStores } from '@/models'; // @demo remove-current-line
-import { PasscodeLockScreen } from '@/screens';
+import { AboutScreen, PasscodeLockScreen } from '@/screens';
 import { ContentNavigator, ContentTabParamList } from './ContentNavigator'; // @demo remove-current-line
 import { navigationRef, useBackButtonHandler } from './navigationUtilities';
+import { useTheme } from '@/theme';
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -67,7 +67,13 @@ const AppStack = observer(function AppStack() {
       initialRouteName={'PasscodeLock'}
     >
       <Stack.Screen name="PasscodeLock" component={PasscodeLockScreen} />
-      <Stack.Screen name="Content" component={ContentNavigator} />
+      <Stack.Screen
+        name="Content"
+        component={ContentNavigator}
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack.Navigator>
   );
 });
@@ -75,16 +81,27 @@ const AppStack = observer(function AppStack() {
 interface NavigationProps extends Partial<React.ComponentProps<typeof NavigationContainer>> {}
 
 export const AppNavigator = observer(function AppNavigator(props: NavigationProps) {
-  const colorScheme = useColorScheme();
+  const { colors, isDark } = useTheme();
 
   useBackButtonHandler((routeName) => exitRoutes.includes(routeName));
 
+  const theme: typeof DefaultTheme = useMemo(
+    () => ({
+      dark: isDark,
+      colors: {
+        primary: colors.palette.primary6,
+        card: colors.background,
+        background: isDark ? colors.background : colors.secondaryBackground,
+        text: colors.label,
+        border: colors.separator,
+        notification: colors.palette.red,
+      },
+    }),
+    [isDark],
+  );
+
   return (
-    <NavigationContainer
-      ref={navigationRef}
-      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
-      {...props}
-    >
+    <NavigationContainer ref={navigationRef} theme={theme} {...props}>
       <AppStack />
     </NavigationContainer>
   );

@@ -1,4 +1,6 @@
-const en = {
+import { Translations } from './zh';
+
+const en: Translations = {
   common: {
     ok: 'OK',
     cancel: 'Cancel',
@@ -10,4 +12,4 @@ const en = {
 };
 
 export default en;
-export type Translations = typeof en;
+export { Translations };

@@ -9,6 +9,7 @@
  *
  * @refresh reset
  */
+import { onPatch } from 'mobx-state-tree';
 import type { RootStore } from '../RootStore';
 import { persist } from './persist';
 
@@ -23,6 +24,9 @@ const THEME_STATE_STORAGE_KEY = 'theme-v1';
 export async function setupRootStore(rootStore: RootStore) {
   try {
     persist(THEME_STATE_STORAGE_KEY, rootStore.themeStore);
+    onPatch(rootStore, (p) => {
+      console.log('p', p);
+    });
     // persist('authentication-v1', rootStore.authenticationStore);
   } catch (e) {
     if (__DEV__) {

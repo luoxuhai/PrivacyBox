@@ -64,6 +64,7 @@
     "react/no-unescaped-entities": 0,
     "react/prop-types": 0,
     "space-before-function-paren": 0,
-    "react/react-in-jsx-scope": 0
+    "react/react-in-jsx-scope": 0,
+    "react-native/no-inline-styles": 0
   }
 }

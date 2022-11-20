@@ -1,19 +1,22 @@
 import { BottomTabScreenProps, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import { TextStyle, ViewStyle } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Icon } from '@/components';
+import { BlurView, BottomTabIcon } from '@/components';
 import { translate } from '@/i18n';
-import { AlbumScreen, SettingScreen, FileScreen, MoreScreen } from '@/screens';
-import { spacing, typography, useTheme } from '@/theme';
+import { AlbumScreen, SettingScreen, FileScreen, MoreScreen, AboutScreen } from '@/screens';
+import { colors, spacing, typography, useTheme } from '@/theme';
 import { AppStackParamList, AppStackScreenProps } from './AppNavigator';
+import { observer } from 'mobx-react-lite';
+import { useDeviceOrientation } from '@react-native-community/hooks';
 
 export type ContentTabParamList = {
   Album: undefined;
   File: undefined;
   More: undefined;
-  Setting: undefined;
+  Settings: undefined;
 };
 
 /**
@@ -28,9 +31,49 @@ export type DemoTabScreenProps<T extends keyof ContentTabParamList> = CompositeS
 
 const Tab = createBottomTabNavigator<ContentTabParamList>();
 
-export function ContentNavigator() {
+export type SettingStackParamList = {
+  Settings: typeof SettingScreen;
+  About: typeof AboutScreen;
+};
+
+const SettingStack = createNativeStackNavigator<SettingStackParamList>();
+
+const SettingStackScreen = observer(function SettingStackScreen() {
+  const { isDark, colors } = useTheme();
+
+  return (
+    <SettingStack.Navigator>
+      <SettingStack.Screen
+        name="Settings"
+        options={{
+          title: translate('contentNavigator.settingsTab'),
+          headerLargeTitle: true,
+          headerTransparent: true,
+          headerBlurEffect: isDark ? 'systemMaterialDark' : 'systemMaterialLight',
+          headerLargeStyle: {
+            backgroundColor: isDark ? colors.background : colors.secondaryBackground,
+          },
+        }}
+        component={SettingScreen}
+      />
+      <SettingStack.Screen
+        name="About"
+        options={{
+          title: 'About',
+          headerShadowVisible: false,
+          headerBlurEffect: 'light',
+          headerTransparent: true,
+        }}
+        component={AboutScreen}
+      />
+    </SettingStack.Navigator>
+  );
+});
+
+export const ContentNavigator = observer(function ContentNavigator() {
   const { bottom } = useSafeAreaInsets();
-  const { colors } = useTheme();
+  const { colors, isDark } = useTheme();
+  const { portrait } = useDeviceOrientation();
 
   return (
     <Tab.Navigator
@@ -38,24 +81,30 @@ export function ContentNavigator() {
         headerShown: false,
         tabBarHideOnKeyboard: true,
         tabBarStyle: {
-          height: bottom + 70,
-          backgroundColor: colors.background,
+          height: bottom + 48,
+          paddingTop: spacing[4],
           borderTopColor: colors.transparent,
+          position: 'absolute',
         },
-        tabBarActiveTintColor: colors.label,
-        tabBarInactiveTintColor: colors.label,
-        tabBarLabelStyle: $tabBarLabel,
-        tabBarItemStyle: $tabBarItem,
+        tabBarActiveTintColor: colors.palette.primary6,
+        tabBarInactiveTintColor: colors.secondaryLabel,
+        tabBarLabelStyle: [
+          $tabBarLabel,
+          {
+            marginTop: portrait ? spacing[3] : 0,
+          },
+        ],
+        tabBarBackground: () => (
+          <BlurView blurType={isDark ? 'materialDark' : 'materialLight'} blurAmount={10} />
+        ),
       }}
     >
       <Tab.Screen
         name="Album"
         component={AlbumScreen}
         options={{
-          tabBarLabel: translate('demoNavigator.componentsTab'),
-          tabBarIcon: ({ focused }) => (
-            <Icon icon="components" color={focused && colors.palette.primary6} />
-          ),
+          tabBarLabel: translate('contentNavigator.albumTab'),
+          tabBarIcon: ({ color }) => <BottomTabIcon icon="Album" color={color} />,
         }}
       />
 
@@ -63,10 +112,8 @@ export function ContentNavigator() {
         name="File"
         component={FileScreen}
         options={{
-          tabBarLabel: translate('demoNavigator.communityTab'),
-          tabBarIcon: ({ focused }) => (
-            <Icon icon="community" color={focused && colors.palette.primary6} />
-          ),
+          title: translate('contentNavigator.filesTab'),
+          tabBarIcon: ({ color }) => <BottomTabIcon icon="Files" color={color} />,
         }}
       />
 
@@ -83,31 +130,23 @@ export function ContentNavigator() {
         name="More"
         component={MoreScreen}
         options={{
-          tabBarLabel: translate('demoNavigator.debugTab'),
-          tabBarIcon: ({ focused }) => (
-            <Icon icon="debug" color={focused && colors.palette.primary6} />
-          ),
+          tabBarLabel: translate('contentNavigator.moreTab'),
+          tabBarIcon: ({ color }) => <BottomTabIcon icon="More" color={color} />,
         }}
       />
+
       <Tab.Screen
-        name="Setting"
-        component={SettingScreen}
+        name="Settings"
+        component={SettingStackScreen}
         options={{
-          tabBarLabel: translate('demoNavigator.debugTab'),
-          tabBarIcon: ({ focused }) => (
-            <Icon icon="debug" color={focused && colors.palette.primary6} />
-          ),
+          tabBarLabel: translate('contentNavigator.settingsTab'),
+          tabBarIcon: ({ color }) => <BottomTabIcon icon="Settings" color={color} />,
         }}
       />
     </Tab.Navigator>
   );
-}
-
-const $tabBarItem: ViewStyle = {
-  paddingTop: spacing[3],
-};
+});
 
 const $tabBarLabel: TextStyle = {
   ...typography.caption1,
-  flex: 1,
 };

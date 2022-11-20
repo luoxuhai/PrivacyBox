@@ -29,6 +29,8 @@
     "react-error-overlay": "6.0.9"
   },
   "dependencies": {
+    "@react-native-community/blur": "^4.3.0",
+    "@react-native-community/hooks": "^2.8.1",
     "@react-native-firebase/analytics": "^16.4.3",
     "@react-native-firebase/app": "^16.4.3",
     "@react-native-firebase/perf": "^16.4.3",

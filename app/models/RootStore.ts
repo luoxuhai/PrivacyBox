@@ -9,7 +9,7 @@ import { ThemeStoreModel } from './ThemeStore';
 export const RootStoreModel = types.model('RootStore').props({
   authenticationStore: types.optional(AuthenticationStoreModel, {}),
   themeStore: types.optional(ThemeStoreModel, {}),
-});
+})
 
 /**
  * The RootStore instance.

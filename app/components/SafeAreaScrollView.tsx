@@ -12,7 +12,7 @@ export function SafeAreaScrollView({
   ...scrollViewProps
 }: SafeAreaScrollViewProps): JSX.Element {
   return (
-    <SafeAreaView {...safeAreaProps} style={[$defaultSafeAreaStyle, safeAreaProps.style]}>
+    <SafeAreaView {...safeAreaProps} style={[$defaultSafeAreaStyle, safeAreaProps?.style]}>
       <ScrollView {...scrollViewProps}>{children}</ScrollView>
     </SafeAreaView>
   );

@@ -32,7 +32,7 @@ export const typography: { [key in Key]: TextStyle } = {
   },
   headline: {
     fontSize: 17,
-    fontWeight: '600',
+    fontWeight: '500',
     lineHeight: 22,
   },
   body: {

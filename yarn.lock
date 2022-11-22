@@ -2289,6 +2289,11 @@
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
 
+"@react-native-clipboard/clipboard@^1.11.1":
+  version "1.11.1"
+  resolved "https://registry.npmmirror.com/@react-native-clipboard/clipboard/-/clipboard-1.11.1.tgz#d3a9e685ce2383b1e92b89a334896c5575cc103d"
+  integrity sha512-nvSIIHzybVWqYxcJE5hpT17ekxAAg383Ggzw5WrYHtkKX61N1AwaKSNmXs5xHV7pmKSOe/yWjtSwxIzfW51I5Q==
+
 "@react-native-community/blur@^4.3.0":
   version "4.3.0"
   resolved "https://registry.npmmirror.com/@react-native-community/blur/-/blur-4.3.0.tgz#e5018b3b0bd6de9632ac6cf34e9f8e0f1a9a28ec"
@@ -4577,6 +4582,11 @@ bunyan@^1.8.12:
     moment "^2.19.3"
     mv "~2"
     safe-json-stringify "~1"
+
+burnt@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.npmmirror.com/burnt/-/burnt-0.7.0.tgz#e797c8462de383be0eb572913c1e2f9f59499485"
+  integrity sha512-BPR4p0QTQpY9YnJ8JiOjKjeI8TuAeiE6w0EJyeel/6xZL1aGKhoFLRbdiMJDcMT4uwly7p1TwYjBRmOeTs6GPQ==
 
 bytes@3.0.0:
   version "3.0.0"

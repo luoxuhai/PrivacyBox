@@ -2,23 +2,21 @@ import React, { FC } from 'react';
 import { Share, ViewStyle, Linking } from 'react-native';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { StackScreenProps } from '@react-navigation/stack';
-import { InAppBrowser } from 'react-native-inappbrowser-reborn';
-import i18n from 'i18next';
+import { observer } from 'mobx-react-lite';
 
 import { PurchaseBanner } from './PurchaseBanner';
 import { Switch, Screen, SafeAreaScrollView, ListCell, ListSection } from '@/components';
 import { useTheme } from '@/theme/useTheme';
-import { observer } from 'mobx-react-lite';
 import { spacing } from '@/theme';
 import { SettingStackParamList } from '@/navigators';
 import { useStores } from '@/models';
 import Config from '@/config';
-import { Device, Application } from '@/utils';
-import { SupportedLanguage } from '@/i18n';
+import { Device, Application, openLinkInAppBrowser } from '@/utils';
+import { SupportedLanguage, i18n } from '@/i18n';
 
 export const SettingScreen: FC<StackScreenProps<SettingStackParamList, 'Settings'>> = observer(
   (props) => {
-    const { colors, appearance } = useTheme();
+    const { colors } = useTheme();
     const { navigation } = props;
     const { settingsStore } = useStores();
     const bottomTabBarHeight = useBottomTabBarHeight();
@@ -34,11 +32,16 @@ export const SettingScreen: FC<StackScreenProps<SettingStackParamList, 'Settings
       <Screen>
         <SafeAreaScrollView contentContainerStyle={$contentContainerStyles}>
           <PurchaseBanner />
-          <ListSection titleTk="settingsScreen.preference">
+          <ListSection
+            style={{
+              marginTop: spacing[10],
+            }}
+            titleTk="settingsScreen.preference"
+          >
             <ListCell
               tk="appearanceScreen.title"
               onPress={() => {
-                props.navigation.navigate('Appearance');
+                navigation.navigate('Appearance');
               }}
             />
             <ListCell tk="settingsScreen.language" onPress={Linking.openSettings} />
@@ -57,13 +60,16 @@ export const SettingScreen: FC<StackScreenProps<SettingStackParamList, 'Settings
             <ListCell
               tk="settingsScreen.FAQ"
               onPress={() => {
-                openInAppBrowser(`${Config.TXC_FEEDBACK_URL}/faqs-more`, colors.palette.primary6);
+                openLinkInAppBrowser(
+                  `${Config.TXC_FEEDBACK_URL}/faqs-more`,
+                  colors.palette.primary6,
+                );
               }}
             />
             <ListCell
               tk="settingsScreen.feedback"
               onPress={() => {
-                openInAppBrowser(generateFeedbackUrl(), colors.palette.primary6);
+                openLinkInAppBrowser(generateFeedbackUrl(), colors.palette.primary6);
               }}
             />
             <ListCell
@@ -100,16 +106,6 @@ function generateFeedbackUrl() {
     // userId: user.current?.id || '-',
   })}`;
   return url;
-}
-
-function openInAppBrowser(url: string, preferredControlTintColor?: string) {
-  InAppBrowser.open(encodeURI(url), {
-    dismissButtonStyle: 'close',
-    preferredControlTintColor,
-    modalEnabled: false,
-    animated: true,
-    enableBarCollapsing: true,
-  });
 }
 
 const $contentContainer: ViewStyle = {

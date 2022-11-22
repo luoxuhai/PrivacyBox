@@ -13,6 +13,7 @@ import {
   MoreScreen,
   AboutScreen,
   AppearanceScreen,
+  DebugScreen,
 } from '@/screens';
 import { spacing, typography, useTheme } from '@/theme';
 import { AppStackParamList, AppStackScreenProps } from './AppNavigator';
@@ -40,8 +41,9 @@ const Tab = createBottomTabNavigator<ContentTabParamList>();
 
 export type SettingStackParamList = {
   Settings: typeof SettingScreen;
-  About: typeof AboutScreen;
   Appearance: typeof AppearanceScreen;
+  About: typeof AboutScreen;
+  Debug: typeof DebugScreen;
 };
 
 const SettingStack = createNativeStackNavigator<SettingStackParamList>();
@@ -81,6 +83,14 @@ const SettingStackScreen = observer(function SettingStackScreen() {
           title: translate('aboutScreen.title'),
         }}
         component={AboutScreen}
+      />
+      <SettingStack.Screen
+        name="Debug"
+        options={{
+          presentation: 'modal',
+          title: translate('aboutScreen.title'),
+        }}
+        component={DebugScreen}
       />
     </SettingStack.Navigator>
   );

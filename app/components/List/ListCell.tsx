@@ -61,7 +61,7 @@ export interface ListCellProps extends TouchableHighlightProps {
    * Left action custom ReactElement.
    * Overrides `leftIcon`.
    */
-  LeftAccessory?: ReactElement;
+  RightAccessory?: ReactElement;
 }
 
 /**
@@ -73,7 +73,7 @@ export function ListCell(props: ListCellProps) {
   const {
     bottomSeparator = true,
     children,
-    LeftAccessory,
+    RightAccessory,
     leftIcon,
     rightIcon,
     style,
@@ -122,7 +122,7 @@ export function ListCell(props: ListCellProps) {
           </Text>
 
           <View style={$rightContent}>
-            {LeftAccessory}
+            {RightAccessory ? <View style={$rightAccessory}>{RightAccessory}</View> : null}
             {rightIcon !== null &&
               (rightIcon || (
                 <NavArrowRight
@@ -163,4 +163,8 @@ const $rightContent: ViewStyle = {
   alignItems: 'center',
   justifyContent: 'flex-end',
   paddingRight: spacing[4],
+};
+
+const $rightAccessory: ViewStyle = {
+  marginRight: spacing[2],
 };

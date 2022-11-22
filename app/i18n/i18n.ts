@@ -38,6 +38,8 @@ i18n.init({
   },
 });
 
+export { i18n };
+
 /**
  * Builds up valid keypaths for translations.
  */

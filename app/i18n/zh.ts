@@ -41,6 +41,15 @@ const zh = {
   },
   aboutScreen: {
     title: '关于',
+    version: '版本',
+    changelog: '更新日志',
+    review: '给个好评',
+    agreement: '协议',
+    private: '隐私政策',
+    userAgreement: '用户协议',
+    connect: '联系我们',
+    email: '开发者邮箱',
+    qqGroup: 'QQ 反馈群',
   },
 };
 

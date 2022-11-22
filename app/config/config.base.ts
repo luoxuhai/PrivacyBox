@@ -2,6 +2,8 @@ export interface ConfigBaseProps {
   persistNavigation: 'always' | 'dev' | 'prod' | 'never';
   catchErrors: 'always' | 'dev' | 'prod' | 'never';
   exitRoutes: string[];
+  email: string;
+  qqGroup: string;
   appId: string;
   appStoreUrl: {
     cn: string;
@@ -14,6 +16,24 @@ export interface ConfigBaseProps {
   sentry: {
     dsn: string;
     tracesSampleRate: number;
+  };
+
+  /** 隐私政策 */
+  privacyPolicy: {
+    zh_cn: string;
+    en_us: string;
+  };
+
+  /** 用户协议 */
+  userAgreement: {
+    zh_cn: string;
+    en_us: string;
+  };
+
+  /** 更新日志 */
+  changelog: {
+    zh_cn: string;
+    en_us: string;
   };
 }
 
@@ -39,8 +59,10 @@ const BaseConfig: ConfigBaseProps = {
 
   TXC_FEEDBACK_URL: 'https://support.qq.com/product/334350',
 
-  appId,
+  email: 'darkce97@gmail.com',
+  qqGroup: '168380697',
 
+  appId,
   appStoreUrl: {
     cn: `https://apps.apple.com/cn/app/id${appId}`,
     global: `https://apps.apple.com/app/id${appId}`,
@@ -50,6 +72,27 @@ const BaseConfig: ConfigBaseProps = {
   sentry: {
     dsn: 'https://d04bc938d0934611b16c70c75a8f20d5@o264285.ingest.sentry.io/6139676',
     tracesSampleRate: 0.5,
+  },
+
+  /** 隐私政策 */
+  privacyPolicy: {
+    zh_cn:
+      'https://privatespace-4gagcjdu022008e0-1258504012.tcloudbaseapp.com/zh-cn/privacy-policy.html',
+    en_us: 'https://private-space-web.netlify.app/en-us/privacy-policy',
+  },
+
+  /** 用户协议 */
+  userAgreement: {
+    zh_cn:
+      'https://privatespace-4gagcjdu022008e0-1258504012.tcloudbaseapp.com/zh-cn/user-agreement.html',
+    en_us: 'https://private-space-web.netlify.app/en-us/user-agreement',
+  },
+
+  /** 更新日志 */
+  changelog: {
+    zh_cn:
+      'https://privatespace-4gagcjdu022008e0-1258504012.tcloudbaseapp.com/zh-cn/changelog.html',
+    en_us: 'https://private-space-web.netlify.app/en-us/changelog',
   },
 };
 

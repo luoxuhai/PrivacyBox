@@ -28,7 +28,7 @@ export function ListSection(props: ListSectionProps) {
 }
 
 const $container: ViewStyle = {
-  marginVertical: spacing[5],
+  marginVertical: spacing[3],
 };
 
 const $content: ViewStyle = {

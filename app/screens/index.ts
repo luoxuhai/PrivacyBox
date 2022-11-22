@@ -9,3 +9,4 @@ export * from './MoreScreen';
 export * from './SettingScreen/SettingScreen';
 export * from './AboutScreen';
 export * from './AppearanceScreen';
+export * from './DebugScreen'

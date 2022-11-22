@@ -65,6 +65,7 @@
     "react/prop-types": 0,
     "space-before-function-paren": 0,
     "react/react-in-jsx-scope": 0,
-    "react-native/no-inline-styles": 0
+    "react-native/no-inline-styles": 0,
+    "react-native/split-platform-components": 0
   }
 }

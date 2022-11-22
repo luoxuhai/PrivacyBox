@@ -69,18 +69,18 @@ const SettingStackScreen = observer(function SettingStackScreen() {
         component={SettingScreen}
       />
       <SettingStack.Screen
-        name="About"
-        options={{
-          title: 'About',
-        }}
-        component={AboutScreen}
-      />
-      <SettingStack.Screen
         name="Appearance"
         options={{
           title: translate('appearanceScreen.title'),
         }}
         component={AppearanceScreen}
+      />
+      <SettingStack.Screen
+        name="About"
+        options={{
+          title: translate('aboutScreen.title'),
+        }}
+        component={AboutScreen}
       />
     </SettingStack.Navigator>
   );

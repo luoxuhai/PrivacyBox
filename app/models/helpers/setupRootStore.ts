@@ -19,15 +19,17 @@ import { persist } from './persist';
  */
 // const ROOT_STATE_STORAGE_KEY = 'root-v1';
 const THEME_STATE_STORAGE_KEY = 'theme-v1';
+const SETTINGS_STATE_STORAGE_KEY = 'settings-v1';
 /**
  * Setup the root state.
  */
 export async function setupRootStore(rootStore: RootStore) {
   try {
-    const { themeStore } = rootStore;
+    const { themeStore, settingsStore } = rootStore;
 
     // 读取持久化配置
     persist(THEME_STATE_STORAGE_KEY, themeStore);
+    persist(SETTINGS_STATE_STORAGE_KEY, settingsStore);
 
     // 应用启动时设置外观
     themeStore.setAppearanceMode(
@@ -35,8 +37,6 @@ export async function setupRootStore(rootStore: RootStore) {
     );
 
     observeSystemAppearanceChange(themeStore);
-
-    // persist('authentication-v1', rootStore.authenticationStore);
   } catch (e) {
     if (__DEV__) {
       console.error('setupRootStore', e.message, null);

@@ -1,18 +1,26 @@
 import React, { FC } from 'react';
-import { ScrollView, Text, ViewStyle } from 'react-native';
+import { Share, ViewStyle, Linking } from 'react-native';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { StackScreenProps } from '@react-navigation/stack';
+import { InAppBrowser } from 'react-native-inappbrowser-reborn';
+import i18n from 'i18next';
 
 import { PurchaseBanner } from './PurchaseBanner';
-import { Button, Screen, SafeAreaScrollView, ListCell, ListSection } from '@/components';
+import { Switch, Screen, SafeAreaScrollView, ListCell, ListSection } from '@/components';
 import { useTheme } from '@/theme/useTheme';
 import { observer } from 'mobx-react-lite';
 import { spacing } from '@/theme';
 import { SettingStackParamList } from '@/navigators';
+import { useStores } from '@/models';
+import Config from '@/config';
+import { Device, Application } from '@/utils';
+import { SupportedLanguage } from '@/i18n';
 
 export const SettingScreen: FC<StackScreenProps<SettingStackParamList, 'Settings'>> = observer(
   (props) => {
     const { colors, appearance } = useTheme();
+    const { navigation } = props;
+    const { settingsStore } = useStores();
     const bottomTabBarHeight = useBottomTabBarHeight();
 
     const $contentContainerStyles = [
@@ -26,28 +34,83 @@ export const SettingScreen: FC<StackScreenProps<SettingStackParamList, 'Settings
       <Screen>
         <SafeAreaScrollView contentContainerStyle={$contentContainerStyles}>
           <PurchaseBanner />
-          <ListSection titleTk="common.cancel">
+          <ListSection titleTk="settingsScreen.preference">
             <ListCell
               tk="appearanceScreen.title"
               onPress={() => {
                 props.navigation.navigate('Appearance');
               }}
             />
-            <ListCell text="xxx">x</ListCell>
-            <ListCell text="xxx">33</ListCell>
+            <ListCell tk="settingsScreen.language" onPress={Linking.openSettings} />
+            <ListCell
+              tk="settingsScreen.hapticFeedbackSwitch"
+              rightIcon={
+                <Switch
+                  value={settingsStore.hapticFeedback}
+                  onValueChange={settingsStore.setHapticFeedback}
+                />
+              }
+            />
           </ListSection>
-          <Text
-            style={{
-              color: colors.palette.primary6,
-            }}
-          >
-            {appearance}
-          </Text>
+
+          <ListSection titleTk="settingsScreen.help">
+            <ListCell
+              tk="settingsScreen.FAQ"
+              onPress={() => {
+                openInAppBrowser(`${Config.TXC_FEEDBACK_URL}/faqs-more`, colors.palette.primary6);
+              }}
+            />
+            <ListCell
+              tk="settingsScreen.feedback"
+              onPress={() => {
+                openInAppBrowser(generateFeedbackUrl(), colors.palette.primary6);
+              }}
+            />
+            <ListCell
+              tk="settingsScreen.share"
+              onPress={() => {
+                const url =
+                  i18n.language === SupportedLanguage.ZH
+                    ? Config.appStoreUrl.cn
+                    : Config.appStoreUrl.global;
+
+                Share.share({
+                  url,
+                });
+              }}
+            />
+            <ListCell
+              tk="aboutScreen.title"
+              onPress={() => {
+                navigation.navigate('About');
+              }}
+            />
+          </ListSection>
         </SafeAreaScrollView>
       </Screen>
     );
   },
 );
+
+function generateFeedbackUrl() {
+  const url = `${Config.TXC_FEEDBACK_URL}?os=${Device.os || '-'}&osVersion=${
+    Device.version || '-'
+  }&clientVersion=${Application.version || '-'}&customInfo=${JSON.stringify({
+    modelName: Device.modelName || '-',
+    // userId: user.current?.id || '-',
+  })}`;
+  return url;
+}
+
+function openInAppBrowser(url: string, preferredControlTintColor?: string) {
+  InAppBrowser.open(encodeURI(url), {
+    dismissButtonStyle: 'close',
+    preferredControlTintColor,
+    modalEnabled: false,
+    animated: true,
+    enableBarCollapsing: true,
+  });
+}
 
 const $contentContainer: ViewStyle = {
   paddingTop: spacing[6],

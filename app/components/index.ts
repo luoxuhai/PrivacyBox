@@ -6,3 +6,4 @@ export * from './SafeAreaScrollView';
 export * from './BottomTabIcon';
 export * from './Blur';
 export * from './List';
+export * from './Switch';

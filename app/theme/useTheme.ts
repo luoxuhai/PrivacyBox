@@ -6,9 +6,10 @@ export function useTheme() {
   return {
     colors: themeStore.colors,
     appearance: themeStore.appearance,
+    isSystemAppearance: themeStore.isSystemAppearance,
     isDark: themeStore.isDark,
     appIcon: themeStore.appIcon,
-    setAppearance: themeStore.setAppearance,
+    setAppearanceMode: themeStore.setAppearanceMode,
     setAppIcon: themeStore.setAppIcon,
   };
 }

@@ -112,6 +112,7 @@
     "expo-detox-hook": "1.0.10",
     "expo-modules-autolinking": "0.10.1",
     "fbjs-scripts": "3.0.1",
+    "ignite-cli": "^8.4.0",
     "jest": "26",
     "jest-circus": "26",
     "jest-environment-node": "26",

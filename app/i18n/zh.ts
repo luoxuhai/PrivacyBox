@@ -20,7 +20,18 @@ const zh = {
       button: '立即开通',
     },
   },
-  aboutScreen: {},
+  appearanceScreen: {
+    title: '外观',
+    appearanceColor: {
+      title: '颜色模式',
+      auto: '跟随系统',
+      light: '浅色模式',
+      dark: '深色模式',
+    },
+    appIcon: {
+      title: '应用图标',
+    },
+  },
 };
 
 export default zh;

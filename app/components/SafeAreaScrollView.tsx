@@ -12,8 +12,14 @@ export function SafeAreaScrollView({
   ...scrollViewProps
 }: SafeAreaScrollViewProps): JSX.Element {
   return (
-    <SafeAreaView {...safeAreaProps} style={[$defaultSafeAreaStyle, safeAreaProps?.style]}>
-      <ScrollView {...scrollViewProps}>{children}</ScrollView>
+    <SafeAreaView
+      edges={['left', 'right']}
+      {...safeAreaProps}
+      style={[$defaultSafeAreaStyle, safeAreaProps?.style]}
+    >
+      <ScrollView contentInsetAdjustmentBehavior="automatic" {...scrollViewProps}>
+        {children}
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -24,8 +30,10 @@ export function ScrollSafeAreaView({
   ...scrollViewProps
 }: SafeAreaScrollViewProps): JSX.Element {
   return (
-    <ScrollView {...scrollViewProps}>
-      <SafeAreaView {...safeAreaProps}>{children}</SafeAreaView>
+    <ScrollView contentInsetAdjustmentBehavior="automatic" {...scrollViewProps}>
+      <SafeAreaView edges={['left', 'right']} {...safeAreaProps}>
+        {children}
+      </SafeAreaView>
     </ScrollView>
   );
 }

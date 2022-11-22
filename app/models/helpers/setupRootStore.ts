@@ -9,8 +9,9 @@
  *
  * @refresh reset
  */
-import { onPatch } from 'mobx-state-tree';
+import { Appearance } from 'react-native';
 import type { RootStore } from '../RootStore';
+import { appearanceToMode, ThemeStore } from '../ThemeStore';
 import { persist } from './persist';
 
 /**
@@ -23,14 +24,33 @@ const THEME_STATE_STORAGE_KEY = 'theme-v1';
  */
 export async function setupRootStore(rootStore: RootStore) {
   try {
-    persist(THEME_STATE_STORAGE_KEY, rootStore.themeStore);
-    onPatch(rootStore, (p) => {
-      console.log('p', p);
-    });
+    const { themeStore } = rootStore;
+
+    // 读取持久化配置
+    persist(THEME_STATE_STORAGE_KEY, themeStore);
+
+    // 应用启动时设置外观
+    themeStore.setAppearanceMode(
+      appearanceToMode(themeStore.appearance, themeStore.isSystemAppearance),
+    );
+
+    observeSystemAppearanceChange(themeStore);
+
     // persist('authentication-v1', rootStore.authenticationStore);
   } catch (e) {
     if (__DEV__) {
       console.error('setupRootStore', e.message, null);
     }
   }
+}
+
+/**
+ * 监听系统外观变化
+ */
+function observeSystemAppearanceChange(themeStore: ThemeStore) {
+  Appearance.addChangeListener(() => {
+    if (themeStore.isSystemAppearance) {
+      themeStore.setAppearanceMode('auto');
+    }
+  });
 }

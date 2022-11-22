@@ -8,3 +8,4 @@ export * from './FileScreen';
 export * from './MoreScreen';
 export * from './SettingScreen/SettingScreen';
 export * from './AboutScreen';
+export * from './AppearanceScreen';

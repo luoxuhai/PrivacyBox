@@ -1,13 +1,20 @@
+import React from 'react';
 import { BottomTabScreenProps, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import React from 'react';
-import { TextStyle, ViewStyle } from 'react-native';
+import { TextStyle } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { BlurView, BottomTabIcon } from '@/components';
 import { translate } from '@/i18n';
-import { AlbumScreen, SettingScreen, FileScreen, MoreScreen, AboutScreen } from '@/screens';
-import { colors, spacing, typography, useTheme } from '@/theme';
+import {
+  AlbumScreen,
+  SettingScreen,
+  FileScreen,
+  MoreScreen,
+  AboutScreen,
+  AppearanceScreen,
+} from '@/screens';
+import { spacing, typography, useTheme } from '@/theme';
 import { AppStackParamList, AppStackScreenProps } from './AppNavigator';
 import { observer } from 'mobx-react-lite';
 import { useDeviceOrientation } from '@react-native-community/hooks';
@@ -34,25 +41,30 @@ const Tab = createBottomTabNavigator<ContentTabParamList>();
 export type SettingStackParamList = {
   Settings: typeof SettingScreen;
   About: typeof AboutScreen;
+  Appearance: typeof AppearanceScreen;
 };
 
 const SettingStack = createNativeStackNavigator<SettingStackParamList>();
 
 const SettingStackScreen = observer(function SettingStackScreen() {
-  const { isDark, colors } = useTheme();
+  const { colors, isDark } = useTheme();
 
   return (
-    <SettingStack.Navigator>
+    <SettingStack.Navigator
+      screenOptions={{
+        headerBlurEffect: isDark ? 'systemMaterialDark' : 'systemMaterialLight',
+        headerTransparent: true,
+        headerLargeStyle: {
+          backgroundColor: isDark ? colors.background : colors.secondaryBackground,
+        },
+      }}
+    >
       <SettingStack.Screen
         name="Settings"
         options={{
           title: translate('contentNavigator.settingsTab'),
           headerLargeTitle: true,
-          headerTransparent: true,
-          headerBlurEffect: isDark ? 'systemMaterialDark' : 'systemMaterialLight',
-          headerLargeStyle: {
-            backgroundColor: isDark ? colors.background : colors.secondaryBackground,
-          },
+          headerShadowVisible: false,
         }}
         component={SettingScreen}
       />
@@ -60,11 +72,15 @@ const SettingStackScreen = observer(function SettingStackScreen() {
         name="About"
         options={{
           title: 'About',
-          headerShadowVisible: false,
-          headerBlurEffect: 'light',
-          headerTransparent: true,
         }}
         component={AboutScreen}
+      />
+      <SettingStack.Screen
+        name="Appearance"
+        options={{
+          title: translate('appearanceScreen.title'),
+        }}
+        component={AppearanceScreen}
       />
     </SettingStack.Navigator>
   );

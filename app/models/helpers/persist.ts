@@ -39,7 +39,7 @@ export const persist: IArgs = (name, store, options = {}) => {
     return;
   }
 
-  applySnapshot(store, snapshot);
+  applySnapshot(store, snapshot)
 };
 
 type StrToBoolMap = { [key: string]: boolean };

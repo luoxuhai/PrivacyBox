@@ -1,5 +1,5 @@
-import { colors, spacing, typography, useTheme } from '@/theme';
 import React from 'react';
+import { spacing, typography, useTheme } from '@/theme';
 import { View, ViewStyle, StyleProp, TextStyle } from 'react-native';
 import { Text } from '../Text';
 import { TextKeyPath } from '@/i18n';
@@ -8,6 +8,7 @@ interface ListSectionProps {
   children: React.ReactNode;
   style?: StyleProp<ViewStyle>;
   titleTk?: TextKeyPath;
+  descriptionTk?: TextKeyPath;
 }
 
 export function ListSection(props: ListSectionProps) {
@@ -19,6 +20,9 @@ export function ListSection(props: ListSectionProps) {
         <Text style={[$title, { color: colors.secondaryLabel }]} tk={props.titleTk} />
       )}
       <View style={$content}>{props.children}</View>
+      {props.descriptionTk && (
+        <Text style={[$description, { color: colors.secondaryLabel }]} tk={props.descriptionTk} />
+      )}
     </View>
   );
 }
@@ -34,7 +38,12 @@ const $content: ViewStyle = {
 
 const $title: TextStyle = {
   ...typography.footnote,
-  backgroundColor: colors.light.transparent,
   marginHorizontal: spacing[5],
   marginBottom: 10,
+};
+
+const $description: TextStyle = {
+  ...typography.caption1,
+  marginHorizontal: $title.marginHorizontal,
+  marginTop: $title.marginBottom,
 };

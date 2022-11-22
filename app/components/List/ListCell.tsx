@@ -56,7 +56,7 @@ export interface ListCellProps extends TouchableHighlightProps {
   /**
    * Icon that should appear on the right.
    */
-  rightIcon?: IconTypes;
+  rightIcon?: ReactElement;
   /**
    * Left action custom ReactElement.
    * Overrides `leftIcon`.

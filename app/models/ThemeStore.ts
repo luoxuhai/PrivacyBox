@@ -1,7 +1,9 @@
-import { Instance, SnapshotOut, onPatch, types } from 'mobx-state-tree';
+import { Instance, SnapshotOut, flow, types } from 'mobx-state-tree';
 import overrideColorScheme from 'react-native-override-color-scheme';
 
 import { colors } from '@/theme';
+import { Appearance } from 'react-native';
+import { delay } from '@/utils';
 
 export enum AppIcon {
   Default = 'default',
@@ -36,24 +38,30 @@ export const ThemeStoreModel = types
       return colors[self.appearance];
     },
   }))
-  .actions((self) => ({
-    // 设置 App 外观
-    setAppearance(appearance: Appearance) {
-      if (!['dark', 'light'].includes(appearance)) {
+  .actions((self) => {
+    const setAppearanceMode = flow(function* (mode: AppearanceMode) {
+      if (!mode) {
         return;
       }
 
-      overrideColorScheme.setScheme(appearance);
+      overrideColorScheme.setScheme(mode === 'auto' ? null : mode);
 
-      self.appearance = appearance;
-    },
-    // 设置 App 图标
-    setAppIcon(appIcon: AppIcon) {
-      self.appIcon = appIcon;
-    },
+      yield delay(0);
+      self.appearance = appearanceModeToInternal(mode);
+      self.isSystemAppearance = mode === 'auto';
+    });
 
-    // setTheme() {},
-  }));
+    return {
+      // 设置 App 外观
+      setAppearanceMode,
+      // 设置 App 图标
+      setAppIcon(appIcon: AppIcon) {
+        self.appIcon = appIcon;
+      },
+
+      // setTheme() {},
+    };
+  })
 
 // onPatch(ThemeStoreModel, (patch) => {
 //   console.info('Got change: ', patch);
@@ -64,3 +72,17 @@ export const ThemeStoreModel = types
 // );
 export interface ThemeStore extends Instance<typeof ThemeStoreModel> {}
 export interface ThemeStoreSnapshot extends SnapshotOut<typeof ThemeStoreModel> {}
+
+export function appearanceModeToInternal(mode: AppearanceMode): Appearance {
+  if (mode === 'auto') {
+    return Appearance.getColorScheme() || 'light';
+  }
+  return mode;
+}
+
+export function appearanceToMode(
+  appearance: Appearance,
+  isSystemAppearance: boolean,
+): AppearanceMode {
+  return isSystemAppearance ? 'auto' : appearance;
+}

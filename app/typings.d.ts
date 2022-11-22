@@ -9,4 +9,6 @@ declare global {
   type SvgProps = _SvgProps;
 
   type Appearance = 'light' | 'dark';
+
+  type AppearanceMode = Appearance | 'auto';
 }

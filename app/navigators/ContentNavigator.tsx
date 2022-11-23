@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { BottomTabScreenProps, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { CompositeScreenProps } from '@react-navigation/native';
+import { CompositeScreenProps, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { TextStyle } from 'react-native';
+import { TextStyle, Text } from 'react-native';
+import { StackScreenProps } from '@react-navigation/stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useDeviceOrientation } from '@react-native-community/hooks';
+import { observer } from 'mobx-react-lite';
+
 import { BlurView, BottomTabIcon } from '@/components';
 import { translate } from '@/i18n';
 import {
@@ -17,8 +21,6 @@ import {
 } from '@/screens';
 import { spacing, typography, useTheme } from '@/theme';
 import { AppStackParamList, AppStackScreenProps } from './AppNavigator';
-import { observer } from 'mobx-react-lite';
-import { useDeviceOrientation } from '@react-native-community/hooks';
 
 export type ContentTabParamList = {
   Album: undefined;
@@ -48,53 +50,55 @@ export type SettingStackParamList = {
 
 const SettingStack = createNativeStackNavigator<SettingStackParamList>();
 
-const SettingStackScreen = observer(function SettingStackScreen() {
-  const { colors, isDark } = useTheme();
+const SettingStackScreen: FC<StackScreenProps<SettingStackParamList>> = observer(
+  function SettingStackScreen() {
+    const { colors, isDark } = useTheme();
 
-  return (
-    <SettingStack.Navigator
-      screenOptions={{
-        headerBlurEffect: isDark ? 'systemMaterialDark' : 'systemMaterialLight',
-        headerTransparent: true,
-        headerLargeStyle: {
-          backgroundColor: isDark ? colors.background : colors.secondaryBackground,
-        },
-      }}
-    >
-      <SettingStack.Screen
-        name="Settings"
-        options={{
-          title: translate('contentNavigator.settingsTab'),
-          headerLargeTitle: true,
-          headerShadowVisible: false,
+    return (
+      <SettingStack.Navigator
+        screenOptions={{
+          headerBlurEffect: isDark ? 'systemMaterialDark' : 'systemMaterialLight',
+          headerTransparent: true,
+          headerLargeStyle: {
+            backgroundColor: isDark ? colors.background : colors.secondaryBackground,
+          },
         }}
-        component={SettingScreen}
-      />
-      <SettingStack.Screen
-        name="Appearance"
-        options={{
-          title: translate('appearanceScreen.title'),
-        }}
-        component={AppearanceScreen}
-      />
-      <SettingStack.Screen
-        name="About"
-        options={{
-          title: translate('aboutScreen.title'),
-        }}
-        component={AboutScreen}
-      />
-      <SettingStack.Screen
-        name="Debug"
-        options={{
-          presentation: 'modal',
-          title: translate('aboutScreen.title'),
-        }}
-        component={DebugScreen}
-      />
-    </SettingStack.Navigator>
-  );
-});
+      >
+        <SettingStack.Screen
+          name="Settings"
+          options={{
+            title: translate('contentNavigator.settingsTab'),
+            headerLargeTitle: true,
+            headerShadowVisible: false,
+          }}
+          component={SettingScreen}
+        />
+        <SettingStack.Screen
+          name="Appearance"
+          options={{
+            title: translate('appearanceScreen.title'),
+          }}
+          component={AppearanceScreen}
+        />
+        <SettingStack.Screen
+          name="About"
+          options={{
+            title: translate('aboutScreen.title'),
+          }}
+          component={AboutScreen}
+        />
+        <SettingStack.Screen
+          name="Debug"
+          options={{
+            presentation: 'modal',
+            title: translate('debugScreen.title'),
+          }}
+          component={DebugScreen}
+        />
+      </SettingStack.Navigator>
+    );
+  },
+);
 
 export const ContentNavigator = observer(function ContentNavigator() {
   const { bottom } = useSafeAreaInsets();

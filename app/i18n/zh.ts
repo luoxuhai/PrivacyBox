@@ -50,6 +50,11 @@ const zh = {
     connect: '联系我们',
     email: '开发者邮箱',
     qqGroup: 'QQ 反馈群',
+    emailCopied: '已复制 QQ 群号',
+    qqGroupCopied: '已复制邮箱',
+  },
+  debugScreen: {
+    title: '调试',
   },
 };
 

@@ -25,4 +25,8 @@ function toast(options: ToastOptions) {
   });
 }
 
-export const Overlay = { toast };
+function dismissAllAlerts() {
+  Burnt.dismissAllAlerts();
+}
+
+export const Overlay = { toast, dismissAllAlerts };

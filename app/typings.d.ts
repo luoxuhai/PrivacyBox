@@ -11,4 +11,8 @@ declare global {
   type Appearance = 'light' | 'dark';
 
   type AppearanceMode = Appearance | 'auto';
+
+  interface Console {
+    print: (message?: any, ...optionalParams: any[]) => void;
+  }
 }

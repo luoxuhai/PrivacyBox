@@ -1,24 +1,29 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import { ViewStyle } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
-import { AppStackScreenProps } from '@/navigators';
-import { Screen, Text } from '@/components';
-import { useNavigation } from '@react-navigation/native';
+import { SettingStackParamList } from '@/navigators';
+import { Screen, Text, ExitButton } from '@/components';
 import { useTheme } from '@/theme';
 
+export const DebugScreen: FC<StackScreenProps<SettingStackParamList, 'Debug'>> = observer(
+  function DebugScreen(props) {
+    const { colors } = useTheme();
 
-export const DebugScreen: FC<StackScreenProps<AppStackScreenProps, "Debug">> = observer(function DebugScreen() {
-  const { colors } = useTheme();
-  const navigation = useNavigation();
+    useEffect(() => {
+      props.navigation.setOptions({
+        headerRight: () => <ExitButton onPress={props.navigation.goBack} />,
+      });
+    }, []);
 
-  return (
-    <Screen style={$screen}>
-      <Text text="debug" />
-    </Screen>
-  )
-})
+    return (
+      <Screen style={$screen} statusBarStyle="inverted">
+        <Text text="debug" />
+      </Screen>
+    );
+  },
+);
 
 const $screen: ViewStyle = {
   flex: 1,
-}
+};

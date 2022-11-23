@@ -11,6 +11,7 @@
  */
 import './i18n';
 import './utils/ignoreWarnings';
+import './utils/logger';
 import React from 'react';
 import { initialWindowMetrics, SafeAreaProvider } from 'react-native-safe-area-context';
 import { useInitialRootStore } from './models';

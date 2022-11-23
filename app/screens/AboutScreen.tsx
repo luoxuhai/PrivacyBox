@@ -1,24 +1,31 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { Text, Linking, ViewStyle } from 'react-native';
 import Clipboard from '@react-native-clipboard/clipboard';
 import { observer } from 'mobx-react-lite';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+import { StackScreenProps } from '@react-navigation/stack';
 
 import { ListSection, ListCell, Screen, SafeAreaScrollView } from '@/components';
-import { useStores } from '@/models';
 import { spacing, typography, useTheme } from '@/theme';
 import Config from '@/config';
-import { openLinkInAppBrowser, HapticFeedback, Overlay } from '@/utils';
-import { i18n, SupportedLanguage } from '@/i18n';
-import { StackScreenProps } from '@react-navigation/stack';
+import { openLinkInAppBrowser, HapticFeedback, Overlay, Application, DynamicUpdate } from '@/utils';
+import { i18n, SupportedLanguage, translate } from '@/i18n';
 import { SettingStackParamList } from '@/navigators';
 
 export const AboutScreen: FC<StackScreenProps<SettingStackParamList, 'About'>> = observer(
   (props) => {
-    // const { colors, appearance } = useTheme();
+    const { colors } = useTheme();
+    const [labelWithoutPrefix, setLabelWithoutPrefix] = useState<string>();
     // const { navigation } = props;
     // const { settingsStore } = useStores();
+    const pressedCount = useRef<number>(0);
     const bottomTabBarHeight = useBottomTabBarHeight();
+
+    useEffect(() => {
+      DynamicUpdate.getUpdateMetadataAsync().then((res) => {
+        setLabelWithoutPrefix(res?.label?.replace('v', '') || '0');
+      });
+    }, []);
 
     const $contentContainerStyles = [
       $contentContainer,
@@ -27,16 +34,22 @@ export const AboutScreen: FC<StackScreenProps<SettingStackParamList, 'About'>> =
       },
     ];
 
+    // updateMetadata = await CodePush.getUpdateMetadata();
+
     return (
       <Screen>
         <SafeAreaScrollView contentContainerStyle={$contentContainerStyles}>
           <ListSection>
             <ListCell
               tk="aboutScreen.version"
-              RightAccessory={<ExtraText text="1.12.0" />}
+              RightAccessory={<ExtraText text={`${Application.version} (${labelWithoutPrefix})`} />}
               rightIcon={null}
-              onLongPress={() => {
-                props.navigation.navigate('Debug');
+              onPress={() => {
+                pressedCount.current++;
+                if (pressedCount.current === 10) {
+                  pressedCount.current = 0;
+                  props.navigation.navigate('Debug');
+                }
               }}
             />
             <ListCell
@@ -46,6 +59,7 @@ export const AboutScreen: FC<StackScreenProps<SettingStackParamList, 'About'>> =
                   i18n.language === SupportedLanguage.ZH
                     ? Config.changelog.zh_cn
                     : Config.changelog.en_us,
+                  colors.palette.primary6,
                 );
               }}
             />
@@ -66,6 +80,7 @@ export const AboutScreen: FC<StackScreenProps<SettingStackParamList, 'About'>> =
                   i18n.language === SupportedLanguage.ZH
                     ? Config.privacyPolicy.zh_cn
                     : Config.privacyPolicy.en_us,
+                  colors.palette.primary6,
                 );
               }}
             />
@@ -76,6 +91,7 @@ export const AboutScreen: FC<StackScreenProps<SettingStackParamList, 'About'>> =
                   i18n.language === SupportedLanguage.ZH
                     ? Config.userAgreement.zh_cn
                     : Config.userAgreement.en_us,
+                  colors.palette.primary6,
                 );
               }}
             />
@@ -112,7 +128,7 @@ function openQQGroup() {
   ).catch(() => {
     Clipboard.setString(Config.qqGroup);
     Overlay.toast({
-      title: '已复制群号',
+      title: translate('aboutScreen.qqGroupCopied'),
       preset: 'done',
       haptic: HapticFeedback.enabled ? 'success' : 'none',
     });
@@ -123,7 +139,7 @@ function openEmail() {
   Linking.openURL(`mailto:${Config.email}`).catch(() => {
     Clipboard.setString(Config.email);
     Overlay.toast({
-      title: '已复制邮箱',
+      title: translate('aboutScreen.emailCopied'),
       preset: 'done',
       haptic: HapticFeedback.enabled ? 'success' : 'none',
     });

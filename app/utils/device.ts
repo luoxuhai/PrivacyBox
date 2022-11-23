@@ -11,6 +11,7 @@ export const Device = {
   supportedCpuArchitectures: DeviceInfo.supportedAbisSync(),
   uniqueId: DeviceInfo.getUniqueId(),
   getUsedMemory: async () => DeviceInfo.getUsedMemory(),
+  getTotalMemory: async () => DeviceInfo.getTotalMemory(),
   getFreeDiskStorage: async () => DeviceInfo.getFreeDiskStorage(),
   getIpAddress: async () => ((await NetInfo.fetch()) as NetInfoWifiState)?.details?.ipAddress,
   getNetworkStateType: async () => (await NetInfo.fetch()).type,

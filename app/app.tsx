@@ -11,9 +11,10 @@
  */
 import './i18n';
 import './utils/ignoreWarnings';
-import './utils/logger';
-import React from 'react';
+import './utils/consoleExtension';
+import React, { useEffect } from 'react';
 import { initialWindowMetrics, SafeAreaProvider } from 'react-native-safe-area-context';
+import { initCrashReporting } from './utils';
 import { useInitialRootStore } from './models';
 import { AppNavigator, useNavigationPersistence } from './navigators';
 import { ErrorBoundary } from './screens/ErrorScreen/ErrorBoundary';
@@ -37,6 +38,10 @@ function App(props: AppProps) {
     onNavigationStateChange,
     isRestored: isNavigationStateRestored,
   } = useNavigationPersistence(storage, NAVIGATION_PERSISTENCE_KEY);
+
+  useEffect(() => {
+    initCrashReporting();
+  }, []);
 
   const { rehydrated } = useInitialRootStore(() => {
     // This runs after the root store has been initialized and rehydrated.

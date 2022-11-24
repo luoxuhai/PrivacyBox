@@ -13,6 +13,6 @@ declare global {
   type AppearanceMode = Appearance | 'auto';
 
   interface Console {
-    print: (message?: any, ...optionalParams: any[]) => void;
+    prettyLog(message?: any, ...optionalParams: any[]): void;
   }
 }

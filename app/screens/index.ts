@@ -1,5 +1,3 @@
-// export all screens
-
 export * from './ErrorScreen/ErrorBoundary';
 export * from './AlbumScreen';
 export * from './PasscodeLockScreen';
@@ -9,4 +7,10 @@ export * from './MoreScreen';
 export * from './SettingScreen/SettingScreen';
 export * from './AboutScreen';
 export * from './AppearanceScreen';
-export * from './DebugScreen'
+export * from './DebugScreen';
+export * from './PasscodeLockScreen';
+export * from './AppLockSettingsScreen';
+export * from './AppLockScreen';
+export * from './AdvancedSettingsScreen'
+export * from './UrgentSwitchScreen'
+export * from './PurchaseScreen/PurchaseScreen'

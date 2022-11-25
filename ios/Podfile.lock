@@ -24,6 +24,8 @@ PODS:
     - ExpoModulesCore
   - EXFont (10.2.1):
     - ExpoModulesCore
+  - EXLocalAuthentication (13.0.2):
+    - ExpoModulesCore
   - Expo (46.0.16):
     - ExpoModulesCore
   - ExpoHaptics (12.0.1):
@@ -681,6 +683,7 @@ DEPENDENCIES:
   - EXDevice (from `../node_modules/expo-device/ios`)
   - EXFileSystem (from `../node_modules/expo-file-system/ios`)
   - EXFont (from `../node_modules/expo-font/ios`)
+  - EXLocalAuthentication (from `../node_modules/expo-local-authentication/ios`)
   - Expo (from `../node_modules/expo`)
   - ExpoHaptics (from `../node_modules/expo-haptics/ios`)
   - ExpoKeepAwake (from `../node_modules/expo-keep-awake/ios`)
@@ -845,6 +848,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-file-system/ios"
   EXFont:
     :path: "../node_modules/expo-font/ios"
+  EXLocalAuthentication:
+    :path: "../node_modules/expo-local-authentication/ios"
   Expo:
     :path: "../node_modules/expo"
   ExpoHaptics:
@@ -1003,6 +1008,7 @@ SPEC CHECKSUMS:
   EXDevice: 7647ca9b1fd8b269dfd896a7643d659343358054
   EXFileSystem: 927e0a8885aa9c49e50fc38eaba2c2389f2f1019
   EXFont: 06df627203afcb8a3b3152ec06eb2f11f46f0cff
+  EXLocalAuthentication: 78cc5a00b13745b41d16d189ab332b61a01299f9
   Expo: 7ac824960a6059d6c68e73f432c8e6bf6d92a0ef
   ExpoHaptics: 5a56d30a87ea213dd00b09566dc4b441a4dff97f
   ExpoKeepAwake: 0e8f18142e71bbf2c7f6aa66ebed249ba1420320

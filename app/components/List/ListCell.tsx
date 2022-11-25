@@ -12,6 +12,7 @@ import { spacing, typography, useTheme } from '@/theme';
 import { IconTypes } from '../Icon';
 import { Text, TextProps } from '../Text';
 import { NavArrowRight } from 'iconoir-react-native';
+import { observer } from 'mobx-react-lite';
 
 export interface ListCellProps extends TouchableHighlightProps {
   /**
@@ -35,7 +36,7 @@ export interface ListCellProps extends TouchableHighlightProps {
   /**
    * Children components.
    */
-  children?: TextProps['children'];
+  children?: React.ReactElement;
   /**
    * Optional options to pass to i18n. Useful for interpolation
    * as well as explicitly setting locale or translation fallbacks.
@@ -61,7 +62,7 @@ export interface ListCellProps extends TouchableHighlightProps {
    * Left action custom ReactElement.
    * Overrides `leftIcon`.
    */
-  RightAccessory?: ReactElement;
+  RightAccessory?: ReactElement | string;
 }
 
 /**
@@ -104,40 +105,55 @@ export function ListCell(props: ListCellProps) {
       underlayColor={colors.palette.gray5}
     >
       <>
-        {leftIcon}
+        {children || (
+          <>
+            {leftIcon}
 
-        <View style={$contentStyles}>
-          <Text
-            tk={tk}
-            text={text}
-            tkOptions={tkOptions}
-            style={[
-              $text,
-              {
-                color: colors.label,
-              },
-            ]}
-          >
-            {children}
-          </Text>
+            <View style={$contentStyles}>
+              <Text
+                tk={tk}
+                text={text}
+                tkOptions={tkOptions}
+                style={[
+                  $text,
+                  {
+                    color: colors.label,
+                  },
+                ]}
+              />
 
-          <View style={$rightContent}>
-            {RightAccessory ? <View style={$rightAccessory}>{RightAccessory}</View> : null}
-            {rightIcon !== null &&
-              (rightIcon || (
-                <NavArrowRight
-                  width={24}
-                  height={24}
-                  strokeWidth={2}
-                  color={colors.opaqueSeparator}
-                />
-              ))}
-          </View>
-        </View>
+              <View style={$rightContent}>
+                {RightAccessory ? (
+                  <View style={$rightAccessory}>
+                    {typeof RightAccessory === 'string' ? (
+                      <ExtraText text={RightAccessory} />
+                    ) : (
+                      RightAccessory
+                    )}
+                  </View>
+                ) : null}
+                {rightIcon !== null &&
+                  (rightIcon || (
+                    <NavArrowRight
+                      width={24}
+                      height={24}
+                      strokeWidth={2}
+                      color={colors.opaqueSeparator}
+                    />
+                  ))}
+              </View>
+            </View>
+          </>
+        )}
       </>
     </TouchableHighlight>
   );
 }
+
+const ExtraText = observer(({ text }: { text: string }) => {
+  const { colors } = useTheme();
+  return <Text style={[typography.subhead, { color: colors.secondaryLabel }]}>{text}</Text>;
+});
 
 const $container: ViewStyle = {
   flexDirection: 'row',

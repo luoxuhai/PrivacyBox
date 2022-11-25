@@ -6851,6 +6851,13 @@ expo-linear-gradient@~11.4.0:
   resolved "https://registry.yarnpkg.com/expo-linear-gradient/-/expo-linear-gradient-11.4.0.tgz#20ecad4d11e66e35b31600e5389ec9c4067f7312"
   integrity sha512-qtIfsLs7NOpfxYrFSJL5uLtNHIkBHQFuQ3f7++XpoJTSm4eQVFxjjkCGWiLIrkpVjKzmgp3DLuIVsadsGX21lA==
 
+expo-local-authentication@^13.0.2:
+  version "13.0.2"
+  resolved "https://registry.npmmirror.com/expo-local-authentication/-/expo-local-authentication-13.0.2.tgz#a785e589119538e0c328b65c0f63e162a423ad5f"
+  integrity sha512-YqyIix9+oyBbJ8Wgp/ZBQBbWbo4FMVWWibyOhrUfyx9wwRiElAlJZ52ne6XzcJEjLOSqCy4/xkhhC5LJtbnGTw==
+  dependencies:
+    invariant "^2.2.4"
+
 expo-modules-autolinking@0.10.1:
   version "0.10.1"
   resolved "https://registry.yarnpkg.com/expo-modules-autolinking/-/expo-modules-autolinking-0.10.1.tgz#9d7e004cbfee7cb12245cc2686180c2d14ed9095"

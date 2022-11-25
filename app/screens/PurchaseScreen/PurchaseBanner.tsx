@@ -5,14 +5,16 @@ import LinearGradient from 'react-native-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 
 import { Button, Text } from '@/components';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { SettingStackParamList } from '@/navigators';
 
 interface PurchaseBannerProps {}
 
 export function PurchaseBanner(props: PurchaseBannerProps) {
-  const navigation = useNavigation();
+  const navigation = useNavigation<StackNavigationProp<SettingStackParamList, 'Purchase'>>();
 
   function handleToPurchase() {
-    navigation.navigate('About');
+    navigation.navigate('Purchase');
   }
 
   return (

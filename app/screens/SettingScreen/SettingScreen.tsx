@@ -4,7 +4,7 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { StackScreenProps } from '@react-navigation/stack';
 import { observer } from 'mobx-react-lite';
 
-import { PurchaseBanner } from './PurchaseBanner';
+import { PurchaseBanner } from '../PurchaseScreen/PurchaseBanner';
 import { Switch, Screen, SafeAreaScrollView, ListCell, ListSection } from '@/components';
 import { useTheme } from '@/theme/useTheme';
 import { spacing } from '@/theme';
@@ -36,8 +36,29 @@ export const SettingScreen: FC<StackScreenProps<SettingStackParamList, 'Settings
             style={{
               marginTop: spacing[10],
             }}
-            titleTk="settingsScreen.preference"
+            titleTk="settingsScreen.security"
           >
+            <ListCell
+              tk="appLockSettingsScreen.title"
+              onPress={() => {
+                navigation.navigate('AppLockSettings');
+              }}
+            />
+            <ListCell
+              tk="urgentSwitchScreen.title"
+              onPress={() => {
+                navigation.navigate('UrgentSwitch');
+              }}
+            />
+          </ListSection>
+          <ListSection titleTk="settingsScreen.preference">
+            <ListCell
+              tk="advancedSettingsScreen.title"
+              onPress={() => {
+                navigation.navigate('AdvancedSettings');
+              }}
+            />
+
             <ListCell
               tk="appearanceScreen.title"
               onPress={() => {

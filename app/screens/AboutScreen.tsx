@@ -42,7 +42,7 @@ export const AboutScreen: FC<StackScreenProps<SettingStackParamList, 'About'>> =
           <ListSection>
             <ListCell
               tk="aboutScreen.version"
-              RightAccessory={<ExtraText text={`${Application.version} (${labelWithoutPrefix})`} />}
+              RightAccessory={`${Application.version} (${labelWithoutPrefix})`}
               rightIcon={null}
               onPress={() => {
                 pressedCount.current++;
@@ -99,25 +99,16 @@ export const AboutScreen: FC<StackScreenProps<SettingStackParamList, 'About'>> =
           <ListSection titleTk="aboutScreen.connect">
             <ListCell
               tk="aboutScreen.qqGroup"
-              RightAccessory={<ExtraText text={Config.qqGroup} />}
+              RightAccessory={Config.qqGroup}
               onPress={openQQGroup}
             />
-            <ListCell
-              tk="aboutScreen.email"
-              RightAccessory={<ExtraText text={Config.email} />}
-              onPress={openEmail}
-            />
+            <ListCell tk="aboutScreen.email" RightAccessory={Config.email} onPress={openEmail} />
           </ListSection>
         </SafeAreaScrollView>
       </Screen>
     );
   },
 );
-
-const ExtraText = observer(({ text }: { text: string }) => {
-  const { colors } = useTheme();
-  return <Text style={[$extraText, { color: colors.secondaryLabel }]}>{text}</Text>;
-});
 
 /**
  * 打开 QQ 群
@@ -149,8 +140,4 @@ function openEmail() {
 const $contentContainer: ViewStyle = {
   paddingTop: spacing[6],
   paddingHorizontal: spacing[6],
-};
-
-const $extraText: ViewStyle = {
-  ...typography.subhead,
 };

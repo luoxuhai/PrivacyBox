@@ -1,6 +1,6 @@
 import RNFS from 'react-native-fs';
 
 /** 根目录 */
-export const APP_ROOT_PATH = RNFS.LibraryDirectoryPath;
+export const ROOT_PATH = RNFS.LibraryDirectoryPath;
 /** 临时目录 */
-export const APP_TEMP_PATH = RNFS.TemporaryDirectoryPath;
+export const TEMP_PATH = RNFS.TemporaryDirectoryPath;

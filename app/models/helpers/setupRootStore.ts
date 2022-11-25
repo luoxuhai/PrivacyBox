@@ -14,22 +14,24 @@ import type { RootStore } from '../RootStore';
 import { appearanceToMode, ThemeStore } from '../ThemeStore';
 import { persist } from './persist';
 
-/**
- * The key we'll be saving our state as within async storage.
- */
-// const ROOT_STATE_STORAGE_KEY = 'root-v1';
+// 主题
 const THEME_STATE_STORAGE_KEY = 'theme-v1';
+// 设置
 const SETTINGS_STATE_STORAGE_KEY = 'settings-v1';
+// 应用锁
+const APP_LOCK_STATE_STORAGE_KEY = 'appLock-v1';
+
 /**
  * Setup the root state.
  */
 export async function setupRootStore(rootStore: RootStore) {
   try {
-    const { themeStore, settingsStore } = rootStore;
+    const { themeStore, settingsStore, appLockStore } = rootStore;
 
     // 读取持久化配置
     persist(THEME_STATE_STORAGE_KEY, themeStore);
     persist(SETTINGS_STATE_STORAGE_KEY, settingsStore);
+    persist(APP_LOCK_STATE_STORAGE_KEY, appLockStore);
 
     // 应用启动时设置外观
     themeStore.setAppearanceMode(

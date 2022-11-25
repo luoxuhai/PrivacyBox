@@ -3,6 +3,9 @@ const zh = {
     ok: '好',
     cancel: '取消',
     back: '返回',
+    second: '秒',
+    minute: '分钟',
+    hour: '小时',
   },
   contentNavigator: {
     albumTab: '相册',
@@ -21,7 +24,8 @@ const zh = {
     },
     hapticFeedbackSwitch: '触觉反馈',
     language: '语言',
-    preference: '偏好设置',
+    preference: '通用偏好',
+    security: '安全',
     help: '帮助和支持',
     feedback: '反馈建议',
     share: '分享给朋友',
@@ -55,6 +59,26 @@ const zh = {
   },
   debugScreen: {
     title: '调试',
+  },
+  purchaseScreen: {},
+  appLockSettingsScreen: {
+    title: '密码锁',
+    autolockTimeout: '自动锁定时间',
+    biometrics: '使用{{ name }}解锁',
+    changePasscode: '修改密码',
+    autoTriggerBiometrics: '自动触发{{ name }}',
+    fakePasscodeSectionTitle: '伪装密码',
+    fakePasscodeSwitch: '开启伪装密码',
+    changeFakePasscode: '修改伪装密码',
+    hideBiometricsWhenFake: '隐藏解锁界面的 {{ name }} 按钮',
+    autolockTimeoutDisabled: '立即',
+    autolockTimeoutTip: '切换到其他 APP 后，超过以下选定到时间间隔后会自动锁定',
+  },
+  advancedSettingsScreen: {
+    title: '高级设置',
+  },
+  urgentSwitchScreen: {
+    title: '紧急切换',
   },
 };
 

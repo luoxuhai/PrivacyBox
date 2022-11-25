@@ -18,6 +18,10 @@ import {
   AboutScreen,
   AppearanceScreen,
   DebugScreen,
+  AppLockSettingsScreen,
+  AdvancedSettingsScreen,
+  UrgentSwitchScreen,
+  PurchaseScreen,
 } from '@/screens';
 import { spacing, typography, useTheme } from '@/theme';
 import { AppStackParamList, AppStackScreenProps } from './AppNavigator';
@@ -46,6 +50,10 @@ export type SettingStackParamList = {
   Appearance: typeof AppearanceScreen;
   About: typeof AboutScreen;
   Debug: typeof DebugScreen;
+  AppLockSettings: typeof AppLockSettingsScreen;
+  AdvancedSettings: typeof AdvancedSettingsScreen;
+  UrgentSwitch: typeof UrgentSwitchScreen;
+  Purchase: typeof PurchaseScreen;
 };
 
 const SettingStack = createNativeStackNavigator<SettingStackParamList>();
@@ -88,13 +96,47 @@ const SettingStackScreen: FC<StackScreenProps<SettingStackParamList>> = observer
           component={AboutScreen}
         />
         <SettingStack.Screen
-          name="Debug"
+          name="AppLockSettings"
           options={{
-            presentation: 'modal',
-            title: translate('debugScreen.title'),
+            title: translate('appLockSettingsScreen.title'),
           }}
-          component={DebugScreen}
+          component={AppLockSettingsScreen}
         />
+        <SettingStack.Screen
+          name="AdvancedSettings"
+          options={{
+            title: translate('advancedSettingsScreen.title'),
+          }}
+          component={AdvancedSettingsScreen}
+        />
+        <SettingStack.Screen
+          name="UrgentSwitch"
+          options={{
+            title: translate('urgentSwitchScreen.title'),
+          }}
+          component={UrgentSwitchScreen}
+        />
+
+        <SettingStack.Group
+          screenOptions={{
+            presentation: 'modal',
+          }}
+        >
+          <SettingStack.Screen
+            name="Purchase"
+            options={{
+              title: null,
+            }}
+            component={PurchaseScreen}
+          />
+          <SettingStack.Screen
+            name="Debug"
+            options={{
+              title: translate('debugScreen.title'),
+            }}
+            component={DebugScreen}
+          />
+        </SettingStack.Group>
       </SettingStack.Navigator>
     );
   },

@@ -15,10 +15,10 @@
 		2215ACBC1E62C44583DB69A9 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5AFED2E09CC2E86D1338C0F /* ExpoModulesProvider.swift */; };
 		35106825291FD2C000E8F0D7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 35106827291FD2C000E8F0D7 /* InfoPlist.strings */; };
 		3510682B29208F6200E8F0D7 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3510682A29208F6200E8F0D7 /* StoreKit.framework */; };
+		351068352932017600E8F0D7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 351068342932017500E8F0D7 /* LaunchScreen.storyboard */; };
 		35A62201291898BC0059A53D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 35A62200291898BB0059A53D /* GoogleService-Info.plist */; };
 		400EB2C1E1807E6CBC68B7AB /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951E59D51E504BC9C5F46169 /* ExpoModulesProvider.swift */; };
 		61C8591E7ADE002B28890453 /* libPods-PrivacyBox-PrivacyBoxTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B25F8635391834428A9A919A /* libPods-PrivacyBox-PrivacyBoxTests.a */; };
-		BE406F562862D73000A81E39 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE406F552862D73000A81E39 /* BootSplash.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +58,7 @@
 		3510682929208F4400E8F0D7 /* PrivacyBox.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = PrivacyBox.entitlements; path = PrivacyBox/PrivacyBox.entitlements; sourceTree = "<group>"; };
 		3510682A29208F6200E8F0D7 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		3510682E2920932500E8F0D7 /* hermes.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = hermes.xcframework; path = "Pods/hermes-engine/destroot/Library/Frameworks/universal/hermes.xcframework"; sourceTree = "<group>"; };
+		351068342932017500E8F0D7 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = PrivacyBox/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		35A62200291898BB0059A53D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "PrivacyBox/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-PrivacyBox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrivacyBox.debug.xcconfig"; path = "Target Support Files/Pods-PrivacyBox/Pods-PrivacyBox.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-PrivacyBox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrivacyBox.release.xcconfig"; path = "Target Support Files/Pods-PrivacyBox/Pods-PrivacyBox.release.xcconfig"; sourceTree = "<group>"; };
@@ -65,7 +66,6 @@
 		89C6BE57DB24E9ADA2F236DE /* Pods-PrivacyBox-PrivacyBoxTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrivacyBox-PrivacyBoxTests.release.xcconfig"; path = "Target Support Files/Pods-PrivacyBox-PrivacyBoxTests/Pods-PrivacyBox-PrivacyBoxTests.release.xcconfig"; sourceTree = "<group>"; };
 		951E59D51E504BC9C5F46169 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-PrivacyBox/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		B25F8635391834428A9A919A /* libPods-PrivacyBox-PrivacyBoxTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PrivacyBox-PrivacyBoxTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		BE406F552862D73000A81E39 /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = PrivacyBox/BootSplash.storyboard; sourceTree = "<group>"; };
 		CE06CDF100B9AA0FF7D820A3 /* libPods-PrivacyBox.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PrivacyBox.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5AFED2E09CC2E86D1338C0F /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-PrivacyBox-PrivacyBoxTests/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -114,11 +114,11 @@
 			children = (
 				3510682929208F4400E8F0D7 /* PrivacyBox.entitlements */,
 				35A62200291898BB0059A53D /* GoogleService-Info.plist */,
+				351068342932017500E8F0D7 /* LaunchScreen.storyboard */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				BE406F552862D73000A81E39 /* BootSplash.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				35106827291FD2C000E8F0D7 /* InfoPlist.strings */,
 			);
@@ -313,8 +313,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BE406F562862D73000A81E39 /* BootSplash.storyboard in Resources */,
 				35106825291FD2C000E8F0D7 /* InfoPlist.strings in Resources */,
+				351068352932017600E8F0D7 /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				35A62201291898BC0059A53D /* GoogleService-Info.plist in Resources */,
 			);

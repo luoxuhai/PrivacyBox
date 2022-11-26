@@ -8,3 +8,4 @@ export * from './device';
 export * from './application';
 export * from './DynamicUpdate';
 export * from './crashReporting';
+export * from './hooks';

@@ -73,7 +73,9 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
   [super application:application didFinishLaunchingWithOptions:launchOptions];
-  [RNBootSplash initWithStoryboard:@"BootSplash" rootView:rootView];
+  
+  [RNBootSplash initWithStoryboard:@"LaunchScreen" rootView:rootView];
+  
   return YES;
 }
 

@@ -3,8 +3,7 @@ import { observer } from 'mobx-react-lite';
 import { ViewStyle, ActionSheetIOS } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { SettingStackParamList } from '@/navigators';
-import { ListCell, ListSection, SafeAreaScrollView, Screen, Switch, Text } from '@/components';
-import { useNavigation } from '@react-navigation/native';
+import { ListCell, ListSection, SafeAreaScrollView, Screen, Switch } from '@/components';
 import { spacing, useTheme } from '@/theme';
 import { useStores } from '@/models';
 import { translate } from '@/i18n';
@@ -13,12 +12,14 @@ export const AppLockSettingsScreen: FC<StackScreenProps<SettingStackParamList, '
   observer(function AppLockSettingsScreen() {
     const { colors } = useTheme();
     const { appLockStore } = useStores();
-    const navigation = useNavigation();
 
     const handleSetAutolockTimeout = useCallback(() => {
       ActionSheetIOS.showActionSheetWithOptions(
         {
-          options: ['Cancel', ...autolockTimeoutOptions.map((option) => option.title)],
+          options: [
+            translate('common.cancel'),
+            ...autolockTimeoutOptions.map((option) => option.title),
+          ],
           cancelButtonIndex: 0,
           title: translate('appLockSettingsScreen.autolockTimeoutTip'),
         },
@@ -59,16 +60,19 @@ export const AppLockSettingsScreen: FC<StackScreenProps<SettingStackParamList, '
               rightIcon={
                 <Switch
                   value={appLockStore.biometricsEnabled}
-                  // onValueChange={settingsStore.setHapticFeedback}
+                  onValueChange={appLockStore.setBiometricsEnabled}
                 />
               }
             />
-            <ListCell tk="appLockSettingsScreen.autoTriggerBiometrics" />
-          </ListSection>
-          <ListSection titleTk="appLockSettingsScreen.fakePasscodeSectionTitle">
-            <ListCell tk="appLockSettingsScreen.fakePasscodeSwitch" />
-            <ListCell tk="appLockSettingsScreen.changeFakePasscode" />
-            <ListCell tk="appLockSettingsScreen.hideBiometricsWhenFake" />
+            <ListCell
+              tk="appLockSettingsScreen.autoTriggerBiometrics"
+              rightIcon={
+                <Switch
+                  value={appLockStore.autoTriggerBiometrics}
+                  onValueChange={appLockStore.setAutoTriggerBiometrics}
+                />
+              }
+            />
           </ListSection>
         </SafeAreaScrollView>
       </Screen>

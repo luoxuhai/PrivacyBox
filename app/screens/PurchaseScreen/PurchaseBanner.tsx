@@ -14,7 +14,7 @@ export function PurchaseBanner(props: PurchaseBannerProps) {
   const navigation = useNavigation<StackNavigationProp<SettingStackParamList, 'Purchase'>>();
 
   function handleToPurchase() {
-    navigation.navigate('Purchase');
+    navigation.navigate('AppMask');
   }
 
   return (

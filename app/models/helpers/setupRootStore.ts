@@ -9,7 +9,8 @@
  *
  * @refresh reset
  */
-import { Appearance } from 'react-native';
+import { Appearance, AppState } from 'react-native';
+import { AppStateStore } from '../AppStateStore';
 import type { RootStore } from '../RootStore';
 import { appearanceToMode, ThemeStore } from '../ThemeStore';
 import { persist } from './persist';
@@ -26,12 +27,14 @@ const APP_LOCK_STATE_STORAGE_KEY = 'appLock-v1';
  */
 export async function setupRootStore(rootStore: RootStore) {
   try {
-    const { themeStore, settingsStore, appLockStore } = rootStore;
+    const { themeStore, settingsStore, appLockStore, appStateStore } = rootStore;
 
     // 读取持久化配置
     persist(THEME_STATE_STORAGE_KEY, themeStore);
     persist(SETTINGS_STATE_STORAGE_KEY, settingsStore);
-    persist(APP_LOCK_STATE_STORAGE_KEY, appLockStore);
+    persist(APP_LOCK_STATE_STORAGE_KEY, appLockStore, {
+      blacklist: ['isLocked'],
+    });
 
     // 应用启动时设置外观
     themeStore.setAppearanceMode(
@@ -39,6 +42,7 @@ export async function setupRootStore(rootStore: RootStore) {
     );
 
     observeSystemAppearanceChange(themeStore);
+    observeAppStateChange(appStateStore);
   } catch (e) {
     if (__DEV__) {
       console.error('setupRootStore', e.message, null);
@@ -49,10 +53,19 @@ export async function setupRootStore(rootStore: RootStore) {
 /**
  * 监听系统外观变化
  */
-function observeSystemAppearanceChange(themeStore: ThemeStore) {
+function observeSystemAppearanceChange(store: ThemeStore) {
   Appearance.addChangeListener(() => {
-    if (themeStore.isSystemAppearance) {
-      themeStore.setAppearanceMode('auto');
+    if (store.isSystemAppearance) {
+      store.setAppearanceMode('auto');
     }
+  });
+}
+
+/**
+ * 监听应用活跃状态
+ */
+function observeAppStateChange(store: AppStateStore) {
+  AppState.addEventListener('change', (state) => {
+    store.setState(state);
   });
 }

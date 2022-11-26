@@ -1,4 +1,4 @@
-/* 
+/*
   InfoPlist.strings
   PrivacyBox
 
@@ -6,12 +6,12 @@
   
 */
 
-CFBundleDisplayName = "Privacy Box";
-NSAppleMusicUsageDescription = "To delete imported pictures and videos";
-NSCameraUsageDescription = "The app will access your camera permissions when you use the import pictures and videos from camera function, in order to import pictures and videos";
-NSFaceIDUsageDescription = "The app will access your face ID permission when you use the face unlock function, in order to unlock quickly";
-NSLocationWhenInUseUsageDescription = "We need access to your location to automatically switch display languages";
-NSMicrophoneUsageDescription = "The app will access your microphone permission when you use the record video from camera function, in order to record video sound";
-NSMotionUsageDescription = "To lock the APP when the device screen is down";
-NSPhotoLibraryAddUsageDescription = "To save pictures and videos to the album";
-NSPhotoLibraryUsageDescription = "The app will access your album permissions when you use the import pictures and videos from album function, in order to import pictures and videos";
+CFBundleDisplayName = "隐私盒子";
+NSAppleMusicUsageDescription = "为了删除已导入的图片和视频";
+NSCameraUsageDescription = "App会在您使用从相机导入图片和视频功能时，访问您的相机权限，为了导入图片和视频";
+NSFaceIDUsageDescription = "App会在您使用面容解锁功能时，访问您的面容ID权限，为了快速解锁";
+NSLocationWhenInUseUsageDescription = "我们需要访问您的位置信息才能自动切换显示语言";
+NSMicrophoneUsageDescription = "App会在您使用从相机录制视频功能时，访问您的麦克风权限，为了录制视频声音";
+NSMotionUsageDescription = "为了让设备屏幕向下时锁定APP";
+NSPhotoLibraryAddUsageDescription = "为了保存图片和视频到相册";
+NSPhotoLibraryUsageDescription = "App会在您使用从相册导入图片和视频功能时，访问您的相册权限，为了导入图片和视频";

@@ -63,16 +63,18 @@ const zh = {
   purchaseScreen: {},
   appLockSettingsScreen: {
     title: '密码锁',
-    autolockTimeout: '自动锁定时间',
+    autolockTimeout: '自动锁定',
     biometrics: '使用{{ name }}解锁',
     changePasscode: '修改密码',
     autoTriggerBiometrics: '自动触发{{ name }}',
-    fakePasscodeSectionTitle: '伪装密码',
+    autolockTimeoutDisabled: '立即',
+    autolockTimeoutTip: '切换到其他 APP 后，超过以下选定到时间间隔后会自动锁定',
+  },
+  fakeAppLockSettingsScreen: {
+    title: '伪装密码',
     fakePasscodeSwitch: '开启伪装密码',
     changeFakePasscode: '修改伪装密码',
     hideBiometricsWhenFake: '隐藏解锁界面的 {{ name }} 按钮',
-    autolockTimeoutDisabled: '立即',
-    autolockTimeoutTip: '切换到其他 APP 后，超过以下选定到时间间隔后会自动锁定',
   },
   advancedSettingsScreen: {
     title: '高级设置',

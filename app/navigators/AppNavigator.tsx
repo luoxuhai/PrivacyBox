@@ -13,13 +13,14 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StackScreenProps } from '@react-navigation/stack';
 import { observer } from 'mobx-react-lite';
 import React, { useMemo } from 'react';
-import { useColorScheme } from 'react-native';
+
 import Config from '@/config';
 import { useStores } from '@/models'; // @demo remove-current-line
-import { AboutScreen, PasscodeLockScreen } from '@/screens';
+import { AppLockScreen } from '@/screens';
 import { ContentNavigator, ContentTabParamList } from './ContentNavigator'; // @demo remove-current-line
 import { navigationRef, useBackButtonHandler } from './navigationUtilities';
 import { useTheme } from '@/theme';
+import { AppMaskScreen } from '@/screens/AppMaskScreen';
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -35,9 +36,9 @@ import { useTheme } from '@/theme';
  *   https://reactnavigation.org/docs/typescript/#organizing-types
  */
 export type AppStackParamList = {
-  PasscodeLock: typeof PasscodeLockScreen;
+  AppLock: typeof AppLockScreen;
+  AppMask: typeof AppMaskScreen;
   Content: NavigatorScreenParams<ContentTabParamList>;
-  // 🔥 Your screens go here
 };
 
 /**
@@ -55,15 +56,36 @@ export type AppStackScreenProps<T extends keyof AppStackParamList> = StackScreen
 const Stack = createNativeStackNavigator<AppStackParamList>();
 
 const AppStack = observer(function AppStack() {
-  // @demo remove-block-start
   const {
     authenticationStore: { isAuthenticated },
   } = useStores();
 
-  // @demo remove-block-end
   return (
-    <Stack.Navigator initialRouteName={'PasscodeLock'}>
-      <Stack.Screen name="PasscodeLock" component={PasscodeLockScreen} />
+    <Stack.Navigator initialRouteName={'AppLock'}>
+      <Stack.Group
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen
+          name="AppLock"
+          component={AppLockScreen}
+          options={{
+            presentation: 'fullScreenModal',
+            animation: 'fade',
+          }}
+        />
+        <Stack.Screen
+          name="AppMask"
+          component={AppMaskScreen}
+          options={{
+            presentation: 'transparentModal',
+            animation: 'none',
+            autoHideHomeIndicator: true,
+          }}
+        />
+      </Stack.Group>
+
       <Stack.Screen
         name="Content"
         component={ContentNavigator}

@@ -13,16 +13,6 @@ import { storage } from '@/storage';
 
 type Storage = typeof storage;
 
-/* eslint-disable */
-export const RootNavigation = {
-  navigate(_name: string, _params?: any) {},
-  goBack() {},
-  resetRoot(_state?: PartialState<NavigationState> | NavigationState) {},
-  getRootState(): NavigationState {
-    return {} as any;
-  },
-  dispatch(_action: NavigationAction) {},
-};
 /* eslint-enable */
 
 export const navigationRef = createNavigationContainerRef();
@@ -171,3 +161,9 @@ export function resetRoot(params = { index: 0, routes: [] }) {
     navigationRef.resetRoot(params);
   }
 }
+
+export const RootNavigation = {
+  navigate,
+  goBack,
+  resetRoot,
+};

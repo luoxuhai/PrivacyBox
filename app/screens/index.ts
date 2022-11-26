@@ -14,3 +14,5 @@ export * from './AppLockScreen';
 export * from './AdvancedSettingsScreen'
 export * from './UrgentSwitchScreen'
 export * from './PurchaseScreen/PurchaseScreen'
+export * from './FakeAppLockSettingsScreen'
+export * from './AppMaskScreen'

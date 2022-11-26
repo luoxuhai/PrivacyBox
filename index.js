@@ -4,11 +4,13 @@
 
 import App from './app/app.tsx';
 import React from 'react';
-import { AppRegistry } from 'react-native';
 import BootSplash from 'react-native-bootsplash';
+import { AppRegistry } from 'react-native';
+
+BootSplash.hide({ fade: true });
 
 function Main() {
-  return <App hideSplashScreen={BootSplash.hide} />;
+  return <App />;
 }
 
 AppRegistry.registerComponent('PrivacyBox', () => Main);

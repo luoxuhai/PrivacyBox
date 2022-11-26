@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>status</key>
-	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -24,28 +22,57 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
-	<key>LSRequiresIPhoneOS</key>
-	<true/>
 	<key>CodePushDeploymentKey</key>
 	<string>$(CODEPUSH_KEY)</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>wechat</string>
+		<string>snssdk1128</string>
+		<string>bilibili</string>
+		<string>weixin</string>
+		<string>mqq</string>
+		<string>kwai</string>
+		<string>snssdk1233</string>
+		<string>facebook</string>
+		<string>twitter</string>
+		<string>instagram</string>
+	</array>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>localhost</key>
+			<key>codepush.appcenter.ms</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
 			</dict>
-			<key>codepush.appcenter.ms</key>
+			<key>localhost</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
 			</dict>
 		</dict>
 	</dict>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>$NSAppleMusicUsageDescription</string>
+	<key>NSCameraUsageDescription</key>
+	<string>$NSCameraUsageDescription</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>$NSFaceIDUsageDescription</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>$NSLocationWhenInUseUsageDescription</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>$NSMicrophoneUsageDescription</string>
+	<key>NSMotionUsageDescription</key>
+	<string>$NSMotionUsageDescription</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>$NSPhotoLibraryAddUsageDescription</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>$NSPhotoLibraryUsageDescription</string>
 	<key>UILaunchStoryboardName</key>
-	<string>BootSplash</string>
+	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
@@ -55,24 +82,16 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationPortrait</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSAppleMusicUsageDescription</key>
-	<string>$NSAppleMusicUsageDescription</string>
-	<key>NSCameraUsageDescription</key>
-	<string>$NSCameraUsageDescription</string>
-	<key>NSFaceIDUsageDescription</key>
-	<string>$NSFaceIDUsageDescription</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>$NSMicrophoneUsageDescription</string>
-	<key>NSMotionUsageDescription</key>
-	<string>$NSMotionUsageDescription</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>$NSPhotoLibraryAddUsageDescription</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>$NSLocationWhenInUseUsageDescription</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>$NSPhotoLibraryUsageDescription</string>
 </dict>
 </plist>

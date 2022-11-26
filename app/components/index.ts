@@ -4,6 +4,6 @@ export * from './Screen';
 export * from './Text';
 export * from './SafeAreaScrollView';
 export * from './BottomTabIcon';
-export * from './Blur';
+export * from './BlurView';
 export * from './List';
 export * from './Switch';

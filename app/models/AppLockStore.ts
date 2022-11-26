@@ -18,13 +18,25 @@ export const AppLockStoreModel = types
     fakePasscode: types.optional(types.string, ''),
     /** 隐藏解锁界面的生物识别按钮 */
     biometricsEnabledWhenFake: types.optional(types.boolean, false),
-  })
+    /** 是否已锁住 */
+    isAppLocked: types.optional(types.boolean, true),
+    /** 手动锁住 */
+    // isManuallyLocked: types.optional(types.boolean, true),
+  })                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
   .views((self) => ({})) // eslint-disable-line @typescript-eslint/no-unused-vars
   .actions((self) => ({
     setAutolockTimeout(autolockTimeout: number) {
       self.autolockTimeout = autolockTimeout;
     },
-  })); // eslint-disable-line @typescript-eslint/no-unused-vars
+
+    setBiometricsEnabled(biometricsEnabled: boolean) {
+      self.biometricsEnabled = biometricsEnabled;
+    },
+
+    setAutoTriggerBiometrics(autoTriggerBiometrics: boolean) {
+      self.autoTriggerBiometrics = autoTriggerBiometrics;
+    },
+  }));
 
 export interface AppLockStore extends Instance<typeof AppLockStoreModel> {}
 export interface AppLockStoreSnapshotOut extends SnapshotOut<typeof AppLockStoreModel> {}

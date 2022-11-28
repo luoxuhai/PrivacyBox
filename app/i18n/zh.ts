@@ -6,6 +6,8 @@ const zh = {
     second: '秒',
     minute: '分钟',
     hour: '小时',
+    appName: '隐私盒子',
+    coming: '即将推出...',
   },
   contentNavigator: {
     albumTab: '相册',
@@ -61,12 +63,16 @@ const zh = {
     title: '调试',
   },
   purchaseScreen: {},
+  appLockScreen: {
+    faceId: '面容',
+    touchId: '指纹',
+  },
   appLockSettingsScreen: {
     title: '密码锁',
     autolockTimeout: '自动锁定',
     biometrics: '使用{{ name }}解锁',
     changePasscode: '修改密码',
-    autoTriggerBiometrics: '自动触发{{ name }}',
+    autoTriggerBiometrics: '自动触发{{ name }}解锁',
     autolockTimeoutDisabled: '立即',
     autolockTimeoutTip: '切换到其他 APP 后，超过以下选定到时间间隔后会自动锁定',
   },
@@ -74,13 +80,19 @@ const zh = {
     title: '伪装密码',
     fakePasscodeSwitch: '开启伪装密码',
     changeFakePasscode: '修改伪装密码',
-    hideBiometricsWhenFake: '隐藏解锁界面的 {{ name }} 按钮',
+    hideBiometricsWhenFake: '隐藏解锁界面的{{ name }}按钮',
   },
   advancedSettingsScreen: {
     title: '高级设置',
   },
   urgentSwitchScreen: {
     title: '紧急切换',
+  },
+  fakeAppHomeScreen: {
+    removeInfo: '去除图片隐私信息',
+    faceMosaic: '人像打码',
+    textMosaic: '文本打码',
+    QRCodeMosaic: '二维码/条形码打码',
   },
 };
 

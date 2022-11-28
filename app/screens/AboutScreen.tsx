@@ -1,12 +1,12 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
-import { Text, Linking, ViewStyle } from 'react-native';
+import { Linking, ViewStyle } from 'react-native';
 import Clipboard from '@react-native-clipboard/clipboard';
 import { observer } from 'mobx-react-lite';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { StackScreenProps } from '@react-navigation/stack';
 
 import { ListSection, ListCell, Screen, SafeAreaScrollView } from '@/components';
-import { spacing, typography, useTheme } from '@/theme';
+import { spacing, useTheme } from '@/theme';
 import Config from '@/config';
 import { openLinkInAppBrowser, HapticFeedback, Overlay, Application, DynamicUpdate } from '@/utils';
 import { i18n, SupportedLanguage, translate } from '@/i18n';

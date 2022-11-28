@@ -21,6 +21,8 @@ import { ContentNavigator, ContentTabParamList } from './ContentNavigator'; // @
 import { navigationRef, useBackButtonHandler } from './navigationUtilities';
 import { useTheme } from '@/theme';
 import { AppMaskScreen } from '@/screens/AppMaskScreen';
+import { FakeAppHomeScreen } from '@/screens/FakeAppHomeScreen';
+import { translate } from '@/i18n';
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -38,6 +40,7 @@ import { AppMaskScreen } from '@/screens/AppMaskScreen';
 export type AppStackParamList = {
   AppLock: typeof AppLockScreen;
   AppMask: typeof AppMaskScreen;
+  FakeAppHome: typeof FakeAppHomeScreen;
   Content: NavigatorScreenParams<ContentTabParamList>;
 };
 
@@ -52,13 +55,13 @@ export type AppStackScreenProps<T extends keyof AppStackParamList> = StackScreen
   T
 >;
 
-// Documentation: https://reactnavigation.org/docs/stack-navigator/
 const Stack = createNativeStackNavigator<AppStackParamList>();
 
 const AppStack = observer(function AppStack() {
   const {
     authenticationStore: { isAuthenticated },
   } = useStores();
+  const { isDark, colors } = useTheme();
 
   return (
     <Stack.Navigator initialRouteName={'AppLock'}>
@@ -72,7 +75,7 @@ const AppStack = observer(function AppStack() {
           component={AppLockScreen}
           options={{
             presentation: 'fullScreenModal',
-            animation: 'fade',
+            animation: 'flip',
           }}
         />
         <Stack.Screen
@@ -80,11 +83,27 @@ const AppStack = observer(function AppStack() {
           component={AppMaskScreen}
           options={{
             presentation: 'transparentModal',
-            animation: 'none',
+            animation: 'fade',
             autoHideHomeIndicator: true,
           }}
         />
       </Stack.Group>
+
+      <Stack.Screen
+        name="FakeAppHome"
+        component={FakeAppHomeScreen}
+        options={{
+          title: translate('common.appName'),
+          presentation: 'fullScreenModal',
+          animation: 'flip',
+          headerBlurEffect: isDark ? 'systemMaterialDark' : 'systemMaterialLight',
+          headerTransparent: true,
+          headerLargeTitle: true,
+          headerStyle: {
+            backgroundColor: colors.background,
+          },
+        }}
+      />
 
       <Stack.Screen
         name="Content"

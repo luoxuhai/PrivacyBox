@@ -7,10 +7,12 @@ import { ListCell, ListSection, SafeAreaScrollView, Screen, Switch } from '@/com
 import { spacing, useTheme } from '@/theme';
 import { useStores } from '@/models';
 import { translate } from '@/i18n';
+import { useLocalAuth, getBiometricName } from '@/utils';
 
 export const AppLockSettingsScreen: FC<StackScreenProps<SettingStackParamList, 'AppLockSettings'>> =
   observer(function AppLockSettingsScreen() {
     const { colors } = useTheme();
+    const { usedBiometricType } = useLocalAuth();
     const { appLockStore } = useStores();
 
     const handleSetAutolockTimeout = useCallback(() => {
@@ -38,6 +40,8 @@ export const AppLockSettingsScreen: FC<StackScreenProps<SettingStackParamList, '
       [appLockStore.autolockTimeout],
     );
 
+    const biometricName = useMemo(() => getBiometricName(usedBiometricType), [usedBiometricType]);
+
     return (
       <Screen style={$screen}>
         <SafeAreaScrollView contentContainerStyle={$contentContainer}>
@@ -52,27 +56,35 @@ export const AppLockSettingsScreen: FC<StackScreenProps<SettingStackParamList, '
               RightAccessory={formattedAutolockTimeout}
               onPress={handleSetAutolockTimeout}
             />
-            <ListCell
-              tk="appLockSettingsScreen.biometrics"
-              tkOptions={{
-                name: '面容',
-              }}
-              rightIcon={
-                <Switch
-                  value={appLockStore.biometricsEnabled}
-                  onValueChange={appLockStore.setBiometricsEnabled}
+            {usedBiometricType && (
+              <>
+                <ListCell
+                  tk="appLockSettingsScreen.biometrics"
+                  tkOptions={{
+                    name: biometricName,
+                  }}
+                  rightIcon={
+                    <Switch
+                      value={appLockStore.biometricsEnabled}
+                      onValueChange={appLockStore.setBiometricsEnabled}
+                    />
+                  }
                 />
-              }
-            />
-            <ListCell
-              tk="appLockSettingsScreen.autoTriggerBiometrics"
-              rightIcon={
-                <Switch
-                  value={appLockStore.autoTriggerBiometrics}
-                  onValueChange={appLockStore.setAutoTriggerBiometrics}
+                <ListCell
+                  tk="appLockSettingsScreen.autoTriggerBiometrics"
+                  tkOptions={{
+                    name: biometricName,
+                  }}
+                  rightIcon={
+                    <Switch
+                      value={appLockStore.autoTriggerBiometrics}
+                      disabled={!appLockStore.biometricsEnabled}
+                      onValueChange={appLockStore.setAutoTriggerBiometrics}
+                    />
+                  }
                 />
-              }
-            />
+              </>
+            )}
           </ListSection>
         </SafeAreaScrollView>
       </Screen>

@@ -13,14 +13,14 @@ import { useUpdateEffect } from '@/utils';
 export const AppMaskScreen: FC<StackScreenProps<AppStackParamList, 'AppMask'>> = observer(
   function AppMaskScreen(props) {
     const { isDark } = useTheme();
-    const { appStateStore } = useStores();
+    const { appStateStore, appLockStore } = useStores();
     const blurType = isDark ? 'materialDark' : 'materialLight';
 
     useUpdateEffect(() => {
-      if (appStateStore.inForeground) {
+      if (appStateStore.inForeground || appLockStore.isAppLocked) {
         props.navigation.goBack();
       }
-    }, [appStateStore.inForeground]);
+    }, [appStateStore.inForeground, appLockStore.isAppLocked]);
 
     return (
       <>

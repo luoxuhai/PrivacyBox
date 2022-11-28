@@ -7,12 +7,15 @@ import { ListCell, ListSection, SafeAreaScrollView, Screen, Switch } from '@/com
 import { spacing, useTheme } from '@/theme';
 import { useStores } from '@/models';
 import { translate } from '@/i18n';
+import { useLocalAuth, getBiometricName } from '@/utils';
 
 export const FakeAppLockSettingsScreen: FC<
   StackScreenProps<SettingStackParamList, 'FakeAppLockSettings'>
 > = observer(function FakeAppLockSettingsScreen() {
   const { colors } = useTheme();
   const { appLockStore } = useStores();
+  const { usedBiometricType } = useLocalAuth();
+  const biometricName = useMemo(() => getBiometricName(usedBiometricType), [usedBiometricType]);
 
   return (
     <Screen style={$screen}>
@@ -26,21 +29,26 @@ export const FakeAppLockSettingsScreen: FC<
             tk="fakeAppLockSettingsScreen.fakePasscodeSwitch"
             rightIcon={
               <Switch
-                value={appLockStore.autoTriggerBiometrics}
-                onValueChange={appLockStore.setAutoTriggerBiometrics}
+                value={appLockStore.fakePasscodeEnabled}
+                onValueChange={appLockStore.setFakePasscodeEnabled}
               />
             }
           />
           <ListCell tk="fakeAppLockSettingsScreen.changeFakePasscode" />
-          <ListCell
-            tk="fakeAppLockSettingsScreen.hideBiometricsWhenFake"
-            rightIcon={
-              <Switch
-                value={appLockStore.autoTriggerBiometrics}
-                onValueChange={appLockStore.setAutoTriggerBiometrics}
-              />
-            }
-          />
+          {usedBiometricType && appLockStore.biometricsEnabled && (
+            <ListCell
+              tk="fakeAppLockSettingsScreen.hideBiometricsWhenFake"
+              tkOptions={{
+                name: biometricName,
+              }}
+              rightIcon={
+                <Switch
+                  value={appLockStore.biometricsEnabledWhenFake}
+                  onValueChange={appLockStore.setBiometricsEnabledWhenFake}
+                />
+              }
+            />
+          )}
         </ListSection>
       </SafeAreaScrollView>
     </Screen>

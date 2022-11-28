@@ -31,6 +31,8 @@ interface ScreenProps {
    * Pass any additional props directly to the KeyboardAvoidingView component.
    */
   keyboardAvoidingViewProps?: KeyboardAvoidingViewProps;
+  keyboardAvoidingEnabled?: boolean;
+  safeAreaEnabled?: boolean;
 }
 
 export function Screen(props: ScreenProps) {
@@ -39,19 +41,25 @@ export function Screen(props: ScreenProps) {
     keyboardAvoidingViewProps,
     keyboardOffset = 0,
     statusBarStyle = isDark ? 'light' : 'dark',
+    keyboardAvoidingEnabled = false,
+    safeAreaEnabled = false,
   } = props;
 
   return (
     <View style={[$screen, props.style]}>
       <StatusBar style={statusBarStyle} animated {...props.statusBarProps} />
-      <KeyboardAvoidingView
-        behavior="padding"
-        keyboardVerticalOffset={keyboardOffset}
-        {...keyboardAvoidingViewProps}
-        style={[$keyboardAvoidingViewStyle, keyboardAvoidingViewProps?.style]}
-      >
-        {props.children}
-      </KeyboardAvoidingView>
+      {keyboardAvoidingEnabled ? (
+        <KeyboardAvoidingView
+          behavior="padding"
+          keyboardVerticalOffset={keyboardOffset}
+          {...keyboardAvoidingViewProps}
+          style={[$keyboardAvoidingViewStyle, keyboardAvoidingViewProps?.style]}
+        >
+          {props.children}
+        </KeyboardAvoidingView>
+      ) : (
+        props.children
+      )}
     </View>
   );
 }

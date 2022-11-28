@@ -14,6 +14,8 @@ export const AppLockStoreModel = types
     biometricsEnabled: types.optional(types.boolean, true),
     /** 自动触发生物识别 */
     autoTriggerBiometrics: types.optional(types.boolean, true),
+    /** 开启假密码 */
+    fakePasscodeEnabled: types.optional(types.boolean, false),
     /** 假密码 */
     fakePasscode: types.optional(types.string, ''),
     /** 隐藏解锁界面的生物识别按钮 */
@@ -22,7 +24,7 @@ export const AppLockStoreModel = types
     isAppLocked: types.optional(types.boolean, true),
     /** 手动锁住 */
     // isManuallyLocked: types.optional(types.boolean, true),
-  })                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+  })
   .views((self) => ({})) // eslint-disable-line @typescript-eslint/no-unused-vars
   .actions((self) => ({
     setAutolockTimeout(autolockTimeout: number) {
@@ -35,6 +37,14 @@ export const AppLockStoreModel = types
 
     setAutoTriggerBiometrics(autoTriggerBiometrics: boolean) {
       self.autoTriggerBiometrics = autoTriggerBiometrics;
+    },
+
+    setBiometricsEnabledWhenFake(biometricsEnabledWhenFake: boolean) {
+      self.biometricsEnabledWhenFake = biometricsEnabledWhenFake;
+    },
+
+    setFakePasscodeEnabled(fakePasscodeEnabled: boolean) {
+      self.fakePasscodeEnabled = fakePasscodeEnabled;
     },
   }));
 

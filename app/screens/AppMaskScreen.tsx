@@ -17,10 +17,10 @@ export const AppMaskScreen: FC<StackScreenProps<AppStackParamList, 'AppMask'>> =
     const blurType = isDark ? 'materialDark' : 'materialLight';
 
     useUpdateEffect(() => {
-      if (appStateStore.inForeground || appLockStore.isAppLocked) {
+      if (appStateStore.inForeground || appLockStore.isLocked) {
         props.navigation.goBack();
       }
-    }, [appStateStore.inForeground, appLockStore.isAppLocked]);
+    }, [appStateStore.inForeground, appLockStore.isLocked]);
 
     return (
       <>

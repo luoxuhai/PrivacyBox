@@ -1,10 +1,11 @@
 import React, { FC, useMemo } from 'react';
 import { observer } from 'mobx-react-lite';
-import { ViewStyle, TouchableOpacity, View, TextStyle } from 'react-native';
+import { ViewStyle, TouchableOpacity, View, TextStyle, Alert } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { TextAlt, QrCode, MediaImage, PeopleRounded } from 'iconoir-react-native';
 import { FlashList, ContentStyle } from '@shopify/flash-list';
 import { colord } from 'colord';
+import { FlingGestureHandler, Directions, State } from 'react-native-gesture-handler';
 
 import { AppStackParamList } from '@/navigators';
 import { Screen, Text } from '@/components';
@@ -58,7 +59,6 @@ export const FakeAppHomeScreen: FC<StackScreenProps<AppStackParamList, 'FakeAppH
         title: translate('common.coming'),
         preset: 'error',
       });
-      // props.navigation.replace('AppLock');
     }
 
     return (
@@ -72,7 +72,12 @@ export const FakeAppHomeScreen: FC<StackScreenProps<AppStackParamList, 'FakeAppH
           data={list}
           renderItem={({ item }) => <CardItem {...item} onPress={handleNavigate} />}
           numColumns={2}
+          estimatedItemSize={100}
           contentInsetAdjustmentBehavior="automatic"
+          refreshing={false}
+          onRefresh={() => {
+            props.navigation.replace('AppLock');
+          }}
         />
       </Screen>
     );

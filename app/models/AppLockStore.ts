@@ -1,4 +1,6 @@
 import { Instance, SnapshotIn, SnapshotOut, types } from 'mobx-state-tree';
+import { getUptimeAsync } from 'expo-device';
+import { isAppLocked } from '@/screens/AppLockScreen/AppLock';
 
 /**
  * Model description here for TypeScript hints.
@@ -7,13 +9,15 @@ export const AppLockStoreModel = types
   .model('AppLockStore')
   .props({
     /** 解锁密码 */
-    passcode: types.optional(types.string, ''),
+    passcode: types.optional(types.string, '123456'),
     /** 自动锁定时间 */
     autolockTimeout: types.optional(types.number, 0),
     /** 开启生物识别 */
     biometricsEnabled: types.optional(types.boolean, true),
     /** 自动触发生物识别 */
     autoTriggerBiometrics: types.optional(types.boolean, true),
+    /** 当前是伪装环境 */
+    inFakeEnvironment: types.optional(types.boolean, false),
     /** 开启假密码 */
     fakePasscodeEnabled: types.optional(types.boolean, false),
     /** 假密码 */
@@ -21,11 +25,12 @@ export const AppLockStoreModel = types
     /** 隐藏解锁界面的生物识别按钮 */
     biometricsEnabledWhenFake: types.optional(types.boolean, false),
     /** 是否已锁住 */
-    isAppLocked: types.optional(types.boolean, true),
+    isLocked: types.optional(types.boolean, true),
+    /** APP 进入后台时间戳 */
+    appInBackgroundTimestamp: types.optional(types.number, 0),
     /** 手动锁住 */
     // isManuallyLocked: types.optional(types.boolean, true),
   })
-  .views((self) => ({})) // eslint-disable-line @typescript-eslint/no-unused-vars
   .actions((self) => ({
     setAutolockTimeout(autolockTimeout: number) {
       self.autolockTimeout = autolockTimeout;
@@ -45,6 +50,23 @@ export const AppLockStoreModel = types
 
     setFakePasscodeEnabled(fakePasscodeEnabled: boolean) {
       self.fakePasscodeEnabled = fakePasscodeEnabled;
+    },
+
+    setAppInBackgroundTimestamp(appInBackgroundTimestamp: number) {
+      self.appInBackgroundTimestamp = appInBackgroundTimestamp;
+    },
+
+    setIsLocked(isLocked: boolean) {
+      self.isLocked = isLocked;
+    },
+
+    lock() {
+      self.isLocked = true;
+    },
+
+    unlock() {
+      self.isLocked = false;
+      self.appInBackgroundTimestamp = 0;
     },
   }));
 

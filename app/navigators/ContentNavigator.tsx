@@ -22,10 +22,10 @@ import {
   AdvancedSettingsScreen,
   UrgentSwitchScreen,
   PurchaseScreen,
+  FakeAppHomeSettingsScreen,
 } from '@/screens';
 import { spacing, typography, useTheme } from '@/theme';
 import { AppStackParamList, AppStackScreenProps } from './AppNavigator';
-import { FakeAppLockSettingsScreen } from '@/screens/FakeAppLockSettingsScreen';
 
 export type ContentTabParamList = {
   Album: undefined;
@@ -52,7 +52,7 @@ export type SettingStackParamList = {
   About: typeof AboutScreen;
   Debug: typeof DebugScreen;
   AppLockSettings: typeof AppLockSettingsScreen;
-  FakeAppLockSettings: typeof FakeAppLockSettingsScreen;
+  FakeAppHomeSettings: typeof FakeAppHomeSettingsScreen;
   AdvancedSettings: typeof AdvancedSettingsScreen;
   UrgentSwitch: typeof UrgentSwitchScreen;
   Purchase: typeof PurchaseScreen;
@@ -105,11 +105,11 @@ const SettingStackScreen: FC<StackScreenProps<SettingStackParamList>> = observer
           component={AppLockSettingsScreen}
         />
         <SettingStack.Screen
-          name="FakeAppLockSettings"
+          name="FakeAppHomeSettings"
           options={{
             title: translate('fakeAppLockSettingsScreen.title'),
           }}
-          component={FakeAppLockSettingsScreen}
+          component={FakeAppHomeSettingsScreen}
         />
         <SettingStack.Screen
           name="AdvancedSettings"

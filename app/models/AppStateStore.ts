@@ -1,14 +1,13 @@
-import { AppState, AppStateStatus } from 'react-native';
+import { AppStateStatus } from 'react-native';
 import { Instance, SnapshotIn, SnapshotOut, types } from 'mobx-state-tree';
-import { boolean } from 'mobx-state-tree/dist/internal';
+import { getRootStore } from './helpers/getRootStore';
+import { isAppLocked } from '@/screens/AppLockScreen/AppLock';
 
-/**
- * Model description here for TypeScript hints.
- */
+let lockTimer: NodeJS.Timeout;
+
 export const AppStateStoreModel = types
   .model('AppStateStore')
   .props({
-    bootTimestamp: types.number,
     state: types.optional(
       types.union(
         types.literal('active'),
@@ -24,16 +23,28 @@ export const AppStateStoreModel = types
     get inForeground() {
       return self.state === 'active';
     },
-
-    get uptime() {
-      return Date.now() - self.bootTimestamp;
-    },
   }))
-  .actions((self) => ({
-    setState(state: AppStateStatus) {
-      self.state = state;
-    },
-  }));
+  .actions((self) => {
+    return {
+      setState(state: AppStateStatus) {
+        self.state = state;
+        const { appLockStore } = getRootStore(self);
+
+        if (state === 'background') {
+          appLockStore.setAppInBackgroundTimestamp(Date.now());
+
+          clearTimeout(lockTimer);
+          lockTimer = setTimeout(() => {
+            if (isAppLocked(appLockStore)) {
+              appLockStore.lock();
+            }
+          }, appLockStore.autolockTimeout * 1000);
+        } else if (state === 'active') {
+          clearTimeout(lockTimer);
+        }
+      },
+    };
+  });
 
 export interface AppStateStore extends Instance<typeof AppStateStoreModel> {}
 export interface AppStateStoreSnapshotOut extends SnapshotOut<typeof AppStateStoreModel> {}

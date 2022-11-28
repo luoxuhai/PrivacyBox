@@ -45,9 +45,9 @@ export const SettingScreen: FC<StackScreenProps<SettingStackParamList, 'Settings
               }}
             />
             <ListCell
-              tk="fakeAppLockSettingsScreen.title"
+              tk="fakeAppHomeSettingsScreen.title"
               onPress={() => {
-                navigation.navigate('FakeAppLockSettings');
+                navigation.navigate('FakeAppHomeSettings');
               }}
             />
             <ListCell

@@ -14,9 +14,7 @@ export const RootStoreModel = types.model('RootStore').props({
   themeStore: types.optional(ThemeStoreModel, {}),
   settingsStore: types.optional(SettingsStoreModel, {}),
   appLockStore: types.optional(AppLockStoreModel, {}),
-  appStateStore: types.optional(AppStateStoreModel, {
-    bootTimestamp: Date.now(),
-  }),
+  appStateStore: types.optional(AppStateStoreModel, {}),
 });
 
 /**

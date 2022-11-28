@@ -45,13 +45,13 @@ const App: FC = observer(() => {
   const { rehydrated, rootStore } = useInitialRootStore();
 
   useUpdateEffect(() => {
-    if (!rootStore.appStateStore.inForeground && !rootStore.appLockStore.isAppLocked) {
-      RootNavigation.navigate('AppMask');
+    if (rootStore.appLockStore.isLocked) {
+      RootNavigation.navigate('AppLock');
     }
-  }, [rootStore.appStateStore.inForeground]);
+  }, [rootStore.appLockStore.isLocked]);
 
   useUpdateEffect(() => {
-    if (!rootStore.appStateStore.inForeground && !rootStore.appLockStore.isAppLocked) {
+    if (!rootStore.appStateStore.inForeground && !rootStore.appLockStore.isLocked) {
       RootNavigation.navigate('AppMask');
     }
   }, [rootStore.appStateStore.inForeground]);

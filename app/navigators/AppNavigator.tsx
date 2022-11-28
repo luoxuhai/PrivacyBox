@@ -64,7 +64,7 @@ const AppStack = observer(function AppStack() {
   const { isDark, colors } = useTheme();
 
   return (
-    <Stack.Navigator initialRouteName={'AppLock'}>
+    <Stack.Navigator initialRouteName={'FakeAppHome'}>
       <Stack.Group
         screenOptions={{
           headerShown: false,

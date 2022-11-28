@@ -86,10 +86,46 @@ export const AppLockSettingsScreen: FC<StackScreenProps<SettingStackParamList, '
               </>
             )}
           </ListSection>
+          <FakeAppLockSection />
         </SafeAreaScrollView>
       </Screen>
     );
   });
+
+export const FakeAppLockSection = observer(() => {
+  const { appLockStore } = useStores();
+  const { usedBiometricType } = useLocalAuth();
+  const biometricName = useMemo(() => getBiometricName(usedBiometricType), [usedBiometricType]);
+
+  return (
+    <ListSection titleTk="fakeAppLockSettingsScreen.title">
+      <ListCell
+        tk="fakeAppLockSettingsScreen.fakePasscodeSwitch"
+        rightIcon={
+          <Switch
+            value={appLockStore.fakePasscodeEnabled}
+            onValueChange={appLockStore.setFakePasscodeEnabled}
+          />
+        }
+      />
+      <ListCell tk="fakeAppLockSettingsScreen.changeFakePasscode" />
+      {usedBiometricType && appLockStore.biometricsEnabled && (
+        <ListCell
+          tk="fakeAppLockSettingsScreen.hideBiometricsWhenFake"
+          tkOptions={{
+            name: biometricName,
+          }}
+          rightIcon={
+            <Switch
+              value={appLockStore.biometricsEnabledWhenFake}
+              onValueChange={appLockStore.setBiometricsEnabledWhenFake}
+            />
+          }
+        />
+      )}
+    </ListSection>
+  );
+});
 
 const autolockTimeoutOptions = [
   {

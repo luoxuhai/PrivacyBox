@@ -162,8 +162,15 @@ export function resetRoot(params = { index: 0, routes: [] }) {
   }
 }
 
+export function canGoBack() {
+  if (navigationRef.isReady()) {
+    navigationRef.canGoBack();
+  }
+}
+
 export const RootNavigation = {
   navigate,
   goBack,
   resetRoot,
+  canGoBack,
 };

@@ -66,6 +66,7 @@ const zh = {
   appLockScreen: {
     faceId: '面容',
     touchId: '指纹',
+    unlock: '解锁 App',
   },
   appLockSettingsScreen: {
     title: '密码锁',
@@ -93,6 +94,9 @@ const zh = {
     faceMosaic: '人像打码',
     textMosaic: '文本打码',
     QRCodeMosaic: '二维码/条形码打码',
+  },
+  fakeAppHomeSettingsScreen: {
+    title: '伪装界面',
   },
 };
 

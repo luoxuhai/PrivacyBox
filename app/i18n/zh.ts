@@ -97,6 +97,11 @@ const zh = {
   },
   fakeAppHomeSettingsScreen: {
     title: '伪装界面',
+    fakeHomeEnabled: '开启伪装界面',
+    unlockAction: '解锁方式',
+    pullRefresh: '下拉刷新',
+    slide: '向左滑动',
+    shake: '摇一摇',
   },
 };
 

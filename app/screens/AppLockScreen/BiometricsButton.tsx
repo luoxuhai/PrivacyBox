@@ -1,10 +1,10 @@
-import React, { FC, useEffect, useMemo, useRef } from 'react';
+import React, { FC, useMemo, useRef } from 'react';
 import { observer } from 'mobx-react-lite';
 import { ViewStyle, TouchableOpacity } from 'react-native';
 import { SFSymbol } from 'react-native-sfsymbols';
 
 import { useTheme } from '@/theme';
-import { useLocalAuth, BiometricType } from '@/utils';
+import { useLocalAuth, BiometricType, useUpdateEffect } from '@/utils';
 import { KEY_SIZE } from './PasscodeKeyboard';
 import { translate } from '@/i18n';
 import { useStores } from '@/models';
@@ -24,18 +24,24 @@ function getBiometricIcon(biometricTypes?: BiometricType[]) {
   }
 }
 
+interface UnlockAttempts {
+  count: number;
+}
+
 export const BiometricsButton: FC<BiometricsButtonProps> = observer((props) => {
   const { biometricTypes, usedBiometricType, auth } = useLocalAuth();
   const { colors } = useTheme();
   const { appLockStore, appStateStore } = useStores();
   const unlockTimer = useRef<NodeJS.Timeout>();
+  const unlockAttempts = useRef<UnlockAttempts>({ count: 0 });
   const name = useMemo(() => getBiometricIcon(biometricTypes), [biometricTypes]);
 
   const visible =
     appLockStore.biometricsEnabled &&
     (appLockStore.inFakeEnvironment ? appLockStore.biometricsEnabledWhenFake : true);
 
-  useEffect(() => {
+  // 自动触发识别
+  useUpdateEffect(() => {
     if (
       appLockStore.isLocked &&
       usedBiometricType &&
@@ -44,7 +50,13 @@ export const BiometricsButton: FC<BiometricsButtonProps> = observer((props) => {
       appStateStore.inForeground
     ) {
       clearTimeout(unlockTimer.current);
-      unlockTimer.current = setTimeout(requestAuth, 400);
+      unlockTimer.current = setTimeout(() => {
+        if (unlockAttempts.current.count >= 1) {
+          return;
+        }
+        unlockAttempts.current.count++;
+        requestAuth();
+      }, 400);
     }
   }, [
     appLockStore.autoTriggerBiometrics,
@@ -52,6 +64,12 @@ export const BiometricsButton: FC<BiometricsButtonProps> = observer((props) => {
     appStateStore.inForeground,
     usedBiometricType,
   ]);
+
+  useUpdateEffect(() => {
+    if (appLockStore.isLocked) {
+      unlockAttempts.current.count = 0;
+    }
+  }, [appLockStore.isLocked]);
 
   async function requestAuth() {
     try {

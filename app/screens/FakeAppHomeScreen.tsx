@@ -1,17 +1,20 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC, useEffect, useMemo } from 'react';
 import { observer } from 'mobx-react-lite';
-import { ViewStyle, TouchableOpacity, View, TextStyle, Alert } from 'react-native';
+import { ViewStyle, TouchableOpacity, View, TextStyle, EmitterSubscription } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { TextAlt, QrCode, MediaImage, PeopleRounded } from 'iconoir-react-native';
 import { FlashList, ContentStyle } from '@shopify/flash-list';
 import { colord } from 'colord';
-import { FlingGestureHandler, Directions, State } from 'react-native-gesture-handler';
+import { GestureDetector, Gesture, Directions } from 'react-native-gesture-handler';
+import Shake from 'react-native-shake';
 
 import { AppStackParamList } from '@/navigators';
 import { Screen, Text } from '@/components';
 import { radius, spacing, useTheme } from '@/theme';
 import { Overlay } from '@/utils';
 import { translate } from '@/i18n';
+import { useStores } from '@/models';
+import { FakeHomeUnlockActions } from '@/models/SettingsStore';
 
 function luminance(color: string, l = 0.1) {
   return colord(color).lighten(l).toRgbString();
@@ -26,6 +29,19 @@ const iconProps = {
 export const FakeAppHomeScreen: FC<StackScreenProps<AppStackParamList, 'FakeAppHome'>> = observer(
   function FakeAppHomeScreen(props) {
     const { colors } = useTheme();
+    const { settingsStore } = useStores();
+
+    useEffect(() => {
+      let subscription: EmitterSubscription;
+      if (settingsStore.fakeHomeUnlockActions.includes(FakeHomeUnlockActions.Shake)) {
+        subscription = Shake.addListener(() => {
+          openAppLock();
+        });
+      }
+      return () => {
+        subscription?.remove();
+      };
+    }, [settingsStore.fakeHomeUnlockActions]);
 
     const list = useMemo(
       () => [
@@ -61,24 +77,42 @@ export const FakeAppHomeScreen: FC<StackScreenProps<AppStackParamList, 'FakeAppH
       });
     }
 
+    function openAppLock() {
+      props.navigation.replace('AppLock');
+    }
+
+    const gesture = Gesture.Fling()
+      .direction(Directions.LEFT)
+      .runOnJS(true)
+      .onEnd(openAppLock)
+      .enabled(settingsStore.fakeHomeUnlockActions.includes(FakeHomeUnlockActions.Slide));
+
+    const pullRefreshEnabled = useMemo(
+      () => settingsStore.fakeHomeUnlockActions.includes(FakeHomeUnlockActions.PullRefresh),
+      [settingsStore.fakeHomeUnlockActions],
+    );
+
     return (
       <Screen
         style={{
           backgroundColor: colors.background,
         }}
       >
-        <FlashList
-          contentContainerStyle={$list}
-          data={list}
-          renderItem={({ item }) => <CardItem {...item} onPress={handleNavigate} />}
-          numColumns={2}
-          estimatedItemSize={100}
-          contentInsetAdjustmentBehavior="automatic"
-          refreshing={false}
-          onRefresh={() => {
-            props.navigation.replace('AppLock');
-          }}
-        />
+        <GestureDetector gesture={gesture}>
+          <FlashList
+            scrollEnabled={pullRefreshEnabled}
+            contentContainerStyle={$list}
+            data={list}
+            renderItem={({ item }) => <CardItem {...item} onPress={handleNavigate} />}
+            numColumns={2}
+            estimatedItemSize={100}
+            contentInsetAdjustmentBehavior="automatic"
+            {...(pullRefreshEnabled && {
+              refreshing: false,
+              onRefresh: openAppLock,
+            })}
+          />
+        </GestureDetector>
       </Screen>
     );
   },

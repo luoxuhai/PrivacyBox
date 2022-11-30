@@ -7,7 +7,8 @@
 import {
   DefaultTheme,
   NavigationContainer,
-  NavigatorScreenParams, // @demo remove-current-line
+  NavigatorScreenParams,
+  useRoute, // @demo remove-current-line
 } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StackScreenProps } from '@react-navigation/stack';
@@ -59,12 +60,14 @@ const Stack = createNativeStackNavigator<AppStackParamList>();
 
 const AppStack = observer(function AppStack() {
   const {
-    authenticationStore: { isAuthenticated },
+    settingsStore: { fakeHomeEnabled },
   } = useStores();
   const { isDark, colors } = useTheme();
 
+  const initialRouteName = fakeHomeEnabled ? 'FakeAppHome' : 'AppLock';
+
   return (
-    <Stack.Navigator initialRouteName={'FakeAppHome'}>
+    <Stack.Navigator initialRouteName={initialRouteName}>
       <Stack.Group
         screenOptions={{
           headerShown: false,
@@ -75,7 +78,7 @@ const AppStack = observer(function AppStack() {
           component={AppLockScreen}
           options={{
             presentation: 'fullScreenModal',
-            animation: 'flip',
+            animation: 'fade',
           }}
         />
         <Stack.Screen

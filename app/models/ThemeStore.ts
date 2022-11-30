@@ -61,7 +61,7 @@ export const ThemeStoreModel = types
 
       // setTheme() {},
     };
-  })
+  });
 
 // onPatch(ThemeStoreModel, (patch) => {
 //   console.info('Got change: ', patch);

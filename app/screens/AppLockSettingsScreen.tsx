@@ -4,14 +4,13 @@ import { ViewStyle, ActionSheetIOS } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { SettingStackParamList } from '@/navigators';
 import { ListCell, ListSection, SafeAreaScrollView, Screen, Switch } from '@/components';
-import { spacing, useTheme } from '@/theme';
+import { spacing } from '@/theme';
 import { useStores } from '@/models';
 import { translate } from '@/i18n';
 import { useLocalAuth, getBiometricName } from '@/utils';
 
 export const AppLockSettingsScreen: FC<StackScreenProps<SettingStackParamList, 'AppLockSettings'>> =
   observer(function AppLockSettingsScreen() {
-    const { colors } = useTheme();
     const { usedBiometricType } = useLocalAuth();
     const { appLockStore } = useStores();
 

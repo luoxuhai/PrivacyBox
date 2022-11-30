@@ -517,6 +517,8 @@ PODS:
     - ReactCommon/turbomodule/core
   - react-native-sfsymbols (1.2.1):
     - React
+  - react-native-shake (5.1.1):
+    - React
   - react-native-sqlite-storage (6.0.1):
     - React-Core
   - React-perflogger (0.69.7)
@@ -752,6 +754,7 @@ DEPENDENCIES:
   - react-native-override-color-scheme (from `../node_modules/react-native-override-color-scheme`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-sfsymbols (from `../node_modules/react-native-sfsymbols`)
+  - react-native-shake (from `../node_modules/react-native-shake`)
   - react-native-sqlite-storage (from `../node_modules/react-native-sqlite-storage`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -930,6 +933,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-sfsymbols:
     :path: "../node_modules/react-native-sfsymbols"
+  react-native-shake:
+    :path: "../node_modules/react-native-shake"
   react-native-sqlite-storage:
     :path: "../node_modules/react-native-sqlite-storage"
   React-perflogger:
@@ -1078,6 +1083,7 @@ SPEC CHECKSUMS:
   react-native-override-color-scheme: 3badbbee9a4ea2a9c3e5b4a5d9fd9eaba8761870
   react-native-safe-area-context: dfe5aa13bee37a0c7e8059d14f72ffc076d120e9
   react-native-sfsymbols: bd3a0d3eab185e80b571bae60753dcf5a0d57967
+  react-native-shake: 67d43d6af4abfc299400b17fea7d2ec0754c72ac
   react-native-sqlite-storage: f6d515e1c446d1e6d026aa5352908a25d4de3261
   React-perflogger: 8e832d4e21fdfa613033c76d58d7e617341e804b
   React-RCTActionSheet: 9ca778182a9523991bff6381045885b6e808bb73

@@ -1,6 +1,4 @@
 import { Instance, SnapshotIn, SnapshotOut, types } from 'mobx-state-tree';
-import { getUptimeAsync } from 'expo-device';
-import { isAppLocked } from '@/screens/AppLockScreen/AppLock';
 
 /**
  * Model description here for TypeScript hints.
@@ -58,6 +56,10 @@ export const AppLockStoreModel = types
 
     setIsLocked(isLocked: boolean) {
       self.isLocked = isLocked;
+    },
+
+    setInFakeEnvironment(inFakeEnvironment: boolean) {
+      self.inFakeEnvironment = inFakeEnvironment;
     },
 
     lock() {

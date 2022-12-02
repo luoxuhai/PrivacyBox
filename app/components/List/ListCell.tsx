@@ -33,6 +33,7 @@ export interface ListCellProps extends TouchableHighlightProps {
    * Text which is looked up via i18n.
    */
   tk?: TextProps['tk'];
+  textStyle?: TextProps['style'];
   /**
    * Children components.
    */
@@ -81,6 +82,7 @@ export function ListCell(props: ListCellProps) {
     text,
     tk,
     tkOptions,
+    textStyle,
     ...touchableOpacityProps
   } = props;
   const { colors, isDark } = useTheme();
@@ -119,6 +121,7 @@ export function ListCell(props: ListCellProps) {
                   {
                     color: colors.label,
                   },
+                  textStyle,
                 ]}
               />
 

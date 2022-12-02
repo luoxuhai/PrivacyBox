@@ -3,8 +3,10 @@ import { observer } from 'mobx-react-lite';
 import { ViewStyle } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { SettingStackParamList } from '@/navigators';
-import { Screen, Text, ExitButton } from '@/components';
-import { useTheme } from '@/theme';
+
+import { Screen, ExitButton, SafeAreaScrollView, ListSection, ListCell } from '@/components';
+import { spacing, useTheme } from '@/theme';
+import { storage } from '@/storage';
 
 export const DebugScreen: FC<StackScreenProps<SettingStackParamList, 'Debug'>> = observer(
   function DebugScreen(props) {
@@ -17,13 +19,26 @@ export const DebugScreen: FC<StackScreenProps<SettingStackParamList, 'Debug'>> =
     }, []);
 
     return (
-      <Screen style={$screen} statusBarStyle="inverted">
-        <Text text="debug" />
+      <Screen statusBarStyle="inverted">
+        <SafeAreaScrollView contentContainerStyle={$contentContainer}>
+          <ListSection>
+            <ListCell
+              textStyle={{
+                color: colors.palette.blue,
+              }}
+              text="清理 storage"
+              rightIcon={null}
+              onPress={() => {
+                storage.clear();
+              }}
+            />
+          </ListSection>
+        </SafeAreaScrollView>
       </Screen>
     );
   },
 );
 
-const $screen: ViewStyle = {
-  flex: 1,
+const $contentContainer: ViewStyle = {
+  paddingHorizontal: spacing[6],
 };

@@ -1,6 +1,7 @@
 import { translate } from '@/i18n';
 import * as LocalAuthentication from 'expo-local-authentication';
 import { useEffect, useMemo, useState } from 'react';
+import { isEmulatorSync } from 'react-native-device-info';
 
 enum BiometricType {
   FINGERPRINT = LocalAuthentication.AuthenticationType.FINGERPRINT,
@@ -17,7 +18,7 @@ export class LocalAuth {
         (await LocalAuthentication.supportedAuthenticationTypesAsync()) as unknown as BiometricType[];
     }
 
-    return this._biometricType;
+    return isEmulatorSync() ? null : this._biometricType;
   }
 
   static auth = LocalAuthentication.authenticateAsync;

@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useRef, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { ViewStyle, View, TextStyle } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
@@ -68,13 +68,13 @@ export const AppLockScreen: FC<StackScreenProps<AppStackParamList, 'AppLock'>> =
     useUpdateEffect(() => {
       if (passcode.length === PASSCODE_LENGTH) {
         if (appLockStore.fakePasscodeEnabled && appLockStore.fakePasscode === passcode) {
-          appLockStore.inFakeEnvironment = true;
+          appLockStore.setInFakeEnvironment(true);
           unlock();
           return;
         }
 
         if (passcode === appLockStore.passcode) {
-          appLockStore.inFakeEnvironment = false;
+          appLockStore.setInFakeEnvironment(false);
           unlock();
           return;
         }

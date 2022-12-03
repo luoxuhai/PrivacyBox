@@ -15,4 +15,11 @@ declare global {
   interface Console {
     prettyLog(message?: any, ...optionalParams: any[]): void;
   }
+
+  declare module '*.svg' {
+    import React from 'react';
+    import { SvgProps } from 'react-native-svg';
+    const content: React.FC<SvgProps>;
+    export default content;
+  }
 }

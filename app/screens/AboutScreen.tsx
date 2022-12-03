@@ -138,6 +138,6 @@ function openEmail() {
 }
 
 const $contentContainer: ViewStyle = {
-  paddingTop: spacing[6],
+  paddingTop: spacing[5],
   paddingHorizontal: spacing[6],
 };

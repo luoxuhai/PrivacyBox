@@ -107,6 +107,15 @@ const zh = {
     twitter: '推特',
     instagram: 'Instagram',
   },
+  appIconName: {
+    default: '默认',
+    dark: '深色',
+    calculator: '计算器',
+    passwordBox: '密码箱',
+    clock: '时钟',
+    housekeeper: '安全管家',
+    todo: '待办',
+  },
   urgentSwitchScreen: {
     title: '紧急切换',
     targetHeader: '跳转到的目标应用',

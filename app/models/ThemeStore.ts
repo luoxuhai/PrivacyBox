@@ -4,16 +4,7 @@ import overrideColorScheme from 'react-native-override-color-scheme';
 import { colors } from '@/theme';
 import { Appearance } from 'react-native';
 import { delay } from '@/utils';
-
-export enum AppIcon {
-  Default = 'default',
-  Dark = 'dark',
-  Calculator = 'calculator',
-  Clock = 'clock',
-  Todo = 'todo',
-  Housekeeper = 'housekeeper',
-  PasswordBox = 'password_box',
-}
+import { AppIcons } from '@/screens/AppearanceScreen/type';
 
 export const ThemeStoreModel = types
   .model('ThemeStore', {
@@ -23,8 +14,8 @@ export const ThemeStoreModel = types
     isSystemAppearance: types.optional(types.boolean, false),
     /** App 图标 */
     appIcon: types.optional(
-      types.enumeration<AppIcon>('AppIcon', Object.values(AppIcon)),
-      AppIcon.Default,
+      types.enumeration<AppIcons>('AppIcons', Object.values(AppIcons)),
+      AppIcons.Default,
     ),
     // TODO: Light (default|red)、Dark (default|dimmed|blue)
     // theme: ''

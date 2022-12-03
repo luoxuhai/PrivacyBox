@@ -12,6 +12,7 @@ import { spacing, typography, useTheme } from '@/theme';
 import { Text, TextProps } from '../Text';
 import { NavArrowRight } from 'iconoir-react-native';
 import { observer } from 'mobx-react-lite';
+import { ImageIconTypes } from '../Icon/ImageIcon';
 
 export interface ListCellProps extends TouchableHighlightProps {
   /**
@@ -36,7 +37,7 @@ export interface ListCellProps extends TouchableHighlightProps {
   /**
    * Children components.
    */
-  children?: React.ReactElement;
+  children?: React.ReactElement | React.ReactElement[];
   /**
    * Optional options to pass to i18n. Useful for interpolation
    * as well as explicitly setting locale or translation fallbacks.
@@ -53,7 +54,7 @@ export interface ListCellProps extends TouchableHighlightProps {
   /**
    * Icon that should appear on the left.
    */
-  leftIcon?: IconTypes;
+  leftIcon?: ImageIconTypes;
   /**
    * Icon that should appear on the right.
    */

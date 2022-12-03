@@ -2,11 +2,11 @@ import React, { FC } from 'react';
 import { ViewStyle } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { StackScreenProps } from '@react-navigation/stack';
-import { useNavigation } from '@react-navigation/native';
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 
 import { SettingStackParamList } from '@/navigators';
 import { Screen, ListSection, ListCell, Switch, SafeAreaScrollView } from '@/components';
-import { spacing, useTheme } from '@/theme';
+import { spacing } from '@/theme';
 import { useStores } from '@/models';
 import { FakeHomeUnlockActions } from '@/models/SettingsStore';
 import { TextKeyPath } from '@/i18n';
@@ -14,18 +14,15 @@ import { TextKeyPath } from '@/i18n';
 export const FakeAppHomeSettingsScreen: FC<
   StackScreenProps<SettingStackParamList, 'FakeAppHomeSettings'>
 > = observer(function FakeAppHomeSettingsScreen() {
-  const { colors } = useTheme();
-  const navigation = useNavigation();
   const { settingsStore } = useStores();
+  const bottomTabBarHeight = useBottomTabBarHeight();
 
   return (
     <Screen style={$screen}>
-      <SafeAreaScrollView contentContainerStyle={$contentContainer}>
-        <ListSection
-          style={{
-            marginTop: spacing[8],
-          }}
-        >
+      <SafeAreaScrollView
+        contentContainerStyle={[$contentContainer, { paddingBottom: bottomTabBarHeight }]}
+      >
+        <ListSection>
           <ListCell
             tk="fakeAppHomeSettingsScreen.fakeHomeEnabled"
             rightIcon={
@@ -87,4 +84,5 @@ const $screen: ViewStyle = {
 
 const $contentContainer: ViewStyle = {
   paddingHorizontal: spacing[6],
+  paddingTop: spacing[5],
 };

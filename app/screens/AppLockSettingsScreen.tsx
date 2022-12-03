@@ -44,11 +44,7 @@ export const AppLockSettingsScreen: FC<StackScreenProps<SettingStackParamList, '
     return (
       <Screen style={$screen}>
         <SafeAreaScrollView contentContainerStyle={$contentContainer}>
-          <ListSection
-            style={{
-              marginTop: spacing[8],
-            }}
-          >
+          <ListSection>
             <ListCell tk="appLockSettingsScreen.changePasscode" />
             <ListCell
               tk="appLockSettingsScreen.autolockTimeout"
@@ -159,4 +155,5 @@ const $screen: ViewStyle = {
 
 const $contentContainer: ViewStyle = {
   paddingHorizontal: spacing[6],
+  paddingTop: spacing[5],
 };

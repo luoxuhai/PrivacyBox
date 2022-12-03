@@ -12,17 +12,27 @@ import { getUrgentOptions } from './utils';
 import { useStores } from '@/models';
 import { UrgentSwitchActions } from '@/models/SettingsStore';
 import { TextKeyPath } from '@/i18n';
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+
 
 export const UrgentSwitchScreen: FC<StackScreenProps<SettingStackParamList, 'UrgentSwitch'>> =
   observer(function UrgentSwitchScreen() {
     const { colors } = useTheme();
     const { settingsStore } = useStores();
+    const bottomTabBarHeight = useBottomTabBarHeight();
 
     const options = useMemo(() => getUrgentOptions(colors), [colors]);
 
     return (
       <Screen>
-        <ScrollSafeAreaView contentContainerStyle={$contentContainer}>
+        <ScrollSafeAreaView
+          contentContainerStyle={[
+            $contentContainer,
+            {
+              paddingBottom: bottomTabBarHeight,
+            },
+          ]}
+        >
           <ListSection
             titleTk="urgentSwitchScreen.targetHeader"
             descriptionTk="urgentSwitchScreen.targetTip"
@@ -101,5 +111,5 @@ const actions: { value: UrgentSwitchActions; tk: TextKeyPath }[] = [
 
 const $contentContainer: ViewStyle = {
   paddingHorizontal: spacing[6],
-  // paddingTop: spacing[6],
+  paddingTop: spacing[5],
 };

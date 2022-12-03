@@ -1,7 +1,16 @@
 import * as React from 'react';
-import { Image, ImageStyle, StyleProp, TouchableOpacityProps } from 'react-native';
+import { Image, ImageStyle, StyleProp, TouchableOpacityProps, ViewStyle } from 'react-native';
 
-export type ImageIconTypes = keyof typeof iconRegistry;
+import IconAppIcon from '@/assets/icons/app-icon/privatespace.svg';
+import IconAppIconDark from '@/assets/icons/app-icon/privatespace.dark.svg';
+import AppIconCalculator from '@/assets/icons/app-icon/calculator.svg';
+import AppIconHousekeeper from '@/assets/icons/app-icon/housekeeper.svg';
+import AppIconPasswordBox from '@/assets/icons/app-icon/password_box.svg';
+import AppIconTodo from '@/assets/icons/app-icon/todo.svg';
+import AppIconClock from '@/assets/icons/app-icon/clock.svg';
+import { AppIcons } from '@/screens/AppearanceScreen/type';
+
+export type ImageIconTypes = keyof typeof iconRegistry | keyof typeof iconSvgRegistry;
 
 interface IconProps extends TouchableOpacityProps {
   /**
@@ -22,13 +31,16 @@ interface IconProps extends TouchableOpacityProps {
   /**
    * Style overrides for the icon image
    */
-  style?: StyleProp<ImageStyle>;
+  style?: StyleProp<ImageStyle | ViewStyle>;
 }
 
 export function ImageIcon(props: IconProps) {
   const { icon, color, size, style } = props;
+  const SvgComponent = iconSvgRegistry[icon] as React.FC<SvgProps>;
 
-  return (
+  return SvgComponent ? (
+    <SvgComponent style={style} width={size} height={size} />
+  ) : (
     <Image
       style={[
         $imageStyle,
@@ -42,18 +54,28 @@ export function ImageIcon(props: IconProps) {
 }
 
 export const iconRegistry = {
-  Instagram: require('@/assets/icons/app.icon/Instagram.png'),
-  Bilibili: require('@/assets/icons/app.icon/Bilibili.png'),
-  Facebook: require('@/assets/icons/app.icon/Facebook.png'),
-  Mail: require('@/assets/icons/app.icon/Mail.png'),
-  Kwai: require('@/assets/icons/app.icon/Kwai.png'),
-  Notes: require('@/assets/icons/app.icon/Notes.png'),
-  Photos: require('@/assets/icons/app.icon/Photos.png'),
-  QQ: require('@/assets/icons/app.icon/QQ.png'),
-  Safari: require('@/assets/icons/app.icon/Safari.png'),
-  TikTok: require('@/assets/icons/app.icon/TikTok.png'),
-  Twitter: require('@/assets/icons/app.icon/Twitter.png'),
-  WeChat: require('@/assets/icons/app.icon/WeChat.png'),
+  Instagram: require('@/assets/icons/app-icon/Instagram.png'),
+  Bilibili: require('@/assets/icons/app-icon/Bilibili.png'),
+  Facebook: require('@/assets/icons/app-icon/Facebook.png'),
+  Mail: require('@/assets/icons/app-icon/Mail.png'),
+  Kwai: require('@/assets/icons/app-icon/Kwai.png'),
+  Notes: require('@/assets/icons/app-icon/Notes.png'),
+  Photos: require('@/assets/icons/app-icon/Photos.png'),
+  QQ: require('@/assets/icons/app-icon/QQ.png'),
+  Safari: require('@/assets/icons/app-icon/Safari.png'),
+  TikTok: require('@/assets/icons/app-icon/TikTok.png'),
+  Twitter: require('@/assets/icons/app-icon/Twitter.png'),
+  WeChat: require('@/assets/icons/app-icon/WeChat.png'),
+};
+
+export const iconSvgRegistry = {
+  [AppIcons.Default]: IconAppIcon,
+  [AppIcons.Dark]: IconAppIconDark,
+  [AppIcons.Calculator]: AppIconCalculator,
+  [AppIcons.Clock]: AppIconClock,
+  [AppIcons.Housekeeper]: AppIconHousekeeper,
+  [AppIcons.PasswordBox]: AppIconPasswordBox,
+  [AppIcons.Todo]: AppIconTodo,
 };
 
 const $imageStyle: ImageStyle = {

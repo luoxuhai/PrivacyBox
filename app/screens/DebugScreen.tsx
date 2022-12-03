@@ -41,4 +41,5 @@ export const DebugScreen: FC<StackScreenProps<SettingStackParamList, 'Debug'>> =
 
 const $contentContainer: ViewStyle = {
   paddingHorizontal: spacing[6],
+  paddingTop: spacing[5],
 };

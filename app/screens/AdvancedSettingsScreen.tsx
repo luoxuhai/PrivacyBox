@@ -2,21 +2,23 @@ import React, { FC } from 'react';
 import { observer } from 'mobx-react-lite';
 import { ViewStyle } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+
 import { SettingStackParamList } from '@/navigators';
-import { Screen, Text, SafeAreaScrollView, ListSection, ListCell, Switch } from '@/components';
-import { useNavigation } from '@react-navigation/native';
-import { spacing, useTheme } from '@/theme';
+import { Screen, SafeAreaScrollView, ListSection, ListCell, Switch } from '@/components';
+import { spacing } from '@/theme';
 import { TextKeyPath } from '@/i18n';
 
 export const AdvancedSettingsScreen: FC<
   StackScreenProps<SettingStackParamList, 'AdvancedSettings'>
 > = observer(function AdvancedSettingsScreen() {
-  const { colors } = useTheme();
-  const navigation = useNavigation();
+  const bottomTabBarHeight = useBottomTabBarHeight();
 
   return (
     <Screen>
-      <SafeAreaScrollView contentContainerStyle={$contentContainer}>
+      <SafeAreaScrollView
+        contentContainerStyle={[$contentContainer, { paddingBottom: bottomTabBarHeight }]}
+      >
         <ListSection descriptionTk="advancedSettingsScreen.importImageAfterDeleteTip">
           <ListCell
             tk="advancedSettingsScreen.importImageAfterDelete"
@@ -66,5 +68,5 @@ const BottomTabVisibleSection = observer(() => {
 
 const $contentContainer: ViewStyle = {
   paddingHorizontal: spacing[6],
-  paddingTop: spacing[8],
+  paddingTop: spacing[5],
 };

@@ -70,8 +70,8 @@ const App: FC = observer(() => {
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       <ErrorBoundary catchErrors={Config.catchErrors}>
         <AppNavigator
-        // initialState={initialNavigationState}
-        // onStateChange={onNavigationStateChange}
+          initialState={initialNavigationState}
+          onStateChange={onNavigationStateChange}
         />
       </ErrorBoundary>
     </SafeAreaProvider>

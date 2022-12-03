@@ -6,7 +6,7 @@ export * from './FileScreen';
 export * from './MoreScreen';
 export * from './SettingScreen/SettingScreen';
 export * from './AboutScreen';
-export * from './AppearanceScreen';
+export * from './AppearanceScreen/AppearanceScreen';
 export * from './DebugScreen';
 export * from './PasscodeLockScreen';
 export * from './AppLockSettingsScreen';

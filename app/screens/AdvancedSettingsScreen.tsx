@@ -8,11 +8,14 @@ import { SettingStackParamList } from '@/navigators';
 import { Screen, SafeAreaScrollView, ListSection, ListCell, Switch } from '@/components';
 import { spacing } from '@/theme';
 import { TextKeyPath } from '@/i18n';
+import { BottomTabs } from '@/models/SettingsStore';
+import { useStores } from '@/models';
 
 export const AdvancedSettingsScreen: FC<
   StackScreenProps<SettingStackParamList, 'AdvancedSettings'>
 > = observer(function AdvancedSettingsScreen() {
   const bottomTabBarHeight = useBottomTabBarHeight();
+  const { settingsStore } = useStores();
 
   return (
     <Screen>
@@ -22,15 +25,27 @@ export const AdvancedSettingsScreen: FC<
         <ListSection descriptionTk="advancedSettingsScreen.importImageAfterDeleteTip">
           <ListCell
             tk="advancedSettingsScreen.importImageAfterDelete"
+            bottomSeparator={false}
             rightIcon={null}
-            RightAccessory={<Switch />}
+            RightAccessory={
+              <Switch
+                value={settingsStore.autoDeleteOriginEnabled}
+                onValueChange={settingsStore.setAutoDeleteOriginEnabled}
+              />
+            }
           />
         </ListSection>
         <ListSection descriptionTk="advancedSettingsScreen.smartSearchTip">
           <ListCell
             tk="advancedSettingsScreen.smartSearch"
+            bottomSeparator={false}
             rightIcon={null}
-            RightAccessory={<Switch />}
+            RightAccessory={
+              <Switch
+                value={settingsStore.smartSearchEnabled}
+                onValueChange={settingsStore.setSmartSearchEnabled}
+              />
+            }
           />
         </ListSection>
         <BottomTabVisibleSection />
@@ -40,31 +55,55 @@ export const AdvancedSettingsScreen: FC<
 });
 
 const BottomTabVisibleSection = observer(() => {
-  const list: { title: TextKeyPath; value: number }[] = [
-    {
-      title: 'contentNavigator.filesTab',
-      value: 1,
-    },
-    {
-      title: 'contentNavigator.albumTab',
-      value: 1,
-    },
-    {
-      title: 'contentNavigator.moreTab',
-      value: 1,
-    },
-  ];
+  const { settingsStore } = useStores();
 
   return (
     <ListSection titleTk="advancedSettingsScreen.bottomTabVisible">
-      {list.map((item) => {
+      {list.map((item, idx) => {
+        const bottomSeparator = idx < list.length - 1;
+        const checked = settingsStore.visibleBottomTabs.includes(item.value);
+        const disabled = checked && settingsStore.visibleBottomTabs.length === 1;
+
         return (
-          <ListCell key={item.title} tk={item.title} rightIcon={null} RightAccessory={<Switch />} />
+          <ListCell
+            key={item.title}
+            tk={item.title}
+            bottomSeparator={bottomSeparator}
+            rightIcon={null}
+            RightAccessory={
+              <Switch
+                value={checked}
+                disabled={disabled}
+                onValueChange={(v) => {
+                  if (v) {
+                    settingsStore.setVisibleBottomTabs(item.value);
+                  } else {
+                    settingsStore.removeVisibleBottomTabs(item.value);
+                  }
+                }}
+              />
+            }
+          />
         );
       })}
     </ListSection>
   );
 });
+
+const list: { title: TextKeyPath; value: BottomTabs }[] = [
+  {
+    title: 'contentNavigator.filesTab',
+    value: BottomTabs.Files,
+  },
+  {
+    title: 'contentNavigator.albumTab',
+    value: BottomTabs.Album,
+  },
+  {
+    title: 'contentNavigator.moreTab',
+    value: BottomTabs.More,
+  },
+];
 
 const $contentContainer: ViewStyle = {
   paddingHorizontal: spacing[6],

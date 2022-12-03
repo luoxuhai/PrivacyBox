@@ -1,5 +1,4 @@
 import React, { FC, useEffect, useMemo, useState } from 'react';
-import { observer } from 'mobx-react-lite';
 import {
   TouchableOpacity,
   ViewStyle,
@@ -10,9 +9,11 @@ import {
   StyleSheet,
   StyleProp,
 } from 'react-native';
+import { observer } from 'mobx-react-lite';
 import { StackScreenProps } from '@react-navigation/stack';
 import { Check as IconCheck } from 'iconoir-react-native';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 
 import { SettingStackParamList } from '@/navigators';
 import {
@@ -29,8 +30,7 @@ import { appearanceToMode } from '@/models/ThemeStore';
 import { TextKeyPath } from '@/i18n';
 import { ICON_CHECK_SIZE } from '@/constant';
 import { appIconOptions } from './constant';
-import { HapticFeedback, useUpdateEffect } from '@/utils';
-import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
+import { HapticFeedback } from '@/utils';
 
 export const AppearanceScreen: FC<StackScreenProps<SettingStackParamList, 'Appearance'>> = observer(
   () => {
@@ -74,12 +74,15 @@ const AppearanceColorSection = observer(() => {
 
   return (
     <ListSection titleTk="appearanceScreen.appearanceColor.title">
-      {list.map((item) => {
+      {list.map((item, idx) => {
         const isSelected = item.mode === appearanceToMode(appearance, isSystemAppearance);
+        const bottomSeparator = idx < list.length - 1;
+
         return (
           <ListCell
             key={item.mode}
             tk={item.label}
+            bottomSeparator={bottomSeparator}
             rightIcon={
               isSelected ? (
                 <IconCheck
@@ -90,7 +93,10 @@ const AppearanceColorSection = observer(() => {
                 />
               ) : null
             }
-            onPress={() => setAppearanceMode(item.mode)}
+            onPress={() => {
+              setAppearanceMode(item.mode);
+              HapticFeedback.selection();
+            }}
           />
         );
       })}
@@ -118,6 +124,7 @@ const AppIconSection = observer(() => {
     <ListSection titleTk="appearanceScreen.appIcon.title">
       <ListCell
         style={$appIconOptionContainer}
+        bottomSeparator={false}
         onLayout={(e) => {
           setLayout(e.nativeEvent.layout);
         }}
@@ -172,7 +179,7 @@ const AppIconOption = observer<AppIconOptionProps>((props) => {
     ],
   }));
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     scale.value = checked ? 0.9 : 1;
   }, [checked]);
 

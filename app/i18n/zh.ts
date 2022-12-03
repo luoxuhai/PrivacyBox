@@ -82,6 +82,7 @@ const zh = {
     fakePasscodeSwitch: '开启伪装密码',
     changeFakePasscode: '修改伪装密码',
     hideBiometricsWhenFake: '隐藏解锁界面的{{ name }}按钮',
+    bottomTabDarkle: '底部导航栏变暗',
   },
   advancedSettingsScreen: {
     title: '高级设置',

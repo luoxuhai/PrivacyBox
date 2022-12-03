@@ -22,6 +22,8 @@ export const AppLockStoreModel = types
     fakePasscode: types.optional(types.string, ''),
     /** 隐藏解锁界面的生物识别按钮 */
     biometricsEnabledWhenFake: types.optional(types.boolean, false),
+    /** 底部导航栏变暗 */
+    bottomTabDarkleWhenFake: types.optional(types.boolean, true),
     /** 是否已锁住 */
     isLocked: types.optional(types.boolean, true),
     /** APP 进入后台时间戳 */
@@ -60,6 +62,10 @@ export const AppLockStoreModel = types
 
     setInFakeEnvironment(inFakeEnvironment: boolean) {
       self.inFakeEnvironment = inFakeEnvironment;
+    },
+
+    setBottomTabDarkleWhenFake(bottomTabDarkleWhenFake: boolean) {
+      self.bottomTabDarkleWhenFake = bottomTabDarkleWhenFake;
     },
 
     lock() {

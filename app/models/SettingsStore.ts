@@ -12,6 +12,12 @@ export enum UrgentSwitchActions {
   Shake = 'shake',
 }
 
+export enum BottomTabs {
+  Album = 'album',
+  Files = 'files',
+  More = 'more',
+}
+
 export const SettingsStoreModel = types
   .model('SettingsStore')
   .props({
@@ -35,6 +41,12 @@ export const SettingsStoreModel = types
         ),
       ),
       [UrgentSwitchActions.FaceDown],
+    ),
+    smartSearchEnabled: types.optional(types.boolean, false),
+    autoDeleteOriginEnabled: types.optional(types.boolean, true),
+    visibleBottomTabs: types.optional(
+      types.array(types.enumeration<BottomTabs>('BottomTabs', Object.values(BottomTabs))),
+      [BottomTabs.Album, BottomTabs.Files, BottomTabs.More],
     ),
   })
   .views((self) => ({})) // eslint-disable-line @typescript-eslint/no-unused-vars
@@ -75,8 +87,28 @@ export const SettingsStoreModel = types
       self.urgentSwitchActions.push(action);
     },
 
+    setAutoDeleteOriginEnabled(autoDeleteOriginEnabled: boolean) {
+      self.autoDeleteOriginEnabled = autoDeleteOriginEnabled;
+    },
+
+    setSmartSearchEnabled(smartSearchEnabled: boolean) {
+      self.smartSearchEnabled = smartSearchEnabled;
+    },
+
     removeUrgentSwitchAction(action: UrgentSwitchActions) {
       self.urgentSwitchActions.remove(action);
+    },
+
+    setVisibleBottomTabs(tab: BottomTabs) {
+      if (self.visibleBottomTabs.includes(tab)) {
+        return;
+      }
+
+      self.visibleBottomTabs.push(tab);
+    },
+
+    removeVisibleBottomTabs(tab: BottomTabs) {
+      self.visibleBottomTabs.remove(tab);
     },
   }));
 

@@ -9,7 +9,7 @@ export * from './AboutScreen';
 export * from './AppearanceScreen/AppearanceScreen';
 export * from './DebugScreen';
 export * from './PasscodeLockScreen';
-export * from './AppLockSettingsScreen';
+export * from './AppLockSettingsScreen/AppLockSettingsScreen';
 export * from './AppLockScreen/AppLockScreen';
 export * from './AdvancedSettingsScreen';
 export * from './UrgentSwitchScreen/UrgentSwitchScreen';

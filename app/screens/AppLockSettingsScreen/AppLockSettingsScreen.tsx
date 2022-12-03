@@ -48,6 +48,7 @@ export const AppLockSettingsScreen: FC<StackScreenProps<SettingStackParamList, '
             <ListCell tk="appLockSettingsScreen.changePasscode" />
             <ListCell
               tk="appLockSettingsScreen.autolockTimeout"
+              bottomSeparator={!!usedBiometricType}
               RightAccessory={formattedAutolockTimeout}
               onPress={handleSetAutolockTimeout}
             />
@@ -67,6 +68,7 @@ export const AppLockSettingsScreen: FC<StackScreenProps<SettingStackParamList, '
                 />
                 <ListCell
                   tk="appLockSettingsScreen.autoTriggerBiometrics"
+                  bottomSeparator={false}
                   tkOptions={{
                     name: biometricName,
                   }}
@@ -91,6 +93,7 @@ export const FakeAppLockSection = observer(() => {
   const { appLockStore } = useStores();
   const { usedBiometricType } = useLocalAuth();
   const biometricName = useMemo(() => getBiometricName(usedBiometricType), [usedBiometricType]);
+  const hideBiometricsWhenFakeVisible = usedBiometricType && appLockStore.biometricsEnabled;
 
   return (
     <ListSection titleTk="fakeAppLockSettingsScreen.title">
@@ -104,9 +107,20 @@ export const FakeAppLockSection = observer(() => {
         }
       />
       <ListCell tk="fakeAppLockSettingsScreen.changeFakePasscode" />
-      {usedBiometricType && appLockStore.biometricsEnabled && (
+      <ListCell
+        tk="fakeAppLockSettingsScreen.bottomTabDarkle"
+        bottomSeparator={hideBiometricsWhenFakeVisible}
+        rightIcon={
+          <Switch
+            value={appLockStore.bottomTabDarkleWhenFake}
+            onValueChange={appLockStore.setBottomTabDarkleWhenFake}
+          />
+        }
+      />
+      {hideBiometricsWhenFakeVisible && (
         <ListCell
           tk="fakeAppLockSettingsScreen.hideBiometricsWhenFake"
+          bottomSeparator={false}
           tkOptions={{
             name: biometricName,
           }}

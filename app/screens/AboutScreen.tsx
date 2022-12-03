@@ -65,6 +65,7 @@ export const AboutScreen: FC<StackScreenProps<SettingStackParamList, 'About'>> =
             />
             <ListCell
               tk="aboutScreen.review"
+              bottomSeparator={false}
               onPress={() => {
                 Linking.openURL(
                   `https://apps.apple.com/app/apple-store/id${Config.appId}?action=write-review`,
@@ -86,6 +87,7 @@ export const AboutScreen: FC<StackScreenProps<SettingStackParamList, 'About'>> =
             />
             <ListCell
               tk="aboutScreen.userAgreement"
+              bottomSeparator={false}
               onPress={() => {
                 openLinkInAppBrowser(
                   i18n.language === SupportedLanguage.ZH
@@ -102,7 +104,12 @@ export const AboutScreen: FC<StackScreenProps<SettingStackParamList, 'About'>> =
               RightAccessory={Config.qqGroup}
               onPress={openQQGroup}
             />
-            <ListCell tk="aboutScreen.email" RightAccessory={Config.email} onPress={openEmail} />
+            <ListCell
+              tk="aboutScreen.email"
+              bottomSeparator={false}
+              RightAccessory={Config.email}
+              onPress={openEmail}
+            />
           </ListSection>
         </SafeAreaScrollView>
       </Screen>

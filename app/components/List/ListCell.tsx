@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useState } from 'react';
 import {
   StyleProp,
   TextStyle,
@@ -8,10 +8,11 @@ import {
   ViewStyle,
   StyleSheet,
 } from 'react-native';
-import { spacing, typography, useTheme } from '@/theme';
-import { Text, TextProps } from '../Text';
 import { NavArrowRight } from 'iconoir-react-native';
 import { observer } from 'mobx-react-lite';
+
+import { spacing, typography, useTheme } from '@/theme';
+import { Text, TextProps } from '../Text';
 import { ImageIconTypes } from '../Icon/ImageIcon';
 
 export interface ListCellProps extends TouchableHighlightProps {
@@ -86,6 +87,7 @@ export function ListCell(props: ListCellProps) {
     ...touchableOpacityProps
   } = props;
   const { colors, isDark } = useTheme();
+  const [isPressIn, setIsPressIn] = useState(false);
 
   const $containerStyles = [
     $container,
@@ -94,10 +96,11 @@ export function ListCell(props: ListCellProps) {
   ];
   const $contentStyles = [
     $content,
-    bottomSeparator && {
-      borderBottomWidth: StyleSheet.hairlineWidth,
-      borderBottomColor: colors.palette.gray4,
-    },
+    bottomSeparator &&
+      !isPressIn && {
+        borderBottomWidth: StyleSheet.hairlineWidth,
+        borderBottomColor: colors.palette.gray4,
+      },
   ];
 
   return (
@@ -105,6 +108,14 @@ export function ListCell(props: ListCellProps) {
       {...touchableOpacityProps}
       style={$containerStyles}
       underlayColor={colors.palette.gray5}
+      onPressIn={(event) => {
+        setIsPressIn(true);
+        touchableOpacityProps.onPressIn?.(event);
+      }}
+      onPressOut={(event) => {
+        setIsPressIn(false);
+        touchableOpacityProps.onPressOut?.(event);
+      }}
     >
       <>
         {children || (
@@ -153,7 +164,7 @@ export function ListCell(props: ListCellProps) {
   );
 }
 
-function LeftIconWrapper({ children }: { children: ReactElement }) {
+function LeftIconWrapper({ children }: { children: React.ReactNode }) {
   return <View style={$leftIconWrapper}>{children}</View>;
 }
 

@@ -25,6 +25,7 @@ export const FakeAppHomeSettingsScreen: FC<
         <ListSection>
           <ListCell
             tk="fakeAppHomeSettingsScreen.fakeHomeEnabled"
+            bottomSeparator={false}
             rightIcon={
               <Switch
                 value={settingsStore.fakeHomeEnabled}
@@ -35,11 +36,14 @@ export const FakeAppHomeSettingsScreen: FC<
         </ListSection>
 
         <ListSection titleTk="fakeAppHomeSettingsScreen.unlockAction">
-          {unlockActions.map((item) => {
+          {unlockActions.map((item, idx) => {
             const checked = settingsStore.fakeHomeUnlockActions.includes(item.value);
+            const bottomSeparator = idx < unlockActions.length - 1;
+
             return (
               <ListCell
                 key={item.value}
+                bottomSeparator={bottomSeparator}
                 tk={item.tk}
                 rightIcon={
                   <Switch

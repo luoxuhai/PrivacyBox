@@ -26,6 +26,8 @@ import {
 } from '@/screens';
 import { spacing, typography, useTheme } from '@/theme';
 import { AppStackParamList, AppStackScreenProps } from './AppNavigator';
+import { useStores } from '@/models';
+import { BottomTabs } from '@/models/SettingsStore';
 
 export type ContentTabParamList = {
   Album: undefined;
@@ -155,6 +157,11 @@ export const ContentNavigator = observer(function ContentNavigator() {
   const { bottom } = useSafeAreaInsets();
   const { colors, isDark } = useTheme();
   const { portrait } = useDeviceOrientation();
+  const {
+    settingsStore: { visibleBottomTabs },
+    appLockStore,
+  } = useStores();
+  const bottomTabDarkle = appLockStore.inFakeEnvironment && appLockStore.bottomTabDarkleWhenFake;
 
   return (
     <Tab.Navigator
@@ -175,28 +182,35 @@ export const ContentNavigator = observer(function ContentNavigator() {
             marginTop: portrait ? spacing[3] : 0,
           },
         ],
-        tabBarBackground: () => (
-          <BlurView blurType={isDark ? 'materialDark' : 'materialLight'} blurAmount={10} />
-        ),
+        tabBarBackground: () =>
+          bottomTabDarkle ? (
+            <BlurView blurType="materialDark" blurAmount={50} />
+          ) : (
+            <BlurView blurType={isDark ? 'materialDark' : 'materialLight'} blurAmount={10} />
+          ),
       }}
     >
-      <Tab.Screen
-        name="Album"
-        component={AlbumScreen}
-        options={{
-          tabBarLabel: translate('contentNavigator.albumTab'),
-          tabBarIcon: ({ color }) => <BottomTabIcon icon="Album" color={color} />,
-        }}
-      />
+      {visibleBottomTabs.includes(BottomTabs.Album) && (
+        <Tab.Screen
+          name="Album"
+          component={AlbumScreen}
+          options={{
+            tabBarLabel: translate('contentNavigator.albumTab'),
+            tabBarIcon: ({ color }) => <BottomTabIcon icon="Album" color={color} />,
+          }}
+        />
+      )}
 
-      <Tab.Screen
-        name="File"
-        component={FileScreen}
-        options={{
-          title: translate('contentNavigator.filesTab'),
-          tabBarIcon: ({ color }) => <BottomTabIcon icon="Files" color={color} />,
-        }}
-      />
+      {visibleBottomTabs.includes(BottomTabs.Files) && (
+        <Tab.Screen
+          name="File"
+          component={FileScreen}
+          options={{
+            title: translate('contentNavigator.filesTab'),
+            tabBarIcon: ({ color }) => <BottomTabIcon icon="Files" color={color} />,
+          }}
+        />
+      )}
 
       {/* <Tab.Screen
         name="Browser"
@@ -207,14 +221,16 @@ export const ContentNavigator = observer(function ContentNavigator() {
         }}
       /> */}
 
-      <Tab.Screen
-        name="More"
-        component={MoreScreen}
-        options={{
-          tabBarLabel: translate('contentNavigator.moreTab'),
-          tabBarIcon: ({ color }) => <BottomTabIcon icon="More" color={color} />,
-        }}
-      />
+      {visibleBottomTabs.includes(BottomTabs.More) && (
+        <Tab.Screen
+          name="More"
+          component={MoreScreen}
+          options={{
+            tabBarLabel: translate('contentNavigator.moreTab'),
+            tabBarIcon: ({ color }) => <BottomTabIcon icon="More" color={color} />,
+          }}
+        />
+      )}
 
       <Tab.Screen
         name="Settings"

@@ -1,20 +1,18 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC } from 'react';
 import { observer } from 'mobx-react-lite';
-import { Alert, ViewStyle } from 'react-native';
+import { ViewStyle } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
+import { Check as IconCheck } from 'iconoir-react-native';
+
 import { SettingStackParamList } from '@/navigators';
-import { Screen, Text, ListSection, ListCell, SafeAreaScrollView } from '@/components';
-import { useNavigation } from '@react-navigation/native';
-import { colors, useTheme } from '@/theme';
+import { Screen, ListSection, ListCell, SafeAreaScrollView } from '@/components';
+import { useTheme } from '@/theme';
 import { appearanceToMode } from '@/models/ThemeStore';
 import { TextKeyPath } from '@/i18n';
-import { Check as IconCheck } from 'iconoir-react-native';
+import { ICON_CHECK_SIZE } from '@/constant';
 
 export const AppearanceScreen: FC<StackScreenProps<SettingStackParamList, 'Appearance'>> = observer(
   function AppearanceScreen() {
-    const { colors } = useTheme();
-    const navigation = useNavigation();
-
     return (
       <Screen style={$screen}>
         <SafeAreaScrollView
@@ -30,8 +28,7 @@ export const AppearanceScreen: FC<StackScreenProps<SettingStackParamList, 'Appea
   },
 );
 
-const ICON_CHECK_SIZE = 22;
-function AppearanceColorSection() {
+const AppearanceColorSection = observer(() => {
   const { appearance, isSystemAppearance, colors, setAppearanceMode } = useTheme();
 
   const list: { mode: AppearanceMode; label: TextKeyPath }[] = [
@@ -73,7 +70,7 @@ function AppearanceColorSection() {
       })}
     </ListSection>
   );
-}
+});
 
 function AppIconSection() {
   return (

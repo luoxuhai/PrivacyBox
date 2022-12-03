@@ -1,8 +1,14 @@
+import { AppQueriesSchemes } from '@/screens/UrgentSwitchScreen/type';
 import { Instance, SnapshotIn, SnapshotOut, types } from 'mobx-state-tree';
 
 export enum FakeHomeUnlockActions {
   PullRefresh = 'pull_refresh',
   Slide = 'slide',
+  Shake = 'shake',
+}
+
+export enum UrgentSwitchActions {
+  FaceDown = 'face_down',
   Shake = 'shake',
 }
 
@@ -17,6 +23,19 @@ export const SettingsStoreModel = types
       FakeHomeUnlockActions.Slide,
       FakeHomeUnlockActions.Shake,
     ]),
+    urgentSwitchTarget: types.optional(
+      types.enumeration<AppQueriesSchemes>('AppQueriesSchemes', Object.values(AppQueriesSchemes)),
+      AppQueriesSchemes.Disable,
+    ),
+    urgentSwitchActions: types.optional(
+      types.array(
+        types.enumeration<UrgentSwitchActions>(
+          'UrgentSwitchActions',
+          Object.values(UrgentSwitchActions),
+        ),
+      ),
+      [UrgentSwitchActions.FaceDown],
+    ),
   })
   .views((self) => ({})) // eslint-disable-line @typescript-eslint/no-unused-vars
   .actions((self) => ({
@@ -42,6 +61,22 @@ export const SettingsStoreModel = types
       const newValue = JSON.parse(JSON.stringify(self.fakeHomeUnlockActions));
       newValue.splice(index, 1);
       self.fakeHomeUnlockActions = newValue;
+    },
+
+    setUrgentSwitchTarget(urgentSwitchTarget: AppQueriesSchemes) {
+      self.urgentSwitchTarget = urgentSwitchTarget;
+    },
+
+    setUrgentSwitchActions(action: UrgentSwitchActions) {
+      if (self.urgentSwitchActions.includes(action)) {
+        return;
+      }
+
+      self.urgentSwitchActions.push(action);
+    },
+
+    removeUrgentSwitchAction(action: UrgentSwitchActions) {
+      self.urgentSwitchActions.remove(action);
     },
   }));
 

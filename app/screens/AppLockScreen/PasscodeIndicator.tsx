@@ -21,6 +21,9 @@ export const PasscodeIndicator = observer<PasscodeIndicatorProps>((props) => {
         <Animated.View
           style={[
             $circle,
+            {
+              borderColor: colors.label,
+            },
             PASSCODE_LENGTH * props.progress - 1 >= index && { backgroundColor: colors.label },
           ]}
           key={index}

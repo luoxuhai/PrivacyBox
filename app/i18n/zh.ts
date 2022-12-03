@@ -109,7 +109,11 @@ const zh = {
   },
   urgentSwitchScreen: {
     title: '紧急切换',
-    header: '当手机屏幕朝下时会跳转到以下指定应用',
+    targetHeader: '跳转到的目标应用',
+    targetTip: '当手机屏幕朝下时会跳转到以下指定应用',
+    actionSectionTitle: '触发动作',
+    actionShake: '摇一摇',
+    actionFaceDown: '屏幕朝下',
   },
   fakeAppHomeScreen: {
     removeInfo: '去除图片隐私信息',

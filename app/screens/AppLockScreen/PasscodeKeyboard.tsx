@@ -58,7 +58,7 @@ interface PressKeyProps {
   onPress?(key: string): void;
 }
 
-const PressKey = (props: PressKeyProps) => {
+const PressKey = observer<PressKeyProps>((props) => {
   const [isPressed, setIsPressed] = useState(false);
   const { colors } = useTheme();
 
@@ -80,11 +80,15 @@ const PressKey = (props: PressKeyProps) => {
         onPressIn={() => setIsPressed(true)}
         onPressOut={() => setIsPressed(false)}
       >
-        {props.children || <Text style={$pressKeyText}>{props.name}</Text>}
+        {props.children || (
+          <Text style={$pressKeyText} color={colors.label}>
+            {props.name}
+          </Text>
+        )}
       </TouchableHighlight>
     </PressKeyContainer>
   );
-};
+});
 
 function PressKeyContainer(props: { children?: React.ReactNode }) {
   const { portrait } = useDeviceOrientation();

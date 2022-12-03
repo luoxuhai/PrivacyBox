@@ -9,7 +9,6 @@ import {
   StyleSheet,
 } from 'react-native';
 import { spacing, typography, useTheme } from '@/theme';
-import { IconTypes } from '../Icon';
 import { Text, TextProps } from '../Text';
 import { NavArrowRight } from 'iconoir-react-native';
 import { observer } from 'mobx-react-lite';
@@ -109,7 +108,7 @@ export function ListCell(props: ListCellProps) {
       <>
         {children || (
           <>
-            {leftIcon}
+            {leftIcon ? <LeftIconWrapper>{leftIcon}</LeftIconWrapper> : null}
 
             <View style={$contentStyles}>
               <Text
@@ -153,6 +152,10 @@ export function ListCell(props: ListCellProps) {
   );
 }
 
+function LeftIconWrapper({ children }: { children: ReactElement }) {
+  return <View style={$leftIconWrapper}>{children}</View>;
+}
+
 const ExtraText = observer(({ text }: { text: string }) => {
   const { colors } = useTheme();
   return <Text style={[typography.subhead, { color: colors.secondaryLabel }]}>{text}</Text>;
@@ -186,4 +189,8 @@ const $rightContent: ViewStyle = {
 
 const $rightAccessory: ViewStyle = {
   marginRight: spacing[2],
+};
+
+const $leftIconWrapper: ViewStyle = {
+  marginLeft: spacing[4],
 };

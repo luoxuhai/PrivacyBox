@@ -4,11 +4,7 @@
  * Generally speaking, it will contain an auth flow (registration, login, forgot password)
  * and a "main" flow which the user will use once logged in.
  */
-import {
-  DefaultTheme,
-  NavigationContainer,
-  NavigatorScreenParams,
-} from '@react-navigation/native';
+import { DefaultTheme, NavigationContainer, NavigatorScreenParams } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StackScreenProps } from '@react-navigation/stack';
 import { observer } from 'mobx-react-lite';

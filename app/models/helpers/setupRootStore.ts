@@ -31,21 +31,22 @@ export async function setupRootStore(rootStore: RootStore) {
 
     // 读取持久化配置
     persist(THEME_STATE_STORAGE_KEY, themeStore);
-    persist(SETTINGS_STATE_STORAGE_KEY, settingsStore);
-    console.prettyLog(persist(APP_LOCK_STATE_STORAGE_KEY, appLockStore, {
+    const settings = persist(SETTINGS_STATE_STORAGE_KEY, settingsStore);
+    persist(APP_LOCK_STATE_STORAGE_KEY, appLockStore, {
       blacklist: ['isLocked', 'inFakeEnvironment', 'appInBackgroundTimestamp'],
-    }))
-
+    });
     // 应用启动时设置外观
     themeStore.setAppearanceMode(
       appearanceToMode(themeStore.appearance, themeStore.isSystemAppearance),
     );
 
+    console.prettyLog(settings)
+
     observeSystemAppearanceChange(themeStore);
     observeAppStateChange(appStateStore);
   } catch (e) {
     if (__DEV__) {
-      console.error('setupRootStore', e.message, null);
+      console.error('setupRootStore', e, null);
     }
   }
 }

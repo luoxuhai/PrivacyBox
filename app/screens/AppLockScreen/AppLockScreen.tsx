@@ -119,7 +119,7 @@ export const AppLockScreen: FC<StackScreenProps<AppStackParamList, 'AppLock'>> =
             <Animated.View style={$animatedStyles}>
               <SFSymbol name="lock.fill" size={40} color={colors.label} />
             </Animated.View>
-            <Text style={$headerText} text="输入密码" />
+            <Text style={$headerText} color={colors.label} text="输入密码" />
             <PasscodeIndicator
               style={$animatedStyles}
               progress={passcode.length / PASSCODE_LENGTH}

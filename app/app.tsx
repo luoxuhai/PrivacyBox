@@ -64,6 +64,7 @@ const App: FC = observer(() => {
   // You can replace with your own loading component if you wish.
   if (!rehydrated || !isNavigationStateRestored) return null;
 
+  console.log('initialWindowMetrics', initialWindowMetrics);
   // otherwise, we're ready to render the app
   return (
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>

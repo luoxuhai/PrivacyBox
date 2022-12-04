@@ -11,9 +11,9 @@ import Shake from 'react-native-shake';
 import { AppStackParamList } from '@/navigators';
 import { Screen, Text } from '@/components';
 import { radius, spacing, useTheme } from '@/theme';
-import { Overlay } from '@/utils';
 import { translate } from '@/i18n';
 import { useStores } from '@/models';
+import { HapticFeedback, Overlay } from '@/utils';
 import { FakeHomeUnlockActions } from '@/models/SettingsStore';
 
 function luminance(color: string, l = 0.1) {
@@ -36,6 +36,7 @@ export const FakeAppHomeScreen: FC<StackScreenProps<AppStackParamList, 'FakeAppH
       if (settingsStore.fakeHomeUnlockActions.includes(FakeHomeUnlockActions.Shake)) {
         subscription = Shake.addListener(() => {
           openAppLock();
+          HapticFeedback.impact.heavy();
         });
       }
       return () => {
@@ -84,7 +85,10 @@ export const FakeAppHomeScreen: FC<StackScreenProps<AppStackParamList, 'FakeAppH
     const gesture = Gesture.Fling()
       .direction(Directions.LEFT)
       .runOnJS(true)
-      .onEnd(openAppLock)
+      .onEnd(() => {
+        openAppLock();
+        HapticFeedback.impact.heavy();
+      })
       .enabled(settingsStore.fakeHomeUnlockActions.includes(FakeHomeUnlockActions.Slide));
 
     const pullRefreshEnabled = useMemo(
@@ -100,6 +104,9 @@ export const FakeAppHomeScreen: FC<StackScreenProps<AppStackParamList, 'FakeAppH
       >
         <GestureDetector gesture={gesture}>
           <FlashList
+            style={{
+              flex: 1,
+            }}
             scrollEnabled={pullRefreshEnabled}
             contentContainerStyle={$list}
             data={list}

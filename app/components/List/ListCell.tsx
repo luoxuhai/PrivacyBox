@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { NavArrowRight } from 'iconoir-react-native';
 import { observer } from 'mobx-react-lite';
+import Animated, { FadeIn } from 'react-native-reanimated';
 
 import { spacing, typography, useTheme } from '@/theme';
 import { Text, TextProps } from '../Text';
@@ -68,11 +69,8 @@ export interface ListCellProps extends TouchableHighlightProps {
   RightAccessory?: ReactElement | string;
 }
 
-/**
- * A styled row component that can be used in FlatList, SectionList, or by itself.
- *
- * - [Documentation and Examples](https://github.com/infinitered/ignite/blob/master/docs/Components-ListItem.md)
- */
+const AnimatedTouchableHighlight = Animated.createAnimatedComponent(TouchableHighlight);
+
 export function ListCell(props: ListCellProps) {
   const {
     bottomSeparator = true,
@@ -106,8 +104,9 @@ export function ListCell(props: ListCellProps) {
   ];
 
   return visible ? (
-    <TouchableHighlight
+    <AnimatedTouchableHighlight
       {...touchableOpacityProps}
+      entering={FadeIn.duration(150)}
       style={$containerStyles}
       underlayColor={colors.palette.gray5}
       onPressIn={(event) => {
@@ -162,7 +161,7 @@ export function ListCell(props: ListCellProps) {
           </>
         )}
       </>
-    </TouchableHighlight>
+    </AnimatedTouchableHighlight>
   ) : null;
 }
 

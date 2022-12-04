@@ -60,6 +60,7 @@ export interface ListCellProps extends TouchableHighlightProps {
    * Icon that should appear on the right.
    */
   rightIcon?: ReactElement;
+  visible?: boolean;
   /**
    * Left action custom ReactElement.
    * Overrides `leftIcon`.
@@ -84,6 +85,7 @@ export function ListCell(props: ListCellProps) {
     tk,
     tkOptions,
     textStyle,
+    visible = true,
     ...touchableOpacityProps
   } = props;
   const { colors, isDark } = useTheme();
@@ -103,7 +105,7 @@ export function ListCell(props: ListCellProps) {
       },
   ];
 
-  return (
+  return visible ? (
     <TouchableHighlight
       {...touchableOpacityProps}
       style={$containerStyles}
@@ -161,7 +163,7 @@ export function ListCell(props: ListCellProps) {
         )}
       </>
     </TouchableHighlight>
-  );
+  ) : null;
 }
 
 function LeftIconWrapper({ children }: { children: React.ReactNode }) {

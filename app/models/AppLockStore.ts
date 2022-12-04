@@ -7,7 +7,7 @@ export const AppLockStoreModel = types
   .model('AppLockStore')
   .props({
     /** 解锁密码 */
-    passcode: types.optional(types.string, '123456'),
+    passcode: types.optional(types.string, ''),
     /** 自动锁定时间 */
     autolockTimeout: types.optional(types.number, 0),
     /** 开启生物识别 */
@@ -34,6 +34,14 @@ export const AppLockStoreModel = types
   .actions((self) => ({
     setAutolockTimeout(autolockTimeout: number) {
       self.autolockTimeout = autolockTimeout;
+    },
+
+    setPasscode(passcode: string) {
+      self.passcode = passcode;
+    },
+
+    setFakePasscode(fakePasscode: string) {
+      self.fakePasscode = fakePasscode;
     },
 
     setBiometricsEnabled(biometricsEnabled: boolean) {

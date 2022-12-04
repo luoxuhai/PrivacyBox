@@ -37,6 +37,8 @@ PODS:
   - ExpoModulesCore (0.11.8):
     - React-Core
     - ReactCommon/turbomodule/core
+  - EXSensors (12.0.1):
+    - ExpoModulesCore
   - FBLazyVector (0.69.7)
   - FBReactNativeSpec (0.69.7):
     - RCT-Folly (= 2021.06.28.00-v2)
@@ -593,6 +595,8 @@ PODS:
     - React-Core
   - RNDeviceInfo (10.3.0):
     - React-Core
+  - RNDynamicAppIcon (1.1.0):
+    - React
   - RNFastImage (8.6.3):
     - React-Core
     - SDWebImage (~> 5.11.1)
@@ -691,6 +695,7 @@ DEPENDENCIES:
   - ExpoKeepAwake (from `../node_modules/expo-keep-awake/ios`)
   - ExpoLinearGradient (from `../node_modules/expo-linear-gradient/ios`)
   - ExpoModulesCore (from `../node_modules/expo-modules-core/ios`)
+  - EXSensors (from `../node_modules/expo-sensors/ios`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../node_modules/react-native/React/FBReactNativeSpec`)
   - Firebase
@@ -771,6 +776,7 @@ DEPENDENCIES:
   - RNBootSplash (from `../node_modules/react-native-bootsplash`)
   - "RNCClipboard (from `../node_modules/@react-native-clipboard/clipboard`)"
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
+  - RNDynamicAppIcon (from `../node_modules/react-native-dynamic-app-icon`)
   - RNFastImage (from `../node_modules/react-native-fast-image`)
   - "RNFBAnalytics (from `../node_modules/@react-native-firebase/analytics`)"
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
@@ -863,6 +869,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-linear-gradient/ios"
   ExpoModulesCore:
     :path: "../node_modules/expo-modules-core/ios"
+  EXSensors:
+    :path: "../node_modules/expo-sensors/ios"
   FBLazyVector:
     :path: "../node_modules/react-native/Libraries/FBLazyVector"
   FBReactNativeSpec:
@@ -967,6 +975,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-clipboard/clipboard"
   RNDeviceInfo:
     :path: "../node_modules/react-native-device-info"
+  RNDynamicAppIcon:
+    :path: "../node_modules/react-native-dynamic-app-icon"
   RNFastImage:
     :path: "../node_modules/react-native-fast-image"
   RNFBAnalytics:
@@ -1019,6 +1029,7 @@ SPEC CHECKSUMS:
   ExpoKeepAwake: 0e8f18142e71bbf2c7f6aa66ebed249ba1420320
   ExpoLinearGradient: 1a3af07c6dab3c612967a294836df9ae717431df
   ExpoModulesCore: 39ec590ce622289c060183aba57f77b1e73b4e11
+  EXSensors: c4d17812887f3b8bec1da3c1e501a1d7b02bf19d
   FBLazyVector: 6b7f5692909b4300d50e7359cdefbcd09dd30faa
   FBReactNativeSpec: affcf71d996f6b0c01f68883482588297b9d5e6e
   Firebase: 444b35a9c568a516666213c2f6cccd10cb12559f
@@ -1100,6 +1111,7 @@ SPEC CHECKSUMS:
   RNBootSplash: 7e91ea56c7010aae487489789dbe212e8c905a0c
   RNCClipboard: 2834e1c4af68697089cdd455ee4a4cdd198fa7dd
   RNDeviceInfo: 4701f0bf2a06b34654745053db0ce4cb0c53ada7
+  RNDynamicAppIcon: f7eb12d6c2e6e957eead111dacdb93af318396ac
   RNFastImage: 5c9c9fed9c076e521b3f509fe79e790418a544e8
   RNFBAnalytics: db5c92053dc552f268a233228b565c538e058547
   RNFBApp: 90153cce9b119f4546a4e5fb1427bca963448dc5

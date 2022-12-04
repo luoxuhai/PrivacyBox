@@ -4,7 +4,7 @@ import overrideColorScheme from 'react-native-override-color-scheme';
 import { colors } from '@/theme';
 import { Appearance } from 'react-native';
 import { delay } from '@/utils';
-import { AppIcons } from '@/screens/AppearanceScreen/type';
+import { AppIcons } from '@/screens/AppearanceScreen/types';
 
 export const ThemeStoreModel = types
   .model('ThemeStore', {

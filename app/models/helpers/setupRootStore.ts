@@ -9,11 +9,16 @@
  *
  * @refresh reset
  */
-import { Appearance, AppState } from 'react-native';
+import { Appearance, AppState, NativeEventSubscription } from 'react-native';
+import { fromEventPattern } from 'rxjs';
+import Shake from 'react-native-shake';
+import { DeviceMotion } from 'expo-sensors';
+
 import { AppStateStore } from '../AppStateStore';
 import type { RootStore } from '../RootStore';
 import { appearanceToMode, ThemeStore } from '../ThemeStore';
 import { persist } from './persist';
+import { UrgentSwitchActions } from '../SettingsStore';
 
 // 主题
 const THEME_STATE_STORAGE_KEY = 'theme-v1';
@@ -32,18 +37,31 @@ export async function setupRootStore(rootStore: RootStore) {
     // 读取持久化配置
     persist(THEME_STATE_STORAGE_KEY, themeStore);
     const settings = persist(SETTINGS_STATE_STORAGE_KEY, settingsStore);
-    persist(APP_LOCK_STATE_STORAGE_KEY, appLockStore, {
-      blacklist: ['isLocked', 'inFakeEnvironment', 'appInBackgroundTimestamp'],
+    const appLock = persist(APP_LOCK_STATE_STORAGE_KEY, appLockStore, {
+      whitelist: [
+        'passcode',
+        'autolockTimeout',
+        'biometricsEnabled',
+        'autoTriggerBiometrics',
+        'fakePasscodeEnabled',
+        'fakePasscode',
+        'biometricsEnabledWhenFake',
+        'bottomTabDarkleWhenFake',
+      ],
     });
+
     // 应用启动时设置外观
     themeStore.setAppearanceMode(
       appearanceToMode(themeStore.appearance, themeStore.isSystemAppearance),
     );
 
-    console.prettyLog(settings)
+    console.prettyLog(settings);
+    console.prettyLog(appLock);
 
     observeSystemAppearanceChange(themeStore);
     observeAppStateChange(appStateStore);
+    observeShake(rootStore);
+    observeDeviceMotion(rootStore);
   } catch (e) {
     if (__DEV__) {
       console.error('setupRootStore', e, null);
@@ -55,11 +73,23 @@ export async function setupRootStore(rootStore: RootStore) {
  * 监听系统外观变化
  */
 function observeSystemAppearanceChange(store: ThemeStore) {
-  Appearance.addChangeListener(() => {
+  let delHandler: NativeEventSubscription;
+
+  const subscription = fromEventPattern<Appearance.AppearancePreferences>(
+    (handler) => {
+      delHandler = Appearance.addChangeListener(handler);
+    },
+    () => {
+      delHandler?.remove();
+    },
+  ).subscribe(() => {
     if (store.isSystemAppearance) {
+      console.log('isSystemAppearance');
       store.setAppearanceMode('auto');
     }
   });
+
+  return subscription.unsubscribe;
 }
 
 /**
@@ -68,5 +98,39 @@ function observeSystemAppearanceChange(store: ThemeStore) {
 function observeAppStateChange(store: AppStateStore) {
   AppState.addEventListener('change', (state) => {
     store.setState(state);
+  });
+}
+
+/**
+ * 监听设备摇动
+ */
+function observeShake(rootStore: RootStore) {
+  Shake.addListener(() => {
+    if (
+      !rootStore.appLockStore.isLocked &&
+      rootStore.settingsStore.urgentSwitchActions.includes(UrgentSwitchActions.Shake)
+    ) {
+      rootStore.appLockStore.setIsLocked(true);
+    }
+  });
+}
+
+/**
+ * 监听屏幕朝下
+ */
+function observeDeviceMotion(rootStore: RootStore) {
+  DeviceMotion.setUpdateInterval(500);
+  DeviceMotion.removeAllListeners();
+  DeviceMotion.addListener((v) => {
+    const x = (180 / Math.PI) * v.rotation.gamma;
+    const y = (180 / Math.PI) * v.rotation.beta;
+    if (Math.abs(x) >= 165 && Math.abs(y) <= 20) {
+      if (
+        !rootStore.appLockStore.isLocked &&
+        rootStore.settingsStore.urgentSwitchActions.includes(UrgentSwitchActions.FaceDown)
+      ) {
+        rootStore.appLockStore.setIsLocked(true);
+      }
+    }
   });
 }

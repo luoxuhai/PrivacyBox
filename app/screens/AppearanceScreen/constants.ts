@@ -1,5 +1,5 @@
 import { TextKeyPath } from '@/i18n';
-import { AppIcons } from './type';
+import { AppIcons } from './types';
 
 export const appIconOptions: {
   title: TextKeyPath;

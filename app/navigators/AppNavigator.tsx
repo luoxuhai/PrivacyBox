@@ -19,6 +19,10 @@ import { useTheme } from '@/theme';
 import { AppMaskScreen } from '@/screens/AppMaskScreen';
 import { FakeAppHomeScreen } from '@/screens/FakeAppHomeScreen';
 import { translate } from '@/i18n';
+import {
+  ChangeLockPasscodeScreen,
+  ChangeLockPasscodeScreenParams,
+} from '@/screens/AppLockSettingsScreen/ChangeLockPasscodeScreen';
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -35,6 +39,7 @@ import { translate } from '@/i18n';
  */
 export type AppStackParamList = {
   AppLock: typeof AppLockScreen;
+  ChangeLockPasscode: ChangeLockPasscodeScreenParams;
   AppMask: typeof AppMaskScreen;
   FakeAppHome: typeof FakeAppHomeScreen;
   Content: NavigatorScreenParams<ContentTabParamList>;
@@ -56,10 +61,17 @@ const Stack = createNativeStackNavigator<AppStackParamList>();
 const AppStack = observer(function AppStack() {
   const {
     settingsStore: { fakeHomeEnabled },
+    appLockStore,
   } = useStores();
   const { isDark, colors } = useTheme();
 
-  const initialRouteName = fakeHomeEnabled ? 'FakeAppHome' : 'AppLock';
+  const initialRouteName = useMemo(() => {
+    if (fakeHomeEnabled) {
+      return 'FakeAppHome';
+    }
+
+    return appLockStore.passcode ? 'AppLock' : 'ChangeLockPasscode';
+  }, [fakeHomeEnabled, appLockStore.passcode]);
 
   return (
     <Stack.Navigator initialRouteName={initialRouteName}>
@@ -76,6 +88,15 @@ const AppStack = observer(function AppStack() {
             animation: 'fade',
           }}
         />
+
+        <Stack.Screen
+          name="ChangeLockPasscode"
+          component={ChangeLockPasscodeScreen}
+          options={{
+            presentation: 'fullScreenModal',
+          }}
+        />
+
         <Stack.Screen
           name="AppMask"
           component={AppMaskScreen}
@@ -92,8 +113,6 @@ const AppStack = observer(function AppStack() {
         component={FakeAppHomeScreen}
         options={{
           title: translate('common.appName'),
-          presentation: 'fullScreenModal',
-          animation: 'flip',
           headerBlurEffect: isDark ? 'systemMaterialDark' : 'systemMaterialLight',
           headerTransparent: true,
           headerLargeTitle: true,

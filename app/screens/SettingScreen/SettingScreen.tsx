@@ -18,7 +18,7 @@ export const SettingScreen: FC<StackScreenProps<SettingStackParamList, 'Settings
   (props) => {
     const { colors } = useTheme();
     const { navigation } = props;
-    const { settingsStore } = useStores();
+    const { settingsStore, appLockStore } = useStores();
     const bottomTabBarHeight = useBottomTabBarHeight();
 
     const $contentContainerStyles = [
@@ -40,6 +40,7 @@ export const SettingScreen: FC<StackScreenProps<SettingStackParamList, 'Settings
           >
             <ListCell
               tk="appLockSettingsScreen.title"
+              visible={!appLockStore.inFakeEnvironment}
               onPress={() => {
                 navigation.navigate('AppLockSettings');
               }}

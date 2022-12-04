@@ -6888,6 +6888,13 @@ expo-modules-core@0.11.8, expo-modules-core@~0.11.3:
     compare-versions "^3.4.0"
     invariant "^2.2.4"
 
+expo-sensors@^12.0.1:
+  version "12.0.1"
+  resolved "https://registry.npmmirror.com/expo-sensors/-/expo-sensors-12.0.1.tgz#ec8a285bb672ca73a6e1d5be95c78ee225c1641d"
+  integrity sha512-XsrHC7RD8dx9jHiY7DKvMhm14k59uCyKoZki0A0hyOn8NeVG/GUuCZtZwqFog2Ozc4jKidBWQ1OQp5Xq4xJXvQ==
+  dependencies:
+    invariant "^2.2.4"
+
 expo-status-bar@~1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/expo-status-bar/-/expo-status-bar-1.4.0.tgz#c0317de2c53878340f4b4f00ff7e4ba14399a7fb"
@@ -12877,6 +12884,11 @@ react-native-device-info@^10.3.0:
   version "10.3.0"
   resolved "https://registry.npmmirror.com/react-native-device-info/-/react-native-device-info-10.3.0.tgz#6bab64d84d3415dd00cc446c73ec5e2e61fddbe7"
   integrity sha512-/ziZN1sA1REbJTv5mQZ4tXggcTvSbct+u5kCaze8BmN//lbxcTvWsU6NQd4IihLt89VkbX+14IGc9sVApSxd/w==
+
+react-native-dynamic-app-icon@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.npmmirror.com/react-native-dynamic-app-icon/-/react-native-dynamic-app-icon-1.1.0.tgz#c7722289f9705c24fea257c9722f8d976a14cd13"
+  integrity sha512-NJFQNelgA/VZfw2ZbMErUrIFv+DxV8lTX7ZEkU8ys+oZE2yA9EDNZp9KmeAufKZ4VvtFlRuyaR6OHAEfM7CNaw==
 
 react-native-fast-image@^8.6.3:
   version "8.6.3"

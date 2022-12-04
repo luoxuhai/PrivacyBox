@@ -4,16 +4,20 @@
 import { onSnapshot, applySnapshot, IStateTreeNode } from 'mobx-state-tree';
 import { storage } from '@/storage';
 
-export interface IArgs {
-  (name: string, store: IStateTreeNode, options?: IOptions): void;
+export interface IArgs<T> {
+  (name: string, store: IStateTreeNode, options?: IOptions<T>): void;
 }
-export interface IOptions {
-  readonly whitelist?: Array<string>;
-  readonly blacklist?: Array<string>;
+export interface IOptions<T> {
+  readonly whitelist?: Array<T>;
+  readonly blacklist?: Array<T>;
 }
 type StrToAnyMap = { [key: string]: any };
 
-export const persist: IArgs = (name, store, options = {}) => {
+export function persist<T>(
+  name: string,
+  store,
+  options: IOptions<T> = {},
+): IArgs<T> {
   const { whitelist, blacklist } = options;
 
   const whitelistDict = arrToDict(whitelist);
@@ -42,7 +46,7 @@ export const persist: IArgs = (name, store, options = {}) => {
   applySnapshot(store, snapshot);
 
   return snapshot;
-};
+}
 
 type StrToBoolMap = { [key: string]: boolean };
 

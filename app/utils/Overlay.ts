@@ -2,7 +2,7 @@ import * as Burnt from 'burnt';
 import { HapticFeedback } from './HapticFeedback';
 
 type ToastOptions = {
-  title: string;
+  title?: string;
   message?: string;
   preset: 'done' | 'error'; // TODO custom option
   /**
@@ -20,6 +20,7 @@ function toast(options: ToastOptions) {
   Burnt.toast({
     duration: 2,
     ...options,
+    title: options.title ?? '',
     message: options.message ?? '',
     haptic: HapticFeedback.enabled ? options.haptic ?? 'none' : 'none',
   });
@@ -29,4 +30,57 @@ function dismissAllAlerts() {
   Burnt.dismissAllAlerts();
 }
 
-export const Overlay = { toast, dismissAllAlerts };
+type AlertOptions = {
+  title?: string;
+  message?: string;
+  /**
+   * Defaults to `true`.
+   */
+  shouldDismissByTap?: boolean;
+} & (
+  | {
+      preset: 'heart' | 'done' | 'error';
+
+      /**
+       * Duration in seconds.
+       */
+      duration?: number;
+    }
+  | {
+      preset: 'spinner';
+      /**
+       * Max timeout of the spinner in seconds. Required for this preset to avoid an infinite spinner.
+       *
+       * It's highly, highly recommended that you manually dismiss the alert using `Burnt.dismissAllAlerts()`.
+       *
+       * If you don't, then you risk having an infinite loading spinner for users.
+       *
+       * ```ts
+       * Burnt.alert({
+       *   preset: "spinner",
+       *   title: 'Loading...',
+       *   duration: 10, // Maximum of 10 seconds
+       * })
+       *
+       * try {
+       *   await createUser()
+       * } finally {
+       *   Burnt.dismissAllAlerts()
+       * }
+       * ```
+       */
+      duration: number;
+    }
+);
+
+function alert(options: AlertOptions) {
+  Burnt.alert({
+    preset: 'done',
+    duration: 3,
+    ...options,
+    title: options.title ?? '',
+    message: options.message ?? '',
+  });
+}
+
+export const Overlay = { toast, alert, dismissAllAlerts };

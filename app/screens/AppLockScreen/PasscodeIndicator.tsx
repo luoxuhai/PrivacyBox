@@ -3,7 +3,7 @@ import { ViewStyle, StyleProp } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import Animated from 'react-native-reanimated';
 import { spacing, useTheme } from '@/theme';
-import { PASSCODE_LENGTH } from './constant';
+import { PASSCODE_LENGTH } from './constants';
 
 interface PasscodeIndicatorProps {
   style?: StyleProp<ViewStyle>;

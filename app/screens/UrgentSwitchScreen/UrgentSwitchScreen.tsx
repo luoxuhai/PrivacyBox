@@ -7,7 +7,7 @@ import { Check as IconCheck } from 'iconoir-react-native';
 import { SettingStackParamList } from '@/navigators';
 import { Screen, ListSection, ListCell, Switch, ScrollSafeAreaView } from '@/components';
 import { spacing, useTheme } from '@/theme';
-import { ICON_CHECK_SIZE } from '@/constant';
+import { ICON_CHECK_SIZE } from '@/constants';
 import { getUrgentOptions } from './utils';
 import { useStores } from '@/models';
 import { UrgentSwitchActions } from '@/models/SettingsStore';

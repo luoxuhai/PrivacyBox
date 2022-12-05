@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ColorValue, ViewStyle } from 'react-native';
+import { View, ColorValue, ViewStyle, StyleProp } from 'react-native';
 import { SFSymbol } from 'react-native-sfsymbols';
 
 interface SettingsIconProps {
@@ -8,6 +8,7 @@ interface SettingsIconProps {
   iconSize?: number;
   systemName?: string;
   icon?: React.ReactNode;
+  style?: StyleProp<ViewStyle>;
 }
 
 export function SettingsIcon(props: SettingsIconProps) {
@@ -22,6 +23,7 @@ export function SettingsIcon(props: SettingsIconProps) {
           width: backgroundSize,
           height: backgroundSize,
         },
+        props.style,
       ]}
     >
       {icon || (systemName && <SFSymbol name={systemName} size={iconSize} />)}

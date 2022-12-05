@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import { BottomTabScreenProps, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { CompositeScreenProps, useNavigation } from '@react-navigation/native';
+import { CompositeScreenProps } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { TextStyle, Text } from 'react-native';
+import { TextStyle } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useDeviceOrientation } from '@react-native-community/hooks';
@@ -137,6 +137,8 @@ const SettingStackScreen: FC<StackScreenProps<SettingStackParamList>> = observer
             name="Purchase"
             options={{
               title: null,
+              headerBlurEffect: isDark ? 'systemMaterialDark' : 'systemMaterialLight',
+              headerTransparent: true,
             }}
             component={PurchaseScreen}
           />

@@ -8,13 +8,11 @@ import { Button, Text } from '@/components';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { SettingStackParamList } from '@/navigators';
 
-interface PurchaseBannerProps {}
-
-export function PurchaseBanner(props: PurchaseBannerProps) {
+export function PurchaseBanner() {
   const navigation = useNavigation<StackNavigationProp<SettingStackParamList, 'Purchase'>>();
 
   function handleToPurchase() {
-    navigation.navigate('FakeAppHome');
+    navigation.navigate('Purchase');
   }
 
   return (

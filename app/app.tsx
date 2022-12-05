@@ -16,6 +16,7 @@ import './utils/consoleExtension';
 import React, { FC, useEffect } from 'react';
 import { initialWindowMetrics, SafeAreaProvider } from 'react-native-safe-area-context';
 import { observer } from 'mobx-react-lite';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 import { initCrashReporting, useUpdateEffect } from './utils';
 import { useInitialRootStore } from './models';
@@ -26,9 +27,6 @@ import Config from './config';
 
 export const NAVIGATION_PERSISTENCE_KEY = 'NAVIGATION_STATE';
 
-/**
- * This is the root component of our app.
- */
 const App: FC = observer(() => {
   const {
     initialNavigationState,
@@ -56,25 +54,28 @@ const App: FC = observer(() => {
     }
   }, [rootStore.appStateStore.inForeground]);
 
-  // Before we show the app, we have to wait for our state to be ready.
-  // In the meantime, don't render anything. This will be the background
-  // color set in native by rootView's background color.
-  // In iOS: application:didFinishLaunchingWithOptions:
-  // In Android: https://stackoverflow.com/a/45838109/204044
-  // You can replace with your own loading component if you wish.
   if (!rehydrated || !isNavigationStateRestored) return null;
 
-  // otherwise, we're ready to render the app
   return (
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       <ErrorBoundary catchErrors={Config.catchErrors}>
-        <AppNavigator
-        // initialState={initialNavigationState}
-        // onStateChange={onNavigationStateChange}
-        />
+        <QueryClientProvider client={queryClient}>
+          <AppNavigator
+            initialState={initialNavigationState}
+            onStateChange={onNavigationStateChange}
+          />
+        </QueryClientProvider>
       </ErrorBoundary>
     </SafeAreaProvider>
   );
+});
+
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 3,
+    },
+  },
 });
 
 export default App;

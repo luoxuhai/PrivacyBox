@@ -6,7 +6,7 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { StackScreenProps } from '@react-navigation/stack';
 
 import { ListSection, ListCell, Screen, SafeAreaScrollView } from '@/components';
-import { spacing, useTheme } from '@/theme';
+import { spacing, useTheme, colors } from '@/theme';
 import Config from '@/config';
 import { openLinkInAppBrowser, HapticFeedback, Overlay, Application, DynamicUpdate } from '@/utils';
 import { i18n, SupportedLanguage, translate } from '@/i18n';
@@ -16,8 +16,6 @@ export const AboutScreen: FC<StackScreenProps<SettingStackParamList, 'About'>> =
   (props) => {
     const { colors } = useTheme();
     const [labelWithoutPrefix, setLabelWithoutPrefix] = useState<string>();
-    // const { navigation } = props;
-    // const { settingsStore } = useStores();
     const pressedCount = useRef<number>(0);
     const bottomTabBarHeight = useBottomTabBarHeight();
 
@@ -59,7 +57,9 @@ export const AboutScreen: FC<StackScreenProps<SettingStackParamList, 'About'>> =
                   i18n.language === SupportedLanguage.ZH
                     ? Config.changelog.zh_cn
                     : Config.changelog.en_us,
-                  colors.palette.primary6,
+                  {
+                    preferredControlTintColor: colors.palette.primary6,
+                  },
                 );
               }}
             />
@@ -74,28 +74,11 @@ export const AboutScreen: FC<StackScreenProps<SettingStackParamList, 'About'>> =
             />
           </ListSection>
           <ListSection titleTk="aboutScreen.agreement">
-            <ListCell
-              tk="aboutScreen.private"
-              onPress={() => {
-                openLinkInAppBrowser(
-                  i18n.language === SupportedLanguage.ZH
-                    ? Config.privacyPolicy.zh_cn
-                    : Config.privacyPolicy.en_us,
-                  colors.palette.primary6,
-                );
-              }}
-            />
+            <ListCell tk="aboutScreen.private" onPress={() => openPrivacyPolicy()} />
             <ListCell
               tk="aboutScreen.userAgreement"
               bottomSeparator={false}
-              onPress={() => {
-                openLinkInAppBrowser(
-                  i18n.language === SupportedLanguage.ZH
-                    ? Config.userAgreement.zh_cn
-                    : Config.userAgreement.en_us,
-                  colors.palette.primary6,
-                );
-              }}
+              onPress={() => openUserAgreement()}
             />
           </ListSection>
           <ListSection titleTk="aboutScreen.connect">
@@ -116,6 +99,24 @@ export const AboutScreen: FC<StackScreenProps<SettingStackParamList, 'About'>> =
     );
   },
 );
+
+export function openUserAgreement(modalEnabled = false) {
+  openLinkInAppBrowser(
+    i18n.language === SupportedLanguage.ZH
+      ? Config.userAgreement.zh_cn
+      : Config.userAgreement.en_us,
+    { preferredControlTintColor: colors.light.palette.primary6, modalEnabled },
+  );
+}
+
+export function openPrivacyPolicy(modalEnabled = false) {
+  openLinkInAppBrowser(
+    i18n.language === SupportedLanguage.ZH
+      ? Config.privacyPolicy.zh_cn
+      : Config.privacyPolicy.en_us,
+    { preferredControlTintColor: colors.light.palette.primary6, modalEnabled },
+  );
+}
 
 /**
  * 打开 QQ 群

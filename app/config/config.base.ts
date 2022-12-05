@@ -1,47 +1,6 @@
-export interface ConfigBaseProps {
-  persistNavigation: 'always' | 'dev' | 'prod' | 'never';
-  catchErrors: 'always' | 'dev' | 'prod' | 'never';
-  exitRoutes: string[];
-  email: string;
-  qqGroup: string;
-  appId: string;
-  appStoreUrl: {
-    cn: string;
-    global: string;
-    urlSchema: string;
-  };
-  /** 兔小巢 */
-  TXC_FEEDBACK_URL: string;
-  /** Sentry */
-  sentry: {
-    dsn: string;
-    tracesSampleRate: number;
-  };
-
-  /** 隐私政策 */
-  privacyPolicy: {
-    zh_cn: string;
-    en_us: string;
-  };
-
-  /** 用户协议 */
-  userAgreement: {
-    zh_cn: string;
-    en_us: string;
-  };
-
-  /** 更新日志 */
-  changelog: {
-    zh_cn: string;
-    en_us: string;
-  };
-}
-
-export type PersistNavigationConfig = ConfigBaseProps['persistNavigation'];
-
 const appId = '1597534147';
 
-const BaseConfig: ConfigBaseProps = {
+const BaseConfig = {
   // This feature is particularly useful in development mode, but
   // can be used in production as well if you prefer.
   persistNavigation: 'dev',
@@ -56,6 +15,10 @@ const BaseConfig: ConfigBaseProps = {
    * is pressed while in that screen. Only affects Android.
    */
   exitRoutes: ['Welcome'],
+
+  productId: 'net.darkce.privatespace_2',
+
+  groupIdentifier: 'group.net.darkce.privatespace',
 
   TXC_FEEDBACK_URL: 'https://support.qq.com/product/334350',
 
@@ -95,5 +58,9 @@ const BaseConfig: ConfigBaseProps = {
     en_us: 'https://private-space-web.netlify.app/en-us/changelog',
   },
 };
+
+export type ConfigBaseProps = typeof BaseConfig;
+
+export type PersistNavigationConfig = ConfigBaseProps['persistNavigation'];
 
 export default BaseConfig;

@@ -1,11 +1,11 @@
-import { InAppBrowser } from 'react-native-inappbrowser-reborn';
+import { InAppBrowser, InAppBrowserOptions } from 'react-native-inappbrowser-reborn';
 
-export function openLinkInAppBrowser(url: string, preferredControlTintColor?: string) {
+export function openLinkInAppBrowser(url: string, options: InAppBrowserOptions) {
   InAppBrowser.open(encodeURI(url), {
     dismissButtonStyle: 'close',
-    preferredControlTintColor,
     modalEnabled: false,
     animated: true,
     enableBarCollapsing: true,
+    ...options,
   });
 }

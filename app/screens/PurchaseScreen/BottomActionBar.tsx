@@ -28,6 +28,7 @@ export const BottomActionBar = observer(() => {
 
       <View style={$body}>
         <View style={$agreementWrapper}>
+          
           <TextButton
             style={[
               $agreementText,
@@ -35,6 +36,7 @@ export const BottomActionBar = observer(() => {
                 marginRight: spacing[4],
               },
             ]}
+            
             tk="aboutScreen.private"
             onPress={() => openPrivacyPolicy(true)}
           />

@@ -176,7 +176,7 @@ export const ChangeLockPasscodeScreen: FC<
         icon={isChange ? 'lock.rotation' : 'lock.fill'}
         isError={passcodeError}
         tk={headerTk}
-        biometricsVisible
+        biometricsVisible={false}
         onChange={handlePasscodeChange}
         onDelete={handlePasscodeDelete}
       />

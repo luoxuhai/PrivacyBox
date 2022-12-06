@@ -61,8 +61,8 @@ const App: FC = observer(() => {
       <ErrorBoundary catchErrors={Config.catchErrors}>
         <QueryClientProvider client={queryClient}>
           <AppNavigator
-            initialState={initialNavigationState}
-            onStateChange={onNavigationStateChange}
+            // initialState={initialNavigationState}
+            // onStateChange={onNavigationStateChange}
           />
         </QueryClientProvider>
       </ErrorBoundary>

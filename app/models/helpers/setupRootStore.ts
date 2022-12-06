@@ -9,7 +9,7 @@
  *
  * @refresh reset
  */
-import { Appearance, AppState, NativeEventSubscription } from 'react-native';
+import { Appearance, AppState, Linking, NativeEventSubscription } from 'react-native';
 import { fromEventPattern } from 'rxjs';
 import Shake from 'react-native-shake';
 import { DeviceMotion } from 'expo-sensors';
@@ -121,14 +121,16 @@ function observeShake(rootStore: RootStore) {
 function observeDeviceMotion(rootStore: RootStore) {
   DeviceMotion.setUpdateInterval(500);
   DeviceMotion.removeAllListeners();
-  DeviceMotion.addListener((v) => {
+  DeviceMotion.addListener(async (v) => {
     const x = (180 / Math.PI) * v.rotation.gamma;
     const y = (180 / Math.PI) * v.rotation.beta;
     if (Math.abs(x) >= 165 && Math.abs(y) <= 20) {
       if (
         !rootStore.appLockStore.isLocked &&
-        rootStore.settingsStore.urgentSwitchActions.includes(UrgentSwitchActions.FaceDown)
+        rootStore.settingsStore.urgentSwitchActions.includes(UrgentSwitchActions.FaceDown) &&
+        rootStore.settingsStore.urgentSwitchTarget
       ) {
+        await Linking.openURL(rootStore.settingsStore.urgentSwitchTarget);
         rootStore.appLockStore.setIsLocked(true);
       }
     }

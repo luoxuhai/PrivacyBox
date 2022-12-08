@@ -26,16 +26,19 @@ const THEME_STATE_STORAGE_KEY = 'theme-v1';
 const SETTINGS_STATE_STORAGE_KEY = 'settings-v1';
 // 应用锁
 const APP_LOCK_STATE_STORAGE_KEY = 'appLock-v1';
+// 内购
+const PURCHASE_STATE_STORAGE_KEY = 'purchase-v1';
 
 /**
  * Setup the root state.
  */
 export async function setupRootStore(rootStore: RootStore) {
   try {
-    const { themeStore, settingsStore, appLockStore, appStateStore } = rootStore;
+    const { themeStore, settingsStore, appLockStore, appStateStore, purchaseStore } = rootStore;
 
     // 读取持久化配置
     persist(THEME_STATE_STORAGE_KEY, themeStore);
+    persist(PURCHASE_STATE_STORAGE_KEY, purchaseStore);
     const settings = persist(SETTINGS_STATE_STORAGE_KEY, settingsStore);
     const appLock = persist(APP_LOCK_STATE_STORAGE_KEY, appLockStore, {
       whitelist: [
@@ -105,11 +108,12 @@ function observeAppStateChange(store: AppStateStore) {
  * 监听设备摇动
  */
 function observeShake(rootStore: RootStore) {
-  Shake.addListener(() => {
+  Shake.addListener(async () => {
     if (
       !rootStore.appLockStore.isLocked &&
       rootStore.settingsStore.urgentSwitchActions.includes(UrgentSwitchActions.Shake)
     ) {
+      await Linking.openURL(rootStore.settingsStore.urgentSwitchTarget);
       rootStore.appLockStore.setIsLocked(true);
     }
   });

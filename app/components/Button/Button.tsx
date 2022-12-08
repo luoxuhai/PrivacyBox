@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import {
   TouchableOpacityProps,
   StyleProp,
@@ -35,16 +35,11 @@ export interface ButtonProps extends TouchableOpacityProps {
   disabled?: boolean;
   isLoading?: boolean;
   color?: ColorValue;
+  LeftAccessory?: ReactElement | string;
 }
 
-/**
- * A component that allows users to take actions and make choices.
- * Wraps the Text component with a Pressable component.
- *
- * - [Documentation and Examples](https://github.com/infinitered/ignite/blob/master/docs/Components-Button.md)
- */
 export function Button(props: ButtonProps) {
-  const { tk, text, tkOptions, style, textStyle, color, ...rest } = props;
+  const { tk, text, tkOptions, style, textStyle, color, LeftAccessory, ...rest } = props;
   const { colors } = useTheme();
 
   return (
@@ -61,7 +56,10 @@ export function Button(props: ButtonProps) {
       accessibilityRole="button"
       {...rest}
     >
-      <Text style={[$textStyle, textStyle]} tk={tk} tkOptions={tkOptions} text={text} />
+      {LeftAccessory}
+      {tk || text ? (
+        <Text style={[$textStyle, textStyle]} tk={tk} tkOptions={tkOptions} text={text} />
+      ) : null}
     </TouchableOpacity>
   );
 }
@@ -73,7 +71,7 @@ const $buttonStyle: ViewStyle = {
   alignItems: 'center',
   flexDirection: 'row',
   paddingVertical: spacing[2],
-  paddingHorizontal: spacing[2],
+  paddingHorizontal: spacing[4],
   overflow: 'hidden',
 };
 

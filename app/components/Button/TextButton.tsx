@@ -1,37 +1,33 @@
 import React from 'react';
-import { ButtonProps, Button, View, StyleProp, ViewStyle } from 'react-native';
+import { StyleProp, TouchableOpacity, TouchableOpacityProps, TextStyle } from 'react-native';
 import { observer } from 'mobx-react-lite';
 
-import { useTheme } from '@/theme';
-import { TextProps } from '../Text';
-import { translate } from '@/i18n';
+import { typography, useTheme } from '@/theme';
+import { TextProps, Text } from '../Text';
 
-export interface TextButtonProps extends Omit<ButtonProps, 'title'> {
-  /**
-   * Text which is looked up via i18n.
-   */
+export interface TextButtonProps extends TouchableOpacityProps {
   tk?: TextProps['tk'];
-  /**
-   * The text to display if not using `tx` or nested components.
-   */
-  text?: TextProps['text'];
-  /**
-   * Optional options to pass to i18n. Useful for interpolation
-   * as well as explicitly setting locale or translation fallbacks.
-   */
   tkOptions?: TextProps['tkOptions'];
-  style?: StyleProp<ViewStyle>;
+  text?: TextProps['text'];
+  textStyle?: StyleProp<TextStyle>;
 }
 
 export const TextButton = observer<TextButtonProps>((props) => {
-  const { tk, text, tkOptions, ...rest } = props;
+  const { tk, text, tkOptions, textStyle, ...rest } = props;
   const { colors } = useTheme();
 
-  const title = text ?? translate(tk, tkOptions);
-
   return (
-    <View style={props.style}>
-      <Button title={title} color={colors.palette.primary6} {...rest} />
-    </View>
+    <TouchableOpacity style={props.style} activeOpacity={0.5} {...rest}>
+      <Text
+        style={[{ color: colors.palette.primary6 }, $textStyle, textStyle]}
+        tk={tk}
+        text={text}
+        tkOptions={tkOptions}
+      />
+    </TouchableOpacity>
   );
 });
+
+const $textStyle: TextStyle = {
+  ...typography.body,
+};

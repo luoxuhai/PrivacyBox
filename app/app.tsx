@@ -22,6 +22,7 @@ import { initCrashReporting, useUpdateEffect } from './utils';
 import { useInitialRootStore } from './models';
 import { AppNavigator, useNavigationPersistence, RootNavigation } from './navigators';
 import { ErrorBoundary } from './screens/ErrorScreen/ErrorBoundary';
+import { InAppPurchase } from './screens/PurchaseScreen/helpers/InAppPurchase';
 import { storage } from './storage';
 import Config from './config';
 
@@ -38,6 +39,8 @@ const App: FC = observer(() => {
     if (!__DEV__) {
       initCrashReporting();
     }
+
+    InAppPurchase.shared.init();
   }, []);
 
   const { rehydrated, rootStore } = useInitialRootStore();
@@ -61,8 +64,8 @@ const App: FC = observer(() => {
       <ErrorBoundary catchErrors={Config.catchErrors}>
         <QueryClientProvider client={queryClient}>
           <AppNavigator
-            // initialState={initialNavigationState}
-            // onStateChange={onNavigationStateChange}
+            initialState={initialNavigationState}
+            onStateChange={onNavigationStateChange}
           />
         </QueryClientProvider>
       </ErrorBoundary>

@@ -4,6 +4,7 @@ import { TextStyle, View, ViewStyle } from 'react-native';
 
 import { GradientText } from '@/components';
 import { spacing, typography } from '@/theme';
+import { translate } from '@/i18n';
 
 const linearGradientProps = {
   start: {
@@ -22,7 +23,7 @@ export const Header = observer(() => {
         }}
         linearGradientProps={linearGradientProps}
       >
-        隐私盒子高级版
+        {translate('purchaseScreen.title')}
       </GradientText>
       <GradientText
         textProps={{
@@ -30,17 +31,17 @@ export const Header = observer(() => {
         }}
         linearGradientProps={linearGradientProps}
       >
-        完整的功能体验
+        {translate('purchaseScreen.subtitle')}
       </GradientText>
     </View>
   );
 });
 
 const $container: ViewStyle = {
-  marginTop: spacing[4],
+  marginTop: spacing[6],
 };
 
 const $title: TextStyle = {
-  ...typography.title3,
+  ...typography.title2,
   fontWeight: '500',
 };

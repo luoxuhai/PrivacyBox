@@ -5,6 +5,7 @@ import { ThemeStoreModel } from './ThemeStore';
 import { SettingsStoreModel } from './SettingsStore';
 import { AppLockStoreModel } from './AppLockStore';
 import { AppStateStoreModel } from './AppStateStore';
+import { PurchaseStoreModel } from './PurchaseStore';
 
 /**
  * A RootStore model.
@@ -15,6 +16,7 @@ export const RootStoreModel = types.model('RootStore').props({
   settingsStore: types.optional(SettingsStoreModel, {}),
   appLockStore: types.optional(AppLockStoreModel, {}),
   appStateStore: types.optional(AppStateStoreModel, {}),
+  purchaseStore: types.optional(PurchaseStoreModel, {}),
 });
 
 /**

@@ -139,6 +139,7 @@ const SettingStackScreen: FC<StackScreenProps<SettingStackParamList>> = observer
               title: null,
               headerBlurEffect: isDark ? 'systemMaterialDark' : 'systemMaterialLight',
               headerTransparent: true,
+              gestureEnabled: false,
             }}
             component={PurchaseScreen}
           />

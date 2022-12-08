@@ -1,8 +1,6 @@
-import React, { FC, useEffect } from 'react';
+import React from 'react';
 import { observer } from 'mobx-react-lite';
-import { ViewStyle, View, StyleSheet, TextStyle } from 'react-native';
-import { useQuery } from 'react-query';
-import { Product } from 'react-native-iap';
+import { ViewStyle, View } from 'react-native';
 
 import { Text, SettingsIcon } from '@/components';
 import { spacing, typography, useTheme } from '@/theme';
@@ -33,27 +31,27 @@ export const FeatureList = observer(() => {
 const list: { title: TextKeyPath; icon: string }[] = [
   {
     title: 'purchaseScreen.features.transfer',
-    icon: 'icloud.fill',
+    icon: 'arrow.clockwise.icloud.fill',
   },
   {
     title: 'purchaseScreen.features.changeAppIcon',
-    icon: 'icloud.fill',
+    icon: 'app.gift.fill',
   },
   {
     title: 'purchaseScreen.features.scanDocument',
-    icon: 'icloud.fill',
+    icon: 'doc.viewfinder.fill',
   },
   {
     title: 'purchaseScreen.features.smartSearch',
-    icon: 'icloud.fill',
+    icon: 'magnifyingglass.circle.fill',
   },
   {
     title: 'purchaseScreen.features.keepDuration',
-    icon: 'icloud.fill',
+    icon: 'basket.fill',
   },
   {
     title: 'purchaseScreen.features.more',
-    icon: 'icloud.fill',
+    icon: 'ellipsis.circle.fill',
   },
 ];
 

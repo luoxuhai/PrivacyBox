@@ -43,5 +43,5 @@ const $container: ViewStyle = {
 
 const $title: TextStyle = {
   ...typography.title2,
-  fontWeight: '500',
+  fontWeight: '600',
 };

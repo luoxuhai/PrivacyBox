@@ -3,7 +3,9 @@ import {
   purchaseUpdatedListener,
   requestPurchase,
   initConnection,
+  endConnection,
   finishTransaction,
+  ErrorCode,
   getPurchaseHistory,
   getProducts,
   SubscriptionPurchase,
@@ -11,6 +13,9 @@ import {
   purchaseErrorListener,
   PurchaseError,
 } from 'react-native-iap';
+import { rootStore } from '@/models';
+import { Overlay } from '@/utils';
+import { translate } from '@/i18n';
 
 /**
  * 内购辅助类
@@ -18,41 +23,56 @@ import {
 export class InAppPurchase {
   static shared = new InAppPurchase();
 
-  private purchaseUpdateSubscription: EmitterSubscription;
-  private purchaseErrorSubscription: EmitterSubscription;
+  private purchaseUpdateSubscription?: EmitterSubscription;
+  private purchaseErrorSubscription?: EmitterSubscription;
 
-  private onPurchaseUpdatedHandler: (purchase: SubscriptionPurchase | ProductPurchase) => void;
-  private onPurchaseErrorHandler: (error: PurchaseError) => void;
   public isInitialized = false;
+  private productId: string;
 
-  public async init() {
+  public async init(
+    productId: string,
+    onPurchaseSuccess?: (purchase: SubscriptionPurchase | ProductPurchase) => void,
+    onPurchaseError?: (error: PurchaseError) => void,
+  ) {
+    console.log('[StartInitConnection]');
     if (this.isInitialized) {
       return;
     }
 
     await initConnection();
+    this.productId = productId;
+    this.addPurchaseUpdatedListener(onPurchaseSuccess);
+    this.addPurchaseErrorListener(onPurchaseError);
     this.isInitialized = true;
-    this.addPurchaseUpdatedListener(() => null);
-    this.addPurchaseErrorListener(() => null);
+    console.log('[InitConnection]');
+  }
+
+  public async destroy() {
+    this.purchaseUpdateSubscription?.remove();
+    this.purchaseErrorSubscription?.remove();
+    this.purchaseUpdateSubscription = null;
+    this.purchaseErrorSubscription = null;
+    const end = await endConnection();
+    this.isInitialized = false;
+    return end;
   }
 
   /**
    * 获取产品信息
-   * @param productId
    * @returns
    */
-  public async getProduct(productId: string) {
-    return (await getProducts({ skus: [productId] }))[0];
+  public async getProduct() {
+    return (await getProducts({ skus: [this.productId] }))[0];
   }
 
   /**
    * 发起付款
-   * @param productId
    */
-  public async requestPurchase(productId: string) {
+  public async requestPurchase() {
+    console.log('productId', this.productId);
     try {
       await requestPurchase({
-        sku: productId,
+        sku: this.productId,
         andDangerouslyFinishTransactionAutomaticallyIOS: false,
       });
     } catch (err) {
@@ -61,42 +81,50 @@ export class InAppPurchase {
   }
 
   /**
-   * 恢复购买
-   * @param productId
+   * 购买成功
    * @returns
    */
-  public async restorePurchase(productId: string) {
+  public async restorePurchase() {
     const result = (await getPurchaseHistory())[0];
-    return result.productId === productId;
+    return result.productId === this.productId;
   }
 
-  public addPurchaseUpdatedListener(
-    handler: (purchase: SubscriptionPurchase | ProductPurchase) => void,
+  public setPurchasedState(isPurchased: boolean) {
+    rootStore.purchaseStore.setIsPurchased(isPurchased);
+  }
+
+  private addPurchaseUpdatedListener(
+    handler?: (purchase: SubscriptionPurchase | ProductPurchase) => void,
   ) {
-    if (handler) {
-      this.onPurchaseUpdatedHandler = handler;
+    if (!this.purchaseUpdateSubscription) {
+      this.purchaseUpdateSubscription = purchaseUpdatedListener(
+        (purchase: SubscriptionPurchase | ProductPurchase) => {
+          if (purchase.productId === this.productId) {
+            this.setPurchasedState(true);
+            Overlay.alert({ preset: 'done', title: translate('purchaseScreen.purchaseSuccess') });
+            handler?.(purchase);
+          }
+        },
+      );
     }
-
-    if (!this.purchaseUpdateSubscription && this.isInitialized) {
-      this.purchaseUpdateSubscription = purchaseUpdatedListener(this.onPurchaseUpdatedHandler);
-    }
-
-    return () => {
-      this.onPurchaseUpdatedHandler = null;
-    };
   }
 
-  public addPurchaseErrorListener(handler: (error: PurchaseError) => void) {
-    if (handler) {
-      this.onPurchaseErrorHandler = handler;
+  /**
+   * 购买失败
+   */
+  private addPurchaseErrorListener(handler?: (error: PurchaseError) => void) {
+    if (!this.purchaseErrorSubscription) {
+      this.purchaseErrorSubscription = purchaseErrorListener((error: PurchaseError) => {
+        // if (error.code !== ErrorCode.E_ALREADY_OWNED) {
+        Overlay.alert({
+          preset: 'error',
+          title: translate('purchaseScreen.purchaseFail'),
+          message: error.message,
+        });
+        this.setPurchasedState(false);
+        handler?.(error);
+        // }
+      });
     }
-
-    if (!this.purchaseErrorSubscription && this.isInitialized) {
-      this.purchaseErrorSubscription = purchaseErrorListener(this.onPurchaseErrorHandler);
-    }
-
-    return () => {
-      this.onPurchaseErrorHandler = null;
-    };
   }
 }

@@ -14,7 +14,6 @@ import { UrgentSwitchActions } from '@/models/SettingsStore';
 import { TextKeyPath } from '@/i18n';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 
-
 export const UrgentSwitchScreen: FC<StackScreenProps<SettingStackParamList, 'UrgentSwitch'>> =
   observer(function UrgentSwitchScreen() {
     const { colors } = useTheme();
@@ -24,7 +23,7 @@ export const UrgentSwitchScreen: FC<StackScreenProps<SettingStackParamList, 'Urg
     const options = useMemo(() => getUrgentOptions(colors), [colors]);
 
     return (
-      <Screen>
+      <Screen type="tabView">
         <ScrollSafeAreaView
           contentContainerStyle={[
             $contentContainer,

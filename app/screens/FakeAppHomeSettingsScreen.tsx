@@ -18,7 +18,7 @@ export const FakeAppHomeSettingsScreen: FC<
   const bottomTabBarHeight = useBottomTabBarHeight();
 
   return (
-    <Screen style={$screen}>
+    <Screen style={$screen} type="tabView">
       <SafeAreaScrollView
         contentContainerStyle={[$contentContainer, { paddingBottom: bottomTabBarHeight }]}
       >

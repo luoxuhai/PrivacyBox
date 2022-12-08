@@ -5,9 +5,11 @@ import {
   ViewStyle,
   View,
   StyleProp,
+  ColorValue,
 } from 'react-native';
 import { StatusBar, StatusBarProps } from 'expo-status-bar';
 import { useTheme } from '@/theme';
+import { observer } from 'mobx-react-lite';
 
 interface ScreenProps {
   style?: StyleProp<ViewStyle>;
@@ -33,20 +35,24 @@ interface ScreenProps {
   keyboardAvoidingViewProps?: KeyboardAvoidingViewProps;
   keyboardAvoidingEnabled?: boolean;
   safeAreaEnabled?: boolean;
+  type?: 'tabView' | 'normal';
 }
 
-export function Screen(props: ScreenProps) {
-  const { isDark } = useTheme();
+export const Screen = observer((props: ScreenProps) => {
+  const { isDark, colors } = useTheme();
   const {
     keyboardAvoidingViewProps,
     keyboardOffset = 0,
-    statusBarStyle = isDark ? 'light' : 'dark',
     keyboardAvoidingEnabled = false,
-    safeAreaEnabled = false,
+    type = 'normal',
   } = props;
 
+  const statusBarStyle = props.statusBarStyle ?? isDark ? 'light' : 'dark';
+  const backgroundColor =
+    type === 'normal' ? undefined : isDark ? colors.background : colors.secondaryBackground;
+
   return (
-    <View style={[$screen, props.style]}>
+    <View style={[$screen, props.style, { backgroundColor }]}>
       <StatusBar style={statusBarStyle} animated {...props.statusBarProps} />
       {keyboardAvoidingEnabled ? (
         <KeyboardAvoidingView
@@ -62,7 +68,7 @@ export function Screen(props: ScreenProps) {
       )}
     </View>
   );
-}
+});
 
 const $screen: ViewStyle = {
   flex: 1,

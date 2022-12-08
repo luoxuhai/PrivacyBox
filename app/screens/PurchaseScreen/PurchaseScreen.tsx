@@ -1,9 +1,8 @@
-import React, { FC, useCallback, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { ViewStyle } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
-import { initConnection, endConnection, getProducts, Product } from 'react-native-iap';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import { SettingStackParamList } from '@/navigators';
 import { Screen, ExitButton, TextButton, ScrollSafeAreaView } from '@/components';
@@ -23,6 +22,7 @@ export const PurchaseScreen: FC<StackScreenProps<SettingStackParamList, 'Purchas
     const [bottomHeight, setBottomHeight] = useState<number>();
 
     useEffect(() => {
+      console.log('PurchaseScreen');
       props.navigation.setOptions({
         headerRight: () => <ExitButton onPress={props.navigation.goBack} />,
         headerLeft: () => (
@@ -30,12 +30,9 @@ export const PurchaseScreen: FC<StackScreenProps<SettingStackParamList, 'Purchas
         ),
       });
 
-      const removeUpdatedListener = InAppPurchase.shared.addPurchaseUpdatedListener(() => {});
-      const removeErrorListener = InAppPurchase.shared.addPurchaseErrorListener(() => {});
       return () => {
         Overlay.dismissAllAlerts();
-        removeUpdatedListener();
-        removeErrorListener();
+        InAppPurchase.shared.destroy();
       };
     }, []);
 
@@ -43,14 +40,22 @@ export const PurchaseScreen: FC<StackScreenProps<SettingStackParamList, 'Purchas
       isLoading,
       isSuccess,
       data: product,
-    } = useQuery(
-      purchaseKeys.product,
-      async () => {
-        await InAppPurchase.shared.init();
-        return await InAppPurchase.shared.getProduct(Config.productId);
+    } = useQuery({
+      queryKey: purchaseKeys.product,
+      queryFn: async () => {
+        console.log('useQuery');
+        await InAppPurchase.shared.init(Config.productId, handleBackDelay);
+        return await InAppPurchase.shared.getProduct();
       },
-      { enabled: true },
-    );
+      enabled: true,
+      cacheTime: 0,
+    });
+
+    function handleBackDelay() {
+      setTimeout(() => {
+        props.navigation.goBack();
+      }, 500);
+    }
 
     // 恢复购买
     const handleRestorePurchase = async () => {
@@ -62,16 +67,23 @@ export const PurchaseScreen: FC<StackScreenProps<SettingStackParamList, 'Purchas
       });
 
       try {
-        const isPurchased = await InAppPurchase.shared.restorePurchase(Config.productId);
+        const isPurchased = await InAppPurchase.shared.restorePurchase();
         if (isPurchased) {
-          console.log('[RestorePurchase]');
+          InAppPurchase.shared.setPurchasedState(true);
+          Overlay.alert({
+            preset: 'done',
+            title: translate('purchaseScreen.restoreSuccess'),
+          });
+          handleBackDelay();
         }
-      } catch (error) {}
-
-      Overlay.dismissAllAlerts();
+      } catch (error) {
+        InAppPurchase.shared.setPurchasedState(false);
+        console.warn('[RestorePurchase]', error);
+        Overlay.dismissAllAlerts();
+      }
     };
 
-    console.prettyLog(product);
+    console.prettyLog('product', product);
 
     return (
       <Screen

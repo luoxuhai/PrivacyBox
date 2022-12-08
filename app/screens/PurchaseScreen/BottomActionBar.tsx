@@ -1,15 +1,8 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
-import {
-  ViewStyle,
-  View,
-  StyleSheet,
-  TextStyle,
-  ActivityIndicator,
-  LayoutRectangle,
-} from 'react-native';
+import { ViewStyle, View, StyleSheet, ActivityIndicator, LayoutRectangle } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { Product } from 'react-native-iap';
 
 import { TextButton, BlurView, Button, Text } from '@/components';
@@ -17,7 +10,6 @@ import { spacing, typography, useTheme } from '@/theme';
 import { openPrivacyPolicy, openUserAgreement } from '@/screens/AboutScreen';
 import { purchaseKeys } from './constants';
 import { InAppPurchase } from './helpers/InAppPurchase';
-import Config from '@/config';
 import { Overlay } from '@/utils';
 import { translate } from '@/i18n';
 import { useStores } from '@/models';
@@ -33,7 +25,14 @@ export const BottomActionBar = observer<BottomActionBarProps>((props) => {
   } = useStores();
   const { colors, isDark } = useTheme();
 
-  const { data: product, isLoading } = useQuery<Product>(purchaseKeys.product, { enabled: true });
+  useEffect(() => {
+    console.log('BottomActionBar');
+  }, []);
+
+  const { data: product, isLoading } = useQuery<Product>({
+    queryKey: purchaseKeys.product,
+    enabled: false,
+  });
 
   const handleBuyPurchase = useCallback(() => {
     Overlay.alert({
@@ -41,7 +40,7 @@ export const BottomActionBar = observer<BottomActionBarProps>((props) => {
       title: translate('purchaseScreen.purchasing'),
       duration: 0,
     });
-    InAppPurchase.shared.requestPurchase(Config.productId);
+    InAppPurchase.shared.requestPurchase();
   }, []);
 
   return (
@@ -84,7 +83,6 @@ export const BottomActionBar = observer<BottomActionBarProps>((props) => {
           />
         </View>
         <Button
-          style={$buyButton}
           tk={isPurchased ? 'purchaseScreen.purchased' : 'purchaseScreen.buyButton'}
           tkOptions={
             isPurchased
@@ -119,15 +117,6 @@ const $bottomAction: ViewStyle = {
 
 const $blurView: ViewStyle = {
   ...StyleSheet.absoluteFillObject,
-};
-
-const $title: TextStyle = {
-  ...typography.title3,
-  fontWeight: '500',
-};
-
-const $buyButton: ViewStyle = {
-  // maxWidth: 160,
 };
 
 const $agreementWrapper: ViewStyle = {

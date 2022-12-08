@@ -18,7 +18,7 @@ export const AdvancedSettingsScreen: FC<
   const { settingsStore } = useStores();
 
   return (
-    <Screen>
+    <Screen type="tabView">
       <SafeAreaScrollView
         contentContainerStyle={[$contentContainer, { paddingBottom: bottomTabBarHeight }]}
       >

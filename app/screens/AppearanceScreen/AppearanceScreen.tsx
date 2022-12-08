@@ -19,7 +19,7 @@ export const AppearanceScreen: FC<StackScreenProps<SettingStackParamList, 'Appea
     const bottomTabBarHeight = useBottomTabBarHeight();
 
     return (
-      <Screen>
+      <Screen type="tabView">
         <SafeAreaScrollView
           contentContainerStyle={[
             $contentContainer,

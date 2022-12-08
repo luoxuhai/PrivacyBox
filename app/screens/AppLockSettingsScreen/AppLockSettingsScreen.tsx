@@ -44,7 +44,7 @@ export const AppLockSettingsScreen: FC<
   const biometricName = useMemo(() => getBiometricName(usedBiometricType), [usedBiometricType]);
 
   return (
-    <Screen style={$screen}>
+    <Screen type="tabView">
       <SafeAreaScrollView contentContainerStyle={$contentContainer}>
         <ListSection titleTk="appLockSettingsScreen.sectionTitle">
           <ListCell
@@ -126,10 +126,6 @@ const autolockTimeoutOptions = [
     title: `1 ${translate('common.hour')}`,
   },
 ];
-
-const $screen: ViewStyle = {
-  flex: 1,
-};
 
 const $contentContainer: ViewStyle = {
   paddingHorizontal: spacing[6],

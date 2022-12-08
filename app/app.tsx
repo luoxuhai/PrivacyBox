@@ -16,13 +16,12 @@ import './utils/consoleExtension';
 import React, { FC, useEffect } from 'react';
 import { initialWindowMetrics, SafeAreaProvider } from 'react-native-safe-area-context';
 import { observer } from 'mobx-react-lite';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import { initCrashReporting, useUpdateEffect } from './utils';
 import { useInitialRootStore } from './models';
 import { AppNavigator, useNavigationPersistence, RootNavigation } from './navigators';
 import { ErrorBoundary } from './screens/ErrorScreen/ErrorBoundary';
-import { InAppPurchase } from './screens/PurchaseScreen/helpers/InAppPurchase';
 import { storage } from './storage';
 import Config from './config';
 
@@ -39,8 +38,6 @@ const App: FC = observer(() => {
     if (!__DEV__) {
       initCrashReporting();
     }
-
-    InAppPurchase.shared.init();
   }, []);
 
   const { rehydrated, rootStore } = useInitialRootStore();

@@ -146,7 +146,7 @@ export const AppNavigator = observer(function AppNavigator(props: NavigationProp
       colors: {
         primary: colors.palette.primary6,
         card: colors.background,
-        background: isDark ? colors.background : colors.secondaryBackground,
+        background: colors.background,
         text: colors.label,
         border: colors.separator,
         notification: colors.palette.red,

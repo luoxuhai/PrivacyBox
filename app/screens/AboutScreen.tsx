@@ -35,7 +35,7 @@ export const AboutScreen: FC<StackScreenProps<SettingStackParamList, 'About'>> =
     // updateMetadata = await CodePush.getUpdateMetadata();
 
     return (
-      <Screen>
+      <Screen type="tabView">
         <SafeAreaScrollView contentContainerStyle={$contentContainerStyles}>
           <ListSection>
             <ListCell

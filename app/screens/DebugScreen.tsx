@@ -19,7 +19,7 @@ export const DebugScreen: FC<StackScreenProps<SettingStackParamList, 'Debug'>> =
     }, []);
 
     return (
-      <Screen statusBarStyle="inverted">
+      <Screen type="tabView" statusBarStyle="inverted">
         <SafeAreaScrollView contentContainerStyle={$contentContainer}>
           <ListSection>
             <ListCell

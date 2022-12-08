@@ -29,7 +29,7 @@ export const SettingScreen: FC<StackScreenProps<SettingStackParamList, 'Settings
     ];
 
     return (
-      <Screen>
+      <Screen type='tabView'>
         <SafeAreaScrollView contentContainerStyle={$contentContainerStyles}>
           <PurchaseBanner />
           <ListSection

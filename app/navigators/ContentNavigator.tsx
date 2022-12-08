@@ -81,7 +81,6 @@ const SettingStackScreen: FC<StackScreenProps<SettingStackParamList>> = observer
           options={{
             title: translate('contentNavigator.settingsTab'),
             headerLargeTitle: true,
-            headerShadowVisible: false,
           }}
           component={SettingScreen}
         />
@@ -131,15 +130,18 @@ const SettingStackScreen: FC<StackScreenProps<SettingStackParamList>> = observer
         <SettingStack.Group
           screenOptions={{
             presentation: 'modal',
+            headerBlurEffect: isDark ? 'systemMaterialDark' : 'systemMaterialLight',
+            headerTransparent: true,
           }}
         >
           <SettingStack.Screen
             name="Purchase"
             options={{
               title: null,
-              headerBlurEffect: isDark ? 'systemMaterialDark' : 'systemMaterialLight',
-              headerTransparent: true,
               gestureEnabled: false,
+              headerLargeStyle: {
+                backgroundColor: colors.background,
+              },
             }}
             component={PurchaseScreen}
           />

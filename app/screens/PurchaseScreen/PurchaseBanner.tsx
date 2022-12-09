@@ -39,7 +39,7 @@ export const PurchaseBanner = observer(() => {
         <View style={isPurchased && $compactTextContainer}>
           <View style={$titleContainer}>
             <Text style={$title} tk="settingsScreen.purchaseBanner.title" size="lg" />
-            <LottieView source="Pro" autoPlay loop />
+            <LottieView style={$lottie} source="Pro" autoPlay loop />
           </View>
           <Text
             style={[$subtitle, isPurchased && $compactSubtitle]}
@@ -94,13 +94,16 @@ const $title: TextStyle = {
   color: lightPalette.white,
   ...typography.title3,
   fontWeight: '500',
-  marginRight: spacing[2],
+};
+
+const $lottie: TextStyle = {
+  marginLeft: spacing[2],
 };
 
 const $subtitle: TextStyle = {
   ...typography.subhead,
   color: lightPalette.white,
-  marginTop: spacing[5],
+  marginTop: spacing[4],
 };
 
 const $compactSubtitle: ViewStyle = {

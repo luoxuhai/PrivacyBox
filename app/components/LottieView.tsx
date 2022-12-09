@@ -7,8 +7,9 @@ interface LottieViewProps extends AnimatedLottieViewProps {
   source: LottieSourceTypes;
 }
 
-export const LottieView = (props: LottieViewProps) => {
-  return <Lottie {...props} />;
+export const LottieView = ({ source, ...rest }: LottieViewProps) => {
+  const _source = lottieRegistry[source];
+  return <Lottie source={_source} {...rest} />;
 };
 
 export const lottieRegistry = {

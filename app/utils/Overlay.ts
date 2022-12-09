@@ -73,14 +73,23 @@ type AlertOptions = {
     }
 );
 
-function alert(options: AlertOptions) {
+function alert({ preset = 'done', ...options }: AlertOptions) {
   Burnt.alert({
-    preset: 'done',
+    preset,
     duration: 3,
     ...options,
     title: options.title ?? '',
     message: options.message ?? '',
   });
+
+  switch (preset) {
+    case 'done':
+      HapticFeedback.notification.success();
+      break;
+    case 'error':
+      HapticFeedback.notification.error();
+      break;
+  }
 }
 
 export const Overlay = { toast, alert, dismissAllAlerts };

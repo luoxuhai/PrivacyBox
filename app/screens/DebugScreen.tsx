@@ -1,12 +1,13 @@
 import React, { FC, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
-import { ViewStyle } from 'react-native';
+import { DevSettings, ViewStyle } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { SettingStackParamList } from '@/navigators';
 
 import { Screen, ExitButton, SafeAreaScrollView, ListSection, ListCell } from '@/components';
 import { spacing, useTheme } from '@/theme';
 import { storage } from '@/storage';
+import { rootStore } from '@/models';
 
 export const DebugScreen: FC<StackScreenProps<SettingStackParamList, 'Debug'>> = observer(
   function DebugScreen(props) {
@@ -30,6 +31,17 @@ export const DebugScreen: FC<StackScreenProps<SettingStackParamList, 'Debug'>> =
               rightIcon={null}
               onPress={() => {
                 storage.clear();
+                DevSettings.reload();
+              }}
+            />
+            <ListCell
+              textStyle={{
+                color: colors.palette.blue,
+              }}
+              text="清理购买状态"
+              rightIcon={null}
+              onPress={() => {
+                rootStore.purchaseStore.clear();
               }}
             />
           </ListSection>

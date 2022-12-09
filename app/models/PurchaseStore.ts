@@ -12,6 +12,10 @@ export const PurchaseStoreModel = types
     setIsPurchased(isPurchased: boolean) {
       self.isPurchased = isPurchased;
     },
+
+    clear() {
+      self.isPurchased = false;
+    },
   }));
 
 export interface PurchaseStore extends Instance<typeof PurchaseStoreModel> {}

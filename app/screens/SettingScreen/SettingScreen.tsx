@@ -28,8 +28,10 @@ export const SettingScreen: FC<StackScreenProps<SettingStackParamList, 'Settings
       },
     ];
 
+    const preferredControlTintColor = colors.palette.primary6
+
     return (
-      <Screen type='tabView'>
+      <Screen type="tabView">
         <SafeAreaScrollView contentContainerStyle={$contentContainerStyles}>
           <PurchaseBanner />
           <ListSection
@@ -53,6 +55,7 @@ export const SettingScreen: FC<StackScreenProps<SettingStackParamList, 'Settings
             />
             <ListCell
               tk="urgentSwitchScreen.title"
+              bottomSeparator={false}
               onPress={() => {
                 navigation.navigate('UrgentSwitch');
               }}
@@ -75,6 +78,7 @@ export const SettingScreen: FC<StackScreenProps<SettingStackParamList, 'Settings
             <ListCell tk="settingsScreen.language" onPress={Linking.openSettings} />
             <ListCell
               tk="settingsScreen.hapticFeedbackSwitch"
+              bottomSeparator={false}
               rightIcon={
                 <Switch
                   value={settingsStore.hapticFeedback}
@@ -88,16 +92,17 @@ export const SettingScreen: FC<StackScreenProps<SettingStackParamList, 'Settings
             <ListCell
               tk="settingsScreen.FAQ"
               onPress={() => {
-                openLinkInAppBrowser(
-                  `${Config.TXC_FEEDBACK_URL}/faqs-more`,
-                  colors.palette.primary6,
-                );
+                openLinkInAppBrowser(`${Config.TXC_FEEDBACK_URL}/faqs-more`, {
+                  preferredControlTintColor,
+                });
               }}
             />
             <ListCell
               tk="settingsScreen.feedback"
               onPress={() => {
-                openLinkInAppBrowser(generateFeedbackUrl(), colors.palette.primary6);
+                openLinkInAppBrowser(generateFeedbackUrl(), {
+                  preferredControlTintColor,
+                });
               }}
             />
             <ListCell
@@ -115,6 +120,7 @@ export const SettingScreen: FC<StackScreenProps<SettingStackParamList, 'Settings
             />
             <ListCell
               tk="aboutScreen.title"
+              bottomSeparator={false}
               onPress={() => {
                 navigation.navigate('About');
               }}

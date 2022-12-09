@@ -12937,10 +12937,10 @@ react-native-gradle-plugin@^0.0.7:
   resolved "https://registry.npmmirror.com/react-native-gradle-plugin/-/react-native-gradle-plugin-0.0.7.tgz#96602f909745239deab7b589443f14fce5da2056"
   integrity sha512-+4JpbIx42zGTONhBTIXSyfyHICHC29VTvhkkoUOJAh/XHPEixpuBduYgf6Y4y9wsN1ARlQhBBoptTvXvAFQf5g==
 
-react-native-iap@^12.4.4:
-  version "12.4.4"
-  resolved "https://registry.npmmirror.com/react-native-iap/-/react-native-iap-12.4.4.tgz#64bc83a3aa76920b103812fcd0d591ee41e3a82e"
-  integrity sha512-Vu98CVZNy2jeRdNQJ6A/WdWWTLmAxSwJWy/NiOaWN2q+stfyiByUimhYQyYCIVOXDxt2CG3hhibjsXvdKIDELQ==
+react-native-iap@^12.4.9:
+  version "12.4.9"
+  resolved "https://registry.npmmirror.com/react-native-iap/-/react-native-iap-12.4.9.tgz#5dcad3a5256453d2e62fce7b2dde1ecbfab43849"
+  integrity sha512-2Qghn3UV4hN5LDWfS5E+vcCJVY0tJeLlo6PJNi/8/89mzEG+areybxZL310PKLT9qm10xtkcUZeO5W7srSZU6g==
 
 react-native-inappbrowser-reborn@^3.7.0:
   version "3.7.0"

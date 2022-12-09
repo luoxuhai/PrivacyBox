@@ -5,8 +5,7 @@ import {
   initConnection,
   endConnection,
   finishTransaction,
-  ErrorCode,
-  getPurchaseHistory,
+  getAvailablePurchases,
   getProducts,
   SubscriptionPurchase,
   ProductPurchase,
@@ -85,8 +84,10 @@ export class InAppPurchase {
    * @returns
    */
   public async restorePurchase() {
-    const result = (await getPurchaseHistory())[0];
-    return result.productId === this.productId;
+    const result = (await getAvailablePurchases()).some(
+      (purchase) => purchase.productId === this.productId,
+    );
+    return result;
   }
 
   public setPurchasedState(isPurchased: boolean) {
@@ -99,7 +100,9 @@ export class InAppPurchase {
     if (!this.purchaseUpdateSubscription) {
       this.purchaseUpdateSubscription = purchaseUpdatedListener(
         (purchase: SubscriptionPurchase | ProductPurchase) => {
+          console.warn('[purchaseUpdate]', purchase);
           if (purchase.productId === this.productId) {
+            finishTransaction({ purchase });
             this.setPurchasedState(true);
             Overlay.alert({ preset: 'done', title: translate('purchaseScreen.purchaseSuccess') });
             handler?.(purchase);
@@ -115,6 +118,7 @@ export class InAppPurchase {
   private addPurchaseErrorListener(handler?: (error: PurchaseError) => void) {
     if (!this.purchaseErrorSubscription) {
       this.purchaseErrorSubscription = purchaseErrorListener((error: PurchaseError) => {
+        console.warn('[purchaseError]', error);
         // if (error.code !== ErrorCode.E_ALREADY_OWNED) {
         Overlay.alert({
           preset: 'error',

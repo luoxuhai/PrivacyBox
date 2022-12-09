@@ -13,7 +13,7 @@ import { BottomActionBar } from './BottomActionBar';
 import { InAppPurchase } from './helpers/InAppPurchase';
 import Config from '@/config';
 import { purchaseKeys } from './constants';
-import { Overlay } from '@/utils';
+import { HapticFeedback, Overlay } from '@/utils';
 import { translate } from '@/i18n';
 
 export const PurchaseScreen: FC<StackScreenProps<SettingStackParamList, 'Purchase'>> = observer(
@@ -36,14 +36,9 @@ export const PurchaseScreen: FC<StackScreenProps<SettingStackParamList, 'Purchas
       };
     }, []);
 
-    const {
-      isLoading,
-      isSuccess,
-      data: product,
-    } = useQuery({
+    const { data: product } = useQuery({
       queryKey: purchaseKeys.product,
       queryFn: async () => {
-        console.log('useQuery');
         await InAppPurchase.shared.init(Config.productId, handleBackDelay);
         return await InAppPurchase.shared.getProduct();
       },
@@ -54,7 +49,7 @@ export const PurchaseScreen: FC<StackScreenProps<SettingStackParamList, 'Purchas
     function handleBackDelay() {
       setTimeout(() => {
         props.navigation.goBack();
-      }, 500);
+      }, 2000);
     }
 
     // 恢复购买
@@ -70,16 +65,23 @@ export const PurchaseScreen: FC<StackScreenProps<SettingStackParamList, 'Purchas
         const isPurchased = await InAppPurchase.shared.restorePurchase();
         if (isPurchased) {
           InAppPurchase.shared.setPurchasedState(true);
+          Overlay.dismissAllAlerts();
           Overlay.alert({
             preset: 'done',
             title: translate('purchaseScreen.restoreSuccess'),
           });
-          handleBackDelay();
+          handleBackDelay()
+        } else {
+          throw Error('No purchase history');
         }
       } catch (error) {
         InAppPurchase.shared.setPurchasedState(false);
-        console.warn('[RestorePurchase]', error);
         Overlay.dismissAllAlerts();
+        Overlay.alert({
+          preset: 'error',
+          title: translate('purchaseScreen.restoreFail'),
+          message: error.message || '',
+        });
       }
     };
 

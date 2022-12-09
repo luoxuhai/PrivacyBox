@@ -69,14 +69,10 @@ export class InAppPurchase {
    */
   public async requestPurchase() {
     console.log('productId', this.productId);
-    try {
-      await requestPurchase({
-        sku: this.productId,
-        andDangerouslyFinishTransactionAutomaticallyIOS: false,
-      });
-    } catch (err) {
-      console.warn(err.code, err.message);
-    }
+    return await requestPurchase({
+      sku: this.productId,
+      andDangerouslyFinishTransactionAutomaticallyIOS: false,
+    });
   }
 
   /**
@@ -94,18 +90,28 @@ export class InAppPurchase {
     rootStore.purchaseStore.setIsPurchased(isPurchased);
   }
 
+  public getPurchasedState() {
+    return rootStore.purchaseStore.isPurchased;
+  }
+
   private addPurchaseUpdatedListener(
     handler?: (purchase: SubscriptionPurchase | ProductPurchase) => void,
   ) {
     if (!this.purchaseUpdateSubscription) {
       this.purchaseUpdateSubscription = purchaseUpdatedListener(
-        (purchase: SubscriptionPurchase | ProductPurchase) => {
-          console.warn('[purchaseUpdate]', purchase);
-          if (purchase.productId === this.productId) {
-            finishTransaction({ purchase });
+        async (purchase: SubscriptionPurchase | ProductPurchase) => {
+          console.warn('[purchaseUpdate]');
+          if (this.getPurchasedState() || purchase.productId !== this.productId) {
+            return;
+          }
+
+          try {
+            await finishTransaction({ purchase, isConsumable: false });
             this.setPurchasedState(true);
             Overlay.alert({ preset: 'done', title: translate('purchaseScreen.purchaseSuccess') });
             handler?.(purchase);
+          } catch (error) {
+            this._purchaseErrorHandler(error);
           }
         },
       );
@@ -119,16 +125,19 @@ export class InAppPurchase {
     if (!this.purchaseErrorSubscription) {
       this.purchaseErrorSubscription = purchaseErrorListener((error: PurchaseError) => {
         console.warn('[purchaseError]', error);
-        // if (error.code !== ErrorCode.E_ALREADY_OWNED) {
-        Overlay.alert({
-          preset: 'error',
-          title: translate('purchaseScreen.purchaseFail'),
-          message: error.message,
-        });
-        this.setPurchasedState(false);
+        this._purchaseErrorHandler();
         handler?.(error);
         // }
       });
     }
+  }
+
+  private _purchaseErrorHandler(error?: PurchaseError) {
+    Overlay.alert({
+      preset: 'error',
+      title: translate('purchaseScreen.purchaseFail'),
+      message: error?.message ?? '',
+    });
+    this.setPurchasedState(false);
   }
 }

@@ -33,10 +33,11 @@ function dismissAllAlerts() {
 type AlertOptions = {
   title?: string;
   message?: string;
-  /**
-   * Defaults to `true`.
-   */
   shouldDismissByTap?: boolean;
+  /**
+   * @default true
+   */
+  shouldDismissAllAlerts?: boolean;
 } & (
   | {
       preset: 'heart' | 'done' | 'error';
@@ -73,7 +74,11 @@ type AlertOptions = {
     }
 );
 
-function alert({ preset = 'done', ...options }: AlertOptions) {
+function alert({ preset = 'done', shouldDismissAllAlerts = true, ...options }: AlertOptions) {
+  if (shouldDismissAllAlerts) {
+    dismissAllAlerts();
+  }
+
   Burnt.alert({
     preset,
     duration: 3,

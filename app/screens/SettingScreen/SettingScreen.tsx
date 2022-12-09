@@ -28,7 +28,7 @@ export const SettingScreen: FC<StackScreenProps<SettingStackParamList, 'Settings
       },
     ];
 
-    const preferredControlTintColor = colors.palette.primary6
+    const preferredControlTintColor = colors.palette.primary6;
 
     return (
       <Screen type="tabView">
@@ -36,7 +36,7 @@ export const SettingScreen: FC<StackScreenProps<SettingStackParamList, 'Settings
           <PurchaseBanner />
           <ListSection
             style={{
-              marginTop: spacing[10],
+              marginTop: spacing[8],
             }}
             titleTk="settingsScreen.security"
           >

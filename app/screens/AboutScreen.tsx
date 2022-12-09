@@ -32,8 +32,6 @@ export const AboutScreen: FC<StackScreenProps<SettingStackParamList, 'About'>> =
       },
     ];
 
-    // updateMetadata = await CodePush.getUpdateMetadata();
-
     return (
       <Screen type="tabView">
         <SafeAreaScrollView contentContainerStyle={$contentContainerStyles}>
@@ -44,7 +42,7 @@ export const AboutScreen: FC<StackScreenProps<SettingStackParamList, 'About'>> =
               rightIcon={null}
               onPress={() => {
                 pressedCount.current++;
-                if (pressedCount.current === 10) {
+                if (__DEV__ || pressedCount.current === 10) {
                   pressedCount.current = 0;
                   props.navigation.navigate('Debug');
                 }

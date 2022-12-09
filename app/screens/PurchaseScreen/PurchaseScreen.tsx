@@ -13,7 +13,7 @@ import { BottomActionBar } from './BottomActionBar';
 import { InAppPurchase } from './helpers/InAppPurchase';
 import Config from '@/config';
 import { purchaseKeys } from './constants';
-import { HapticFeedback, Overlay } from '@/utils';
+import { Overlay } from '@/utils';
 import { translate } from '@/i18n';
 
 export const PurchaseScreen: FC<StackScreenProps<SettingStackParamList, 'Purchase'>> = observer(
@@ -36,7 +36,7 @@ export const PurchaseScreen: FC<StackScreenProps<SettingStackParamList, 'Purchas
       };
     }, []);
 
-    const { data: product } = useQuery({
+    useQuery({
       queryKey: purchaseKeys.product,
       queryFn: async () => {
         await InAppPurchase.shared.init(Config.productId, handleBackDelay);
@@ -63,20 +63,20 @@ export const PurchaseScreen: FC<StackScreenProps<SettingStackParamList, 'Purchas
 
       try {
         const isPurchased = await InAppPurchase.shared.restorePurchase();
+        // 恢复成功
         if (isPurchased) {
           InAppPurchase.shared.setPurchasedState(true);
-          Overlay.dismissAllAlerts();
           Overlay.alert({
             preset: 'done',
             title: translate('purchaseScreen.restoreSuccess'),
           });
-          handleBackDelay()
+          handleBackDelay();
         } else {
           throw Error('No purchase history');
         }
       } catch (error) {
+        // 恢复失败
         InAppPurchase.shared.setPurchasedState(false);
-        Overlay.dismissAllAlerts();
         Overlay.alert({
           preset: 'error',
           title: translate('purchaseScreen.restoreFail'),
@@ -84,8 +84,6 @@ export const PurchaseScreen: FC<StackScreenProps<SettingStackParamList, 'Purchas
         });
       }
     };
-
-    console.prettyLog('product', product);
 
     return (
       <Screen

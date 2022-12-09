@@ -34,7 +34,10 @@ export const BottomActionBar = observer<BottomActionBarProps>((props) => {
     enabled: false,
   });
 
-  const handleBuyPurchase = useCallback(() => {
+  /**
+   * 发起购买
+   */
+  const handleBuyPurchase = useCallback(async () => {
     Overlay.alert({
       preset: 'spinner',
       title: translate('purchaseScreen.purchasing'),

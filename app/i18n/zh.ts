@@ -29,6 +29,7 @@ const zh = {
     purchaseBanner: {
       title: '隐私盒子高级版',
       subtitle: '开通后可获得完整的功能体验',
+      purchasedSubtitle: '点击查看所有特权',
       button: '立即开通',
     },
     hapticFeedbackSwitch: '触觉反馈',

@@ -15,17 +15,14 @@ import { Screen, Text } from '@/components';
 import { useTheme } from '@/theme';
 
 
-export const <%= props.pascalCaseName %>Screen: FC<StackScreenProps<AppStackScreenProps, "<%= props.pascalCaseName %>">> = observer(function <%= props.pascalCaseName %>Screen() {
+export const <%= props.pascalCaseName %>Screen: FC<StackScreenProps<AppStackScreenProps, "<%= props.pascalCaseName %>">> = observer(() => {
   const { colors } = useTheme();
   const navigation = useNavigation();
 
   return (
-    <Screen style={$screen}>
+    <Screen>
       <Text text="<%= props.camelCaseName %>" />
     </Screen>
   )
 })
 
-const $screen: ViewStyle = {
-  flex: 1,
-}

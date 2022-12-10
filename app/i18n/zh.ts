@@ -25,6 +25,10 @@ const zh = {
   errorScreen: {
     reset: '重置',
   },
+  albumsScreen: {
+    title: '相册',
+    searchPlaceholder: '搜索相册、图片、视频',
+  },
   settingsScreen: {
     purchaseBanner: {
       title: '隐私盒子高级版',

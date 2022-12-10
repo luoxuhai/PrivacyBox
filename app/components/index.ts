@@ -10,3 +10,4 @@ export * from './Icon/SettingsIcon';
 export * from './Icon/ImageIcon';
 export * from './GradientText';
 export * from './LottieView';
+export * from './Grid/FlatGrid';

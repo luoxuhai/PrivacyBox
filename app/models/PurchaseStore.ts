@@ -1,8 +1,5 @@
 import { Instance, SnapshotIn, SnapshotOut, types } from 'mobx-state-tree';
 
-/**
- * Model description here for TypeScript hints.
- */
 export const PurchaseStoreModel = types
   .model('PurchaseStore')
   .props({

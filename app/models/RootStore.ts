@@ -7,9 +7,6 @@ import { AppLockStoreModel } from './AppLockStore';
 import { AppStateStoreModel } from './AppStateStore';
 import { PurchaseStoreModel } from './PurchaseStore';
 
-/**
- * A RootStore model.
- */
 export const RootStoreModel = types.model('RootStore').props({
   authenticationStore: types.optional(AuthenticationStoreModel, {}),
   themeStore: types.optional(ThemeStoreModel, {}),

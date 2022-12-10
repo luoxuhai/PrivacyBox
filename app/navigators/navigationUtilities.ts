@@ -3,7 +3,6 @@ import { BackHandler, Platform } from 'react-native';
 import {
   PartialState,
   NavigationState,
-  NavigationAction,
   createNavigationContainerRef,
 } from '@react-navigation/native';
 import Config from '@/config';

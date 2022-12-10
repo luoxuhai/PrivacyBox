@@ -6,10 +6,10 @@ patch:
   skip: <%= props.skipIndexFile %>
 ---
 import React from "react"
-import { createStackNavigator } from "@react-navigation/stack"
+import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import {
   WelcomeScreen
-} from "../screens"
+} from "@/screens"
 
 export type <%= props.pascalCaseName %>NavigatorParamList = {
   Demo: undefined

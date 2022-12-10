@@ -1,31 +1,18 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { BottomTabScreenProps, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { TextStyle } from 'react-native';
-import { StackScreenProps } from '@react-navigation/stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useDeviceOrientation } from '@react-native-community/hooks';
 import { observer } from 'mobx-react-lite';
 
 import { BlurView, BottomTabIcon } from '@/components';
 import { translate } from '@/i18n';
-import {
-  AlbumScreen,
-  SettingScreen,
-  FileScreen,
-  MoreScreen,
-  AboutScreen,
-  AppearanceScreen,
-  DebugScreen,
-  AppLockSettingsScreen,
-  AdvancedSettingsScreen,
-  UrgentSwitchScreen,
-  PurchaseScreen,
-  FakeAppHomeSettingsScreen,
-} from '@/screens';
+import { FileScreen, MoreScreen } from '@/screens';
 import { spacing, typography, useTheme } from '@/theme';
 import { AppStackParamList, AppStackScreenProps } from './AppNavigator';
+import { SettingNavigator } from './SettingsNavigator';
+import { AlbumsNavigator } from './AlbumsNavigator';
 import { useStores } from '@/models';
 import { BottomTabs } from '@/models/SettingsStore';
 
@@ -47,116 +34,6 @@ export type DemoTabScreenProps<T extends keyof ContentTabParamList> = CompositeS
 >;
 
 const Tab = createBottomTabNavigator<ContentTabParamList>();
-
-export type SettingStackParamList = {
-  Settings: typeof SettingScreen;
-  Appearance: typeof AppearanceScreen;
-  About: typeof AboutScreen;
-  Debug: typeof DebugScreen;
-  AppLockSettings: typeof AppLockSettingsScreen;
-  FakeAppHomeSettings: typeof FakeAppHomeSettingsScreen;
-  AdvancedSettings: typeof AdvancedSettingsScreen;
-  UrgentSwitch: typeof UrgentSwitchScreen;
-  Purchase: typeof PurchaseScreen;
-};
-
-const SettingStack = createNativeStackNavigator<SettingStackParamList>();
-
-const SettingStackScreen: FC<StackScreenProps<SettingStackParamList>> = observer(
-  function SettingStackScreen() {
-    const { colors, isDark } = useTheme();
-
-    return (
-      <SettingStack.Navigator
-        screenOptions={{
-          headerBlurEffect: isDark ? 'systemMaterialDark' : 'systemMaterialLight',
-          headerTransparent: true,
-          headerLargeStyle: {
-            backgroundColor: isDark ? colors.background : colors.secondaryBackground,
-          },
-        }}
-      >
-        <SettingStack.Screen
-          name="Settings"
-          options={{
-            title: translate('contentNavigator.settingsTab'),
-            headerLargeTitle: true,
-          }}
-          component={SettingScreen}
-        />
-        <SettingStack.Screen
-          name="Appearance"
-          options={{
-            title: translate('appearanceScreen.title'),
-          }}
-          component={AppearanceScreen}
-        />
-        <SettingStack.Screen
-          name="About"
-          options={{
-            title: translate('aboutScreen.title'),
-          }}
-          component={AboutScreen}
-        />
-        <SettingStack.Screen
-          name="AppLockSettings"
-          options={{
-            title: translate('appLockSettingsScreen.title'),
-          }}
-          component={AppLockSettingsScreen}
-        />
-        <SettingStack.Screen
-          name="FakeAppHomeSettings"
-          options={{
-            title: translate('fakeAppLockSettingsScreen.title'),
-          }}
-          component={FakeAppHomeSettingsScreen}
-        />
-        <SettingStack.Screen
-          name="AdvancedSettings"
-          options={{
-            title: translate('advancedSettingsScreen.title'),
-          }}
-          component={AdvancedSettingsScreen}
-        />
-        <SettingStack.Screen
-          name="UrgentSwitch"
-          options={{
-            title: translate('urgentSwitchScreen.title'),
-          }}
-          component={UrgentSwitchScreen}
-        />
-
-        <SettingStack.Group
-          screenOptions={{
-            presentation: 'modal',
-            headerBlurEffect: isDark ? 'systemMaterialDark' : 'systemMaterialLight',
-            headerTransparent: true,
-          }}
-        >
-          <SettingStack.Screen
-            name="Purchase"
-            options={{
-              title: null,
-              gestureEnabled: false,
-              headerLargeStyle: {
-                backgroundColor: colors.background,
-              },
-            }}
-            component={PurchaseScreen}
-          />
-          <SettingStack.Screen
-            name="Debug"
-            options={{
-              title: translate('debugScreen.title'),
-            }}
-            component={DebugScreen}
-          />
-        </SettingStack.Group>
-      </SettingStack.Navigator>
-    );
-  },
-);
 
 export const ContentNavigator = observer(function ContentNavigator() {
   const { bottom } = useSafeAreaInsets();
@@ -198,7 +75,7 @@ export const ContentNavigator = observer(function ContentNavigator() {
       {visibleBottomTabs.includes(BottomTabs.Album) && (
         <Tab.Screen
           name="Album"
-          component={AlbumScreen}
+          component={AlbumsNavigator}
           options={{
             tabBarLabel: translate('contentNavigator.albumTab'),
             tabBarIcon: ({ color }) => <BottomTabIcon icon="Album" color={color} />,
@@ -239,7 +116,7 @@ export const ContentNavigator = observer(function ContentNavigator() {
 
       <Tab.Screen
         name="Settings"
-        component={SettingStackScreen}
+        component={SettingNavigator}
         options={{
           tabBarLabel: translate('contentNavigator.settingsTab'),
           tabBarIcon: ({ color }) => <BottomTabIcon icon="Settings" color={color} />,

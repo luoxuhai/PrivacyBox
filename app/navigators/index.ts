@@ -1,4 +1,5 @@
-export * from "./AppNavigator"
-export * from "./ContentNavigator"
-export * from "./navigationUtilities"
-// export other navigators from here
+export * from './AppNavigator';
+export * from './ContentNavigator';
+export * from './SettingsNavigator';
+export * from './navigationUtilities';
+export * from "./AlbumsNavigator"

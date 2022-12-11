@@ -17,3 +17,4 @@ export * from './PurchaseScreen/PurchaseScreen';
 export * from './AppMaskScreen';
 export * from './FakeAppHomeScreen';
 export * from './FakeAppHomeSettingsScreen';
+export * from './PhotosScreen/PhotosScreen';

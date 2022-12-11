@@ -106,7 +106,6 @@ export const SettingNavigator: FC<StackScreenProps<SettingStackParamList>> = obs
           name="Purchase"
           options={{
             title: null,
-            gestureEnabled: false,
             headerLargeStyle: {
               backgroundColor: colors.background,
             },

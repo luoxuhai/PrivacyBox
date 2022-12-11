@@ -12,7 +12,7 @@ import React, { useMemo } from 'react';
 
 import Config from '@/config';
 import { useStores } from '@/models'; // @demo remove-current-line
-import { AppLockScreen } from '@/screens';
+import { AppLockScreen, PhotosScreen } from '@/screens';
 import { ContentNavigator, ContentTabParamList } from './ContentNavigator'; // @demo remove-current-line
 import { navigationRef, useBackButtonHandler } from './navigationUtilities';
 import { useTheme } from '@/theme';
@@ -43,6 +43,7 @@ export type AppStackParamList = {
   AppMask: typeof AppMaskScreen;
   FakeAppHome: typeof FakeAppHomeScreen;
   Content: NavigatorScreenParams<ContentTabParamList>;
+  Photos: undefined;
 };
 
 /**
@@ -74,7 +75,16 @@ const AppStack = observer(function AppStack() {
   }, [fakeHomeEnabled, appLockStore.passcode]);
 
   return (
-    <Stack.Navigator initialRouteName={initialRouteName}>
+    <Stack.Navigator
+      initialRouteName={initialRouteName}
+      screenOptions={{
+        headerBlurEffect: isDark ? 'systemMaterialDark' : 'systemMaterialLight',
+        headerTransparent: true,
+        headerStyle: {
+          backgroundColor: colors.background,
+        },
+      }}
+    >
       <Stack.Group
         screenOptions={{
           headerShown: false,
@@ -113,12 +123,7 @@ const AppStack = observer(function AppStack() {
         component={FakeAppHomeScreen}
         options={{
           title: translate('common.appName'),
-          headerBlurEffect: isDark ? 'systemMaterialDark' : 'systemMaterialLight',
-          headerTransparent: true,
           headerLargeTitle: true,
-          headerStyle: {
-            backgroundColor: colors.background,
-          },
         }}
       />
 
@@ -128,6 +133,15 @@ const AppStack = observer(function AppStack() {
         options={{
           headerShown: false,
         }}
+      />
+
+      <Stack.Screen
+        name="Photos"
+        options={{
+          title: null,
+          headerBackTitle: translate('albumsScreen.title'),
+        }}
+        component={PhotosScreen}
       />
     </Stack.Navigator>
   );

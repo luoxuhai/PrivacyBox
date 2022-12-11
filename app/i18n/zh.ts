@@ -28,7 +28,13 @@ const zh = {
   albumsScreen: {
     title: '相册',
     searchPlaceholder: '搜索相册、图片、视频',
+    editAlbum: {
+      title: '编辑相册',
+      changeName: '修改名称',
+      delete: '删除相册',
+    },
   },
+  photosScreen: {},
   settingsScreen: {
     purchaseBanner: {
       title: '隐私盒子高级版',

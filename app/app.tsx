@@ -17,6 +17,7 @@ import React, { FC, useEffect } from 'react';
 import { initialWindowMetrics, SafeAreaProvider } from 'react-native-safe-area-context';
 import { observer } from 'mobx-react-lite';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { HoldMenuProvider } from 'react-native-hold-menu';
 
 import { initCrashReporting, useUpdateEffect } from './utils';
 import { useInitialRootStore } from './models';
@@ -24,6 +25,7 @@ import { AppNavigator, useNavigationPersistence, RootNavigation } from './naviga
 import { ErrorBoundary } from './screens/ErrorScreen/ErrorBoundary';
 import { storage } from './storage';
 import Config from './config';
+import { useTheme } from './theme';
 
 export const NAVIGATION_PERSISTENCE_KEY = 'NAVIGATION_STATE';
 
@@ -33,6 +35,8 @@ const App: FC = observer(() => {
     onNavigationStateChange,
     isRestored: isNavigationStateRestored,
   } = useNavigationPersistence(storage, NAVIGATION_PERSISTENCE_KEY);
+
+  const { isDark } = useTheme();
 
   useEffect(() => {
     if (!__DEV__) {
@@ -60,10 +64,15 @@ const App: FC = observer(() => {
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       <ErrorBoundary catchErrors={Config.catchErrors}>
         <QueryClientProvider client={queryClient}>
-          <AppNavigator
-            initialState={initialNavigationState}
-            onStateChange={onNavigationStateChange}
-          />
+          <HoldMenuProvider
+            theme={isDark ? 'dark' : 'light'}
+            paddingBottom={initialWindowMetrics.insets.bottom}
+          >
+            <AppNavigator
+              initialState={initialNavigationState}
+              onStateChange={onNavigationStateChange}
+            />
+          </HoldMenuProvider>
         </QueryClientProvider>
       </ErrorBoundary>
     </SafeAreaProvider>

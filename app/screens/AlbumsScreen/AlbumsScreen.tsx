@@ -10,6 +10,7 @@ import { AlbumsNavigatorParamList } from '@/navigators';
 import { SafeAreaScrollView, Screen, Text, FlatGrid } from '@/components';
 import { useTheme } from '@/theme';
 import { AlbumItem } from './AlbumItem';
+import { useAlbumEditor } from './useAlbumEditor';
 
 const DATA = Array.from(
   {
@@ -25,13 +26,22 @@ const DATA = Array.from(
 );
 
 export const AlbumsScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'Album'>> = observer(
-  () => {
+  (props) => {
     const { colors } = useTheme();
-    const navigation = useNavigation();
     const bottomTabBarHeight = useBottomTabBarHeight();
 
+    const { onOpenActionSheet } = useAlbumEditor();
+
     const renderItem = useCallback(({ item }) => {
-      return <AlbumItem item={item} />;
+      return (
+        <AlbumItem
+          item={item}
+          onPress={() => {
+            props.navigation.navigate('Photos');
+          }}
+          onOpenEditor={onOpenActionSheet}
+        />
+      );
     }, []);
 
     return (
@@ -56,23 +66,4 @@ export const AlbumsScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'Album'
 
 const $safeAreaView = {
   flex: 1,
-};
-
-const $itemContainer: ViewStyle = {
-  justifyContent: 'flex-end',
-  borderRadius: 5,
-  padding: 10,
-  height: 200,
-};
-
-const $itemName = {
-  fontSize: 16,
-  color: '#fff',
-  fontWeight: '600',
-};
-
-const $itemCode = {
-  fontWeight: '600',
-  fontSize: 12,
-  color: '#fff',
 };

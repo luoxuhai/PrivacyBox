@@ -1,29 +1,45 @@
 import React, { FC } from 'react';
-import { Text, View, ViewStyle, StyleProp, Pressable, StyleSheet, TextStyle } from 'react-native';
+import {
+  Text,
+  View,
+  ViewStyle,
+  StyleProp,
+  Pressable,
+  StyleSheet,
+  TextStyle,
+  TouchableOpacity,
+} from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { StackScreenProps } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 import FastImage, { ImageStyle } from 'react-native-fast-image';
 import { MoreVert } from 'iconoir-react-native';
+import { HoldItem } from 'react-native-hold-menu';
 
 import { BlurView } from '@/components';
 import { radius, spacing, typography, useTheme } from '@/theme';
 
 interface AlbumItemProps {
   item: any;
+  onPress: (item: any) => void;
+  onOpenEditor: (item: any) => void;
 }
+
 export const AlbumItem = observer<AlbumItemProps>((props) => {
   const { isDark, colors } = useTheme();
 
   const textColor = colors.label;
+
   return (
-    <Pressable
+    <TouchableOpacity
       style={[
         $container,
         {
           borderColor: colors.palette.gray6,
         },
       ]}
+      activeOpacity={0.8}
+      onPress={() => props.onPress(props.item)}
     >
       <FastImage
         style={[
@@ -50,11 +66,11 @@ export const AlbumItem = observer<AlbumItemProps>((props) => {
             {props.item.count}
           </Text>
         </View>
-        <Pressable style={$configIcon}>
+        <Pressable style={$configIcon} onPress={() => props.onOpenEditor(props.item)}>
           <MoreVert width={25} height={30} strokeWidth={2} color={textColor} />
         </Pressable>
       </View>
-    </Pressable>
+    </TouchableOpacity>
   );
 });
 

@@ -1,14 +1,14 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useMemo } from 'react';
 import {
   TouchableOpacityProps,
   StyleProp,
   TextStyle,
   ViewStyle,
   TouchableOpacity,
-  ColorValue,
 } from 'react-native';
 import { radius, spacing, typography, useTheme, lightPalette } from '@/theme';
 import { Text, TextProps } from '../Text';
+import { colord } from 'colord';
 
 export interface ButtonProps extends TouchableOpacityProps {
   /**
@@ -34,13 +34,20 @@ export interface ButtonProps extends TouchableOpacityProps {
   textStyle?: StyleProp<TextStyle>;
   disabled?: boolean;
   isLoading?: boolean;
-  color?: ColorValue;
+  color?: string;
   LeftAccessory?: ReactElement | string;
 }
 
 export function Button(props: ButtonProps) {
   const { tk, text, tkOptions, style, textStyle, color, LeftAccessory, ...rest } = props;
   const { colors } = useTheme();
+
+  const _color = color || colors.palette.primary6;
+
+  const backgroundColor = useMemo(
+    () => (rest.disabled ? colord(_color).lighten(0.1).toRgbString() : _color),
+    [_color, rest.disabled],
+  );
 
   return (
     <TouchableOpacity
@@ -50,7 +57,7 @@ export function Button(props: ButtonProps) {
         $buttonStyle,
         style,
         {
-          backgroundColor: color || colors.palette.primary6,
+          backgroundColor,
         },
       ]}
       accessibilityRole="button"

@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { SettingStackParamList } from '@/navigators';
 import { Screen, ExitButton, TextButton, ScrollSafeAreaView } from '@/components';
-import { spacing, useTheme } from '@/theme';
+import { spacing, typography, useTheme } from '@/theme';
 import { Header } from './Header';
 import { FeatureList } from './FeatureList';
 import { BottomActionBar } from './BottomActionBar';
@@ -26,7 +26,11 @@ export const PurchaseScreen: FC<StackScreenProps<SettingStackParamList, 'Purchas
       props.navigation.setOptions({
         headerRight: () => <ExitButton onPress={props.navigation.goBack} />,
         headerLeft: () => (
-          <TextButton tk="purchaseScreen.restore" onPress={handleRestorePurchase} />
+          <TextButton
+            textStyle={typography.headline}
+            tk="purchaseScreen.restore"
+            onPress={handleRestorePurchase}
+          />
         ),
       });
 

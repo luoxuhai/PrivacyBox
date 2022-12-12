@@ -12,12 +12,14 @@
 import './i18n';
 import './utils/ignoreWarnings';
 import './utils/consoleExtension';
+import './utils/sheets';
 
 import React, { FC, useEffect } from 'react';
 import { initialWindowMetrics, SafeAreaProvider } from 'react-native-safe-area-context';
 import { observer } from 'mobx-react-lite';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { HoldMenuProvider } from 'react-native-hold-menu';
+import { SheetProvider } from 'react-native-actions-sheet';
 
 import { initCrashReporting, useUpdateEffect } from './utils';
 import { useInitialRootStore } from './models';
@@ -68,10 +70,12 @@ const App: FC = observer(() => {
             theme={isDark ? 'dark' : 'light'}
             paddingBottom={initialWindowMetrics.insets.bottom}
           >
-            <AppNavigator
-              initialState={initialNavigationState}
-              onStateChange={onNavigationStateChange}
-            />
+            <SheetProvider>
+              <AppNavigator
+              // initialState={initialNavigationState}
+              // onStateChange={onNavigationStateChange}
+              />
+            </SheetProvider>
           </HoldMenuProvider>
         </QueryClientProvider>
       </ErrorBoundary>

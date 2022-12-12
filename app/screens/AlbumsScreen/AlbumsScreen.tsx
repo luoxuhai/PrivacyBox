@@ -1,27 +1,30 @@
-import React, { FC, useCallback } from 'react';
-import { View, ViewStyle } from 'react-native';
+import React, { FC, useCallback, useEffect } from 'react';
+import { Dimensions, TouchableOpacity, View, ViewStyle } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { StackScreenProps } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaFrame, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+import { SheetManager } from 'react-native-actions-sheet';
 
 import { AlbumsNavigatorParamList } from '@/navigators';
 import { SafeAreaScrollView, Screen, Text, FlatGrid } from '@/components';
-import { useTheme } from '@/theme';
+import { spacing, useTheme } from '@/theme';
 import { AlbumItem } from './AlbumItem';
 import { useAlbumEditor } from './useAlbumEditor';
+import { useSafeAreaDimensions } from '@/utils';
+import { SFSymbol } from 'react-native-sfsymbols';
 
 const DATA = Array.from(
   {
-    length: 5,
+    length: 10,
   },
   (_, i) => ({
-    name: '动物🐒' + i,
+    name: '小视频🐒' + (i + 1),
     code: '#1abc9c',
     id: i,
     count: i * 10,
-    src: 'https://img.ixintu.com/download/jpg/201911/515cc6ef7502d02ecc33e8eb8951c4b7.jpg!con0',
+    src: 'https://content.shopback.com/tw/wp-content/uploads/2018/11/07222147/hydrangea-3487664_1280-11.jpg',
   }),
 );
 
@@ -29,8 +32,28 @@ export const AlbumsScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'Album'
   (props) => {
     const { colors } = useTheme();
     const bottomTabBarHeight = useBottomTabBarHeight();
-
+    const safeAreaDimensions = useSafeAreaDimensions();
     const { onOpenActionSheet } = useAlbumEditor();
+
+    useEffect(() => {
+      props.navigation.setOptions({
+        headerRight: () => (
+          <TouchableOpacity
+            style={{
+              width: 30,
+              height: 30,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+            onPress={() => {
+              SheetManager.show('example-sheet');
+            }}
+          >
+            <SFSymbol size={26} name="plus.circle.fill" />
+          </TouchableOpacity>
+        ),
+      });
+    }, []);
 
     const renderItem = useCallback(({ item }) => {
       return (
@@ -44,6 +67,8 @@ export const AlbumsScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'Album'
       );
     }, []);
 
+    console.log(safeAreaDimensions.width);
+
     return (
       <Screen>
         <SafeAreaView style={$safeAreaView} edges={['left', 'right']}>
@@ -54,6 +79,8 @@ export const AlbumsScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'Album'
             contentInsetAdjustmentBehavior="automatic"
             estimatedItemSize={150}
             itemWidth={150}
+            width={safeAreaDimensions.width}
+            itemWidthFixed
             spacing={20}
             data={DATA}
             renderItem={renderItem}
@@ -64,6 +91,6 @@ export const AlbumsScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'Album'
   },
 );
 
-const $safeAreaView = {
+const $safeAreaView: ViewStyle = {
   flex: 1,
 };

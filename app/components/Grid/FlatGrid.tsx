@@ -144,7 +144,7 @@ export const FlatGrid = forwardRef(function FlatGrid<T>(
     <AnimatedFlashList
       ref={listRef}
       data={gridEnabled ? rows : data}
-      entering={FadeIn.duration(300)}
+      entering={FadeIn.duration(400)}
       renderItem={renderRow}
       {...flashListProps}
       onLayout={onLayoutLocal}

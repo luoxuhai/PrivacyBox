@@ -76,7 +76,7 @@ export const SettingNavigator: FC<StackScreenProps<SettingStackParamList>> = obs
       <SettingStack.Screen
         name="FakeAppHomeSettings"
         options={{
-          title: translate('fakeAppLockSettingsScreen.title'),
+          title: translate('fakeAppHomeSettingsScreen.title'),
         }}
         component={FakeAppHomeSettingsScreen}
       />

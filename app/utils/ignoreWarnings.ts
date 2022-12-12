@@ -7,5 +7,7 @@ import { LogBox } from 'react-native';
 // prettier-ignore
 LogBox.ignoreLogs([
   "Require cycle:",
-  "Could not find Fiber"
+  "Could not find Fiber",
+  "You",
+  "Found",
 ])

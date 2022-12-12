@@ -89,7 +89,7 @@ export const AboutScreen: FC<StackScreenProps<SettingStackParamList, 'About'>> =
               tk="aboutScreen.email"
               bottomSeparator={false}
               RightAccessory={Config.email}
-              onPress={openEmail}
+              onPress={openDeveloperEmail}
             />
           </ListSection>
         </SafeAreaScrollView>
@@ -132,7 +132,7 @@ function openQQGroup() {
   });
 }
 
-function openEmail() {
+export function openDeveloperEmail() {
   Linking.openURL(`mailto:${Config.email}`).catch(() => {
     Clipboard.setString(Config.email);
     Overlay.toast({

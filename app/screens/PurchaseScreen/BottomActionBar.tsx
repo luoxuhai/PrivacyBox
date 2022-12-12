@@ -6,8 +6,8 @@ import { useQuery } from '@tanstack/react-query';
 import { Product } from 'react-native-iap';
 
 import { TextButton, BlurView, Button, Text } from '@/components';
-import { spacing, typography, useTheme } from '@/theme';
-import { openPrivacyPolicy, openUserAgreement } from '@/screens/AboutScreen';
+import { radius, spacing, typography, useTheme } from '@/theme';
+import { openPrivacyPolicy, openUserAgreement, openDeveloperEmail } from '@/screens/AboutScreen';
 import { purchaseKeys } from './constants';
 import { InAppPurchase } from './helpers/InAppPurchase';
 import { Overlay } from '@/utils';
@@ -65,7 +65,10 @@ export const BottomActionBar = observer<BottomActionBarProps>((props) => {
         blurType={isDark ? 'materialDark' : 'materialLight'}
         blurAmount={60}
       />
-      <Text color={colors.secondaryLabel} style={typography.footnote} tk="purchaseScreen.help" />
+      <Text style={typography.footnote}>
+        <Text tk="purchaseScreen.help" color={colors.secondaryLabel} />
+        <Text tk="purchaseScreen.connect" color={colors.link} onPress={openDeveloperEmail} />
+      </Text>
 
       <View style={$body}>
         <View style={$agreementWrapper}>
@@ -112,6 +115,9 @@ const $bottomAction: ViewStyle = {
   bottom: 0,
   zIndex: 9,
   width: '100%',
+  borderTopStartRadius: radius[5],
+  borderTopEndRadius: radius[5],
+  overflow: 'hidden',
   paddingTop: spacing[5],
   backgroundColor: 'transparent',
   alignContent: 'space-between',

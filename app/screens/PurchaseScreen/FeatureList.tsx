@@ -62,7 +62,7 @@ const $featureListItem: ViewStyle = {
 };
 
 const $featureIcon: ViewStyle = {
-  marginRight: spacing[7],
+  marginRight: spacing[6],
 };
 
 const $featureText: ViewStyle = {

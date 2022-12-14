@@ -1,0 +1,60 @@
+diff --git a/node_modules/react-native-fs/FS.common.js b/node_modules/react-native-fs/FS.common.js
+index 62b7ba7..3499d6b 100755
+--- a/node_modules/react-native-fs/FS.common.js
++++ b/node_modules/react-native-fs/FS.common.js
+@@ -213,6 +213,10 @@ var RNFS = {
+     return RNFSManager.pathForGroup(groupName);
+   },
+ 
++  pathForGroupSync(groupName: string): string {
++    return RNFSManager.pathForGroupSync(groupName);
++  },
++
+   getFSInfo(): Promise<FSInfoResult> {
+     return RNFSManager.getFSInfo();
+   },
+diff --git a/node_modules/react-native-fs/IntegrationTests/AppDelegate.m b/node_modules/react-native-fs/IntegrationTests/AppDelegate.m
+index 45266a8..082396d 100644
+--- a/node_modules/react-native-fs/IntegrationTests/AppDelegate.m
++++ b/node_modules/react-native-fs/IntegrationTests/AppDelegate.m
+@@ -9,8 +9,8 @@
+ 
+ #import "AppDelegate.h"
+ 
+-#if __has_include("RCTRootView.h")
+-#import "RCTRootView.h"
++#if __has_include(<React/RCTRootView.h>)
++#import <React/RCTRootView.h>
+ #else
+ #import <React/RCTRootView.h>
+ #endif
+diff --git a/node_modules/react-native-fs/RNFSManager.m b/node_modules/react-native-fs/RNFSManager.m
+index 5ddd941..5a8296f 100755
+--- a/node_modules/react-native-fs/RNFSManager.m
++++ b/node_modules/react-native-fs/RNFSManager.m
+@@ -722,6 +722,13 @@ + (BOOL)requiresMainQueueSetup
+   }
+ }
+ 
++RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(pathForGroupSync:(nonnull NSString *)groupId) {
++  NSURL *groupURL = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier: groupId];
++  return [groupURL path];
++}
++
++//groupPath.absoluteString
++
+ RCT_EXPORT_METHOD(getFSInfo:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+ {
+   unsigned long long totalSpace = 0;
+diff --git a/node_modules/react-native-fs/index.d.ts b/node_modules/react-native-fs/index.d.ts
+index da3fa7d..e793a58 100644
+--- a/node_modules/react-native-fs/index.d.ts
++++ b/node_modules/react-native-fs/index.d.ts
+@@ -123,6 +123,7 @@ export function copyFile(
+ ): Promise<void>
+ export function pathForBundle(bundleNamed: string): Promise<string>
+ export function pathForGroup(groupName: string): Promise<string>
++export function pathForGroupSync(groupName: string): string
+ export function getFSInfo(): Promise<FSInfoResult>
+ export function getAllExternalFilesDirs(): Promise<string[]>
+ export function unlink(filepath: string): Promise<void>

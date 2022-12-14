@@ -32,11 +32,7 @@ import { useTheme } from './theme';
 
 export const NAVIGATION_PERSISTENCE_KEY = 'NAVIGATION_STATE';
 
-interface AppProps {
-  groupPath: string;
-}
-
-const App = observer<AppProps>((props) => {
+const App = observer(() => {
   const {
     initialNavigationState,
     onNavigationStateChange,
@@ -46,7 +42,6 @@ const App = observer<AppProps>((props) => {
   const { isDark } = useTheme();
 
   useEffect(() => {
-    LocalPathManager.groupPath = props.groupPath;
     if (!__DEV__) {
       initCrashReporting();
     }

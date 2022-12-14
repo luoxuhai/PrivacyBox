@@ -9,8 +9,8 @@ import { AppRegistry } from 'react-native';
 
 BootSplash.hide({ fade: true });
 
-function Main(props) {
-  return <App {...props} />;
+function Main() {
+  return <App />;
 }
 
 AppRegistry.registerComponent('PrivacyBox', () => Main);

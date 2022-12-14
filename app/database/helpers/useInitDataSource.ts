@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { AppDataSource } from '../data-source';
+import { AppDataSource } from '..';
 
 export function useInitialDataSource() {
   const [isInitialized, setIsInitialized] = useState(false);

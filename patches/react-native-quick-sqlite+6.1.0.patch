@@ -1,0 +1,84 @@
+diff --git a/node_modules/react-native-quick-sqlite/cpp/bindings.cpp b/node_modules/react-native-quick-sqlite/cpp/bindings.cpp
+index c486731..bc17104 100644
+--- a/node_modules/react-native-quick-sqlite/cpp/bindings.cpp
++++ b/node_modules/react-native-quick-sqlite/cpp/bindings.cpp
+@@ -14,14 +14,19 @@ using namespace std;
+ using namespace facebook;
+ 
+ namespace osp {
+-string docPathStr;
++string dbPathStr;
+ std::shared_ptr<react::CallInvoker> invoker;
+ 
+-void install(jsi::Runtime &rt, std::shared_ptr<react::CallInvoker> jsCallInvoker, const char *docPath)
++bool startsWith(const std::string &str, const std::string &prefix) {
++    return str.size() >= prefix.size() && str.substr(0, prefix.size()) == prefix;
++}
++
++void install(jsi::Runtime &rt, std::shared_ptr<react::CallInvoker> jsCallInvoker, const char *dbPath)
+ {
+-  docPathStr = std::string(docPath);
++  dbPathStr = std::string(dbPath);
+   auto pool = std::make_shared<ThreadPool>();
+   invoker = jsCallInvoker;
++  string prefix = "/";
+ 
+   auto open = HOSTFN("open", 2) {
+     if (count == 0)
+@@ -35,7 +40,7 @@ void install(jsi::Runtime &rt, std::shared_ptr<react::CallInvoker> jsCallInvoker
+     }
+ 
+     string dbName = args[0].asString(rt).utf8(rt);
+-    string tempDocPath = string(docPathStr);
++    string tempDocPath = string(dbPathStr);
+     if (count > 1 && !args[1].isUndefined() && !args[1].isNull())
+     {
+       if (!args[1].isString())
+@@ -43,7 +48,8 @@ void install(jsi::Runtime &rt, std::shared_ptr<react::CallInvoker> jsCallInvoker
+         throw jsi::JSError(rt, "[react-native-quick-sqlite][open] database location must be a string");
+       }
+ 
+-      tempDocPath = tempDocPath + "/" + args[1].asString(rt).utf8(rt);
++      string location = args[1].asString(rt).utf8(rt);
++      tempDocPath = startsWith(location, prefix) ? location : tempDocPath + "/" + location;
+     }
+ 
+     SQLiteOPResult result = sqliteOpenDb(dbName, tempDocPath);
+@@ -66,15 +72,15 @@ void install(jsi::Runtime &rt, std::shared_ptr<react::CallInvoker> jsCallInvoker
+       return {};
+     }
+ 
+-    string tempDocPath = string(docPathStr);
++    string tempDocPath = string(dbPathStr);
+     if (count > 3 && !args[3].isUndefined() && !args[3].isNull())
+     {
+       if (!args[3].isString())
+       {
+         throw jsi::JSError(rt, "[react-native-quick-sqlite][attach] database location must be a string");
+       }
+-
+-      tempDocPath = tempDocPath + "/" + args[3].asString(rt).utf8(rt);
++      string location = args[3].asString(rt).utf8(rt);
++      tempDocPath = startsWith(location, prefix) ? location : tempDocPath + "/" + location;
+     }
+ 
+     string dbName = args[0].asString(rt).utf8(rt);
+@@ -150,7 +156,7 @@ void install(jsi::Runtime &rt, std::shared_ptr<react::CallInvoker> jsCallInvoker
+ 
+     string dbName = args[0].asString(rt).utf8(rt);
+ 
+-    string tempDocPath = string(docPathStr);
++    string tempDocPath = string(dbPathStr);
+     if (count > 1 && !args[1].isUndefined() && !args[1].isNull())
+     {
+       if (!args[1].isString())
+@@ -158,7 +164,8 @@ void install(jsi::Runtime &rt, std::shared_ptr<react::CallInvoker> jsCallInvoker
+         throw jsi::JSError(rt, "[react-native-quick-sqlite][open] database location must be a string");
+       }
+ 
+-      tempDocPath = tempDocPath + "/" + args[1].asString(rt).utf8(rt);
++      string location = args[1].asString(rt).utf8(rt);
++      tempDocPath = startsWith(location, prefix) ? location : tempDocPath + "/" + location;
+     }
+ 
+ 

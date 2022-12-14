@@ -5,6 +5,7 @@ const plugins = [
       extensions: ['.ios.js', '.android.js', '.js', '.ts', '.tsx', '.json'],
       alias: {
         '@': './app',
+        'react-native-sqlite-storage': 'react-native-quick-sqlite',
       },
     },
   ],

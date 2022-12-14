@@ -14,14 +14,14 @@ import './utils/ignoreWarnings';
 import './utils/consoleExtension';
 import './utils/sheets';
 
-import React, { FC, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { initialWindowMetrics, SafeAreaProvider } from 'react-native-safe-area-context';
 import { observer } from 'mobx-react-lite';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { HoldMenuProvider } from 'react-native-hold-menu';
 import { SheetProvider } from 'react-native-actions-sheet';
 
-import { initCrashReporting, useUpdateEffect, useInitialGroupPath } from './utils';
+import { initCrashReporting, useUpdateEffect, LocalPathManager } from './utils';
 import { useInitialRootStore } from './models';
 import { useInitialDataSource } from './database/helpers/useInitDataSource';
 import { AppNavigator, useNavigationPersistence, RootNavigation } from './navigators';
@@ -32,7 +32,11 @@ import { useTheme } from './theme';
 
 export const NAVIGATION_PERSISTENCE_KEY = 'NAVIGATION_STATE';
 
-const App: FC = observer(() => {
+interface AppProps {
+  groupPath: string;
+}
+
+const App = observer<AppProps>((props) => {
   const {
     initialNavigationState,
     onNavigationStateChange,
@@ -42,6 +46,7 @@ const App: FC = observer(() => {
   const { isDark } = useTheme();
 
   useEffect(() => {
+    LocalPathManager.groupPath = props.groupPath;
     if (!__DEV__) {
       initCrashReporting();
     }
@@ -49,7 +54,6 @@ const App: FC = observer(() => {
 
   const { rehydrated, rootStore } = useInitialRootStore();
   const { isInitialized } = useInitialDataSource();
-  const { groupPath } = useInitialGroupPath();
 
   useUpdateEffect(() => {
     if (rootStore.appLockStore.isLocked) {
@@ -63,7 +67,7 @@ const App: FC = observer(() => {
     }
   }, [rootStore.appStateStore.inForeground]);
 
-  if (!rehydrated || !isNavigationStateRestored || !isInitialized || !groupPath) return null;
+  if (!rehydrated || !isNavigationStateRestored || !isInitialized) return null;
 
   return (
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
@@ -75,8 +79,8 @@ const App: FC = observer(() => {
           >
             <SheetProvider>
               <AppNavigator
-              // initialState={initialNavigationState}
-              // onStateChange={onNavigationStateChange}
+                initialState={initialNavigationState}
+                onStateChange={onNavigationStateChange}
               />
             </SheetProvider>
           </HoldMenuProvider>

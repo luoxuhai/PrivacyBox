@@ -99,6 +99,9 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
 #ifdef RCT_NEW_ARCH_ENABLED
   initProps[kRNConcurrentRoot] = @([self concurrentRootEnabled]);
 #endif
+  // 添加 GroupPath
+  NSURL *groupPath = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.net.darkce.privatespace"];
+  [initProps setObject:groupPath.absoluteString forKey:@"groupPath"];
   return initProps;
 }
 

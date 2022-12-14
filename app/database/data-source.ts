@@ -1,15 +1,15 @@
 import { DataSource } from 'typeorm';
-import './constants';
+import { typeORMDriver } from 'react-native-quick-sqlite';
 
+import { location, databaseName } from './constants';
 import File from './entities/file';
 import User from './entities/user';
 
-const location = 'Shared';
-
 export const AppDataSource = new DataSource({
   type: 'react-native',
-  location,
-  database: 'privacy_box',
+  location: '.',
+  database: databaseName,
+  driver: typeORMDriver,
   synchronize: true,
   logging: ['error'],
   entities: [File, User],

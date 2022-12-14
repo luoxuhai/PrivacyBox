@@ -520,6 +520,10 @@ PODS:
     - React-Core
   - react-native-override-color-scheme (1.0.3):
     - React-Core
+  - react-native-quick-sqlite (6.1.0):
+    - React
+    - React-callinvoker
+    - React-Core
   - react-native-safe-area-context (4.3.4):
     - RCT-Folly
     - RCTRequired
@@ -773,6 +777,7 @@ DEPENDENCIES:
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-orientation-locker (from `../node_modules/react-native-orientation-locker`)
   - react-native-override-color-scheme (from `../node_modules/react-native-override-color-scheme`)
+  - react-native-quick-sqlite (from `../node_modules/react-native-quick-sqlite`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - "react-native-segmented-control (from `../node_modules/@react-native-segmented-control/segmented-control`)"
   - react-native-sfsymbols (from `../node_modules/react-native-sfsymbols`)
@@ -962,6 +967,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-orientation-locker"
   react-native-override-color-scheme:
     :path: "../node_modules/react-native-override-color-scheme"
+  react-native-quick-sqlite:
+    :path: "../node_modules/react-native-quick-sqlite"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-segmented-control:
@@ -1125,6 +1132,7 @@ SPEC CHECKSUMS:
   react-native-netinfo: f80db8cac2151405633324cb645c60af098ee461
   react-native-orientation-locker: 851f6510d8046ea2f14aa169b1e01fcd309a94ba
   react-native-override-color-scheme: 3badbbee9a4ea2a9c3e5b4a5d9fd9eaba8761870
+  react-native-quick-sqlite: 5500398412d420a201070c6f99004a411df3c60f
   react-native-safe-area-context: dfe5aa13bee37a0c7e8059d14f72ffc076d120e9
   react-native-segmented-control: 06607462630512ff8eef652ec560e6235a30cc3e
   react-native-sfsymbols: bd3a0d3eab185e80b571bae60753dcf5a0d57967
@@ -1172,6 +1180,6 @@ SPEC CHECKSUMS:
   Yoga: 0b84a956f7393ef1f37f3bb213c516184e4a689d
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 2b1b7354a31f75e734a97e97425f1f80550fd66f
+PODFILE CHECKSUM: 914d56b12aefc3c07569b026460eb6ccc7df7733
 
 COCOAPODS: 1.11.2

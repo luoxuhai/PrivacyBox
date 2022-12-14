@@ -3,6 +3,7 @@ import { View, ViewStyle } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { StackScreenProps } from '@react-navigation/stack';
 import { HoldItem } from 'react-native-hold-menu';
+// import { HoldItem } from 'react-native-ios-context-menu';
 
 import { AppStackParamList } from '@/navigators';
 import { FlatGrid, Screen, Text } from '@/components';

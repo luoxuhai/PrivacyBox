@@ -21,8 +21,9 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { HoldMenuProvider } from 'react-native-hold-menu';
 import { SheetProvider } from 'react-native-actions-sheet';
 
-import { initCrashReporting, useUpdateEffect } from './utils';
+import { initCrashReporting, useUpdateEffect, useInitialGroupPath } from './utils';
 import { useInitialRootStore } from './models';
+import { useInitialDataSource } from './database/helpers/useInitDataSource';
 import { AppNavigator, useNavigationPersistence, RootNavigation } from './navigators';
 import { ErrorBoundary } from './screens/ErrorScreen/ErrorBoundary';
 import { storage } from './storage';
@@ -47,6 +48,8 @@ const App: FC = observer(() => {
   }, []);
 
   const { rehydrated, rootStore } = useInitialRootStore();
+  const { isInitialized } = useInitialDataSource();
+  const { groupPath } = useInitialGroupPath();
 
   useUpdateEffect(() => {
     if (rootStore.appLockStore.isLocked) {
@@ -60,7 +63,7 @@ const App: FC = observer(() => {
     }
   }, [rootStore.appStateStore.inForeground]);
 
-  if (!rehydrated || !isNavigationStateRestored) return null;
+  if (!rehydrated || !isNavigationStateRestored || !isInitialized || !groupPath) return null;
 
   return (
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>

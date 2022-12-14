@@ -1220,6 +1220,11 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
+"@dominicstop/ts-event-emitter@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.npmmirror.com/@dominicstop/ts-event-emitter/-/ts-event-emitter-1.1.0.tgz#1f3d3fa878a1ccab686931280757954719cf88e4"
+  integrity sha512-CcxmJIvUb1vsFheuGGVSQf4KdPZC44XolpUT34+vlal+LyQoBUOn31pjFET5M9ctOxEpt8xa0M3/2M7uUiAoJw==
+
 "@egjs/hammerjs@^2.0.17":
   version "2.0.17"
   resolved "https://registry.yarnpkg.com/@egjs/hammerjs/-/hammerjs-2.0.17.tgz#5dc02af75a6a06e4c2db0202cae38c9263895124"
@@ -12910,6 +12915,11 @@ react-native-bootsplash@^4.3.3:
     jimp "^0.16.2"
     picocolors "^1.0.0"
 
+react-native-cloud-store@^0.8.2:
+  version "0.8.2"
+  resolved "https://registry.npmmirror.com/react-native-cloud-store/-/react-native-cloud-store-0.8.2.tgz#6ef6e928bf72160b24678b1c70c4179850eeebaa"
+  integrity sha512-dM5klZ3fiKBE87zIAlx9u5FZAX5I8nI+xu+aw2ndFqbhwkqTUC4u+u9GgXn6JZxUtHxRBlrcpg56a908QPU7gA==
+
 react-native-code-push@^7.0.5:
   version "7.0.5"
   resolved "https://registry.npmmirror.com/react-native-code-push/-/react-native-code-push-7.0.5.tgz#17b4fb4acc6ba6616a3cb650a7bf3be9e3075938"
@@ -12995,6 +13005,13 @@ react-native-inappbrowser-reborn@^3.7.0:
   dependencies:
     invariant "^2.2.4"
     opencollective-postinstall "^2.0.3"
+
+react-native-ios-context-menu@^1.15.1:
+  version "1.15.1"
+  resolved "https://registry.npmmirror.com/react-native-ios-context-menu/-/react-native-ios-context-menu-1.15.1.tgz#f3edf20c5fc426b073a110140a2d441250576aa1"
+  integrity sha512-JkOJGx8Kjm7ChyDBmv1TqZg9mg8Jo8Y6kZISVbsXndx22Ke8sEIZGrizw6aXjkSQafomJ0ZAEZU7kuFHbFEwlg==
+  dependencies:
+    "@dominicstop/ts-event-emitter" "^1.1.0"
 
 react-native-linear-gradient@^2.6.2:
   version "2.6.2"

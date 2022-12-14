@@ -93,5 +93,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+    <key>AppGroupName</key>
+    <string>group.net.darkce.privatespace</string>
 </dict>
 </plist>

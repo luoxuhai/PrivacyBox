@@ -507,6 +507,10 @@ PODS:
     - glog
   - react-native-blur (4.3.0):
     - React-Core
+  - react-native-cloud-store (0.8.2):
+    - React-Core
+  - react-native-ios-context-menu (1.15.1):
+    - React-Core
   - react-native-mmkv (2.5.1):
     - MMKV (>= 1.2.13)
     - React-Core
@@ -763,6 +767,8 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - "react-native-blur (from `../node_modules/@react-native-community/blur`)"
+  - react-native-cloud-store (from `../node_modules/react-native-cloud-store`)
+  - react-native-ios-context-menu (from `../node_modules/react-native-ios-context-menu`)
   - react-native-mmkv (from `../node_modules/react-native-mmkv`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-orientation-locker (from `../node_modules/react-native-orientation-locker`)
@@ -944,6 +950,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/logger"
   react-native-blur:
     :path: "../node_modules/@react-native-community/blur"
+  react-native-cloud-store:
+    :path: "../node_modules/react-native-cloud-store"
+  react-native-ios-context-menu:
+    :path: "../node_modules/react-native-ios-context-menu"
   react-native-mmkv:
     :path: "../node_modules/react-native-mmkv"
   react-native-netinfo:
@@ -1109,6 +1119,8 @@ SPEC CHECKSUMS:
   React-jsinspector: 8134ee22182b8dd98dc0973db6266c398103ce6c
   React-logger: 1e7ac909607ee65fd5c4d8bea8c6e644f66b8843
   react-native-blur: 50c9feabacbc5f49b61337ebc32192c6be7ec3c3
+  react-native-cloud-store: c47df1e0989697b51d7d2056fb168dbc2f666825
+  react-native-ios-context-menu: b170594b4448c0cd10c79e13432216bac99de1ac
   react-native-mmkv: 69b9c003f10afdd01addf7c6ee784ce42ee2eff3
   react-native-netinfo: f80db8cac2151405633324cb645c60af098ee461
   react-native-orientation-locker: 851f6510d8046ea2f14aa169b1e01fcd309a94ba

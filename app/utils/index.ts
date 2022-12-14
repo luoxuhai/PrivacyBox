@@ -10,3 +10,4 @@ export * from './DynamicUpdate';
 export * from './crashReporting';
 export * from './hooks';
 export * from './LocalAuth';
+export * from './AppLocalPath';

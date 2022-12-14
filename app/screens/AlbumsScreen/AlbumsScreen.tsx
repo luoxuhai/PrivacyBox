@@ -12,6 +12,7 @@ import { SafeAreaScrollView, Screen, Text, FlatGrid } from '@/components';
 import { spacing, useTheme } from '@/theme';
 import { AlbumItem } from './AlbumItem';
 import { useAlbumEditor } from './useAlbumEditor';
+import { useAlbumCreator } from './useAlbumCreator';
 import { useSafeAreaDimensions } from '@/utils';
 import { SFSymbol } from 'react-native-sfsymbols';
 
@@ -34,6 +35,7 @@ export const AlbumsScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'Album'
     const bottomTabBarHeight = useBottomTabBarHeight();
     const safeAreaDimensions = useSafeAreaDimensions();
     const { onOpenActionSheet } = useAlbumEditor();
+    const { openAlert } = useAlbumCreator();
 
     useEffect(() => {
       props.navigation.setOptions({
@@ -45,9 +47,7 @@ export const AlbumsScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'Album'
               justifyContent: 'center',
               alignItems: 'center',
             }}
-            onPress={() => {
-              SheetManager.show('example-sheet');
-            }}
+            onPress={openAlert}
           >
             <SFSymbol size={26} name="plus.circle.fill" />
           </TouchableOpacity>

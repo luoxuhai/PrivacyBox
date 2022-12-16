@@ -14,4 +14,5 @@ export const LottieView = ({ source, ...rest }: LottieViewProps) => {
 
 export const lottieRegistry = {
   Pro: require('@/assets/lotties/Pro.json'),
+  Data: require('@/assets/lotties/Data.json'),
 };

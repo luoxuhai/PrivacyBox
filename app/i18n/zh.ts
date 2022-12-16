@@ -25,6 +25,8 @@ const zh = {
   errorScreen: {
     reset: '重置',
   },
+  dataMigratorScreen: {
+  },
   albumsScreen: {
     title: '相册',
     searchPlaceholder: '搜索相册、图片、视频',

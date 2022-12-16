@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
-import { DevSettings, ViewStyle } from 'react-native';
+import { DevSettings, ViewStyle, Text, View, TextStyle } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { SettingStackParamList } from '@/navigators';
 
@@ -8,6 +8,7 @@ import { Screen, ExitButton, SafeAreaScrollView, ListSection, ListCell } from '@
 import { spacing, useTheme } from '@/theme';
 import { storage } from '@/storage';
 import { rootStore } from '@/models';
+import { LocalPathManager } from '@/utils';
 
 export const DebugScreen: FC<StackScreenProps<SettingStackParamList, 'Debug'>> = observer(
   function DebugScreen(props) {
@@ -45,6 +46,24 @@ export const DebugScreen: FC<StackScreenProps<SettingStackParamList, 'Debug'>> =
               }}
             />
           </ListSection>
+          <ListSection>
+            <ListCell style={{ padding: spacing[5] }}>
+              <View>
+                <Text style={$text} selectable>
+                  basePath:
+                  {LocalPathManager.basePath}
+                </Text>
+                <Text style={$text} selectable>
+                  mediaPath:
+                  {LocalPathManager.mediaPath}
+                </Text>
+                <Text selectable>
+                  dbPath:
+                  {LocalPathManager.dbPath}
+                </Text>
+              </View>
+            </ListCell>
+          </ListSection>
         </SafeAreaScrollView>
       </Screen>
     );
@@ -54,4 +73,8 @@ export const DebugScreen: FC<StackScreenProps<SettingStackParamList, 'Debug'>> =
 const $contentContainer: ViewStyle = {
   paddingHorizontal: spacing[6],
   paddingTop: spacing[5],
+};
+
+const $text: TextStyle = {
+  marginBottom: spacing[5],
 };

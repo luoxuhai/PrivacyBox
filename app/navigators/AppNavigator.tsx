@@ -12,7 +12,7 @@ import React, { useMemo } from 'react';
 
 import Config from '@/config';
 import { useStores } from '@/models'; // @demo remove-current-line
-import { AppLockScreen, PhotosScreen } from '@/screens';
+import { AppLockScreen, DataMigratorScreen, PhotosScreen } from '@/screens';
 import { ContentNavigator, ContentTabParamList } from './ContentNavigator'; // @demo remove-current-line
 import { navigationRef, useBackButtonHandler } from './navigationUtilities';
 import { useTheme } from '@/theme';
@@ -44,6 +44,7 @@ export type AppStackParamList = {
   FakeAppHome: typeof FakeAppHomeScreen;
   Content: NavigatorScreenParams<ContentTabParamList>;
   Photos: undefined;
+  DataMigrator: undefined;
 };
 
 /**
@@ -124,6 +125,16 @@ const AppStack = observer(function AppStack() {
         options={{
           title: translate('common.appName'),
           headerLargeTitle: true,
+        }}
+      />
+
+      <Stack.Screen
+        name="DataMigrator"
+        component={DataMigratorScreen}
+        options={{
+          title: null,
+          presentation: 'modal',
+          gestureEnabled: false,
         }}
       />
 

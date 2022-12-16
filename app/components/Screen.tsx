@@ -6,6 +6,7 @@ import {
   View,
   StyleProp,
   ColorValue,
+  ViewProps,
 } from 'react-native';
 import { StatusBar, StatusBarProps } from 'expo-status-bar';
 import { useTheme } from '@/theme';
@@ -36,6 +37,7 @@ interface ScreenProps {
   keyboardAvoidingEnabled?: boolean;
   safeAreaEnabled?: boolean;
   type?: 'tabView' | 'normal';
+  onLayout?: ViewProps['onLayout'];
 }
 
 export const Screen = observer((props: ScreenProps) => {
@@ -52,7 +54,7 @@ export const Screen = observer((props: ScreenProps) => {
     type === 'normal' ? undefined : isDark ? colors.background : colors.secondaryBackground;
 
   return (
-    <View style={[$screen, props.style, { backgroundColor }]}>
+    <View style={[$screen, props.style, { backgroundColor }]} onLayout={props.onLayout}>
       <StatusBar style={statusBarStyle} animated {...props.statusBarProps} />
       {keyboardAvoidingEnabled ? (
         <KeyboardAvoidingView

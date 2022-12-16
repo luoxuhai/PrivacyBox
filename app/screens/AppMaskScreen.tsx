@@ -25,7 +25,7 @@ export const AppMaskScreen: FC<StackScreenProps<AppStackParamList, 'AppMask'>> =
     return (
       <>
         <StatusBar hidden />
-        <BlurView style={$blurView} blurType={blurType} blurAmount={70} />
+        <BlurView style={$blurView} blurType={blurType} blurAmount={50} />
       </>
     );
   },

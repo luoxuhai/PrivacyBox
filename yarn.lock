@@ -2597,6 +2597,11 @@
     color "^4.2.3"
     warn-once "^0.1.0"
 
+"@rn-kit/sqlite@^6.0.3":
+  version "6.0.3"
+  resolved "https://registry.npmmirror.com/@rn-kit/sqlite/-/sqlite-6.0.3.tgz#627c6db2505e9759106ad7e321808c3a793b11f9"
+  integrity sha512-6KfL5T1cViQyaDyvCsItYPnF9i50bv0cosR4kzuBo1V1Y9EO30FbvE9iyAh6JQxgfuHJDxOu3/9XSRpZpyX+Gg==
+
 "@rnx-kit/babel-preset-metro-react-native@^1.0.17":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@rnx-kit/babel-preset-metro-react-native/-/babel-preset-metro-react-native-1.1.1.tgz#9f28e1877f3b16955431f3d9eaba7084fe579244"
@@ -3453,6 +3458,11 @@ abort-controller@^3.0.0:
   integrity sha512-h8lQ8tacZYnR3vNQTgibj+tODHI5/+l06Au2Pcriv/Gmet0eaj4TwWH41sO9wnHDiQsEj19q0drzdWdeAHtweg==
   dependencies:
     event-target-shim "^5.0.0"
+
+abs-svg-path@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.npmmirror.com/abs-svg-path/-/abs-svg-path-0.1.1.tgz#df601c8e8d2ba10d4a76d625e236a9a39c2723bf"
+  integrity sha512-d8XPSGjfyzlXC3Xx891DJRyZfqk5JU0BJrDQcsWomFIV1/BIzPW5HDH5iDdWpqWaav0YVIEzT1RHTwWr0FFshA==
 
 absolute-path@^0.0.0:
   version "0.0.0"
@@ -11547,6 +11557,13 @@ normalize-path@^3.0.0, normalize-path@~3.0.0:
   resolved "https://registry.yarnpkg.com/normalize-path/-/normalize-path-3.0.0.tgz#0dcd69ff23a1c9b11fd0978316644a0388216a65"
   integrity sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==
 
+normalize-svg-path@^1.0.1:
+  version "1.1.0"
+  resolved "https://registry.npmmirror.com/normalize-svg-path/-/normalize-svg-path-1.1.0.tgz#0e614eca23c39f0cffe821d6be6cd17e569a766c"
+  integrity sha512-r9KHKG2UUeB5LoTouwDzBy2VxXlHsiM6fyLQvnJa0S5hrhzqElH/CH7TUGhT1fVvIYBIKf3OpY4YJ4CK+iaqHg==
+  dependencies:
+    svg-arc-to-cubic-bezier "^3.0.0"
+
 normalize-url@2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-2.0.1.tgz#835a9da1551fa26f70e92329069a23aa6574d7e6"
@@ -12190,6 +12207,11 @@ parse-png@^2.1.0:
   integrity sha512-Nt/a5SfCLiTnQAjx3fHlqp8hRgTL3z7kTQZzvIMS9uCAepnCyjpdEc6M/sz69WqMBdaDBw9sF1F1UaHROYzGkQ==
   dependencies:
     pngjs "^3.3.0"
+
+parse-svg-path@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.npmmirror.com/parse-svg-path/-/parse-svg-path-0.1.2.tgz#7a7ec0d1eb06fa5325c7d3e009b859a09b5d49eb"
+  integrity sha512-JyPSBnkTJ0AI8GGJLfMXvKq42cj5c006fnLz6fXy6zfoVjJizi8BNTpu8on8ziI1cKy9d9DGNuY17Ce7wuejpQ==
 
 parse5-htmlparser2-tree-adapter@^6.0.0:
   version "6.0.1"
@@ -12915,6 +12937,13 @@ react-native-bootsplash@^4.3.3:
     jimp "^0.16.2"
     picocolors "^1.0.0"
 
+react-native-circular-progress-indicator@^4.4.2:
+  version "4.4.2"
+  resolved "https://registry.npmmirror.com/react-native-circular-progress-indicator/-/react-native-circular-progress-indicator-4.4.2.tgz#5475d045950e6fcc622e54fb63863b274790fb8e"
+  integrity sha512-BlgshzIIIk0TP/CZY+5oyRsHl2Sb2l6cK5tzfmrVETfn6pN8dhOKrV0i3Z6i0SM8wRgncdUUSRBpCPAexh7JoQ==
+  dependencies:
+    react-native-redash "*"
+
 react-native-cloud-store@^0.8.2:
   version "0.8.2"
   resolved "https://registry.npmmirror.com/react-native-cloud-store/-/react-native-cloud-store-0.8.2.tgz#6ef6e928bf72160b24678b1c70c4179850eeebaa"
@@ -13062,6 +13091,15 @@ react-native-reanimated@~2.9.1:
     setimmediate "^1.0.5"
     string-hash-64 "^1.0.3"
 
+react-native-redash@*:
+  version "18.1.0"
+  resolved "https://registry.npmmirror.com/react-native-redash/-/react-native-redash-18.1.0.tgz#ebebace19d0d2ed877cb6836b8c824b49354eb93"
+  integrity sha512-bdCFl/ZB7Rf2raIlU6SLV+Dc/rL6UXsQNjEVwTGBukHMeSKp1zs4zVtWaGimbN8P22N4qYvb9Jmw/K94ZWYG0Q==
+  dependencies:
+    abs-svg-path "^0.1.1"
+    normalize-svg-path "^1.0.1"
+    parse-svg-path "^0.1.2"
+
 react-native-rename@^2.9.0:
   version "2.9.0"
   resolved "https://registry.yarnpkg.com/react-native-rename/-/react-native-rename-2.9.0.tgz#3e8c20f048204e9ac77ff098aeb976cce9e45244"
@@ -13103,11 +13141,6 @@ react-native-shake@^5.1.1:
   version "5.1.1"
   resolved "https://registry.npmmirror.com/react-native-shake/-/react-native-shake-5.1.1.tgz#733657764b0395b26f26576bba51e2dcbcecfe89"
   integrity sha512-h6O8LnFd3LkvoYx7O0afM6rO9fDKomZ1EyomGgKRDyFhinxYIU7Z4uPYtwA4Z1Cd3frEEKTLNKHI1Eu0MOI3Yw==
-
-react-native-sqlite-storage@^6.0.1:
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/react-native-sqlite-storage/-/react-native-sqlite-storage-6.0.1.tgz#ce6a6b852f07abbea68658d5363818c8bef45dfb"
-  integrity sha512-1tDFjrint6X6qSYKf3gDyz+XB+X79jfiL6xTugKHPRtF0WvqMtVgdLuNqZunIXjNEvNtNVEbXaeZ6MsguFu00A==
 
 react-native-svg-transformer@^1.0.0:
   version "1.0.0"
@@ -14813,6 +14846,11 @@ supports-preserve-symlinks-flag@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz#6eda4bd344a3c94aea376d4cc31bc77311039e09"
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
+
+svg-arc-to-cubic-bezier@^3.0.0:
+  version "3.2.0"
+  resolved "https://registry.npmmirror.com/svg-arc-to-cubic-bezier/-/svg-arc-to-cubic-bezier-3.2.0.tgz#390c450035ae1c4a0104d90650304c3bc814abe6"
+  integrity sha512-djbJ/vZKZO+gPoSDThGNpKDO+o+bAeA4XQKovvkNCqnIS2t+S4qnLAGQhyyrulhCFRl1WWzAp0wUDV8PpTVU3g==
 
 svg-parser@^2.0.4:
   version "2.0.4"

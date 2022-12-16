@@ -1,8 +1,11 @@
 import { MMKV } from 'react-native-mmkv';
 
+import { LocalPathManager } from '@/utils/LocalPathManager';
+
 export const mmkv = new MMKV({
   id: 'encryption',
   encryptionKey: 'xxx',
+  path: `${LocalPathManager.basePath}/storage`,
 });
 
 export function set(key: string, value: boolean | string | number | Uint8Array) {

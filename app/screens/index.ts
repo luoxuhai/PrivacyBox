@@ -18,3 +18,4 @@ export * from './AppMaskScreen';
 export * from './FakeAppHomeScreen';
 export * from './FakeAppHomeSettingsScreen';
 export * from './PhotosScreen/PhotosScreen';
+export * from './DataMigratorScreen/DataMigratorScreen';

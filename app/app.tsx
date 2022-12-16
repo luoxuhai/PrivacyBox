@@ -21,11 +21,12 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { HoldMenuProvider } from 'react-native-hold-menu';
 import { SheetProvider } from 'react-native-actions-sheet';
 
-import { initCrashReporting, useUpdateEffect, LocalPathManager } from './utils';
+import { initCrashReporting, useUpdateEffect } from './utils';
 import { useInitialRootStore } from './models';
 import { useInitialDataSource } from './database/helpers/useInitDataSource';
 import { AppNavigator, useNavigationPersistence, RootNavigation } from './navigators';
 import { ErrorBoundary } from './screens/ErrorScreen/ErrorBoundary';
+import { useDataMigrator } from './screens/DataMigratorScreen/useDataMigrator';
 import { storage } from './storage';
 import Config from './config';
 import { useTheme } from './theme';
@@ -49,6 +50,7 @@ const App = observer(() => {
 
   const { rehydrated, rootStore } = useInitialRootStore();
   const { isInitialized } = useInitialDataSource();
+  const { isInitialized: x } = useDataMigrator();
 
   useUpdateEffect(() => {
     if (rootStore.appLockStore.isLocked) {

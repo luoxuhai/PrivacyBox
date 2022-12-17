@@ -9,30 +9,44 @@ import {
   Index,
 } from 'typeorm/browser';
 
-/**
- * 资源类型
- */
-export enum SourceType {
-  Unknown = 0,
-  Text,
-  Image,
-  Audio,
-  Video,
-  Application,
-  Model,
-}
-
-interface FileMetadata {
+interface PhotoMetadata {
   compressed?: number;
   hash?: string;
 }
 
+interface ImageDetails {
+  width?: number;
+  height?: number;
+  duration?: number;
+}
+
+interface VideoDetails {
+  width?: number;
+  height?: number;
+}
+
 type Extra = {
+  /** 文件资源ID */
+  source_id?: string;
+  /** 文件资源Hash */
+  source_hash?: string;
+  /** 文件夹封面 */
+  cover?: string | null;
+  blurhash?: string;
   [key: string]: any;
 };
 
-@Entity('file')
-export default class File extends BaseEntity {
+enum PhotoType {
+  // 图片
+  Photo = 1,
+  // 视频
+  Video = 2,
+  // 
+  LivePhoto = 3,
+}
+
+@Entity('photo')
+export default class Photo extends BaseEntity {
   @Index({
     unique: true,
   })
@@ -40,7 +54,7 @@ export default class File extends BaseEntity {
   id: string;
 
   /**
-   * 父级文件夹id
+   * 所属相册id
    */
   @Column('varchar', { nullable: true })
   parent_id?: string | null;
@@ -52,19 +66,31 @@ export default class File extends BaseEntity {
   owner?: string;
 
   /**
-   * 文件名称
+   * 是否为伪装数据
+   */
+  @Column('boolean', { default: false })
+  is_fake!: boolean;
+
+  /**
+   * 图片/相册名称
    */
   @Column('varchar', { nullable: false })
   name!: string;
 
   /**
-   * 是否为我文件夹
+   * 图片/相册描述
+   */
+  @Column('text', { nullable: true })
+  description?: string;
+
+  /**
+   * 是否为相册
    */
   @Column('boolean', {
-    default: true,
     nullable: true,
+    default: true,
   })
-  is_folder?: boolean;
+  is_folder!: boolean;
 
   /**
    * 文件大小
@@ -72,14 +98,38 @@ export default class File extends BaseEntity {
   @Column('int', { default: 0, nullable: true })
   size!: number;
 
+  /**
+   * 资源等类型
+   */
+  @Column('int', { nullable: false })
+  type!: PhotoType;
+
+  /**
+   * 图片/视频标签
+   */
+  @Column('simple-json', { nullable: true })
+  labels?: FileLabel;
+
   @Column('varchar', { nullable: true })
   mime?: string;
 
   /**
-   * 元数据
+   * 原信息
    */
   @Column('simple-json', { nullable: true })
-  metadata?: FileMetadata;
+  metadata?: PhotoMetadata;
+
+  /**
+   * 图片详情信息
+   */
+  @Column('simple-json', { nullable: true })
+  image_details: ImageDetails;
+
+  /**
+   * 视频详情信息
+   */
+  @Column('simple-json', { nullable: true })
+  video_details: VideoDetails;
 
   /**
    * 额外附加数据

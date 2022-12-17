@@ -80,10 +80,12 @@ export const AlbumsScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'Album'
             estimatedItemSize={150}
             itemWidth={150}
             width={safeAreaDimensions.width}
-            itemWidthFixed
-            spacing={20}
+            itemWidthFixed={false}
+            spacing={26}
             data={DATA}
             renderItem={renderItem}
+            refreshing={false}
+            onRefresh={() => {}}
           />
         </SafeAreaView>
       </Screen>

@@ -3,7 +3,7 @@ import { typeORMDriver } from 'react-native-quick-sqlite';
 
 import { databaseName } from './constants';
 import File from './entities/file';
-import User from './entities/user';
+import Photo from './entities/photo';
 import { LocalPathManager } from '@/utils';
 
 export const AppDataSource = new DataSource({
@@ -13,5 +13,5 @@ export const AppDataSource = new DataSource({
   driver: typeORMDriver,
   synchronize: true,
   logging: ['error'],
-  entities: [File, User],
+  entities: [Photo, File],
 });

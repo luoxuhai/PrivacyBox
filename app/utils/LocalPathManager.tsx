@@ -6,6 +6,8 @@ import {
   pathForGroupSync,
 } from 'react-native-fs';
 
+import { APP_BASE_DIR } from '@/constants';
+
 export class LocalPathManager {
   public static readonly groupPath = pathForGroupSync(Config.groupIdentifier);
   public static readonly libraryPath = LibraryDirectoryPath;
@@ -13,7 +15,7 @@ export class LocalPathManager {
   public static readonly documentPath = DocumentDirectoryPath;
 
   static get basePath() {
-    return `${this.groupPath}/application-data`;
+    return `${this.groupPath}/${APP_BASE_DIR}`;
   }
 
   static get dbPath() {

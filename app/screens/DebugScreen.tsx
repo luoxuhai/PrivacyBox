@@ -9,6 +9,7 @@ import { spacing, useTheme } from '@/theme';
 import { storage } from '@/storage';
 import { rootStore } from '@/models';
 import { LocalPathManager } from '@/utils';
+import { ICloud } from '@/services/icloud/icloud';
 
 export const DebugScreen: FC<StackScreenProps<SettingStackParamList, 'Debug'>> = observer(
   function DebugScreen(props) {
@@ -57,9 +58,13 @@ export const DebugScreen: FC<StackScreenProps<SettingStackParamList, 'Debug'>> =
                   mediaPath:
                   {LocalPathManager.mediaPath}
                 </Text>
-                <Text selectable>
+                <Text style={$text} selectable>
                   dbPath:
                   {LocalPathManager.dbPath}
+                </Text>
+                <Text selectable>
+                  iCloud container path:
+                  {ICloud.iCloudBasePath}
                 </Text>
               </View>
             </ListCell>

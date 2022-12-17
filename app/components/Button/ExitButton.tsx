@@ -1,10 +1,19 @@
 import { useTheme } from '@/theme';
 import React, { useMemo } from 'react';
-import { TouchableOpacity, ViewStyle, TouchableOpacityProps } from 'react-native';
+import {
+  TouchableOpacity,
+  ViewStyle,
+  TouchableOpacityProps,
+  ActivityIndicator,
+} from 'react-native';
 import { SFSymbol } from 'react-native-sfsymbols';
 import { colord } from 'colord';
 
-export function ExitButton(props: TouchableOpacityProps) {
+interface ExitButtonProps extends TouchableOpacityProps {
+  loading?: boolean;
+}
+
+export function ExitButton(props: ExitButtonProps) {
   const { colors } = useTheme();
 
   const backgroundColor = useMemo(
@@ -23,7 +32,11 @@ export function ExitButton(props: TouchableOpacityProps) {
       activeOpacity={0.8}
       {...props}
     >
-      <SFSymbol name="xmark" size={15} weight="bold" color={colors.secondaryLabel} />
+      {props.loading ? (
+        <ActivityIndicator />
+      ) : (
+        <SFSymbol name="xmark" size={15} weight="bold" color={colors.secondaryLabel} />
+      )}
     </TouchableOpacity>
   );
 }

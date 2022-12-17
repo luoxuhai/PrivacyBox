@@ -75,7 +75,7 @@ export const AlbumItem = observer<AlbumItemProps>((props) => {
 });
 
 const $container: ViewStyle = {
-  width: 150,
+  minWidth: 150,
   height: 200,
   borderRadius: radius[8],
   overflow: 'hidden',
@@ -107,7 +107,7 @@ const $textContainer: ViewStyle = {
 
 const $blurView: ViewStyle = {
   ...StyleSheet.absoluteFillObject,
-  borderRadius: radius[7],
+  borderRadius: radius[6],
 };
 
 const $configIcon: ViewStyle = {};

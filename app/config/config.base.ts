@@ -20,6 +20,8 @@ const BaseConfig = {
 
   groupIdentifier: 'group.net.darkce.privatespace',
 
+  iCloudContainerIdentifier: 'iCloud.net.darkce.privatespace',
+
   TXC_FEEDBACK_URL: 'https://support.qq.com/product/334350',
 
   email: 'darkce97@gmail.com',

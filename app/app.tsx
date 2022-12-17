@@ -12,7 +12,7 @@
 import './i18n';
 import './utils/ignoreWarnings';
 import './utils/consoleExtension';
-import './utils/sheets';
+import './utils/initBasePath';
 
 import React, { useEffect } from 'react';
 import { initialWindowMetrics, SafeAreaProvider } from 'react-native-safe-area-context';
@@ -30,6 +30,7 @@ import { useDataMigrator } from './screens/DataMigratorScreen/useDataMigrator';
 import { storage } from './storage';
 import Config from './config';
 import { useTheme } from './theme';
+import './services/icloud/icloud';
 
 export const NAVIGATION_PERSISTENCE_KEY = 'NAVIGATION_STATE';
 

@@ -1,7 +1,7 @@
 import React, { forwardRef, useState, useCallback, useImperativeHandle, useRef } from 'react';
 import { View, Dimensions, ViewStyle } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
-import { FlashList, FlashListProps, RenderTarget } from '@shopify/flash-list';
+import { FlashList, FlashListProps, RenderTarget, ContentStyle } from '@shopify/flash-list';
 import { useCalculateDimensions, useChunkArray, useStyles } from './hooks';
 
 type FlashListRef = typeof FlashList;
@@ -153,6 +153,7 @@ export const FlatGrid = forwardRef(function FlatGrid<T>(
   );
 });
 
+export { ContentStyle };
 interface RenderItemParams<T> {
   item: T;
   index: number;

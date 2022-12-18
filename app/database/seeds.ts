@@ -3,14 +3,17 @@ import { EntityManager } from 'typeorm';
 import File from './entities/file';
 import Photo, { PhotoType } from './entities/photo';
 import { storage } from '@/storage';
+import { generateUUID } from '@/utils/uuid';
 
 const photoSeeds: Photo[] = [
   {
+    id: generateUUID(),
     name: '图片 🏞️',
     type: PhotoType.Folder,
     parent_id: null,
   },
   {
+    id: generateUUID(),
     name: '视频 📀',
     type: PhotoType.Folder,
     parent_id: null,
@@ -19,6 +22,7 @@ const photoSeeds: Photo[] = [
 
 const fileSeeds: File[] = [
   {
+    id: generateUUID(),
     name: '默认文件夹 🗂️',
     is_fake: false,
     parent_id: null,

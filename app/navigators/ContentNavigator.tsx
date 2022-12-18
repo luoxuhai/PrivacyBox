@@ -8,18 +8,19 @@ import { observer } from 'mobx-react-lite';
 
 import { BlurView, BottomTabIcon } from '@/components';
 import { translate } from '@/i18n';
-import { FileScreen, MoreScreen } from '@/screens';
+import { FileScreen } from '@/screens';
 import { spacing, typography, useTheme } from '@/theme';
 import { AppStackParamList, AppStackScreenProps } from './AppNavigator';
 import { SettingNavigator } from './SettingsNavigator';
 import { AlbumsNavigator } from './AlbumsNavigator';
+import { MoreFeatureNavigator } from './MoreFeatureNavigator';
 import { useStores } from '@/models';
 import { BottomTabs } from '@/models/SettingsStore';
 
 export type ContentTabParamList = {
   Album: undefined;
   File: undefined;
-  More: undefined;
+  MoreFeature: undefined;
   Settings: undefined;
 };
 
@@ -105,8 +106,8 @@ export const ContentNavigator = observer(function ContentNavigator() {
 
       {visibleBottomTabs.includes(BottomTabs.More) && (
         <Tab.Screen
-          name="More"
-          component={MoreScreen}
+          name="MoreFeature"
+          component={MoreFeatureNavigator}
           options={{
             tabBarLabel: translate('contentNavigator.moreTab'),
             tabBarIcon: ({ color }) => <BottomTabIcon icon="More" color={color} />,

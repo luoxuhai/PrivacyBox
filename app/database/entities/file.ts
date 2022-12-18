@@ -1,11 +1,10 @@
 import {
   Entity,
   Column,
-  PrimaryGeneratedColumn,
   VersionColumn,
-  UpdateDateColumn,
-  CreateDateColumn,
-  Unique,
+  BeforeInsert,
+  BeforeUpdate,
+  PrimaryColumn,
 } from 'typeorm/browser';
 
 import { Status } from './photo';
@@ -33,10 +32,11 @@ type Extra = {
 };
 
 @Entity('file')
-@Unique(['id'])
 export default class File {
-  @PrimaryGeneratedColumn('uuid')
-  id?: string;
+  @PrimaryColumn('varchar', {
+    unique: true,
+  })
+  id!: string;
 
   /**
    * 父级文件夹id
@@ -100,20 +100,20 @@ export default class File {
   /**
    * 创建时间
    */
-  @CreateDateColumn()
-  created_date?: Date;
+  @Column('bigint', { nullable: true })
+  created_date?: number;
 
   /**
    * 更新时间
    */
-  @UpdateDateColumn()
-  updated_date?: Date;
+  @Column('bigint', { nullable: true })
+  updated_date?: number;
 
   /**
    * 软删除时间，恢复后清空
    */
-  @Column('date', { nullable: true })
-  deleted_date?: Date;
+  @Column('bigint', { nullable: true })
+  deleted_date?: number;
 
   /**
    * 版本，自动生成

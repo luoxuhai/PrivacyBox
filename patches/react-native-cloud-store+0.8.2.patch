@@ -1,24 +1,26 @@
 diff --git a/node_modules/react-native-cloud-store/ios/CloudStore.swift b/node_modules/react-native-cloud-store/ios/CloudStore.swift
-index eb2b3e2..e848caa 100644
+index eb2b3e2..da7a403 100644
 --- a/node_modules/react-native-cloud-store/ios/CloudStore.swift
 +++ b/node_modules/react-native-cloud-store/ios/CloudStore.swift
-@@ -410,7 +410,9 @@ extension CloudStoreModule {
+@@ -410,7 +410,10 @@ extension CloudStoreModule {
                      .contentModificationDateKey,
                  .creationDateKey,
                  .nameKey,
 -                .localizedNameKey
 +                .localizedNameKey,
 +                .fileSizeKey,
-+                .isDirectoryKey
++                .isDirectoryKey,
++                .ubiquitousItemIsExcludedFromSyncKey
              ])
              let dict = NSMutableDictionary()
  
-@@ -440,6 +442,8 @@ extension CloudStoreModule {
+@@ -440,6 +443,9 @@ extension CloudStoreModule {
              }
              dict["name"] = resources.name
              dict["localizedName"] = resources.localizedName
 +            dict["fileSize"] = resources.fileSize
 +            dict["isDirectory"] = resources.isDirectory
++            dict["ubiquitousItemIsExcludedFromSync"] = resources.ubiquitousItemIsExcludedFromSync
  
              resolve(dict)
          } catch {

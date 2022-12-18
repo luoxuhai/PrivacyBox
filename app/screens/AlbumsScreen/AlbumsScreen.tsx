@@ -1,20 +1,23 @@
 import React, { FC, useCallback, useEffect } from 'react';
-import { Dimensions, TouchableOpacity, View, ViewStyle } from 'react-native';
+import { TouchableOpacity, ViewStyle } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { StackScreenProps } from '@react-navigation/stack';
-import { useNavigation } from '@react-navigation/native';
-import { SafeAreaView, useSafeAreaFrame, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
-import { SheetManager } from 'react-native-actions-sheet';
+import { SFSymbol } from 'react-native-sfsymbols';
+import { useQuery } from '@tanstack/react-query';
 
 import { AlbumsNavigatorParamList } from '@/navigators';
-import { SafeAreaScrollView, Screen, Text, FlatGrid } from '@/components';
-import { spacing, useTheme } from '@/theme';
+import { Screen, FlatGrid } from '@/components';
+import { useTheme } from '@/theme';
 import { AlbumItem } from './AlbumItem';
 import { useAlbumEditor } from './useAlbumEditor';
 import { useAlbumCreator } from './useAlbumCreator';
 import { useSafeAreaDimensions } from '@/utils';
-import { SFSymbol } from 'react-native-sfsymbols';
+
+import { fetchAlbums } from '@/services/local';
+import { albumKeys } from './constants';
+import { useStores } from '@/models';
 
 const DATA = Array.from(
   {
@@ -32,6 +35,9 @@ const DATA = Array.from(
 export const AlbumsScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'Album'>> = observer(
   (props) => {
     const { colors } = useTheme();
+    const {
+      appLockStore: { inFakeEnvironment },
+    } = useStores();
     const bottomTabBarHeight = useBottomTabBarHeight();
     const safeAreaDimensions = useSafeAreaDimensions();
     const { onOpenActionSheet } = useAlbumEditor();
@@ -54,6 +60,15 @@ export const AlbumsScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'Album'
         ),
       });
     }, []);
+
+    const { isLoading, data: albums } = useQuery({
+      queryKey: albumKeys.list(`${inFakeEnvironment}`),
+      queryFn: async () =>
+        await fetchAlbums({
+          is_fake: inFakeEnvironment,
+        }),
+      enabled: true,
+    });
 
     const renderItem = useCallback(({ item }) => {
       return (
@@ -82,7 +97,7 @@ export const AlbumsScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'Album'
             width={safeAreaDimensions.width}
             itemWidthFixed={false}
             spacing={26}
-            data={DATA}
+            data={albums}
             renderItem={renderItem}
             refreshing={false}
             onRefresh={() => {}}

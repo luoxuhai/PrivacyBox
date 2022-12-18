@@ -63,7 +63,7 @@ export const AlbumItem = observer<AlbumItemProps>((props) => {
             {props.item.name}
           </Text>
           <Text style={[$countText, { color: textColor }]} numberOfLines={1}>
-            {props.item.count}
+            {props.item.item_count ?? 0}
           </Text>
         </View>
         <Pressable style={$configIcon} onPress={() => props.onOpenEditor(props.item)}>

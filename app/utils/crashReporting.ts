@@ -53,7 +53,7 @@ export enum ErrorType {
 /**
  * Manually report a handled error.
  */
-export const reportCrash = (
+export const reportException = (
   error: any,
   type: ErrorType = ErrorType.FATAL,
   extra?: Record<string, any>,

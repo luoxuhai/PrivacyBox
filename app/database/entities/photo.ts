@@ -1,11 +1,10 @@
 import {
   Entity,
   Column,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
   VersionColumn,
-  UpdateDateColumn,
-  CreateDateColumn,
-  Unique,
+  BeforeInsert,
+  BeforeUpdate,
 } from 'typeorm/browser';
 
 interface PhotoMetadata {
@@ -51,10 +50,11 @@ export enum Status {
 }
 
 @Entity('photo')
-@Unique(['id'])
 export default class Photo {
-  @PrimaryGeneratedColumn('uuid')
-  id?: string;
+  @PrimaryColumn('varchar', {
+    unique: true,
+  })
+  id!: string;
 
   /**
    * 所属相册id
@@ -140,20 +140,20 @@ export default class Photo {
   /**
    * 创建时间
    */
-  @CreateDateColumn()
-  created_date?: Date;
+  @Column('bigint', { nullable: true })
+  created_date?: number;
 
   /**
    * 更新时间
    */
-  @UpdateDateColumn()
-  updated_date?: Date;
+  @Column('bigint', { nullable: true })
+  updated_date?: number;
 
   /**
    * 软删除时间，恢复后清空
    */
-  @Column('date', { nullable: true })
-  deleted_date?: Date;
+  @Column('bigint', { nullable: true })
+  deleted_date?: number;
 
   /**
    * 版本，自动生成

@@ -19,14 +19,13 @@ const zh = {
   contentNavigator: {
     albumTab: '相册',
     filesTab: '文件',
-    moreTab: '更多',
+    moreTab: '更多功能',
     settingsTab: '设置',
   },
   errorScreen: {
     reset: '重置',
   },
-  dataMigratorScreen: {
-  },
+  dataMigratorScreen: {},
   albumsScreen: {
     title: '相册',
     searchPlaceholder: '搜索相册、图片、视频',
@@ -103,10 +102,11 @@ const zh = {
     fetchInfoFailMessage: '请稍后再试',
     cardButton: '获取',
     features: {
+      icloud: 'iCloud 同步数据',
       transfer: 'WI-FI 无限传输',
       changeAppIcon: '更换 App 图标',
       scanDocument: '扫描文档',
-      smartSearch: '扫描文档',
+      smartSearch: '智能搜索',
       keepDuration: '自定义回收站保留时长',
       more: '更多功能即将推出',
     },
@@ -199,6 +199,18 @@ const zh = {
     pullRefresh: '下拉刷新',
     slide: '向左滑动',
     shake: '摇一摇',
+  },
+  moreFeatureScreen: {
+    title: '更多功能',
+  },
+  icloudScreen: {
+    title: 'iCloud 同步',
+  },
+  wastebasketScreen: {
+    title: '回收站',
+  },
+  transferScreen: {
+    title: ' WI-FI 无线传输',
   },
 };
 

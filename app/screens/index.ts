@@ -3,7 +3,7 @@ export * from './AlbumsScreen/AlbumsScreen';
 export * from './PasscodeLockScreen';
 export * from './BrowserScreen';
 export * from './FileScreen';
-export * from './MoreScreen';
+export * from './MoreFeatureScreen/MoreFeatureScreen';
 export * from './SettingsScreen/SettingsScreen';
 export * from './AboutScreen';
 export * from './AppearanceScreen/AppearanceScreen';

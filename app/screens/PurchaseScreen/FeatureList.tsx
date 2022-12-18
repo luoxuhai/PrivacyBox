@@ -30,8 +30,12 @@ export const FeatureList = observer(() => {
 
 const list: { title: TextKeyPath; icon: string }[] = [
   {
-    title: 'purchaseScreen.features.transfer',
+    title: 'purchaseScreen.features.icloud',
     icon: 'arrow.clockwise.icloud.fill',
+  },
+  {
+    title: 'purchaseScreen.features.transfer',
+    icon: 'wifi.circle.fill',
   },
   {
     title: 'purchaseScreen.features.changeAppIcon',

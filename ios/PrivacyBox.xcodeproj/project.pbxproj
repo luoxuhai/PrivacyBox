@@ -16,6 +16,8 @@
 		35106825291FD2C000E8F0D7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 35106827291FD2C000E8F0D7 /* InfoPlist.strings */; };
 		3510682B29208F6200E8F0D7 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3510682A29208F6200E8F0D7 /* StoreKit.framework */; };
 		351068352932017600E8F0D7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 351068342932017500E8F0D7 /* LaunchScreen.storyboard */; };
+		3559D8CE294EA654008A2A18 /* GlobalJSI.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3559D8CD294EA654008A2A18 /* GlobalJSI.mm */; };
+		3559D8D0294EA680008A2A18 /* GlobalJSI.h in Headers */ = {isa = PBXBuildFile; fileRef = 3559D8CF294EA680008A2A18 /* GlobalJSI.h */; };
 		35A62201291898BC0059A53D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 35A62200291898BB0059A53D /* GoogleService-Info.plist */; };
 		400EB2C1E1807E6CBC68B7AB /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951E59D51E504BC9C5F46169 /* ExpoModulesProvider.swift */; };
 		61C8591E7ADE002B28890453 /* libPods-PrivacyBox-PrivacyBoxTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B25F8635391834428A9A919A /* libPods-PrivacyBox-PrivacyBoxTests.a */; };
@@ -59,6 +61,8 @@
 		3510682A29208F6200E8F0D7 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		3510682E2920932500E8F0D7 /* hermes.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = hermes.xcframework; path = "Pods/hermes-engine/destroot/Library/Frameworks/universal/hermes.xcframework"; sourceTree = "<group>"; };
 		351068342932017500E8F0D7 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = PrivacyBox/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		3559D8CD294EA654008A2A18 /* GlobalJSI.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = GlobalJSI.mm; sourceTree = "<group>"; };
+		3559D8CF294EA680008A2A18 /* GlobalJSI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GlobalJSI.h; sourceTree = "<group>"; };
 		35A62200291898BB0059A53D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "PrivacyBox/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-PrivacyBox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrivacyBox.debug.xcconfig"; path = "Target Support Files/Pods-PrivacyBox/Pods-PrivacyBox.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-PrivacyBox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrivacyBox.release.xcconfig"; path = "Target Support Files/Pods-PrivacyBox/Pods-PrivacyBox.release.xcconfig"; sourceTree = "<group>"; };
@@ -141,8 +145,18 @@
 		3559D8C2294AEDE7008A2A18 /* ReactNativeModules */ = {
 			isa = PBXGroup;
 			children = (
+				3559D8CC294EA635008A2A18 /* GlobalJSI */,
 			);
 			path = ReactNativeModules;
+			sourceTree = "<group>";
+		};
+		3559D8CC294EA635008A2A18 /* GlobalJSI */ = {
+			isa = PBXGroup;
+			children = (
+				3559D8CD294EA654008A2A18 /* GlobalJSI.mm */,
+				3559D8CF294EA680008A2A18 /* GlobalJSI.h */,
+			);
+			path = GlobalJSI;
 			sourceTree = "<group>";
 		};
 		547A8E9E9663ECB3355FB756 /* ExpoModulesProviders */ = {
@@ -220,6 +234,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3559D8D0294EA680008A2A18 /* GlobalJSI.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -508,6 +523,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
+				3559D8CE294EA654008A2A18 /* GlobalJSI.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				400EB2C1E1807E6CBC68B7AB /* ExpoModulesProvider.swift in Sources */,
 			);

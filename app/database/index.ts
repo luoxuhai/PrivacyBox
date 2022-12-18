@@ -4,6 +4,7 @@ import { typeORMDriver } from 'react-native-quick-sqlite';
 import { databaseName } from './constants';
 import File from './entities/file';
 import Photo from './entities/photo';
+import { Subscriber } from './subscribers/Subscriber';
 import { LocalPathManager } from '@/utils';
 
 export const AppDataSource = new DataSource({
@@ -14,4 +15,5 @@ export const AppDataSource = new DataSource({
   synchronize: true,
   logging: ['error'],
   entities: [Photo, File],
-});
+  subscribers: [Subscriber],
+})

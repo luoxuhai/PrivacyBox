@@ -3,10 +3,9 @@ import {
   Column,
   PrimaryGeneratedColumn,
   VersionColumn,
-  BaseEntity,
   UpdateDateColumn,
   CreateDateColumn,
-  Index,
+  Unique,
 } from 'typeorm/browser';
 
 interface PhotoMetadata {
@@ -36,28 +35,32 @@ type Extra = {
   [key: string]: any;
 };
 
-enum PhotoType {
+export enum PhotoType {
+  Folder = 1,
   // 图片
-  Photo = 1,
+  Photo = 2,
   // 视频
-  Video = 2,
-  // 
-  LivePhoto = 3,
+  Video = 3,
+  //
+  LivePhoto = 4,
+}
+
+export enum Status {
+  Normal = 1,
+  Deleted = 1,
 }
 
 @Entity('photo')
-export default class Photo extends BaseEntity {
-  @Index({
-    unique: true,
-  })
+@Unique(['id'])
+export default class Photo {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id?: string;
 
   /**
    * 所属相册id
    */
   @Column('varchar', { nullable: true })
-  parent_id?: string | null;
+  parent_id!: string | null;
 
   /**
    * 所有者，保留字段
@@ -69,7 +72,13 @@ export default class Photo extends BaseEntity {
    * 是否为伪装数据
    */
   @Column('boolean', { default: false })
-  is_fake!: boolean;
+  is_fake?: boolean;
+
+  /**
+   * 是否为伪装数据
+   */
+  @Column('int', { default: Status.Normal })
+  status?: Status;
 
   /**
    * 图片/相册名称
@@ -84,19 +93,10 @@ export default class Photo extends BaseEntity {
   description?: string;
 
   /**
-   * 是否为相册
-   */
-  @Column('boolean', {
-    nullable: true,
-    default: true,
-  })
-  is_folder!: boolean;
-
-  /**
    * 文件大小
    */
-  @Column('int', { default: 0, nullable: true })
-  size!: number;
+  @Column('int', { default: 0 })
+  size?: number;
 
   /**
    * 资源等类型
@@ -123,13 +123,13 @@ export default class Photo extends BaseEntity {
    * 图片详情信息
    */
   @Column('simple-json', { nullable: true })
-  image_details: ImageDetails;
+  image_details?: ImageDetails;
 
   /**
    * 视频详情信息
    */
   @Column('simple-json', { nullable: true })
-  video_details: VideoDetails;
+  video_details?: VideoDetails;
 
   /**
    * 额外附加数据
@@ -141,13 +141,13 @@ export default class Photo extends BaseEntity {
    * 创建时间
    */
   @CreateDateColumn()
-  created_date!: Date;
+  created_date?: Date;
 
   /**
    * 更新时间
    */
   @UpdateDateColumn()
-  updated_date!: Date;
+  updated_date?: Date;
 
   /**
    * 软删除时间，恢复后清空

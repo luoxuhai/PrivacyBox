@@ -3,11 +3,12 @@ import {
   Column,
   PrimaryGeneratedColumn,
   VersionColumn,
-  BaseEntity,
   UpdateDateColumn,
   CreateDateColumn,
-  Index,
+  Unique,
 } from 'typeorm/browser';
+
+import { Status } from './photo';
 
 /**
  * 资源类型
@@ -32,24 +33,34 @@ type Extra = {
 };
 
 @Entity('file')
-export default class File extends BaseEntity {
-  @Index({
-    unique: true,
-  })
+@Unique(['id'])
+export default class File {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id?: string;
 
   /**
    * 父级文件夹id
    */
   @Column('varchar', { nullable: true })
-  parent_id?: string | null;
+  parent_id!: string | null;
 
   /**
    * 所有者，保留字段
    */
   @Column('varchar', { nullable: true })
   owner?: string;
+
+  /**
+   * 是否为伪装数据
+   */
+  @Column('boolean', { default: false })
+  is_fake?: boolean;
+
+  /**
+   * 是否为伪装数据
+   */
+  @Column('int', { default: Status.Normal })
+  status?: Status;
 
   /**
    * 文件名称
@@ -62,15 +73,14 @@ export default class File extends BaseEntity {
    */
   @Column('boolean', {
     default: true,
-    nullable: true,
   })
   is_folder?: boolean;
 
   /**
    * 文件大小
    */
-  @Column('int', { default: 0, nullable: true })
-  size!: number;
+  @Column('int', { default: 0 })
+  size?: number;
 
   @Column('varchar', { nullable: true })
   mime?: string;
@@ -91,13 +101,13 @@ export default class File extends BaseEntity {
    * 创建时间
    */
   @CreateDateColumn()
-  created_date!: Date;
+  created_date?: Date;
 
   /**
    * 更新时间
    */
   @UpdateDateColumn()
-  updated_date!: Date;
+  updated_date?: Date;
 
   /**
    * 软删除时间，恢复后清空

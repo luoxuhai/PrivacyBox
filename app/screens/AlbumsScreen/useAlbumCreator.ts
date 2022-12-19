@@ -5,6 +5,7 @@ import { createAlbum } from '@/services/local';
 import { Overlay } from '@/utils';
 import { albumKeys } from './constants';
 import { useStores } from '@/models';
+import { translate } from '@/i18n';
 
 export function useAlbumCreator() {
   const queryClient = useQueryClient();
@@ -21,30 +22,31 @@ export function useAlbumCreator() {
         name,
       });
     },
-    onError() {
+    onError(error: Error) {
       Overlay.toast({
         preset: 'error',
-        title: '相册名称（10个字符内）',
+        title: translate('albumsScreen.createAlbum.fail'),
+        message: error.message,
       });
     },
     onSuccess() {
       queryClient.refetchQueries(albumKeys.list(`${inFakeEnvironment}`));
       Overlay.toast({
         preset: 'done',
-        title: 'xx',
+        title: translate('albumsScreen.createAlbum.success'),
       });
     },
   });
 
   function openAlert() {
     Alert.prompt(
-      '新建相册',
-      '请输入相册名称',
+      translate('albumsScreen.createAlbum.title'),
+      translate('albumsScreen.createAlbum.message'),
       handleCreateAlbum,
       'plain-text',
       '',
       'default',
-      '相册名称（10个字符内）',
+      translate('albumsScreen.createAlbum.placeholder'),
     );
   }
 

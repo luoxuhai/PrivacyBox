@@ -1,6 +1,5 @@
 import { translate } from '@/i18n';
-import React, { FC, useCallback } from 'react';
-import { View, ActionSheetIOS, Alert } from 'react-native';
+import { ActionSheetIOS, Alert } from 'react-native';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { Overlay } from '@/utils';
@@ -20,17 +19,18 @@ export function useAlbumEditor() {
         id,
       });
     },
-    onError() {
+    onError(error: Error) {
       Overlay.toast({
         preset: 'error',
-        title: '删除失败',
+        title: translate('albumsScreen.deleteAlbum.fail'),
+        message: error.message,
       });
     },
     onSuccess() {
       queryClient.refetchQueries(albumKeys.list(`${inFakeEnvironment}`));
       Overlay.toast({
         preset: 'done',
-        title: '删除成功',
+        title: translate('albumsScreen.deleteAlbum.success'),
       });
     },
   });
@@ -56,7 +56,7 @@ export function useAlbumEditor() {
     onError(error: Error) {
       Overlay.toast({
         preset: 'error',
-        title: '重命名失败',
+        title: translate('albumsScreen.renameAlbum.fail'),
         message: error.message,
       });
     },
@@ -64,15 +64,15 @@ export function useAlbumEditor() {
       queryClient.refetchQueries(albumKeys.list(`${inFakeEnvironment}`));
       Overlay.toast({
         preset: 'done',
-        title: '删除成功',
+        title: translate('albumsScreen.renameAlbum.success'),
       });
     },
   });
 
-  function handlePresentPrompt(item: Photo) {
+  function handlePresentRenamePrompt(item: Photo) {
     Alert.prompt(
-      '重命名',
-      '请输入相册名称',
+      translate('albumsScreen.renameAlbum.title'),
+      translate('albumsScreen.renameAlbum.message'),
       (name: string) => {
         handleRename({
           id: item.id,
@@ -84,7 +84,7 @@ export function useAlbumEditor() {
       'plain-text',
       item.name,
       'default',
-      '相册名称（10个字符内）',
+      translate('albumsScreen.createAlbum.placeholder'),
     );
   }
 
@@ -103,10 +103,22 @@ export function useAlbumEditor() {
       (buttonIndex) => {
         switch (buttonIndex) {
           case 1:
-            handlePresentPrompt(item);
+            handlePresentRenamePrompt(item);
             break;
           case 2:
-            handleDeleteAlbum(item.id);
+            Alert.alert(translate('albumsScreen.deleteAlbum.title'), undefined, [
+              {
+                text: translate('common.cancel'),
+                style: 'cancel',
+              },
+              {
+                text: translate('common.confirm'),
+                style: 'destructive',
+                onPress() {
+                  handleDeleteAlbum(item.id);
+                },
+              },
+            ]);
             break;
         }
       },

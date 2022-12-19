@@ -1,6 +1,7 @@
 const zh = {
   common: {
     ok: '好',
+    confirm: '确认',
     cancel: '取消',
     back: '返回',
     second: '秒',
@@ -33,6 +34,25 @@ const zh = {
       title: '编辑相册',
       changeName: '修改名称',
       delete: '删除相册',
+      rename: '重命名',
+    },
+    createAlbum: {
+      title: '新建相册',
+      message: '请输入相册名称',
+      placeholder: '相册名称（10个字符内）',
+      success: '',
+      fail: '创建相册失败',
+    },
+    renameAlbum: {
+      title: '修改相册名称',
+      message: '请输入相册新名称',
+      success: '重命名成功',
+      fail: '重命名失败',
+    },
+    deleteAlbum: {
+      title: '确认删除',
+      success: '删除成功',
+      fail: '删除失败',
     },
   },
   photosScreen: {},

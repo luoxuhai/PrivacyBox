@@ -77,7 +77,7 @@ export const AlbumsScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'Album'
           onPress={() => {
             props.navigation.navigate('Photos');
           }}
-          onOpenEditor={onOpenActionSheet}
+          onOpenEditor={() => onOpenActionSheet(item)}
         />
       );
     }, []);

@@ -4,4 +4,5 @@ export const albumKeys = {
   list: (filters: string) => [...albumKeys.lists(), { filters }] as const,
   details: () => [...albumKeys.all, 'detail'] as const,
   detail: (id: number) => [...albumKeys.details(), id] as const,
+  create: (id: number) => [...albumKeys.details(), id] as const,
 };

@@ -11,7 +11,7 @@ export const ThemeStoreModel = types
     /** App 外观 */
     appearance: types.optional(types.union(types.literal('light'), types.literal('dark')), 'light'),
     /** 是否跟随系统外观 */
-    isSystemAppearance: types.optional(types.boolean, false),
+    isSystemAppearance: types.optional(types.boolean, true),
     /** App 图标 */
     appIcon: types.optional(
       types.enumeration<AppIcons>('AppIcons', Object.values(AppIcons)),

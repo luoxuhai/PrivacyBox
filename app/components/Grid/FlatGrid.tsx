@@ -1,8 +1,16 @@
-import React, { forwardRef, useState, useCallback, useImperativeHandle, useRef } from 'react';
+import React, {
+  forwardRef,
+  useState,
+  useCallback,
+  useImperativeHandle,
+  useRef,
+  useEffect,
+} from 'react';
 import { View, Dimensions, ViewStyle } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
 import { FlashList, FlashListProps, RenderTarget, ContentStyle } from '@shopify/flash-list';
 import { useCalculateDimensions, useChunkArray, useStyles } from './hooks';
+import { useUpdateEffect } from '@/utils';
 
 type FlashListRef = typeof FlashList;
 
@@ -57,6 +65,10 @@ export const FlatGrid = forwardRef(function FlatGrid<T>(
   const listRef = useRef<FlashList<T>>(null);
 
   useImperativeHandle(ref, () => listRef.current);
+
+  useUpdateEffect(() => {
+    setContainerWidth(width);
+  }, [width]);
 
   const onLayoutLocal = useCallback(
     (event) => {

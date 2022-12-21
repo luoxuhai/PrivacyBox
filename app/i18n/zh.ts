@@ -16,6 +16,7 @@ const zh = {
     open: '打开',
     close: '关闭',
     done: '完成',
+    noData: '无数据',
   },
   contentNavigator: {
     albumTab: '相册',

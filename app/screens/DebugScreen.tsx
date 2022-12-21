@@ -6,7 +6,7 @@ import { SettingStackParamList } from '@/navigators';
 
 import { Screen, ExitButton, SafeAreaScrollView, ListSection, ListCell } from '@/components';
 import { spacing, useTheme } from '@/theme';
-import { storage } from '@/storage';
+import { storage } from '@/utils/storage';
 import { rootStore } from '@/models';
 import { LocalPathManager } from '@/utils';
 import { ICloud } from '@/services/icloud/icloud';

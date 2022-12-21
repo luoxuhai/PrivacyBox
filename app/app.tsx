@@ -17,7 +17,7 @@ import { useInitialDataSource } from './database/helpers/useInitDataSource';
 import { AppNavigator, useNavigationPersistence, RootNavigation } from './navigators';
 import { ErrorBoundary } from './screens/ErrorScreen/ErrorBoundary';
 import { useDataMigrator } from './screens/DataMigratorScreen/useDataMigrator';
-import { storage } from './storage';
+import { storage } from './utils/storage';
 import Config from './config';
 import { useTheme } from './theme';
 import './services/icloud/icloud';

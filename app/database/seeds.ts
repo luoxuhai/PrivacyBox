@@ -2,7 +2,7 @@ import { EntityManager } from 'typeorm';
 
 import File from './entities/file';
 import Photo, { PhotoType } from './entities/photo';
-import { storage } from '@/storage';
+import { storage } from '@/utils/storage';
 import { generateUUID } from '@/utils/uuid';
 
 const photoSeeds: Photo[] = [

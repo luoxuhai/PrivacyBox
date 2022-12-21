@@ -8,7 +8,7 @@ import {
 import Config from '@/config';
 import type { PersistNavigationConfig } from '@/config/config.base';
 import { useIsMounted } from '@/utils/hooks';
-import { storage } from '@/storage';
+import { storage } from '@/utils/storage';
 
 type Storage = typeof storage;
 

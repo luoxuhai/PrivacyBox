@@ -2,7 +2,7 @@
  * https://github.com/agilgur5/mst-persist/blob/master/src/index.ts
  */
 import { onSnapshot, applySnapshot, IStateTreeNode } from 'mobx-state-tree';
-import { storage } from '@/storage';
+import { storage } from '@/utils/storage';
 
 export interface IArgs<T> {
   (name: string, store: IStateTreeNode, options?: IOptions<T>): void;

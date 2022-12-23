@@ -12,6 +12,9 @@ import { FlashList, FlashListProps, RenderTarget, ContentStyle } from '@shopify/
 import { useCalculateDimensions, useChunkArray, useStyles } from './hooks';
 import { useUpdateEffect } from '@/utils';
 
+import { LoadState } from '../LoadState';
+import { EmptyState } from '../EmptyState';
+
 type FlashListRef = typeof FlashList;
 
 const AnimatedFlashList = Animated.createAnimatedComponent(FlashList);
@@ -38,6 +41,7 @@ interface FlatGridProps<T> extends Omit<FlashListProps<T>, 'numColumns'> {
    * @default true
    */
   gridEnabled?: boolean;
+  isLoading?: boolean;
 }
 
 export const FlatGrid = forwardRef(function FlatGrid<T>(
@@ -53,6 +57,7 @@ export const FlatGrid = forwardRef(function FlatGrid<T>(
     itemWidth,
     width,
     data,
+    isLoading = false,
     renderItem,
     keyExtractor,
     onLayout,
@@ -158,6 +163,11 @@ export const FlatGrid = forwardRef(function FlatGrid<T>(
       data={gridEnabled ? rows : data}
       entering={FadeIn.duration(400)}
       renderItem={renderRow}
+      ListEmptyComponent={
+        <View style={$listEmpty}>
+          {isLoading ? <LoadState loading={isLoading} size="large" /> : <EmptyState />}
+        </View>
+      }
       {...flashListProps}
       onLayout={onLayoutLocal}
       keyExtractor={localKeyExtractor}
@@ -172,3 +182,8 @@ interface RenderItemParams<T> {
   target: RenderTarget;
   extraData: any;
 }
+
+const $listEmpty: ViewStyle = {
+  height: '100%',
+  justifyContent: 'flex-end',
+};

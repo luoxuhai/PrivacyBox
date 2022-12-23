@@ -233,6 +233,9 @@ const zh = {
   transferScreen: {
     title: ' WI-FI 无线传输',
   },
+  hideApplicationsScreen: {
+    title: '隐藏App',
+  },
 };
 
 export default zh;

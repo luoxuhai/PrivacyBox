@@ -43,6 +43,11 @@ const list: FeatureItem[] = [
     icon: 'basket.fill',
     color: luminance(colors.light.palette.green),
   },
+  {
+    title: 'hideApplicationsScreen.title',
+    icon: 'eye.slash.fill',
+    color: luminance(colors.light.palette.purple),
+  },
 ];
 
 export const MoreFeatureScreen = observer(() => {

@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useEffect } from 'react';
-import { TouchableOpacity, ViewStyle } from 'react-native';
+import { TouchableOpacity, ViewStyle, View } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { StackScreenProps } from '@react-navigation/stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -8,12 +8,12 @@ import { SFSymbol } from 'react-native-sfsymbols';
 import { useQuery } from '@tanstack/react-query';
 
 import { AlbumsNavigatorParamList } from '@/navigators';
-import { Screen, FlatGrid } from '@/components';
+import { Screen, FlatGrid, LoadState, EmptyState } from '@/components';
 import { useTheme } from '@/theme';
 import { AlbumItem } from './AlbumItem';
 import { useAlbumEditor } from './useAlbumEditor';
 import { useAlbumCreator } from './useAlbumCreator';
-import { useSafeAreaDimensions } from '@/utils';
+import { useSafeAreaDimensions, delay } from '@/utils';
 
 import { fetchAlbums } from '@/services/local';
 import { albumKeys } from './constants';
@@ -61,12 +61,21 @@ export const AlbumsScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'Album'
       });
     }, []);
 
-    const { isLoading, data: albums } = useQuery({
+    const {
+      isLoading,
+      isFetching,
+      isInitialLoading,
+      isRefetching,
+      data: albums,
+      refetch,
+    } = useQuery({
       queryKey: albumKeys.list(`${inFakeEnvironment}`),
-      queryFn: async () =>
-        await fetchAlbums({
+      queryFn: async () => {
+        await delay(2000);
+        return await fetchAlbums({
           is_fake: inFakeEnvironment,
-        }),
+        });
+      },
       enabled: true,
     });
 
@@ -82,7 +91,7 @@ export const AlbumsScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'Album'
       );
     }, []);
 
-    console.log(safeAreaDimensions.width);
+    console.log(isLoading, isFetching, isRefetching);
 
     return (
       <Screen>
@@ -91,16 +100,19 @@ export const AlbumsScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'Album'
             contentContainerStyle={{
               paddingBottom: bottomTabBarHeight,
             }}
+            isLoading={isFetching}
             contentInsetAdjustmentBehavior="automatic"
             estimatedItemSize={150}
             itemWidth={150}
             width={safeAreaDimensions.width}
             itemWidthFixed={false}
             spacing={26}
-            data={albums}
+            data={isFetching ? [] : albums}
             renderItem={renderItem}
             refreshing={false}
-            onRefresh={() => {}}
+            onRefresh={() => {
+              refetch();
+            }}
           />
         </SafeAreaView>
       </Screen>

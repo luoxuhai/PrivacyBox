@@ -8,6 +8,7 @@ import { translate } from '@/i18n';
 
 export type MoreFeatureNavigatorParamList = {
   MoreFeature: undefined;
+  HideApplications: undefined;
 };
 
 const Stack = createNativeStackNavigator<MoreFeatureNavigatorParamList>();

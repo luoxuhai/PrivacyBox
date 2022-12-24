@@ -34,6 +34,10 @@ const list: { title: TextKeyPath; icon: string }[] = [
     icon: 'arrow.clockwise.icloud.fill',
   },
   {
+    title: 'purchaseScreen.features.hideApp',
+    icon: 'eye.slash.fill',
+  },
+  {
     title: 'purchaseScreen.features.transfer',
     icon: 'wifi.circle.fill',
   },
@@ -62,7 +66,7 @@ const list: { title: TextKeyPath; icon: string }[] = [
 const $featureListItem: ViewStyle = {
   flexDirection: 'row',
   alignItems: 'center',
-  marginBottom: spacing[6],
+  marginBottom: spacing[5],
 };
 
 const $featureIcon: ViewStyle = {

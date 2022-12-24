@@ -3,6 +3,8 @@
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+#import "ExpoModulesCore-Swift.h"
+#import "PrivacyBox-Swift.h"
 
 #import <React/RCTAppSetupUtils.h>
 
@@ -60,12 +62,7 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
 
   NSDictionary *initProps = [self prepareInitialProps];
   UIView *rootView = RCTAppSetupDefaultRootView(bridge, @"PrivacyBox", initProps);
-
-  if (@available(iOS 13.0, *)) {
-    rootView.backgroundColor = [UIColor systemBackgroundColor];
-  } else {
-    rootView.backgroundColor = [UIColor whiteColor];
-  }
+  rootView.backgroundColor = [UIColor systemBackgroundColor];
 
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [self.reactDelegate createRootViewController];
@@ -75,6 +72,10 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
   [super application:application didFinishLaunchingWithOptions:launchOptions];
   
   [RNBootSplash initWithStoryboard:@"LaunchScreen" rootView:rootView];
+  
+  [AuthorizationCenterAsync requestAuthorizationWithCompletionHandler:^(NSError * _Nullable) {
+    //
+  }];
   
   return YES;
 }

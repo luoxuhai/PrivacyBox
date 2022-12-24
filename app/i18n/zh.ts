@@ -124,6 +124,7 @@ const zh = {
     cardButton: '获取',
     features: {
       icloud: 'iCloud 同步数据',
+      hideApp: '从设备隐藏任意 App',
       transfer: 'WI-FI 无限传输',
       changeAppIcon: '更换 App 图标',
       scanDocument: '扫描文档',
@@ -226,15 +227,24 @@ const zh = {
   },
   icloudScreen: {
     title: 'iCloud 同步',
+    subtitle: '多设备同步',
   },
   wastebasketScreen: {
     title: '回收站',
   },
   transferScreen: {
     title: ' WI-FI 无线传输',
+    subtitle: '免流量跨平台极速传输',
   },
   hideApplicationsScreen: {
     title: '隐藏App',
+    subtitle: '从设备隐藏你指定的 App',
+  },
+  applicationPickerScreen: {
+    title: '选择需要隐藏的 App',
+  },
+  filesScreen: {
+    title: '文件',
   },
 };
 

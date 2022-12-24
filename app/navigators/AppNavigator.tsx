@@ -12,7 +12,7 @@ import React, { useMemo } from 'react';
 
 import Config from '@/config';
 import { useStores } from '@/models'; // @demo remove-current-line
-import { AppLockScreen, DataMigratorScreen, PhotosScreen } from '@/screens';
+import { AppLockScreen, DataMigratorScreen, HideApplicationsScreen, PhotosScreen } from '@/screens';
 import { ContentNavigator, ContentTabParamList } from './ContentNavigator'; // @demo remove-current-line
 import { navigationRef, useBackButtonHandler } from './navigationUtilities';
 import { useTheme } from '@/theme';
@@ -45,6 +45,7 @@ export type AppStackParamList = {
   Content: NavigatorScreenParams<ContentTabParamList>;
   Photos: undefined;
   DataMigrator: undefined;
+  HideApplications: undefined;
 };
 
 /**
@@ -153,6 +154,14 @@ const AppStack = observer(function AppStack() {
           headerBackTitle: translate('albumsScreen.title'),
         }}
         component={PhotosScreen}
+      />
+
+      <Stack.Screen
+        name="HideApplications"
+        options={{
+          title: translate('hideApplicationsScreen.title'),
+        }}
+        component={HideApplicationsScreen}
       />
     </Stack.Navigator>
   );

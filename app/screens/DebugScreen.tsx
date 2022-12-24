@@ -11,6 +11,11 @@ import { rootStore } from '@/models';
 import { LocalPathManager } from '@/utils';
 import { ICloud } from '@/services/icloud/icloud';
 
+DevSettings.addMenuItem('Clear Storage', () => {
+  storage.clear();
+  DevSettings.reload();
+});
+
 export const DebugScreen: FC<StackScreenProps<SettingStackParamList, 'Debug'>> = observer(
   function DebugScreen(props) {
     const { colors } = useTheme();

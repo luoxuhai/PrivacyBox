@@ -1,27 +1,16 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, ViewStyle, TextStyle } from 'react-native';
+import { ViewStyle } from 'react-native';
 import { colord } from 'colord';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
-import { FlatGrid, ContentStyle, Screen } from '@/components';
-import { colors, radius, spacing } from '@/theme';
-import { TextKeyPath, translate } from '@/i18n';
-import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
-import { useSafeAreaDimensions } from '@/utils';
-import { SFSymbol } from 'react-native-sfsymbols';
+import { StackScreenProps } from '@react-navigation/stack';
 import { observer } from 'mobx-react-lite';
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 
-interface FeatureItem {
-  title: TextKeyPath;
-  icon: string;
-  color: string;
-}
-
-const iconProps = {
-  color: '#FFF',
-  width: 36,
-  height: 36,
-};
+import { FlatGrid, Screen } from '@/components';
+import { colors } from '@/theme';
+import { useSafeAreaDimensions } from '@/utils';
+import { MoreFeatureNavigatorParamList } from '@/navigators';
+import { FeatureItemView, FeatureItem } from './FeatureItemView';
 
 function luminance(color: string, l = 0.1) {
   return colord(color).lighten(l).toRgbString();
@@ -30,29 +19,38 @@ function luminance(color: string, l = 0.1) {
 const list: FeatureItem[] = [
   {
     title: 'icloudScreen.title',
+    subtitle: 'icloudScreen.subtitle',
     icon: 'arrow.clockwise.icloud.fill',
     color: luminance(colors.light.palette.blue),
   },
   {
     title: 'transferScreen.title',
+    subtitle: 'transferScreen.subtitle',
     icon: 'wifi.circle.fill',
     color: luminance(colors.light.palette.orange),
+  },
+  {
+    title: 'hideApplicationsScreen.title',
+    subtitle: 'hideApplicationsScreen.subtitle',
+    icon: 'eye.slash.fill',
+    color: luminance(colors.light.palette.purple),
   },
   {
     title: 'wastebasketScreen.title',
     icon: 'basket.fill',
     color: luminance(colors.light.palette.green),
   },
-  {
-    title: 'hideApplicationsScreen.title',
-    icon: 'eye.slash.fill',
-    color: luminance(colors.light.palette.purple),
-  },
 ];
 
-export const MoreFeatureScreen = observer(() => {
+export const MoreFeatureScreen = observer<
+  StackScreenProps<MoreFeatureNavigatorParamList, 'MoreFeature'>
+>((props) => {
   const bottomTabBarHeight = useBottomTabBarHeight();
   const safeAreaDimensions = useSafeAreaDimensions();
+
+  const handleToScreen = () => {
+    props.navigation.navigate('HideApplications');
+  };
 
   return (
     <Screen>
@@ -62,7 +60,7 @@ export const MoreFeatureScreen = observer(() => {
             paddingBottom: bottomTabBarHeight,
           }}
           data={list}
-          renderItem={({ item }) => <FeatureItemView {...item} />}
+          renderItem={({ item }) => <FeatureItemView {...item} onPress={() => handleToScreen()} />}
           estimatedItemSize={100}
           contentInsetAdjustmentBehavior="automatic"
           itemWidth={160}
@@ -75,40 +73,6 @@ export const MoreFeatureScreen = observer(() => {
   );
 });
 
-interface FeatureItemViewProps extends FeatureItem {
-  onPress(): void;
-}
-
-function FeatureItemView(props: FeatureItemViewProps): JSX.Element {
-  return (
-    <TouchableOpacity style={$cardItem} onPress={props.onPress} activeOpacity={0.8}>
-      <View style={[$cardItemBody, { backgroundColor: props.color }]}>
-        <SFSymbol name={props.icon} {...iconProps} />
-        <Text style={$cardItemText}>{translate(props.title)}</Text>
-      </View>
-    </TouchableOpacity>
-  );
-}
-
 const $safeAreaView: ViewStyle = {
   flex: 1,
-};
-
-const $cardItem: ViewStyle = {
-  flex: 1,
-  height: 110,
-  borderRadius: radius[3],
-};
-
-const $cardItemBody: ViewStyle = {
-  flex: 1,
-  borderRadius: 12,
-  justifyContent: 'space-between',
-  padding: spacing[4],
-};
-
-const $cardItemText: TextStyle = {
-  fontSize: 16,
-  fontWeight: '500',
-  color: '#fff',
 };

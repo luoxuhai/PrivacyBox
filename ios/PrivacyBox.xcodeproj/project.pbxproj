@@ -16,6 +16,14 @@
 		35106825291FD2C000E8F0D7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 35106827291FD2C000E8F0D7 /* InfoPlist.strings */; };
 		3510682B29208F6200E8F0D7 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3510682A29208F6200E8F0D7 /* StoreKit.framework */; };
 		351068352932017600E8F0D7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 351068342932017500E8F0D7 /* LaunchScreen.storyboard */; };
+		3520FF112955FD7300E618A6 /* AuthorizationCenterAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3520FF082955FD7200E618A6 /* AuthorizationCenterAsync.swift */; };
+		3520FF122955FD7300E618A6 /* RNFamilyActivityPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3520FF0A2955FD7200E618A6 /* RNFamilyActivityPicker.swift */; };
+		3520FF142955FD7300E618A6 /* Defines.h in Headers */ = {isa = PBXBuildFile; fileRef = 3520FF0C2955FD7200E618A6 /* Defines.h */; };
+		3520FF152955FD7300E618A6 /* RNFamilyActivityPickerProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3520FF0D2955FD7200E618A6 /* RNFamilyActivityPickerProxy.swift */; };
+		3520FF162955FD7300E618A6 /* RNFamilyActivityPickerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3520FF0E2955FD7200E618A6 /* RNFamilyActivityPickerManager.m */; };
+		3520FF1A2956943300E618A6 /* PrivacyBox-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 3520FF192956943300E618A6 /* PrivacyBox-Bridging-Header.h */; };
+		3565406429569A1B0032D06E /* RNManagedSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3565406329569A1B0032D06E /* RNManagedSettings.swift */; };
+		3565406629569A290032D06E /* RNManagedSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 3565406529569A290032D06E /* RNManagedSettings.m */; };
 		35A62201291898BC0059A53D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 35A62200291898BB0059A53D /* GoogleService-Info.plist */; };
 		400EB2C1E1807E6CBC68B7AB /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951E59D51E504BC9C5F46169 /* ExpoModulesProvider.swift */; };
 		61C8591E7ADE002B28890453 /* libPods-PrivacyBox-PrivacyBoxTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B25F8635391834428A9A919A /* libPods-PrivacyBox-PrivacyBoxTests.a */; };
@@ -59,6 +67,14 @@
 		3510682A29208F6200E8F0D7 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		3510682E2920932500E8F0D7 /* hermes.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = hermes.xcframework; path = "Pods/hermes-engine/destroot/Library/Frameworks/universal/hermes.xcframework"; sourceTree = "<group>"; };
 		351068342932017500E8F0D7 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = PrivacyBox/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		3520FF082955FD7200E618A6 /* AuthorizationCenterAsync.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationCenterAsync.swift; sourceTree = "<group>"; };
+		3520FF0A2955FD7200E618A6 /* RNFamilyActivityPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNFamilyActivityPicker.swift; sourceTree = "<group>"; };
+		3520FF0C2955FD7200E618A6 /* Defines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Defines.h; sourceTree = "<group>"; };
+		3520FF0D2955FD7200E618A6 /* RNFamilyActivityPickerProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNFamilyActivityPickerProxy.swift; sourceTree = "<group>"; };
+		3520FF0E2955FD7200E618A6 /* RNFamilyActivityPickerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNFamilyActivityPickerManager.m; sourceTree = "<group>"; };
+		3520FF192956943300E618A6 /* PrivacyBox-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "PrivacyBox-Bridging-Header.h"; path = "PrivacyBox/PrivacyBox-Bridging-Header.h"; sourceTree = "<group>"; };
+		3565406329569A1B0032D06E /* RNManagedSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNManagedSettings.swift; sourceTree = "<group>"; };
+		3565406529569A290032D06E /* RNManagedSettings.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNManagedSettings.m; sourceTree = "<group>"; };
 		35A62200291898BB0059A53D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "PrivacyBox/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-PrivacyBox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrivacyBox.debug.xcconfig"; path = "Target Support Files/Pods-PrivacyBox/Pods-PrivacyBox.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-PrivacyBox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrivacyBox.release.xcconfig"; path = "Target Support Files/Pods-PrivacyBox/Pods-PrivacyBox.release.xcconfig"; sourceTree = "<group>"; };
@@ -112,16 +128,18 @@
 		13B07FAE1A68108700A75B9A /* PrivacyBox */ = {
 			isa = PBXGroup;
 			children = (
-				3559D8C2294AEDE7008A2A18 /* ReactNativeModules */,
+				3520FF042955FD7200E618A6 /* ReactNativeModules */,
 				3510682929208F4400E8F0D7 /* PrivacyBox.entitlements */,
 				35A62200291898BB0059A53D /* GoogleService-Info.plist */,
 				351068342932017500E8F0D7 /* LaunchScreen.storyboard */,
+				3520FF082955FD7200E618A6 /* AuthorizationCenterAsync.swift */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				35106827291FD2C000E8F0D7 /* InfoPlist.strings */,
+				3520FF192956943300E618A6 /* PrivacyBox-Bridging-Header.h */,
 			);
 			name = PrivacyBox;
 			sourceTree = "<group>";
@@ -138,11 +156,34 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		3559D8C2294AEDE7008A2A18 /* ReactNativeModules */ = {
+		3520FF042955FD7200E618A6 /* ReactNativeModules */ = {
 			isa = PBXGroup;
 			children = (
+				35654062295699E50032D06E /* RNManagedSettings */,
+				3520FF092955FD7200E618A6 /* RNFamilyActivityPicker */,
 			);
-			path = ReactNativeModules;
+			name = ReactNativeModules;
+			path = PrivacyBox/ReactNativeModules;
+			sourceTree = "<group>";
+		};
+		3520FF092955FD7200E618A6 /* RNFamilyActivityPicker */ = {
+			isa = PBXGroup;
+			children = (
+				3520FF0A2955FD7200E618A6 /* RNFamilyActivityPicker.swift */,
+				3520FF0D2955FD7200E618A6 /* RNFamilyActivityPickerProxy.swift */,
+				3520FF0E2955FD7200E618A6 /* RNFamilyActivityPickerManager.m */,
+				3520FF0C2955FD7200E618A6 /* Defines.h */,
+			);
+			path = RNFamilyActivityPicker;
+			sourceTree = "<group>";
+		};
+		35654062295699E50032D06E /* RNManagedSettings */ = {
+			isa = PBXGroup;
+			children = (
+				3565406329569A1B0032D06E /* RNManagedSettings.swift */,
+				3565406529569A290032D06E /* RNManagedSettings.m */,
+			);
+			path = RNManagedSettings;
 			sourceTree = "<group>";
 		};
 		547A8E9E9663ECB3355FB756 /* ExpoModulesProviders */ = {
@@ -220,6 +261,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3520FF142955FD7300E618A6 /* Defines.h in Headers */,
+				3520FF1A2956943300E618A6 /* PrivacyBox-Bridging-Header.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -507,9 +550,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3565406629569A290032D06E /* RNManagedSettings.m in Sources */,
+				3520FF152955FD7300E618A6 /* RNFamilyActivityPickerProxy.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
+				3520FF122955FD7300E618A6 /* RNFamilyActivityPicker.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				3520FF112955FD7300E618A6 /* AuthorizationCenterAsync.swift in Sources */,
 				400EB2C1E1807E6CBC68B7AB /* ExpoModulesProvider.swift in Sources */,
+				3520FF162955FD7300E618A6 /* RNFamilyActivityPickerManager.m in Sources */,
+				3565406429569A1B0032D06E /* RNManagedSettings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -619,6 +668,7 @@
 				CODE_SIGN_ENTITLEMENTS = PrivacyBox/PrivacyBox.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = MH9G89WBAL;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = PrivacyBox/Info.plist;
@@ -642,6 +692,7 @@
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = net.darkce.privatespace;
 				PRODUCT_NAME = PrivacyBox;
+				SWIFT_OBJC_BRIDGING_HEADER = "PrivacyBox/PrivacyBox-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -658,6 +709,7 @@
 				CODE_SIGN_ENTITLEMENTS = PrivacyBox/PrivacyBox.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = MH9G89WBAL;
 				INFOPLIST_FILE = PrivacyBox/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -680,6 +732,7 @@
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = net.darkce.privatespace;
 				PRODUCT_NAME = PrivacyBox;
+				SWIFT_OBJC_BRIDGING_HEADER = "PrivacyBox/PrivacyBox-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

@@ -26,9 +26,9 @@ export const DataMigratorScreen: FC<StackScreenProps<AppStackParamList, 'DataMig
       DataBaseV1.init()
         .then(async () => {
           const passcodes = await DataBaseV1.queryAllPassword();
-          if (passcodes.admin) {
+          if (passcodes.admin && !appLockStore.passcode) {
             appLockStore.setPasscode(passcodes.admin);
-          } else if (passcodes.ghost) {
+          } else if (passcodes.ghost && !appLockStore.fakePasscode) {
             appLockStore.setFakePasscode(passcodes.ghost);
           }
         })

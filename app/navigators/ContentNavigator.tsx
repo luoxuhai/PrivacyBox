@@ -8,12 +8,12 @@ import { observer } from 'mobx-react-lite';
 
 import { BlurView, BottomTabIcon } from '@/components';
 import { translate } from '@/i18n';
-import { FileScreen } from '@/screens';
 import { spacing, typography, useTheme } from '@/theme';
 import { AppStackParamList, AppStackScreenProps } from './AppNavigator';
 import { SettingNavigator } from './SettingsNavigator';
 import { AlbumsNavigator } from './AlbumsNavigator';
 import { MoreFeatureNavigator } from './MoreFeatureNavigator';
+import { FilesNavigator } from './FilesNavigator';
 import { useStores } from '@/models';
 import { BottomTabs } from '@/models/SettingsStore';
 
@@ -87,22 +87,13 @@ export const ContentNavigator = observer(function ContentNavigator() {
       {visibleBottomTabs.includes(BottomTabs.Files) && (
         <Tab.Screen
           name="File"
-          component={FileScreen}
+          component={FilesNavigator}
           options={{
             title: translate('contentNavigator.filesTab'),
             tabBarIcon: ({ color }) => <BottomTabIcon icon="Files" color={color} />,
           }}
         />
       )}
-
-      {/* <Tab.Screen
-        name="Browser"
-        component={BrowserScreen}
-        options={{
-          tabBarLabel: translate('demoNavigator.podcastListTab'),
-          tabBarIcon: ({ focused }) => <Icon icon="podcast" color={focused && colors.tint} />,
-        }}
-      /> */}
 
       {visibleBottomTabs.includes(BottomTabs.More) && (
         <Tab.Screen

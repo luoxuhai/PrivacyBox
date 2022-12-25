@@ -1,11 +1,4 @@
-import {
-  Entity,
-  Column,
-  PrimaryColumn,
-  VersionColumn,
-  BeforeInsert,
-  BeforeUpdate,
-} from 'typeorm/browser';
+import { Entity, Column, PrimaryColumn, VersionColumn } from 'typeorm/browser';
 
 interface PhotoMetadata {
   compressed?: number;

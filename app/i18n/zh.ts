@@ -9,6 +9,8 @@ const zh = {
     hour: '小时',
     appName: '隐私盒子',
     coming: '即将推出...',
+    enable: '启动',
+    disable: '禁用',
     enabled: '已启动',
     disabled: '已禁用',
     closed: '已关闭',
@@ -228,6 +230,8 @@ const zh = {
   icloudScreen: {
     title: 'iCloud 同步',
     subtitle: '多设备同步',
+    autoSyncEnabled: '开启自动同步',
+    onlyWifi: '仅在Wi-Fi下同步',
   },
   wastebasketScreen: {
     title: '回收站',

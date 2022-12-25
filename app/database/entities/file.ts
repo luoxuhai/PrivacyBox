@@ -1,11 +1,4 @@
-import {
-  Entity,
-  Column,
-  VersionColumn,
-  BeforeInsert,
-  BeforeUpdate,
-  PrimaryColumn,
-} from 'typeorm/browser';
+import { Entity, Column, VersionColumn, PrimaryColumn } from 'typeorm/browser';
 
 import { Status } from './photo';
 

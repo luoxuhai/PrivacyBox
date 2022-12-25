@@ -14,5 +14,3 @@ function Main() {
 }
 
 AppRegistry.registerComponent('PrivacyBox', () => Main);
-
-export default App;

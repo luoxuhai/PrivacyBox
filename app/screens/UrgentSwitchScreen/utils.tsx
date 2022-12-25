@@ -7,12 +7,14 @@ import { ImageIcon, ImageIconTypes } from '@/components';
 import { AppQueriesSchemes } from './type';
 import { spacing } from '@/theme';
 
+interface UrgentOption {
+  title: TextKeyPath;
+  value: AppQueriesSchemes | null;
+  icon: React.ReactElement | ImageIconTypes;
+}
+
 export function getUrgentOptions(colors: ThemeStore['colors']) {
-  const baseOptions: {
-    title: TextKeyPath | string;
-    value: AppQueriesSchemes | null;
-    icon: React.ReactElement;
-  }[] = [
+  const baseOptions: UrgentOption[] = [
     {
       value: AppQueriesSchemes.Disable,
       icon: (
@@ -26,7 +28,7 @@ export function getUrgentOptions(colors: ThemeStore['colors']) {
           color={colors.secondaryLabel}
         />
       ),
-      title: 'common.cancel',
+      title: 'common.disable',
     },
     {
       value: AppQueriesSchemes.Notes,
@@ -55,7 +57,7 @@ export function getUrgentOptions(colors: ThemeStore['colors']) {
   if (locale.country === 'CN') {
     options = [
       ...baseOptions,
-      ...[
+      ...([
         {
           value: AppQueriesSchemes.QQ,
           icon: <AppIcon icon="QQ" />,
@@ -81,12 +83,12 @@ export function getUrgentOptions(colors: ThemeStore['colors']) {
           icon: <AppIcon icon="Bilibili" />,
           title: 'thirdPartyApp.bilibili',
         },
-      ],
+      ] as UrgentOption[]),
     ];
   } else {
     options = [
       ...baseOptions,
-      ...[
+      ...([
         {
           value: AppQueriesSchemes.Facebook,
           icon: <AppIcon icon="Facebook" />,
@@ -112,7 +114,7 @@ export function getUrgentOptions(colors: ThemeStore['colors']) {
           icon: <AppIcon icon="WeChat" />,
           title: 'thirdPartyApp.wechat',
         },
-      ],
+      ] as UrgentOption[]),
     ];
   }
   return options;

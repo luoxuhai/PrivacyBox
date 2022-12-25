@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import { Share, ViewStyle, Linking } from 'react-native';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { StackScreenProps } from '@react-navigation/stack';
@@ -12,7 +12,9 @@ import { SettingStackParamList } from '@/navigators';
 import { useStores } from '@/models';
 import Config from '@/config';
 import { Device, Application, openLinkInAppBrowser } from '@/utils';
-import { SupportedLanguage, i18n } from '@/i18n';
+import { SupportedLanguage, i18n, LanguageReadable, translate } from '@/i18n';
+import { getUrgentOptions } from '../UrgentSwitchScreen/utils';
+import { AppQueriesSchemes } from '../UrgentSwitchScreen/type';
 
 export const SettingScreen: FC<StackScreenProps<SettingStackParamList, 'Settings'>> = observer(
   (props) => {
@@ -29,6 +31,13 @@ export const SettingScreen: FC<StackScreenProps<SettingStackParamList, 'Settings
     ];
 
     const preferredControlTintColor = colors.palette.primary6;
+
+    const currentUrgentSwitchTargetText = useMemo(() => {
+      const target = getUrgentOptions(colors).find(
+        (o) => o.value === settingsStore.urgentSwitchTarget,
+      );
+      return target.value === AppQueriesSchemes.Disable ? null : translate(target.title);
+    }, [settingsStore.urgentSwitchTarget]);
 
     return (
       <Screen type="tabView">
@@ -49,6 +58,9 @@ export const SettingScreen: FC<StackScreenProps<SettingStackParamList, 'Settings
             />
             <ListCell
               tk="fakeAppHomeSettingsScreen.title"
+              RightAccessory={translate(
+                settingsStore.fakeHomeEnabled ? 'common.enabled' : 'common.disabled',
+              )}
               onPress={() => {
                 navigation.navigate('FakeAppHomeSettings');
               }}
@@ -56,6 +68,7 @@ export const SettingScreen: FC<StackScreenProps<SettingStackParamList, 'Settings
             <ListCell
               tk="urgentSwitchScreen.title"
               bottomSeparator={false}
+              RightAccessory={currentUrgentSwitchTargetText}
               onPress={() => {
                 navigation.navigate('UrgentSwitch');
               }}
@@ -75,7 +88,11 @@ export const SettingScreen: FC<StackScreenProps<SettingStackParamList, 'Settings
                 navigation.navigate('Appearance');
               }}
             />
-            <ListCell tk="settingsScreen.language" onPress={Linking.openSettings} />
+            <ListCell
+              tk="settingsScreen.language"
+              RightAccessory={LanguageReadable[i18n.language]}
+              onPress={Linking.openSettings}
+            />
             <ListCell
               tk="settingsScreen.hapticFeedbackSwitch"
               bottomSeparator={false}

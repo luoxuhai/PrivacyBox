@@ -20,15 +20,13 @@ import {
   FakeAppHomeScreen,
   PurchaseScreen,
   AppMaskScreen,
+  ChangeLockPasscodeScreen,
+  ChangeLockPasscodeScreenParams,
 } from '@/screens';
 import { ContentNavigator, ContentTabParamList } from './ContentNavigator';
 import { navigationRef, useBackButtonHandler } from './navigationUtilities';
 import { useTheme } from '@/theme';
 import { translate } from '@/i18n';
-import {
-  ChangeLockPasscodeScreen,
-  ChangeLockPasscodeScreenParams,
-} from '@/screens/AppLockSettingsScreen/ChangeLockPasscodeScreen';
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator

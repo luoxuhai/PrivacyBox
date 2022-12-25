@@ -21,6 +21,11 @@ export enum SupportedLanguage {
   ZH = 'zh',
 }
 
+export const LanguageReadable = {
+  [SupportedLanguage.ZH]: '简体中文',
+  [SupportedLanguage.EN]: 'English',
+};
+
 i18n.init({
   compatibilityJSON: 'v3',
   debug: false,

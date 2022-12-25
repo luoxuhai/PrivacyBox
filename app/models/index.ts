@@ -4,3 +4,4 @@ export * from './helpers/setupRootStore';
 export * from './AppLockStore';
 export * from './AppStateStore';
 export * from "./PurchaseStore"
+export * from "./GlobalStore"

@@ -2512,6 +2512,11 @@
   dependencies:
     "@expo/config-plugins" "^5.0.1"
 
+"@react-native-library/webserver@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.npmjs.org/@react-native-library/webserver/-/webserver-1.0.3.tgz#2b5137c2550df5acf6abfab0b58006754998b809"
+  integrity sha512-8i8Cmk83eW48mjm9ZYA9oQaFaop0akcD1sja3Zy/Tqm7XJ3cKoRlU5BYly5cieEUAy3O/7mwdAgCmyNWUQsnOA==
+
 "@react-native-masked-view/masked-view@^0.2.8":
   version "0.2.8"
   resolved "https://registry.npmmirror.com/@react-native-masked-view/masked-view/-/masked-view-0.2.8.tgz#34405a4361882dae7c81b1b771fe9f5fbd545a97"
@@ -13193,6 +13198,11 @@ react-native-web@^0.18.7:
     normalize-css-color "^1.0.2"
     postcss-value-parser "^4.2.0"
     styleq "^0.1.2"
+
+react-native-zip-archive@^6.0.9:
+  version "6.0.9"
+  resolved "https://registry.npmjs.org/react-native-zip-archive/-/react-native-zip-archive-6.0.9.tgz#9a1456f1dc6a9d7bb13135a00775e07cda247997"
+  integrity sha512-IYf3yHJ7sHzj9ucO3Amx/TtsZcTgHdfj+Dar8p1e32E+wBsn7mv0PDp2X/oCLGci0nG9i2DBstrnCW74/7NLYQ==
 
 react-native@0.69.7:
   version "0.69.7"

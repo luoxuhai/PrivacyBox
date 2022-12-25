@@ -5,11 +5,11 @@ import Photo from '../entities/photo';
 @EventSubscriber()
 export class Subscriber implements EntitySubscriberInterface {
   afterInsert(event: InsertEvent<Photo>): void | Promise<any> {
-    console.log('afterInsert');
+    // uploadToICloud();
   }
 
   afterUpdate(event: UpdateEvent<Photo>): void | Promise<any> {
-    console.log('afterUpdate');
+    // uploadToICloud();
   }
 
   beforeUpdate(event: UpdateEvent<Photo>): void {
@@ -24,5 +24,7 @@ export class Subscriber implements EntitySubscriberInterface {
 }
 
 function uploadToICloud() {
-  return debounce(() => {}, 5000);
+  return debounce(() => {
+    console.log('xxxxxx uploadToICloud');
+  }, 5000);
 }

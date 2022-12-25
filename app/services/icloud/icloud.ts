@@ -1,7 +1,5 @@
 import {
-  getICloudURL,
   defaultICloudContainerPath,
-  upload,
   download,
   PathUtils,
   writeFile,
@@ -29,9 +27,7 @@ download(PathUtils.join(defaultICloudContainerPath, APP_BASE_DIR, 'test.txt'), {
 export class ICloud {
   public static iCloudBasePath = PathUtils.join(defaultICloudContainerPath, APP_BASE_DIR);
 
-  static upload() {
-    writeFile();
-  }
+  static upload() {}
 
   static download() {}
 

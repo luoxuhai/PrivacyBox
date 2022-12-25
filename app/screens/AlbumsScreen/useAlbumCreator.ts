@@ -1,7 +1,7 @@
 import { Alert } from 'react-native';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { createAlbum } from '@/services/local';
+import { createAlbum, fetchAlbums } from '@/services/local';
 import { Overlay } from '@/utils';
 import { albumKeys } from './constants';
 import { useStores } from '@/models';
@@ -18,6 +18,17 @@ export function useAlbumCreator() {
       if (!name) {
         throw Error('缺少 name');
       }
+
+      const exists = !!(
+        await fetchAlbums({
+          name,
+        })
+      ).length;
+
+      if (exists) {
+        throw Error('相册名称不能相同');
+      }
+
       await createAlbum({
         name,
       });

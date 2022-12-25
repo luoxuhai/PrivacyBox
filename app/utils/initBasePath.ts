@@ -1,6 +1,16 @@
 import FS from 'react-native-fs';
 import { LocalPathManager } from './LocalPathManager';
 
-FS.mkdir(LocalPathManager.basePath, {
-  NSURLIsExcludedFromBackupKey: true,
-});
+export async function initBasePath() {
+  await FS.mkdir(LocalPathManager.basePath, {
+    NSURLIsExcludedFromBackupKey: true,
+  });
+
+  await FS.mkdir(LocalPathManager.tempPath, {
+    NSURLIsExcludedFromBackupKey: true,
+  });
+
+  await FS.mkdir(LocalPathManager.logPath, {
+    NSURLIsExcludedFromBackupKey: true,
+  });
+}

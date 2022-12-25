@@ -3,10 +3,18 @@ import {
   download,
   PathUtils,
   writeFile,
+  upload,
   stat,
+  exist,
+  createDir,
+  onICloudDocumentsStartGathering,
 } from 'react-native-cloud-store';
 
 import { APP_BASE_DIR } from '@/constants';
+
+onICloudDocumentsStartGathering((data) => {
+  console.log('onICloudDocumentsStartGathering', data);
+});
 
 console.log(
   'PathUtils.join(defaultICloudContainerPath, APP_BASE_DIR);',
@@ -27,11 +35,25 @@ download(PathUtils.join(defaultICloudContainerPath, APP_BASE_DIR, 'test.txt'), {
 export class ICloud {
   public static iCloudBasePath = PathUtils.join(defaultICloudContainerPath, APP_BASE_DIR);
 
-  static upload() {}
+  static upload(
+    localPath: string,
+    path: string,
+    options?: {
+      onProgress: (data: { progress: number }) => void;
+    },
+  ) {
+    upload(localPath, PathUtils.join(this.iCloudBasePath, path), options);
+  }
 
   static download() {}
 
-  static exist() {}
+  static exist(path: string) {
+    return exist(PathUtils.join(this.iCloudBasePath, path));
+  }
+
+  static createDir(path: string) {
+    return createDir(PathUtils.join(this.iCloudBasePath, path));
+  }
 
   static stat() {}
 

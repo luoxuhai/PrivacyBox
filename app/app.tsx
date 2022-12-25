@@ -1,8 +1,8 @@
 import './i18n';
 import './utils/ignoreWarnings';
 import './utils/consoleExtension';
-import './utils/initBasePath';
 
+import { initBasePath } from './utils/initBasePath';
 import React, { useEffect } from 'react';
 import 'react-native-get-random-values';
 import { initialWindowMetrics, SafeAreaProvider } from 'react-native-safe-area-context';
@@ -34,6 +34,7 @@ const App = observer(() => {
   const { isDark } = useTheme();
 
   useEffect(() => {
+    initBasePath();
     if (!__DEV__) {
       initCrashReporting();
     }

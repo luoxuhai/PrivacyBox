@@ -12964,10 +12964,10 @@ react-native-circular-progress-indicator@^4.4.2:
   dependencies:
     react-native-redash "*"
 
-react-native-cloud-store@^0.8.2:
-  version "0.8.2"
-  resolved "https://registry.npmmirror.com/react-native-cloud-store/-/react-native-cloud-store-0.8.2.tgz#6ef6e928bf72160b24678b1c70c4179850eeebaa"
-  integrity sha512-dM5klZ3fiKBE87zIAlx9u5FZAX5I8nI+xu+aw2ndFqbhwkqTUC4u+u9GgXn6JZxUtHxRBlrcpg56a908QPU7gA==
+react-native-cloud-store@^0.9.1:
+  version "0.9.1"
+  resolved "https://registry.npmjs.org/react-native-cloud-store/-/react-native-cloud-store-0.9.1.tgz#47c8d9055817ee5f6c1811d6073d76a05d399f2b"
+  integrity sha512-fQG+8yZUU1l43+b//eAvu8bbdApiC+baZmNDJcW8KY3CHtDXkt1sr0bN6rpBmD0ZiiGKralGblkgBban9bUbtg==
 
 react-native-code-push@^7.0.5:
   version "7.0.5"

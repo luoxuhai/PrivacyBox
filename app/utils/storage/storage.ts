@@ -54,3 +54,18 @@ function JSONParse(data?: string) {
     return null;
   }
 }
+
+function JSONStringify(data?: string) {
+  if (!data) {
+    return null;
+  }
+
+  try {
+    return JSON.stringify(data);
+  } catch (error) {
+    if (__DEV__) {
+      console.error('[JSONParse]', error);
+    }
+    return null;
+  }
+}

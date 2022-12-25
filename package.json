@@ -75,7 +75,7 @@
     "react-native-blurhash": "^1.1.10",
     "react-native-bootsplash": "^4.3.3",
     "react-native-circular-progress-indicator": "^4.4.2",
-    "react-native-cloud-store": "^0.8.2",
+    "react-native-cloud-store": "^0.9.1",
     "react-native-code-push": "^7.0.5",
     "react-native-device-info": "^10.3.0",
     "react-native-dynamic-app-icon": "^1.1.0",

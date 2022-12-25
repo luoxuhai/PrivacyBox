@@ -2,15 +2,26 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { observer } from 'mobx-react-lite';
 
-import { MoreFeatureScreen, HideApplicationsScreen, ApplicationPickerScreen } from '@/screens';
+import {
+  MoreFeatureScreen,
+  HideApplicationsScreen,
+  ApplicationPickerScreen,
+  RecycleBinScreen,
+  ICloudSyncScreen,
+  TransferScreen,
+} from '@/screens';
 import { useTheme } from '@/theme';
 import { translate } from '@/i18n';
+import { AppStackParamList } from './AppNavigator';
 
 export type MoreFeatureNavigatorParamList = {
   MoreFeature: undefined;
   HideApplications: undefined;
   ApplicationPicker: undefined;
-};
+  RecycleBin: undefined;
+  ICloudSync: undefined;
+  Transfer: undefined;
+} & AppStackParamList;
 
 const Stack = createNativeStackNavigator<MoreFeatureNavigatorParamList>();
 
@@ -35,16 +46,7 @@ export const MoreFeatureNavigator = observer(() => {
         }}
         component={MoreFeatureScreen}
       />
-      <Stack.Screen
-        name="HideApplications"
-        options={{
-          title: translate('hideApplicationsScreen.title'),
-          headerLargeStyle: {
-            backgroundColor: isDark ? colors.background : colors.secondaryBackground,
-          },
-        }}
-        component={HideApplicationsScreen}
-      />
+
       <Stack.Screen
         name="ApplicationPicker"
         options={{
@@ -53,6 +55,45 @@ export const MoreFeatureNavigator = observer(() => {
         }}
         component={ApplicationPickerScreen}
       />
+      <Stack.Group
+        screenOptions={{
+          headerLargeStyle: {
+            backgroundColor: isDark ? colors.background : colors.secondaryBackground,
+          },
+        }}
+      >
+        <Stack.Screen
+          name="HideApplications"
+          options={{
+            title: translate('hideApplicationsScreen.title'),
+          }}
+          component={HideApplicationsScreen}
+        />
+
+        <Stack.Screen
+          name="ICloudSync"
+          options={{
+            title: translate('icloudScreen.title'),
+          }}
+          component={ICloudSyncScreen}
+        />
+
+        <Stack.Screen
+          name="Transfer"
+          options={{
+            title: translate('transferScreen.title'),
+          }}
+          component={TransferScreen}
+        />
+
+        <Stack.Screen
+          name="RecycleBin"
+          options={{
+            title: translate('wastebasketScreen.title'),
+          }}
+          component={RecycleBinScreen}
+        />
+      </Stack.Group>
     </Stack.Navigator>
   );
 });

@@ -12,10 +12,10 @@ import {
   AppLockSettingsScreen,
   AdvancedSettingsScreen,
   UrgentSwitchScreen,
-  PurchaseScreen,
   FakeAppHomeSettingsScreen,
 } from '@/screens';
 import { useTheme } from '@/theme';
+import { AppStackParamList } from './AppNavigator';
 
 export type SettingStackParamList = {
   Settings: typeof SettingScreen;
@@ -26,8 +26,7 @@ export type SettingStackParamList = {
   FakeAppHomeSettings: typeof FakeAppHomeSettingsScreen;
   AdvancedSettings: typeof AdvancedSettingsScreen;
   UrgentSwitch: typeof UrgentSwitchScreen;
-  Purchase: typeof PurchaseScreen;
-};
+} & AppStackParamList;
 
 const SettingStack = createNativeStackNavigator<SettingStackParamList>();
 
@@ -102,16 +101,6 @@ export const SettingNavigator: FC<StackScreenProps<SettingStackParamList>> = obs
           headerTransparent: true,
         }}
       >
-        <SettingStack.Screen
-          name="Purchase"
-          options={{
-            title: null,
-            headerLargeStyle: {
-              backgroundColor: colors.background,
-            },
-          }}
-          component={PurchaseScreen}
-        />
         <SettingStack.Screen
           name="Debug"
           options={{

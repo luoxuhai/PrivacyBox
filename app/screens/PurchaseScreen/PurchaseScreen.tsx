@@ -22,7 +22,6 @@ export const PurchaseScreen: FC<StackScreenProps<SettingStackParamList, 'Purchas
     const [bottomHeight, setBottomHeight] = useState<number>();
 
     useEffect(() => {
-      console.log('PurchaseScreen');
       props.navigation.setOptions({
         headerRight: () => <ExitButton onPress={props.navigation.goBack} />,
         headerLeft: () => (

@@ -4,12 +4,15 @@ import { Text, View, TouchableOpacity, ViewStyle, TextStyle } from 'react-native
 import { colors, radius, spacing, typography } from '@/theme';
 import { TextKeyPath, translate } from '@/i18n';
 import { SFSymbol } from 'react-native-sfsymbols';
+import { MoreFeatureNavigatorParamList } from '@/navigators';
 
 export interface FeatureItem {
   title: TextKeyPath;
   subtitle?: TextKeyPath;
   icon: string;
   color: string;
+  needPremium?: boolean;
+  routeName?: keyof MoreFeatureNavigatorParamList;
 }
 
 interface FeatureItemViewProps extends FeatureItem {

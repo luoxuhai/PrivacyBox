@@ -1,11 +1,15 @@
 import { NativeModules } from 'react-native';
 
-export async function setBlockedApplications(applications: string[]): Promise<void> {
-  return await NativeModules.RNManagedSettings.setBlockedApplications(applications);
+export async function setBlockedApplications(): Promise<void> {
+  return await NativeModules.RNManagedSettings.setBlockedApplications();
 }
 
-export async function getBlockedApplications(): Promise<string[]> {
-  return await NativeModules.RNManagedSettings.getBlockedApplications();
+export async function clearBlockedApplications(): Promise<void> {
+  return await NativeModules.RNManagedSettings.clearBlockedApplications();
+}
+
+export async function getBlockedApplicationsCount(): Promise<number> {
+  return await NativeModules.RNManagedSettings.getBlockedApplicationsCount();
 }
 
 export async function isApproved(): Promise<boolean> {

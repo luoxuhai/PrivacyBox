@@ -44,7 +44,7 @@ interface FlatGridProps<T> extends Omit<FlashListProps<T>, 'numColumns'> {
   isLoading?: boolean;
 }
 
-export const FlatGrid = forwardRef(function FlatGrid<T>(
+export const FlatGrid = forwardRef(function FlatGrid<T = any>(
   props: FlatGridProps<T>,
   ref: FlashList<T>,
 ) {

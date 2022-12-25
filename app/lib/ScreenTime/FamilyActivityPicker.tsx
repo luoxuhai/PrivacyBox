@@ -4,16 +4,19 @@ import { requireNativeComponent, ViewStyle } from 'react-native';
 const ComponentName = 'RNFamilyActivityPicker';
 
 interface FamilyActivityPickerProps {
-  /**
-   * iOS 16+
-   */
   headerText?: string;
+  footerText?: string;
   style?: ViewStyle;
-  onActivityChange?: (value: string[]) => void;
+  onActivityChange?: (appTokensCount: number) => void;
 }
 
 const Component = requireNativeComponent(ComponentName);
 
 export function FamilyActivityPicker({ onActivityChange, ...props }: FamilyActivityPickerProps) {
-  return <Component {...props} onActivityChange={(event) => onActivityChange(event.nativeEvent)} />;
+  return (
+    <Component
+      {...props}
+      onActivityChange={(event) => onActivityChange(event.nativeEvent?.appTokensCount ?? 0)}
+    />
+  );
 }

@@ -12,6 +12,11 @@ import React
     get { return vc.rootView.props.headerText }
   }
   
+  open var footerText: String {
+    set { vc.rootView.props.footerText = newValue }
+    get { return vc.rootView.props.footerText }
+  }
+  
   var onActivityChange: RCTBubblingEventBlock {
     set { vc.rootView.props.onActivityChange = newValue }
     get { return vc.rootView.props.onActivityChange }

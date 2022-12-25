@@ -7,9 +7,10 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { MoreFeatureNavigatorParamList } from '@/navigators';
 import { ListCell, ListSection, SafeAreaScrollView, Screen, Switch, Text } from '@/components';
 import { spacing, useTheme } from '@/theme';
-import { getBlockedApplications, isApproved } from '@/lib/ScreenTime';
+import { clearBlockedApplications, isApproved } from '@/lib/ScreenTime';
 import { useFocusEffect } from '@react-navigation/native';
 import { useUpdateEffect } from '@/utils';
+import { useStores } from '@/models';
 
 export const HideApplicationsScreen: FC<
   StackScreenProps<MoreFeatureNavigatorParamList, 'HideApplications'>
@@ -17,9 +18,15 @@ export const HideApplicationsScreen: FC<
   const { colors } = useTheme();
   const bottomTabBarHeight = useBottomTabBarHeight();
   const [approved, setApproved] = useState(false);
+  const { settingsStore } = useStores();
+
+  useEffect(() => {
+    if (!settingsStore.blockedAppsEnabled) {
+      clearBlockedApplications();
+    }
+  }, []);
 
   useFocusEffect(() => {
-    // getBlockedApplications().then((r) => console.log('[getBlockedApplications]', r));
     isApproved().then((v) => {
       setApproved(v);
     });
@@ -27,6 +34,7 @@ export const HideApplicationsScreen: FC<
 
   useUpdateEffect(() => {
     if (!approved) {
+      settingsStore.setBlockedAppsEnabled(false);
       Alert.alert('x', '', [{}]);
     }
   }, [approved]);
@@ -45,13 +53,21 @@ export const HideApplicationsScreen: FC<
           <ListCell
             text="开启隐藏"
             rightIcon={null}
-            RightAccessory={<Switch disabled={!approved} />}
+            RightAccessory={
+              <Switch
+                disabled={!approved}
+                value={settingsStore.blockedAppsEnabled}
+                onValueChange={settingsStore.setBlockedAppsEnabled}
+              />
+            }
           />
           <ListCell
             text="选择要隐藏的 App"
             disabled={!approved}
             bottomSeparator={false}
-            RightAccessory={<Text text="3 个" color={colors.secondaryLabel} />}
+            RightAccessory={
+              <Text text={`${settingsStore.selectedAppCount} 个`} color={colors.secondaryLabel} />
+            }
             onPress={() => {
               props.navigation.navigate('ApplicationPicker');
             }}

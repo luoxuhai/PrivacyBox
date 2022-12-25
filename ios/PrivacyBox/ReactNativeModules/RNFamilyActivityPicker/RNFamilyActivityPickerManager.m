@@ -20,6 +20,10 @@ RCT_CUSTOM_SWIFTUI_PROPERTY(headerText, NSString, RNFamilyActivityPickerProxy) {
   return [RCTConvert NSString:json] ?: @"";
 }
 
+RCT_CUSTOM_SWIFTUI_PROPERTY(footerText, NSString, RNFamilyActivityPickerProxy) {
+  return [RCTConvert NSString:json] ?: @"";
+}
+
 RCT_EXPORT_SWIFTUI_CALLBACK(onActivityChange, RCTDirectEventBlock, RNFamilyActivityPickerProxy)
 
 - (UIView *)view {

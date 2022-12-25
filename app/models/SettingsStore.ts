@@ -1,5 +1,6 @@
 import { AppQueriesSchemes } from '@/screens/UrgentSwitchScreen/type';
 import { Instance, SnapshotIn, SnapshotOut, types } from 'mobx-state-tree';
+import { clearBlockedApplications, setBlockedApplications } from '@/lib/ScreenTime';
 
 export enum FakeHomeUnlockActions {
   PullRefresh = 'pull_refresh',
@@ -48,6 +49,10 @@ export const SettingsStoreModel = types
       types.array(types.enumeration<BottomTabs>('BottomTabs', Object.values(BottomTabs))),
       [BottomTabs.Album, BottomTabs.Files, BottomTabs.More],
     ),
+    /** 选中的App数量 */
+    selectedAppCount: types.optional(types.number, 0),
+    /** 隐藏App启动 */
+    blockedAppsEnabled: types.optional(types.boolean, false),
   })
   .views((self) => ({})) // eslint-disable-line @typescript-eslint/no-unused-vars
   .actions((self) => ({
@@ -109,6 +114,26 @@ export const SettingsStoreModel = types
 
     removeVisibleBottomTabs(tab: BottomTabs) {
       self.visibleBottomTabs.remove(tab);
+    },
+
+    setSelectedAppCount(selectedAppCount: number) {
+      self.selectedAppCount = selectedAppCount;
+      if (self.blockedAppsEnabled) {
+        setBlockedApplications();
+      }
+
+      if (selectedAppCount === 0) {
+        clearBlockedApplications();
+      }
+    },
+
+    setBlockedAppsEnabled(blockedAppsEnabled: boolean) {
+      if (blockedAppsEnabled) {
+        setBlockedApplications();
+      } else {
+        clearBlockedApplications();
+      }
+      self.blockedAppsEnabled = blockedAppsEnabled;
     },
   }));
 

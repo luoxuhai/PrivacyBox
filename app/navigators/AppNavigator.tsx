@@ -11,13 +11,19 @@ import { observer } from 'mobx-react-lite';
 import React, { useMemo } from 'react';
 
 import Config from '@/config';
-import { useStores } from '@/models'; // @demo remove-current-line
-import { AppLockScreen, DataMigratorScreen, HideApplicationsScreen, PhotosScreen } from '@/screens';
-import { ContentNavigator, ContentTabParamList } from './ContentNavigator'; // @demo remove-current-line
+import { useStores } from '@/models';
+import {
+  AppLockScreen,
+  DataMigratorScreen,
+  HideApplicationsScreen,
+  PhotosScreen,
+  FakeAppHomeScreen,
+  PurchaseScreen,
+  AppMaskScreen,
+} from '@/screens';
+import { ContentNavigator, ContentTabParamList } from './ContentNavigator';
 import { navigationRef, useBackButtonHandler } from './navigationUtilities';
 import { useTheme } from '@/theme';
-import { AppMaskScreen } from '@/screens/AppMaskScreen';
-import { FakeAppHomeScreen } from '@/screens/FakeAppHomeScreen';
 import { translate } from '@/i18n';
 import {
   ChangeLockPasscodeScreen,
@@ -38,11 +44,12 @@ import {
  *   https://reactnavigation.org/docs/typescript/#organizing-types
  */
 export type AppStackParamList = {
-  AppLock: typeof AppLockScreen;
+  AppLock: undefined;
   ChangeLockPasscode: ChangeLockPasscodeScreenParams;
-  AppMask: typeof AppMaskScreen;
-  FakeAppHome: typeof FakeAppHomeScreen;
+  AppMask: undefined;
+  FakeAppHome: undefined;
   Content: NavigatorScreenParams<ContentTabParamList>;
+  Purchase: typeof PurchaseScreen;
   Photos: undefined;
   DataMigrator: undefined;
   HideApplications: undefined;
@@ -129,15 +136,29 @@ const AppStack = observer(function AppStack() {
         }}
       />
 
-      <Stack.Screen
-        name="DataMigrator"
-        component={DataMigratorScreen}
-        options={{
-          title: null,
+      <Stack.Group
+        screenOptions={{
           presentation: 'modal',
-          gestureEnabled: false,
         }}
-      />
+      >
+        <Stack.Screen
+          name="DataMigrator"
+          component={DataMigratorScreen}
+          options={{
+            title: null,
+            presentation: 'modal',
+            gestureEnabled: false,
+          }}
+        />
+
+        <Stack.Screen
+          name="Purchase"
+          options={{
+            title: null,
+          }}
+          component={PurchaseScreen}
+        />
+      </Stack.Group>
 
       <Stack.Screen
         name="Content"

@@ -19,6 +19,10 @@ const zh = {
     close: '关闭',
     done: '完成',
     noData: '无数据',
+    rename: '重命名',
+    delete: '删除',
+    share: '分享',
+    save: '保存',
   },
   contentNavigator: {
     albumTab: '相册',
@@ -249,6 +253,8 @@ const zh = {
   },
   filesScreen: {
     title: '文件',
+    saveToLocal: '保存到本地',
+    items: '项',
   },
 };
 

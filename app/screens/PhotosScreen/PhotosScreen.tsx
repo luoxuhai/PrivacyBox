@@ -11,6 +11,7 @@ import { radius, useTheme } from '@/theme';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useSafeAreaDimensions } from '@/utils';
 import FastImage, { ImageStyle } from 'react-native-fast-image';
+import { useDeviceOrientation } from '@react-native-community/hooks';
 
 const DATA = Array.from(
   {
@@ -35,6 +36,7 @@ const MenuItems = [
 export const PhotosScreen: FC<StackScreenProps<AppStackParamList, 'Photos'>> = observer(() => {
   const { colors } = useTheme();
   const safeAreaDimensions = useSafeAreaDimensions();
+  const { landscape } = useDeviceOrientation();
 
   const renderItem = useCallback(({ item }) => {
     return (
@@ -61,7 +63,7 @@ export const PhotosScreen: FC<StackScreenProps<AppStackParamList, 'Photos'>> = o
         <FlatGrid
           contentInsetAdjustmentBehavior="automatic"
           estimatedItemSize={150}
-          itemWidth={100}
+          itemWidth={landscape ? 120 : 110}
           autoHeight
           width={safeAreaDimensions.width}
           horizontalSpacingShown={false}
@@ -69,6 +71,8 @@ export const PhotosScreen: FC<StackScreenProps<AppStackParamList, 'Photos'>> = o
           spacing={4}
           data={DATA}
           renderItem={renderItem}
+          refreshing={false}
+          onRefresh={() => {}}
         />
       </SafeAreaView>
     </Screen>

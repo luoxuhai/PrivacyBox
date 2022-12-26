@@ -24,8 +24,8 @@ export class LocalPathManager {
   }
 
   // 图片/视频目录
-  static get mediaPath() {
-    return `${this.basePath}/media`;
+  static get photoPath() {
+    return `${this.basePath}/photos`;
   }
 
   // 图片/视频/其他文件目录

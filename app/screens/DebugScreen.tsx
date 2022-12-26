@@ -60,8 +60,8 @@ export const DebugScreen: FC<StackScreenProps<SettingStackParamList, 'Debug'>> =
                   {LocalPathManager.basePath}
                 </Text>
                 <Text style={$text} selectable>
-                  mediaPath:
-                  {LocalPathManager.mediaPath}
+                  photoPath:
+                  {LocalPathManager.photoPath}
                 </Text>
                 <Text style={$text} selectable>
                   dbPath:

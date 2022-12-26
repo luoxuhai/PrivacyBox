@@ -91,8 +91,6 @@ export const AlbumsScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'Album'
       );
     }, []);
 
-    console.log(isLoading, isFetching, isRefetching);
-
     return (
       <Screen>
         <SafeAreaView style={$safeAreaView} edges={['left', 'right']}>

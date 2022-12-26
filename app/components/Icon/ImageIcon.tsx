@@ -8,6 +8,7 @@ import AppIconHousekeeper from '@/assets/icons/app-icon/housekeeper.svg';
 import AppIconPasswordBox from '@/assets/icons/app-icon/password_box.svg';
 import AppIconTodo from '@/assets/icons/app-icon/todo.svg';
 import AppIconClock from '@/assets/icons/app-icon/clock.svg';
+
 import { AppIcons } from '@/screens/AppearanceScreen/types';
 
 export type ImageIconTypes = keyof typeof iconRegistry | keyof typeof iconSvgRegistry;

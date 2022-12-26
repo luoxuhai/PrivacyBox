@@ -1,4 +1,5 @@
 import File from '@/database/entities/file';
+import { FileTypes } from '@/database/entities/types';
 import { observer } from 'mobx-react-lite';
 import React, { useMemo } from 'react';
 import { View, StyleProp, ViewStyle } from 'react-native';
@@ -14,7 +15,8 @@ interface FileThumbnailProps {
 }
 
 export const FileThumbnail = observer<FileThumbnailProps>((props) => {
-  const { name, mime, is_folder: isFolder } = props.item;
+  const { name, mime, type } = props.item;
+  const isFolder = type === FileTypes.Folder;
 
   const CoverComponent = useMemo(
     () => getCoverComponent(name, mime, isFolder),

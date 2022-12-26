@@ -1,5 +1,6 @@
 import { AppDataSource } from '@/database';
-import Photo, { PhotoType } from '@/database/entities/photo';
+import Photo from '@/database/entities/photo';
+import { PhotoTypes } from '@/database/entities/types';
 import { generateUUID } from '@/utils';
 
 type CreateAlbumParams = Partial<Pick<Photo, 'name' | 'is_fake'>>;
@@ -13,7 +14,7 @@ export async function createAlbum(params: CreateAlbumParams) {
     is_fake: params.is_fake,
     name: params.name,
     parent_id: null,
-    type: PhotoType.Folder,
+    type: PhotoTypes.Folder,
   });
 
   return result?.generatedMaps;

@@ -1,19 +1,6 @@
 import { Entity, Column, VersionColumn, PrimaryColumn } from 'typeorm/browser';
 
-import { Status } from './photo';
-
-/**
- * 资源类型
- */
-export enum SourceType {
-  Unknown = 0,
-  Text,
-  Image,
-  Audio,
-  Video,
-  Application,
-  Model,
-}
+import { FileTypes, Status } from './types';
 
 interface FileMetadata {
   compressed?: number;
@@ -62,12 +49,10 @@ export default class File {
   name!: string;
 
   /**
-   * 是否为我文件夹
+   * 资源等类型
    */
-  @Column('boolean', {
-    default: true,
-  })
-  is_folder?: boolean;
+  @Column('int', { nullable: false })
+  type!: FileTypes;
 
   /**
    * 文件大小

@@ -46,7 +46,7 @@ const zh = {
     createAlbum: {
       title: '新建相册',
       message: '请输入相册名称',
-      placeholder: '相册名称（10个字符内）',
+      placeholder: '相册名称（20个字符内）',
       success: '',
       fail: '创建相册失败',
     },
@@ -255,6 +255,19 @@ const zh = {
     title: '文件',
     saveToLocal: '保存到本地',
     items: '项',
+    import: {
+      folder: '新建文件夹',
+      scan: '扫描文档',
+      document: '导入文件',
+      nonsupport: {
+        msg: '当前设备不支持此功能',
+      },
+    },
+    folderForm: {
+      title: '新建文件夹',
+      msg: '请输入新文件夹名',
+      placeholder: '文件夹名称（50个字符内）',
+    },
   },
 };
 

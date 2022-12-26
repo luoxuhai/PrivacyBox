@@ -1,5 +1,7 @@
 import { Entity, Column, PrimaryColumn, VersionColumn } from 'typeorm/browser';
 
+import { PhotoTypes, Status } from './types';
+
 interface PhotoMetadata {
   compressed?: number;
   hash?: string;
@@ -26,21 +28,6 @@ type Extra = {
   blurhash?: string;
   [key: string]: any;
 };
-
-export enum PhotoType {
-  Folder = 1,
-  // 图片
-  Photo = 2,
-  // 视频
-  Video = 3,
-  //
-  LivePhoto = 4,
-}
-
-export enum Status {
-  Normal = 1,
-  Deleted = 1,
-}
 
 @Entity('photo')
 export default class Photo {
@@ -95,7 +82,7 @@ export default class Photo {
    * 资源等类型
    */
   @Column('int', { nullable: false })
-  type!: PhotoType;
+  type!: PhotoTypes;
 
   /**
    * 图片/视频标签

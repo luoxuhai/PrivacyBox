@@ -1,5 +1,6 @@
 import { AppDataSource } from '@/database';
-import Photo, { PhotoType } from '@/database/entities/photo';
+import Photo from '@/database/entities/photo';
+import { PhotoTypes } from '@/database/entities/types';
 
 type QueryAlbumsParams = Partial<Pick<Photo, 'name' | 'status' | 'is_fake'>>;
 
@@ -14,7 +15,7 @@ export async function fetchAlbums(params: QueryAlbumsParams): Promise<QueryAlbum
   const result = (await AppDataSource.manager.find(Photo, {
     where: {
       ...params,
-      type: PhotoType.Folder,
+      type: PhotoTypes.Folder,
     },
   })) as QueryAlbumsResult[];
 

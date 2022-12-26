@@ -2,12 +2,12 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { observer } from 'mobx-react-lite';
 
-import { FilesScreen } from '@/screens';
+import { FilesScreen, FilesNavigatorParams } from '@/screens';
 import { useTheme } from '@/theme';
 import { translate } from '@/i18n';
 
 export type FilesNavigatorParamList = {
-  Files: undefined;
+  Files: FilesNavigatorParams;
 };
 
 const Stack = createNativeStackNavigator<FilesNavigatorParamList>();

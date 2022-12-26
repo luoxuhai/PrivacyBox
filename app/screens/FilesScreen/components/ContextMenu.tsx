@@ -3,6 +3,7 @@ import { observer } from 'mobx-react-lite';
 import { ContextMenuView, MenuConfig } from 'react-native-ios-context-menu';
 
 import File from '@/database/entities/file';
+import { FileTypes } from '@/database/entities/types';
 import { translate } from '@/i18n';
 
 interface ContextMenuProps {
@@ -11,7 +12,7 @@ interface ContextMenuProps {
 }
 
 export const ContextMenu = observer<ContextMenuProps>((props) => {
-  const isFolder = props.item?.is_folder;
+  const isFolder = props.item?.type === FileTypes.Folder;
 
   const menuConfig = useMemo<MenuConfig>(
     () => ({

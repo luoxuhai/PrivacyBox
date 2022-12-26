@@ -13,12 +13,19 @@ import { Screen, FlatGrid, LoadState, EmptyState } from '@/components';
 import { spacing, useTheme } from '@/theme';
 import { FileItem } from './components/FileItem';
 import { ContextMenu } from './components/ContextMenu';
+import { ImportButton } from './components/ImportButton';
 import { useSafeAreaDimensions, delay } from '@/utils';
 
-import { fetchAlbums } from '@/services/local';
 import { fileKeys } from './constants';
 import { MIN_SCREEN_WIDTH } from '@/constants';
 import { useStores } from '@/models';
+import { fetchFiles, FetchFilesResult } from '@/services/local/file';
+import { translate } from '@/i18n';
+
+export interface FilesNavigatorParams {
+  parentId: string;
+  title?: string;
+}
 
 export const FilesScreen: FC<StackScreenProps<FilesNavigatorParamList, 'Files'>> = observer(
   (props) => {
@@ -29,33 +36,37 @@ export const FilesScreen: FC<StackScreenProps<FilesNavigatorParamList, 'Files'>>
     const bottomTabBarHeight = useBottomTabBarHeight();
     const safeAreaDimensions = useSafeAreaDimensions();
     const windowDimensions = useWindowDimensions();
+    const { title, parentId } = props.route.params ?? {};
 
-    const { data: files } = useQuery({
-      queryKey: fileKeys.list(`${inFakeEnvironment}`),
+    useEffect(() => {
+      props.navigation.setOptions({
+        title: parentId ? title : translate('filesScreen.title'),
+        headerLargeTitle: !parentId,
+      });
+    }, [title, parentId]);
+
+    const { data: files, isLoading } = useQuery({
+      queryKey: fileKeys.list(`${inFakeEnvironment}:${parentId}`),
       queryFn: async () => {
-        await delay(2000);
-        return await fetchAlbums({
+        await delay(1000);
+        return await fetchFiles({
           is_fake: inFakeEnvironment,
+          parent_id: parentId,
         });
       },
       enabled: true,
     });
 
-    useEffect(() => {
-      if (props.route.params?.title) {
-        props.navigation.setOptions({
-          title: props.route.params?.title,
-        });
-      }
-    }, [props.route.params?.title]);
-
-    const renderItem = useCallback(({ item }) => {
+    const renderItem = useCallback(({ item }: { item: FetchFilesResult }) => {
       return (
-        <ContextMenu>
+        <ContextMenu item={item}>
           <FileItem
             item={item}
-            onPress={() => {
-              const pushAction = StackActions.push('Files', { parent_id: 'xxx', title: 'xxx' });
+            onOpen={() => {
+              const pushAction = StackActions.push('Files', {
+                parentId: item.id,
+                title: item.name,
+              });
               props.navigation.dispatch(pushAction);
             }}
           />
@@ -76,6 +87,7 @@ export const FilesScreen: FC<StackScreenProps<FilesNavigatorParamList, 'Files'>>
               paddingBottom: bottomTabBarHeight,
               paddingTop: spacing[6],
             }}
+            isLoading={isLoading}
             contentInsetAdjustmentBehavior="automatic"
             estimatedItemSize={150}
             itemWidth={100}
@@ -86,6 +98,7 @@ export const FilesScreen: FC<StackScreenProps<FilesNavigatorParamList, 'Files'>>
             renderItem={renderItem}
           />
         </SafeAreaView>
+        <ImportButton parentId={parentId} />
       </Screen>
     );
   },

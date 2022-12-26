@@ -1,6 +1,7 @@
 import './i18n';
 import './utils/ignoreWarnings';
 import './utils/consoleExtension';
+import './utils/sheets';
 
 import { initBasePath } from './utils/initBasePath';
 import React, { useEffect } from 'react';
@@ -20,7 +21,6 @@ import { useDataMigrator } from './screens/DataMigratorScreen/useDataMigrator';
 import { storage } from './utils/storage';
 import Config from './config';
 import { useTheme } from './theme';
-import './services/icloud/icloud';
 
 export const NAVIGATION_PERSISTENCE_KEY = 'NAVIGATION_STATE';
 

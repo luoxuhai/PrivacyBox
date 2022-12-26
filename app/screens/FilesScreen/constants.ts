@@ -6,3 +6,10 @@ export const fileKeys = {
   detail: (id: number) => [...fileKeys.details(), id] as const,
   create: (id: number) => [...fileKeys.details(), id] as const,
 };
+
+
+export enum FileImportTypes {
+  Scan = 1,
+  Document,
+  Folder,
+}

@@ -14,13 +14,13 @@ import { format } from 'date-fns';
 
 import { radius, spacing, typography, useTheme } from '@/theme';
 import { FileThumbnail } from './FileThumbnail/FileThumbnail';
-import File from '@/database/entities/file';
 import { translate } from '@/i18n';
+import { FileTypes } from '@/database/entities/types';
+import { FetchFilesResult } from '@/services/local/file';
 
 interface AlbumItemProps {
-  item: File;
-  onPress: (item: any) => void;
-  onOpenEditor: (item: any) => void;
+  item: FetchFilesResult;
+  onOpen: (item: any) => void;
 }
 
 export const FileItem = observer<AlbumItemProps>((props) => {
@@ -36,7 +36,7 @@ export const FileItem = observer<AlbumItemProps>((props) => {
         },
       ]}
       activeOpacity={0.7}
-      onPress={props.onPress}
+      onPress={props.onOpen}
     >
       <FileThumbnail item={props.item} width="90%" height={90} />
       <Text
@@ -59,9 +59,9 @@ export const FileItem = observer<AlbumItemProps>((props) => {
           },
         ]}
       >
-        {!props.item.is_folder
-          ? format(props.item.created_date ?? 0, 'yyyy-mm-dd')
-          : `${props.item.items_count ?? 0} ${translate('filesScreen.items')}`}
+        {props.item.type === FileTypes.Folder
+          ? `${props.item.item_count ?? 0} ${translate('filesScreen.items')}`
+          : format(props.item.created_date, 'yyyy-mm-dd')}
       </Text>
     </TouchableOpacity>
   );

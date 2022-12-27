@@ -9,7 +9,6 @@ import 'react-native-get-random-values';
 import { initialWindowMetrics, SafeAreaProvider } from 'react-native-safe-area-context';
 import { observer } from 'mobx-react-lite';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { HoldMenuProvider } from 'react-native-hold-menu';
 import { SheetProvider } from 'react-native-actions-sheet';
 
 import { initCrashReporting, useUpdateEffect } from './utils';
@@ -30,8 +29,6 @@ const App = observer(() => {
     onNavigationStateChange,
     isRestored: isNavigationStateRestored,
   } = useNavigationPersistence(storage, NAVIGATION_PERSISTENCE_KEY);
-
-  const { isDark } = useTheme();
 
   useEffect(() => {
     initBasePath();
@@ -62,17 +59,12 @@ const App = observer(() => {
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       <ErrorBoundary catchErrors={Config.catchErrors}>
         <QueryClientProvider client={queryClient}>
-          <HoldMenuProvider
-            theme={isDark ? 'dark' : 'light'}
-            paddingBottom={initialWindowMetrics.insets.bottom}
-          >
-            <SheetProvider>
-              <AppNavigator
-                initialState={initialNavigationState}
-                onStateChange={onNavigationStateChange}
-              />
-            </SheetProvider>
-          </HoldMenuProvider>
+          <SheetProvider>
+            <AppNavigator
+              initialState={initialNavigationState}
+              onStateChange={onNavigationStateChange}
+            />
+          </SheetProvider>
         </QueryClientProvider>
       </ErrorBoundary>
     </SafeAreaProvider>

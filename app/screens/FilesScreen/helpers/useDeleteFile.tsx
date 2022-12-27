@@ -27,6 +27,7 @@ export function useDeleteFile(item: FetchFilesResult) {
     },
     onSuccess() {
       queryClient.refetchQueries(fileKeys.list(`${inFakeEnvironment}:${item.parent_id}`));
+      console.log(item)
       Overlay.toast({
         preset: 'done',
         title: translate('albumsScreen.deleteAlbum.success'),

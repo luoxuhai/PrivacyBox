@@ -35,7 +35,7 @@ export const FilesScreen: FC<StackScreenProps<FilesNavigatorParamList, 'Files'>>
     const bottomTabBarHeight = useBottomTabBarHeight();
     const safeAreaDimensions = useSafeAreaDimensions();
     const windowDimensions = useWindowDimensions();
-    const { title, parentId } = props.route.params ?? {};
+    const { title, parentId = null } = props.route.params ?? {};
 
     useEffect(() => {
       props.navigation.setOptions({

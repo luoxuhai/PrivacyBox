@@ -40,7 +40,7 @@ export function useFolderCreator(parentId?: string | null) {
     onError(error: Error) {
       Overlay.toast({
         preset: 'error',
-        title: translate('albumsScreen.createAlbum.fail'),
+        title: translate('filesScreen.createFolder.fail'),
         message: error.message,
       });
     },
@@ -53,7 +53,7 @@ export function useFolderCreator(parentId?: string | null) {
       queryClient.refetchQueries(fileKeys.list(`${inFakeEnvironment}:${parentId}`));
       Overlay.toast({
         preset: 'done',
-        title: translate('albumsScreen.createAlbum.success'),
+        title: translate('filesScreen.createFolder.success'),
       });
     },
   });

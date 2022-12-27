@@ -268,6 +268,14 @@ const zh = {
       msg: '请输入新文件夹名',
       placeholder: '文件夹名称（50个字符内）',
     },
+    rename: {
+      success: '重命名成功',
+      fail: '重命名失败',
+    },
+    createFolder: {
+      success: '创建文件夹成功',
+      fail: '创建文件夹失败',
+    }
   },
 };
 

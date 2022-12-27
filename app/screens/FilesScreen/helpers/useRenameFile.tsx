@@ -34,15 +34,16 @@ export function useRenameFile(item: FetchFilesResult) {
     onError(error: Error) {
       Overlay.toast({
         preset: 'error',
-        title: translate('albumsScreen.renameAlbum.fail'),
+        title: translate('filesScreen.rename.fail'),
         message: error.message,
       });
     },
     onSuccess() {
+      console.log('item.parent_id', item.parent_id);
       queryClient.refetchQueries(fileKeys.list(`${inFakeEnvironment}:${item.parent_id}`));
       Overlay.toast({
         preset: 'done',
-        title: translate('albumsScreen.renameAlbum.success'),
+        title: translate('filesScreen.rename.success'),
       });
     },
   });

@@ -13184,6 +13184,11 @@ react-native-shake@^5.1.1:
   resolved "https://registry.npmmirror.com/react-native-shake/-/react-native-shake-5.1.1.tgz#733657764b0395b26f26576bba51e2dcbcecfe89"
   integrity sha512-h6O8LnFd3LkvoYx7O0afM6rO9fDKomZ1EyomGgKRDyFhinxYIU7Z4uPYtwA4Z1Cd3frEEKTLNKHI1Eu0MOI3Yw==
 
+react-native-share@^8.0.1:
+  version "8.0.1"
+  resolved "https://registry.npmjs.org/react-native-share/-/react-native-share-8.0.1.tgz#797fe5648d6b2b0e00ab77d27f914ea9af6d67a0"
+  integrity sha512-3WfdW76L21heGq00NjtcBIM9XnaAi+P0FdLjIvEI0X+oNvYtReSOorzbYnvY3HGFbdmn6Kt1dJehGQVep25HNg==
+
 react-native-svg-transformer@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmmirror.com/react-native-svg-transformer/-/react-native-svg-transformer-1.0.0.tgz#7a707e5e95d20321b5f3dcfd0c3c8762ebd0221b"

@@ -1,6 +1,6 @@
 import { Alert } from 'react-native';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { StackActions, useNavigation } from '@react-navigation/native';
+import { StackActions } from '@react-navigation/native';
 
 import { translate } from '@/i18n';
 import { Overlay } from '@/utils';
@@ -46,10 +46,11 @@ export function useFolderCreator(parentId?: string | null) {
     },
     onSuccess(data) {
       const id = data[0].id;
+
       const pushAction = StackActions.push('Files', { parentId: id, title: 'xxx' });
       RootNavigation.dispatch(pushAction);
 
-      queryClient.refetchQueries(fileKeys.list(`${inFakeEnvironment}:${id}`));
+      queryClient.refetchQueries(fileKeys.list(`${inFakeEnvironment}:${parentId}`));
       Overlay.toast({
         preset: 'done',
         title: translate('albumsScreen.createAlbum.success'),

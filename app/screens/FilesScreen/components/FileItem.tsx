@@ -70,9 +70,9 @@ export const FileItem = observer<AlbumItemProps>((props) => {
 const $container: ViewStyle = {
   flexDirection: 'column',
   alignItems: 'center',
-  height: 160,
-  paddingHorizontal: 5,
-  paddingVertical: 5,
+  height: 150,
+  paddingHorizontal: 4,
+  paddingVertical: 4,
 };
 
 const $name: TextStyle = {

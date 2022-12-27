@@ -1,12 +1,13 @@
-import { useTheme } from '@/theme';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { View, TouchableOpacity, ViewStyle } from 'react-native';
+import { TouchableOpacity, ViewStyle } from 'react-native';
 import Animated, { BounceIn } from 'react-native-reanimated';
 import { SFSymbol } from 'react-native-sfsymbols';
 import { SheetManager } from 'react-native-actions-sheet';
+
 import { HapticFeedback } from '@/utils';
+import { useTheme } from '@/theme';
 
 const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpacity);
 

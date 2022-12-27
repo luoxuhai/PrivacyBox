@@ -1,14 +1,5 @@
 import React, { useMemo, useRef } from 'react';
-import {
-  TouchableOpacity,
-  StyleSheet,
-  ViewProps,
-  View,
-  Text,
-  Alert,
-  ViewStyle,
-  TextStyle,
-} from 'react-native';
+import { TouchableOpacity, View, Text, ViewStyle, TextStyle } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { SFSymbol } from 'react-native-sfsymbols';
 import ActionSheet, { SheetProps, ActionSheetRef } from 'react-native-actions-sheet';

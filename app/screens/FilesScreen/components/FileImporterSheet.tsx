@@ -4,11 +4,14 @@ import { observer } from 'mobx-react-lite';
 import { SFSymbol } from 'react-native-sfsymbols';
 import ActionSheet, { SheetProps, ActionSheetRef } from 'react-native-actions-sheet';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import DocumentPicker from 'react-native-document-picker';
 
-import { radius, useTheme } from '@/theme';
+import { radius, useTheme, Colors } from '@/theme';
 import { FileImportTypes } from '../constants';
 import { useFolderCreator } from '../helpers/useFolderCreator';
 import { translate } from '@/i18n';
+import { FileImporter } from '../helpers/FileImporter';
+import { useImportFile } from '../helpers/useImportFile';
 
 const ICON_PROPS = {
   size: 30,
@@ -24,50 +27,29 @@ export const FileImporterSheet = observer<FileImporterSheetProps>((props) => {
   const actionSheetRef = useRef<ActionSheetRef>(null);
 
   const handleCreateFolder = useFolderCreator(parentId);
+  const handleImportFile = useImportFile(parentId);
 
-  const list = useMemo(
-    () => [
-      {
-        type: FileImportTypes.Scan,
-        icon: (
-          <SFSymbol
-            name="doc.viewfinder"
-            color={ICON_PROPS.color}
-            style={{ width: ICON_PROPS.size, height: ICON_PROPS.size }}
-          />
-        ),
-        title: translate('filesScreen.import.scan'),
-        color: colors.palette.orange,
-        onPress: () => {},
-      },
-      {
-        type: FileImportTypes.Document,
-        icon: (
-          <SFSymbol
-            name="folder"
-            color={ICON_PROPS.color}
-            style={{ width: ICON_PROPS.size, height: ICON_PROPS.size }}
-          />
-        ),
-        title: translate('filesScreen.import.document'),
-        color: colors.palette.blue,
-      },
-      {
-        type: FileImportTypes.Folder,
-        icon: (
-          <SFSymbol
-            name="plus.rectangle.on.folder"
-            color={ICON_PROPS.color}
-            style={{ width: ICON_PROPS.size, height: ICON_PROPS.size }}
-          />
-        ),
-        title: translate('filesScreen.import.folder'),
-        color: colors.palette.primary6,
-        onPress: () => {},
-      },
-    ],
-    [colors],
-  );
+  const list = useMemo(() => getFileImportList(colors), [colors]);
+
+  async function handleImport(type: FileImportTypes) {
+    switch (type) {
+      case FileImportTypes.Folder:
+        handleCreateFolder();
+        break;
+      case FileImportTypes.Scan:
+        {
+          const results = await FileImporter.documentCamera.open();
+          handleImportFile(results);
+        }
+        break;
+      case FileImportTypes.Document: {
+        const results = await FileImporter.document.open({ type: [DocumentPicker.types.allFiles] });
+        handleImportFile(results);
+      }
+    }
+
+    actionSheetRef.current.hide();
+  }
 
   return (
     <ActionSheet
@@ -87,14 +69,7 @@ export const FileImporterSheet = observer<FileImporterSheetProps>((props) => {
     >
       <View style={$bottomSheetContent}>
         {list.map((item) => (
-          <TouchableOpacity
-            key={item.title}
-            style={$item}
-            onPress={async () => {
-              handleCreateFolder();
-              actionSheetRef.current.hide();
-            }}
-          >
+          <TouchableOpacity key={item.title} style={$item} onPress={() => handleImport(item.type)}>
             <View
               style={[
                 $iconContainer,
@@ -121,6 +96,47 @@ export const FileImporterSheet = observer<FileImporterSheetProps>((props) => {
     </ActionSheet>
   );
 });
+
+function getFileImportList(colors: Colors) {
+  return [
+    {
+      type: FileImportTypes.Scan,
+      icon: (
+        <SFSymbol
+          name="doc.viewfinder"
+          color={ICON_PROPS.color}
+          style={{ width: ICON_PROPS.size, height: ICON_PROPS.size }}
+        />
+      ),
+      title: translate('filesScreen.import.scan'),
+      color: colors.palette.orange,
+    },
+    {
+      type: FileImportTypes.Document,
+      icon: (
+        <SFSymbol
+          name="folder"
+          color={ICON_PROPS.color}
+          style={{ width: ICON_PROPS.size, height: ICON_PROPS.size }}
+        />
+      ),
+      title: translate('filesScreen.import.document'),
+      color: colors.palette.blue,
+    },
+    {
+      type: FileImportTypes.Folder,
+      icon: (
+        <SFSymbol
+          name="plus.rectangle.on.folder"
+          color={ICON_PROPS.color}
+          style={{ width: ICON_PROPS.size, height: ICON_PROPS.size }}
+        />
+      ),
+      title: translate('filesScreen.import.folder'),
+      color: colors.palette.primary6,
+    },
+  ];
+}
 
 const $bottomSheetContent: ViewStyle = {
   flexDirection: 'row',

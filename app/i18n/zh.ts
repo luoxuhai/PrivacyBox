@@ -275,7 +275,17 @@ const zh = {
     createFolder: {
       success: '创建文件夹成功',
       fail: '创建文件夹失败',
-    }
+    },
+  },
+  permissionManager: {
+    camera: '相机',
+    microphone: '麦克风',
+    faceID: '面容',
+    photoLibrary: '相册',
+    mediaLibrary: '媒体库',
+    motion: '运动',
+    unavailable: '{{permission}}功能不可用',
+    blocked: '请前往设置授予{{permissions}}权限，才能正常使用该功能',
   },
 };
 

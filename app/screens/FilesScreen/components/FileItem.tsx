@@ -70,8 +70,8 @@ export const FileItem = observer<AlbumItemProps>((props) => {
 const $container: ViewStyle = {
   flexDirection: 'column',
   alignItems: 'center',
-  height: 150,
-  paddingHorizontal: 4,
+  height: 160,
+  paddingHorizontal: 5,
   paddingVertical: 4,
 };
 

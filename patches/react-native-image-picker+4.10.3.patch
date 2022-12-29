@@ -1,0 +1,42 @@
+diff --git a/node_modules/react-native-image-picker/ios/ImagePickerManager.m b/node_modules/react-native-image-picker/ios/ImagePickerManager.m
+index 10c5b4e..915ebc5 100644
+--- a/node_modules/react-native-image-picker/ios/ImagePickerManager.m
++++ b/node_modules/react-native-image-picker/ios/ImagePickerManager.m
+@@ -252,7 +252,7 @@ -(NSMutableDictionary *)mapVideoToAsset:(NSURL *)url phAsset:(PHAsset * _Nullabl
+     NSMutableDictionary *asset = [[NSMutableDictionary alloc] init];
+     CGSize dimentions = [ImagePickerUtils getVideoDimensionsFromUrl:videoDestinationURL];
+     asset[@"fileName"] = fileName;
+-    asset[@"duration"] = [NSNumber numberWithDouble:CMTimeGetSeconds([AVAsset assetWithURL:videoDestinationURL].duration)];
++    asset[@"duration"] = @(phAsset.duration * 1000);
+     asset[@"uri"] = videoDestinationURL.absoluteString;
+     asset[@"type"] = [ImagePickerUtils getFileTypeFromUrl:videoDestinationURL];
+     asset[@"fileSize"] = [ImagePickerUtils getFileSizeFromUrl:videoDestinationURL];
+@@ -260,9 +260,9 @@ -(NSMutableDictionary *)mapVideoToAsset:(NSURL *)url phAsset:(PHAsset * _Nullabl
+     asset[@"height"] = @(dimentions.height);
+ 
+     if(phAsset){
+-        asset[@"timestamp"] = [self getDateTimeInUTC:phAsset.creationDate];
++        asset[@"ctime"] = @(phAsset.creationDate.timeIntervalSince1970 * 1000);
++        asset[@"mtime"] = @(phAsset.modificationDate.timeIntervalSince1970 * 1000);
+         asset[@"id"] = phAsset.localIdentifier;
+-        // Add more extra data here ...
+     }
+ 
+     return asset;
+diff --git a/node_modules/react-native-image-picker/ios/ImagePickerUtils.m b/node_modules/react-native-image-picker/ios/ImagePickerUtils.m
+index 3afe9d6..f0787cd 100644
+--- a/node_modules/react-native-image-picker/ios/ImagePickerUtils.m
++++ b/node_modules/react-native-image-picker/ios/ImagePickerUtils.m
+@@ -39,10 +39,11 @@ + (void) setupPickerFromOptions:(UIImagePickerController *)picker options:(NSDic
+         picker.mediaTypes = @[(NSString *)kUTTypeMovie];
+     } else if ([options[@"mediaType"] isEqualToString:@"photo"]) {
+         picker.mediaTypes = @[(NSString *)kUTTypeImage];
+-    } else if ((target == library) && ([options[@"mediaType"] isEqualToString:@"mixed"])) {
++    } else if ([options[@"mediaType"] isEqualToString:@"mixed"]) {
+         picker.mediaTypes = @[(NSString *)kUTTypeImage, (NSString *)kUTTypeMovie];
+     }
+ 
++    picker.allowsEditing = YES;
+     picker.modalPresentationStyle = [RCTConvert UIModalPresentationStyle:options[@"presentationStyle"]];
+ }
+ 

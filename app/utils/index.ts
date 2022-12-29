@@ -11,4 +11,6 @@ export * from './crashReporting';
 export * from './hooks';
 export * from './LocalAuth';
 export * from './LocalPathManager';
+export * from './PermissionManager';
 export * from './uuid';
+export * from './randomNum';

@@ -276,6 +276,23 @@ const zh = {
       success: '创建文件夹成功',
       fail: '创建文件夹失败',
     },
+    detail: {
+      title: '详情',
+      name: '名称',
+      type: '类型',
+      size: '大小',
+      ctime: '创建时间',
+    },
+    types: {
+      text: '文本',
+      image: '图片',
+      audio: '音频',
+      video: '视频',
+      application: '应用',
+      model: '模型',
+      folder: '文件夹',
+      unknown: '未知',
+    },
   },
   permissionManager: {
     camera: '相机',

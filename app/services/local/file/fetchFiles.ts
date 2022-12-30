@@ -3,7 +3,7 @@ import File from '@/database/entities/file';
 import { Status } from '@/database/entities/types';
 import { IsNull } from 'typeorm';
 
-type FetchFilesParams = Partial<Pick<File, 'name' | 'status' | 'is_fake' | 'parent_id'>>;
+type FetchFilesParams = Partial<Pick<File, 'name' | 'status' | 'is_fake' | 'parent_id' | 'id'>>;
 
 export type FetchFilesResult = File & {
   item_count: number;

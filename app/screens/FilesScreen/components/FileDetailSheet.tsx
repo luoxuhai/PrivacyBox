@@ -1,55 +1,29 @@
 import React, { useMemo, useRef } from 'react';
-import { TouchableOpacity, View, Text, ViewStyle, TextStyle } from 'react-native';
+import { View, Text, ViewStyle, TextStyle } from 'react-native';
 import { observer } from 'mobx-react-lite';
-import { SFSymbol } from 'react-native-sfsymbols';
 import ActionSheet, { SheetProps, ActionSheetRef } from 'react-native-actions-sheet';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import DocumentPicker from 'react-native-document-picker';
 
-import { radius, useTheme, Colors } from '@/theme';
-import { FileImportTypes } from '../constants';
-import { useFolderCreator } from '../helpers/useFolderCreator';
+import { radius, spacing, useTheme } from '@/theme';
 import { translate } from '@/i18n';
-import { FileImporter } from '../helpers/FileImporter';
-import { useImportFile } from '../helpers/useImportFile';
+import { SafeAreaScrollView } from '@/components';
+import { FetchFilesResult } from '@/services/local/file';
+import { FileTypes } from '@/database/entities/types';
+import { getFileTypeName } from '../helpers/getFileTypeName';
+import { format } from 'date-fns';
+import { formatDate, formatSize } from '@/utils';
 
-const ICON_PROPS = {
-  size: 30,
-  color: '#FFF',
-};
+const t = translate;
 
-interface FileDetailSheetProps extends SheetProps<{ parentId?: string }> {}
+interface FileDetailSheetProps extends SheetProps<{ item?: FetchFilesResult }> {}
 
 export const FileDetailSheet = observer<FileDetailSheetProps>((props) => {
-  const { parentId } = props.payload;
+  const { item } = props.payload;
   const { colors, isDark } = useTheme();
   const safeAreaInsets = useSafeAreaInsets();
   const actionSheetRef = useRef<ActionSheetRef>(null);
 
-  const handleCreateFolder = useFolderCreator(parentId);
-  const handleImportFile = useImportFile(parentId);
-
-  const list = useMemo(() => getFileImportList(colors), [colors]);
-
-  async function handleImport(type: FileImportTypes) {
-    switch (type) {
-      case FileImportTypes.Folder:
-        handleCreateFolder();
-        break;
-      case FileImportTypes.Scan:
-        {
-          const results = await FileImporter.documentCamera.open();
-          handleImportFile(results);
-        }
-        break;
-      case FileImportTypes.Document: {
-        const results = await FileImporter.document.open({ type: [DocumentPicker.types.allFiles] });
-        handleImportFile(results);
-      }
-    }
-
-    actionSheetRef.current.hide();
-  }
+  const list = useMemo(() => getFileDetailList(item), [item]);
 
   return (
     <ActionSheet
@@ -60,6 +34,7 @@ export const FileDetailSheet = observer<FileDetailSheetProps>((props) => {
         borderTopRightRadius: radius[10],
         paddingBottom: safeAreaInsets.bottom,
         backgroundColor: isDark ? colors.secondaryBackground : colors.background,
+        height: 240,
       }}
       indicatorStyle={{
         width: 80,
@@ -67,100 +42,71 @@ export const FileDetailSheet = observer<FileDetailSheetProps>((props) => {
       }}
       gestureEnabled={true}
     >
-      <View style={$bottomSheetContent}>
-        {list.map((item) => (
-          <TouchableOpacity key={item.title} style={$item} onPress={() => handleImport(item.type)}>
-            <View
-              style={[
-                $iconContainer,
-                {
-                  backgroundColor: item.color,
-                },
-              ]}
-            >
-              {item.icon}
-            </View>
+      <SafeAreaScrollView contentContainerStyle={$bottomSheetContent}>
+        {list?.map((item) => (
+          <View style={$operationContainer} key={item.type}>
             <Text
               style={[
-                $title,
+                $label,
                 {
                   color: colors.label,
                 },
               ]}
             >
-              {item.title}
+              {item.label}：
             </Text>
-          </TouchableOpacity>
+
+            <Text selectable numberOfLines={2} style={{ color: colors.label }}>
+              {item.value}
+            </Text>
+          </View>
         ))}
-      </View>
+      </SafeAreaScrollView>
     </ActionSheet>
   );
 });
 
-function getFileImportList(colors: Colors) {
-  return [
-    {
-      type: FileImportTypes.Scan,
-      icon: (
-        <SFSymbol
-          name="doc.viewfinder"
-          color={ICON_PROPS.color}
-          style={{ width: ICON_PROPS.size, height: ICON_PROPS.size }}
-        />
-      ),
-      title: translate('filesScreen.import.scan'),
-      color: colors.palette.orange,
-    },
-    {
-      type: FileImportTypes.Document,
-      icon: (
-        <SFSymbol
-          name="folder"
-          color={ICON_PROPS.color}
-          style={{ width: ICON_PROPS.size, height: ICON_PROPS.size }}
-        />
-      ),
-      title: translate('filesScreen.import.document'),
-      color: colors.palette.blue,
-    },
-    {
-      type: FileImportTypes.Folder,
-      icon: (
-        <SFSymbol
-          name="plus.rectangle.on.folder"
-          color={ICON_PROPS.color}
-          style={{ width: ICON_PROPS.size, height: ICON_PROPS.size }}
-        />
-      ),
-      title: translate('filesScreen.import.folder'),
-      color: colors.palette.primary6,
-    },
-  ];
+function getFileDetailList(item: FetchFilesResult) {
+  const isFolder = item?.type === FileTypes.Folder;
+
+  return item
+    ? [
+        {
+          type: 'name',
+          label: t('filesScreen.detail.name'),
+          value: item.name,
+        },
+        {
+          type: 'type',
+          label: t('filesScreen.detail.type'),
+          value: getFileTypeName(item.type),
+        },
+        !isFolder && {
+          type: 'size',
+          label: t('filesScreen.detail.size'),
+          value: formatSize(item.size),
+        },
+        {
+          type: 'ctime',
+          label: t('filesScreen.detail.ctime'),
+          value: formatDate(item.created_date, 'yyyy-MM-dd HH:mm:ss'),
+        },
+      ].filter((item) => item)
+    : [];
 }
 
 const $bottomSheetContent: ViewStyle = {
+  paddingHorizontal: spacing[6],
+  paddingVertical: spacing[5],
+};
+
+const $operationContainer: ViewStyle = {
   flexDirection: 'row',
-  justifyContent: 'space-between',
-  flexWrap: 'wrap',
-  height: 140,
-  paddingTop: 20,
-  paddingHorizontal: 10,
-  borderTopEndRadius: 16,
-  borderTopStartRadius: 16,
-};
-
-const $item: ViewStyle = {
   alignItems: 'center',
-  minWidth: 100,
-  marginBottom: 20,
+  height: 40,
 };
 
-const $iconContainer: ViewStyle = {
-  padding: 10,
-  borderRadius: 6,
-};
-
-const $title: TextStyle = {
-  marginTop: 8,
-  fontSize: 14,
+const $label: TextStyle = {
+  fontSize: 16,
+  marginRight: 5,
 };

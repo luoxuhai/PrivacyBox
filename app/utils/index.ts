@@ -1,5 +1,6 @@
 export * from './delay';
 export * from './formatDate';
+export * from './formatSize';
 export * from './openLinkInBrowser';
 export * from './openLinkInAppBrowser';
 export * from './HapticFeedback';

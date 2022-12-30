@@ -1,6 +1,11 @@
 import { AppDataSource } from '@/database';
 import File from '@/database/entities/file';
-import { Status } from '@/database/entities/types';
+import { FileTypes, Status } from '@/database/entities/types';
+import { unlink } from 'react-native-fs';
+import { fetchFiles } from './fetchFiles';
+
+import * as path from '@/lib/path';
+import { LocalPathManager } from '@/utils';
 
 interface DeleteFilesParams {
   id?: string;
@@ -15,10 +20,21 @@ export async function deleteFiles(params: DeleteFilesParams) {
     throw Error('invalid params');
   }
 
+  const item = (
+    await fetchFiles({
+      id: params.id,
+    })
+  )[0];
+
   const result = await AppDataSource.manager.delete(File, getCriteria(params));
-  await AppDataSource.manager.delete(File, {
-    parent_id: params.id,
-  });
+  if (item.type === FileTypes.Folder) {
+    await AppDataSource.manager.delete(File, {
+      parent_id: params.id,
+    });
+  }
+
+  await unlink(path.join(LocalPathManager.photoPath, item.id));
+
   return result;
 }
 

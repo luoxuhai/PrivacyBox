@@ -10,13 +10,14 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { observer } from 'mobx-react-lite';
-import { format } from 'date-fns';
+import { format } from 'date-fns-tz';
 
 import { radius, spacing, typography, useTheme } from '@/theme';
 import { FileThumbnail } from './FileThumbnail/FileThumbnail';
 import { translate } from '@/i18n';
 import { FileTypes } from '@/database/entities/types';
 import { FetchFilesResult } from '@/services/local/file';
+import { formatDate } from '@/utils';
 
 interface AlbumItemProps {
   item: FetchFilesResult;
@@ -61,7 +62,7 @@ export const FileItem = observer<AlbumItemProps>((props) => {
       >
         {props.item.type === FileTypes.Folder
           ? `${props.item.item_count ?? 0} ${translate('filesScreen.items')}`
-          : format(props.item.created_date, 'yyyy-mm-dd')}
+          : formatDate(props.item.created_date)}
       </Text>
     </TouchableOpacity>
   );

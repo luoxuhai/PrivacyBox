@@ -3,6 +3,7 @@ import { Share } from 'react-native';
 import RNShare from 'react-native-share';
 import { observer } from 'mobx-react-lite';
 import { ContextMenuView, MenuConfig } from 'react-native-ios-context-menu';
+import { SheetManager } from 'react-native-actions-sheet';
 
 import { FileTypes } from '@/database/entities/types';
 import { translate } from '@/i18n';
@@ -23,6 +24,13 @@ export const ContextMenu = observer<ContextMenuProps>((props) => {
 
   const handlePressMenuItem = useCallback(({ nativeEvent }) => {
     switch (nativeEvent.actionKey) {
+      case ContextMenuKeys.Details:
+        SheetManager.show('file-detail-sheet', {
+          payload: {
+            item: props.item,
+          },
+        });
+        break;
       case ContextMenuKeys.Rename:
         handleRenameFile();
         break;
@@ -51,6 +59,7 @@ export const ContextMenu = observer<ContextMenuProps>((props) => {
 });
 
 enum ContextMenuKeys {
+  Details = 'details',
   Share = 'share',
   Rename = 'rename',
   SaveToLocal = 'save-to-local',
@@ -65,6 +74,14 @@ function getMenuConfig(isFolder: boolean): MenuConfig {
         menuTitle: '',
         menuOptions: ['displayInline'],
         menuItems: [
+          {
+            actionKey: ContextMenuKeys.Details,
+            actionTitle: translate('filesScreen.detail.title'),
+            icon: {
+              iconType: 'SYSTEM',
+              iconValue: 'info.circle',
+            },
+          },
           {
             actionKey: ContextMenuKeys.Rename,
             actionTitle: translate('common.rename'),

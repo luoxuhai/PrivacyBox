@@ -23,29 +23,32 @@ import {
   AudioExtensionNames,
   VideoExtensionNames,
 } from './constants';
+import * as path from '@/lib/path';
 
-export function getCoverComponent(isFolder: boolean, mime: string, extensionName?: string) {
+export function getCoverComponent(isFolder: boolean, mime: string, filename?: string) {
   if (isFolder) return CoverFolder;
 
-  if (extensionName === 'pdf') {
+  const extname = path.extname(filename, true);
+
+  if (extname === 'pdf') {
     return CoverPDF;
-  } else if (WebExtensionNames.includes(extensionName as string)) {
+  } else if (WebExtensionNames.includes(extname as string)) {
     return CoverWeb;
-  } else if (mime?.startsWith('text/') || TextExtensionNames.includes(extensionName as string)) {
+  } else if (mime?.startsWith('text/') || TextExtensionNames.includes(extname as string)) {
     return CoverTXT;
-  } else if (ArchiveExtensionNames.includes(extensionName as string)) {
+  } else if (ArchiveExtensionNames.includes(extname as string)) {
     return CoverZip;
-  } else if (WordExtensionNames.includes(extensionName as string)) {
+  } else if (WordExtensionNames.includes(extname as string)) {
     return CoverWord;
-  } else if (PPTExtensionNames.includes(extensionName as string)) {
+  } else if (PPTExtensionNames.includes(extname as string)) {
     return CoverPPT;
-  } else if (ExcelExtensionNames.includes(extensionName as string)) {
+  } else if (ExcelExtensionNames.includes(extname as string)) {
     return CoverExcel;
-  } else if (mime?.startsWith('image/') || ImageExtensionNames.includes(extensionName as string)) {
+  } else if (mime?.startsWith('image/') || ImageExtensionNames.includes(extname as string)) {
     return CoverImage;
-  } else if (mime?.startsWith('audio/') || AudioExtensionNames.includes(extensionName as string)) {
+  } else if (mime?.startsWith('audio/') || AudioExtensionNames.includes(extname as string)) {
     return CoverAudio;
-  } else if (mime?.startsWith('video/') || VideoExtensionNames.includes(extensionName as string)) {
+  } else if (mime?.startsWith('video/') || VideoExtensionNames.includes(extname as string)) {
     return CoverVideo;
   } else {
     return CoverOther;

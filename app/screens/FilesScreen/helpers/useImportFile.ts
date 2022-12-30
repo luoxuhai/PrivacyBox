@@ -6,7 +6,7 @@ import { translate } from '@/i18n';
 import { fileKeys } from '../constants';
 import Photo from '@/database/entities/photo';
 import { useStores } from '@/models';
-import { FetchFilesResult, updateFiles, fetchFiles } from '@/services/local/file';
+import { FetchFilesResult, updateFiles, addFiles } from '@/services/local/file';
 import { IResult } from './FileImporter';
 
 export function useImportFile(folderId: string) {
@@ -16,7 +16,14 @@ export function useImportFile(folderId: string) {
   } = useStores();
   const { mutate: handleImportFile } = useMutation({
     mutationFn: async (files?: IResult[] | void) => {
-      await updateFiles(files);
+      if (!files) {
+        return;
+      }
+
+      await addFiles({
+        parent_id: folderId,
+        files,
+      });
     },
     onError(error: Error) {
       Overlay.toast({

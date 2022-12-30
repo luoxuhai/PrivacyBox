@@ -19,7 +19,7 @@ export const FileThumbnail = observer<FileThumbnailProps>((props) => {
   const isFolder = type === FileTypes.Folder;
 
   const CoverComponent = useMemo(
-    () => getCoverComponent(name, mime, isFolder),
+    () => getCoverComponent(isFolder, mime, name),
     [name, mime, isFolder],
   );
 

@@ -6,14 +6,15 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useQuery } from '@tanstack/react-query';
 import { StackActions } from '@react-navigation/native';
+import FileViewer from 'react-native-file-viewer';
 
 import { FilesNavigatorParamList } from '@/navigators';
 import { Screen, FlatGrid } from '@/components';
-import { spacing, useTheme } from '@/theme';
+import { spacing } from '@/theme';
 import { FileItem } from './components/FileItem';
 import { ContextMenu } from './components/ContextMenu';
 import { ImportButton } from './components/ImportButton';
-import { useSafeAreaDimensions } from '@/utils';
+import { useRefreshOnFocus, useSafeAreaDimensions } from '@/utils';
 import { FolderContextProvider } from './context/FolderContext';
 import { fileKeys } from './constants';
 import { MIN_SCREEN_WIDTH } from '@/constants';
@@ -44,7 +45,11 @@ export const FilesScreen: FC<StackScreenProps<FilesNavigatorParamList, 'Files'>>
       });
     }, [title, parentId]);
 
-    const { data: files, isLoading } = useQuery({
+    const {
+      data: files,
+      isLoading,
+      refetch: refetchFiles,
+    } = useQuery({
       queryKey: fileKeys.list(`${inFakeEnvironment}:${parentId}`),
       queryFn: async () => {
         return await fetchFiles({
@@ -54,6 +59,8 @@ export const FilesScreen: FC<StackScreenProps<FilesNavigatorParamList, 'Files'>>
       },
       enabled: true,
     });
+
+    useRefreshOnFocus(refetchFiles);
 
     const handlePushFolder = useCallback(
       (item: FetchFilesResult) => {
@@ -70,6 +77,14 @@ export const FilesScreen: FC<StackScreenProps<FilesNavigatorParamList, 'Files'>>
       (item: FetchFilesResult) => {
         if (item.type === FileTypes.Folder) {
           handlePushFolder(item);
+        } else {
+          FileViewer.open(item.uri, {
+            displayName: item.name,
+            // showAppsSuggestions?: boolean;
+            // showOpenWithDialog?: boolean;
+            // onDismiss?(): any;
+            // onContentUpdate?(): any;
+          });
         }
       },
       [props.navigation.dispatch],
@@ -78,7 +93,7 @@ export const FilesScreen: FC<StackScreenProps<FilesNavigatorParamList, 'Files'>>
     const renderItem = useCallback(
       ({ item }: { item: FetchFilesResult }) => {
         return (
-          <ContextMenu item={item} onPressMenuPreview={() => handlePushFolder(item)}>
+          <ContextMenu item={item}>
             <FileItem item={item} onOpen={() => handleOpenFile(item)} />
           </ContextMenu>
         );

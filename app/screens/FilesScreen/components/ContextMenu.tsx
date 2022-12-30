@@ -13,7 +13,6 @@ import { useDeleteFile } from '../helpers/useDeleteFile';
 interface ContextMenuProps {
   item: FetchFilesResult;
   children: ReactElement;
-  onPressMenuPreview?: () => void;
 }
 
 export const ContextMenu = observer<ContextMenuProps>((props) => {
@@ -45,11 +44,7 @@ export const ContextMenu = observer<ContextMenuProps>((props) => {
   }, []);
 
   return (
-    <ContextMenuView
-      menuConfig={menuConfig}
-      onPressMenuItem={handlePressMenuItem}
-      onPressMenuPreview={props.onPressMenuPreview}
-    >
+    <ContextMenuView menuConfig={menuConfig} onPressMenuItem={handlePressMenuItem}>
       {props.children}
     </ContextMenuView>
   );

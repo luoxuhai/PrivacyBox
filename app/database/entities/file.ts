@@ -3,8 +3,8 @@ import { Entity, Column, VersionColumn, PrimaryColumn } from 'typeorm/browser';
 import { FileTypes, Status } from './types';
 
 interface FileMetadata {
-  compressed?: number;
-  hash?: string;
+  localIdentifier?: string;
+  exif?: Record<string, any>;
 }
 
 type Extra = {
@@ -62,6 +62,9 @@ export default class File {
 
   @Column('varchar', { nullable: true })
   mime?: string;
+
+  @Column('varchar', { nullable: true })
+  uri!: string;
 
   /**
    * 元数据

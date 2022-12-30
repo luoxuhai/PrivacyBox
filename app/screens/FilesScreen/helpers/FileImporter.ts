@@ -2,6 +2,7 @@ import DocumentPicker, { DocumentPickerOptions } from 'react-native-document-pic
 import { DocumentCamera } from 'react-native-app-toolkit';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { Alert } from 'react-native';
+import { stat } from 'react-native-fs';
 import mime from 'mime';
 import { getAssetInfoAsync } from 'expo-media-library';
 
@@ -10,10 +11,10 @@ import { randomNum, PermissionManager } from '@/utils';
 
 export interface IResult {
   /** 文件的显示名称 */
-  name?: string;
-  uri?: string;
+  name: string;
+  uri: string;
   mime: string | null;
-  size?: number | null;
+  size: number | null;
   // 相册专属
   localIdentifier?: string;
   width?: number;
@@ -35,6 +36,8 @@ export class FileImporter {
         quality: 1,
         presentationStyle: 'pageSheet',
       });
+
+      console.log('getAssetInfoAsync', await getAssetInfoAsync(result.assets[0].id));
 
       return result.assets.map((asset) => ({
         name: asset.fileName,
@@ -78,12 +81,17 @@ export class FileImporter {
         return;
       }
 
-      const result = await DocumentCamera.open();
+      const result = await DocumentCamera.open({
+        type: 'pdf',
+        quality: 1,
+      });
+
+      const { size } = await stat(result.source);
 
       return [
         {
-          name: `scan-${randomNum(5)}-${performance.now()}.pdf`,
-          size: 0,
+          name: `SCAN-${randomNum(5)}-${Date.now()}.pdf`,
+          size,
           mime: mime.getType('pdf'),
           uri: result.source,
         },

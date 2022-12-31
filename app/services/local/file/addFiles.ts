@@ -40,7 +40,7 @@ export async function addFiles(params: AddFilesParams) {
       const id = generateUUID();
 
       // 文件存放目录
-      const destDir = path.join(LocalPathManager.photoPath, id);
+      const destDir = path.join(LocalPathManager.filePath, id);
       await mkdir(destDir, { NSURLIsExcludedFromBackupKey: true });
 
       // 最终的文件地址

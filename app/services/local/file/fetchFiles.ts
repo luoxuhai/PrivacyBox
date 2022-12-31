@@ -2,11 +2,13 @@ import { AppDataSource } from '@/database';
 import File from '@/database/entities/file';
 import { Status } from '@/database/entities/types';
 import { IsNull } from 'typeorm';
+import { joinFileUri } from '../helpers/joinFileUri';
 
 type FetchFilesParams = Partial<Pick<File, 'name' | 'status' | 'is_fake' | 'parent_id' | 'id'>>;
 
 export type FetchFilesResult = File & {
   item_count: number;
+  uri?: string;
 };
 
 export async function fetchFiles(params: FetchFilesParams): Promise<FetchFilesResult[]> {
@@ -20,6 +22,7 @@ export async function fetchFiles(params: FetchFilesParams): Promise<FetchFilesRe
 
   for (const item of result) {
     item.item_count = await fetchItemCount(item.id);
+    item.uri = joinFileUri(item);
   }
 
   return result;

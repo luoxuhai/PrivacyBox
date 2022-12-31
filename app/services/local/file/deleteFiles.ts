@@ -31,9 +31,10 @@ export async function deleteFiles(params: DeleteFilesParams) {
     await AppDataSource.manager.delete(File, {
       parent_id: params.id,
     });
+  } else {
+    // 删除文件
+    await unlink(path.join(LocalPathManager.photoPath, item.id));
   }
-
-  await unlink(path.join(LocalPathManager.photoPath, item.id));
 
   return result;
 }

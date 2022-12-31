@@ -1,2 +1,1 @@
-export const databaseName = 'privacy_box';
-
+export const databaseName = 'privacy_box.sqlite';

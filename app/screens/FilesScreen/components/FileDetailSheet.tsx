@@ -4,13 +4,12 @@ import { observer } from 'mobx-react-lite';
 import ActionSheet, { SheetProps, ActionSheetRef } from 'react-native-actions-sheet';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { radius, spacing, useTheme } from '@/theme';
+import { radius, spacing, typography, useTheme } from '@/theme';
 import { translate } from '@/i18n';
 import { SafeAreaScrollView } from '@/components';
 import { FetchFilesResult } from '@/services/local/file';
 import { FileTypes } from '@/database/entities/types';
 import { getFileTypeName } from '../helpers/getFileTypeName';
-import { format } from 'date-fns';
 import { formatDate, formatSize } from '@/utils';
 
 const t = translate;
@@ -44,7 +43,7 @@ export const FileDetailSheet = observer<FileDetailSheetProps>((props) => {
     >
       <SafeAreaScrollView contentContainerStyle={$bottomSheetContent}>
         {list?.map((item) => (
-          <View style={$operationContainer} key={item.type}>
+          <View style={$listContainer} key={item.type}>
             <Text
               style={[
                 $label,
@@ -56,9 +55,16 @@ export const FileDetailSheet = observer<FileDetailSheetProps>((props) => {
               {item.label}：
             </Text>
 
-            <Text selectable numberOfLines={2} style={{ color: colors.label }}>
-              {item.value}
-            </Text>
+            <View style={$valueContainer}>
+              <Text
+                selectable
+                ellipsizeMode="middle"
+                numberOfLines={2}
+                style={{ color: colors.label }}
+              >
+                {item.value}
+              </Text>
+            </View>
           </View>
         ))}
       </SafeAreaScrollView>
@@ -100,13 +106,17 @@ const $bottomSheetContent: ViewStyle = {
   paddingVertical: spacing[5],
 };
 
-const $operationContainer: ViewStyle = {
+const $listContainer: ViewStyle = {
   flexDirection: 'row',
   alignItems: 'center',
   height: 40,
 };
 
 const $label: TextStyle = {
-  fontSize: 16,
   marginRight: 5,
+  ...typography.callout,
+};
+
+const $valueContainer: ViewStyle = {
+  flex: 1,
 };

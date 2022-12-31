@@ -1,4 +1,4 @@
-import { Entity, Column, VersionColumn, PrimaryColumn } from 'typeorm/browser';
+import { Entity, Column, VersionColumn, PrimaryColumn } from 'typeorm';
 
 import { FileTypes, Status } from './types';
 
@@ -62,9 +62,6 @@ export default class File {
 
   @Column('varchar', { nullable: true })
   mime?: string;
-
-  @Column('varchar', { nullable: true })
-  uri!: string;
 
   /**
    * 元数据

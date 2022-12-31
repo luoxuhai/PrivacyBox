@@ -1,20 +1,16 @@
-import React, { FC } from 'react';
+import React from 'react';
 import {
   Text,
   View,
   ViewStyle,
-  StyleProp,
   Pressable,
   StyleSheet,
   TextStyle,
   TouchableOpacity,
 } from 'react-native';
 import { observer } from 'mobx-react-lite';
-import { StackScreenProps } from '@react-navigation/stack';
-import { useNavigation } from '@react-navigation/native';
 import FastImage, { ImageStyle } from 'react-native-fast-image';
 import { MoreVert } from 'iconoir-react-native';
-import { HoldItem } from 'react-native-hold-menu';
 
 import { BlurView } from '@/components';
 import { radius, spacing, typography, useTheme } from '@/theme';

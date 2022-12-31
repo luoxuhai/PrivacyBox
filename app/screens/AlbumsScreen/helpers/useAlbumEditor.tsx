@@ -3,7 +3,7 @@ import { ActionSheetIOS, Alert } from 'react-native';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { Overlay } from '@/utils';
-import { albumKeys } from './constants';
+import { albumKeys } from '../constants';
 import { deleteAlbum, fetchAlbums, updateAlbum } from '@/services/local';
 import Photo from '@/database/entities/photo';
 import { useStores } from '@/models';

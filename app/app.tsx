@@ -19,7 +19,6 @@ import { ErrorBoundary } from './screens/ErrorScreen/ErrorBoundary';
 import { useDataMigrator } from './screens/DataMigratorScreen/useDataMigrator';
 import { storage } from './utils/storage';
 import Config from './config';
-import { useTheme } from './theme';
 
 export const NAVIGATION_PERSISTENCE_KEY = 'NAVIGATION_STATE';
 

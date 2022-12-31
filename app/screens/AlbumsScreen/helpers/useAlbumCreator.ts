@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { createAlbum, fetchAlbums } from '@/services/local';
 import { Overlay } from '@/utils';
-import { albumKeys } from './constants';
+import { albumKeys } from '../constants';
 import { useStores } from '@/models';
 import { translate } from '@/i18n';
 

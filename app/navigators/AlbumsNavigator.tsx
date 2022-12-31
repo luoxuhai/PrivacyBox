@@ -5,10 +5,11 @@ import { observer } from 'mobx-react-lite';
 import { AlbumsScreen } from '@/screens';
 import { useTheme } from '@/theme';
 import { translate } from '@/i18n';
+import { AppStackParamList } from './AppNavigator';
 
 export type AlbumsNavigatorParamList = {
   Album: undefined;
-};
+} & AppStackParamList;
 
 const Stack = createNativeStackNavigator<AlbumsNavigatorParamList>();
 

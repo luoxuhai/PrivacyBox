@@ -1,0 +1,52 @@
+diff --git a/node_modules/react-native-document-picker/ios/RNDocumentPicker.m b/node_modules/react-native-document-picker/ios/RNDocumentPicker.m
+index 51e6d5b..33c4953 100644
+--- a/node_modules/react-native-document-picker/ios/RNDocumentPicker.m
++++ b/node_modules/react-native-document-picker/ios/RNDocumentPicker.m
+@@ -20,6 +20,9 @@
+ static NSString *const FIELD_NAME = @"name";
+ static NSString *const FIELD_TYPE = @"type";
+ static NSString *const FIELD_SIZE = @"size";
++static NSString *const FIELD_CTIME = @"ctime";
++static NSString *const FIELD_MTIME = @"mtime";
++
+ 
+ 
+ @interface RNDocumentPicker () <UIDocumentPickerDelegate, UIAdaptivePresentationControllerDelegate>
+@@ -141,6 +144,11 @@ - (NSMutableDictionary *)getMetadataForUrl:(NSURL *)url error:(NSError **)error
+         NSDictionary *fileAttributes = [NSFileManager.defaultManager attributesOfItemAtPath:newURL.path error:&attributesError];
+         if(!attributesError) {
+             result[FIELD_SIZE] = fileAttributes[NSFileSize];
++            
++            long long ctime = fileAttributes.fileCreationDate.timeIntervalSince1970 * 1000;
++            long long mtime = fileAttributes.fileModificationDate.timeIntervalSince1970 * 1000;
++            result[FIELD_CTIME] = @(ctime);
++            result[FIELD_MTIME] = @(mtime);
+         } else {
+             result[FIELD_SIZE] = [NSNull null];
+             NSLog(@"RNDocumentPicker: %@", attributesError);
+diff --git a/node_modules/react-native-document-picker/lib/typescript/index.d.ts b/node_modules/react-native-document-picker/lib/typescript/index.d.ts
+index 646da62..9095d61 100644
+--- a/node_modules/react-native-document-picker/lib/typescript/index.d.ts
++++ b/node_modules/react-native-document-picker/lib/typescript/index.d.ts
+@@ -7,6 +7,8 @@ export declare type DocumentPickerResponse = {
+     fileCopyUri: string | null;
+     type: string | null;
+     size: number | null;
++    ctime: number;
++    mtime: number;
+ };
+ export declare const types: Readonly<{
+     readonly allFiles: "*/*";
+diff --git a/node_modules/react-native-document-picker/src/index.tsx b/node_modules/react-native-document-picker/src/index.tsx
+index 47b2e6f..bc9af56 100644
+--- a/node_modules/react-native-document-picker/src/index.tsx
++++ b/node_modules/react-native-document-picker/src/index.tsx
+@@ -10,6 +10,8 @@ export type DocumentPickerResponse = {
+   fileCopyUri: string | null
+   type: string | null
+   size: number | null
++  ctime: number
++  mtime: number
+ }
+ 
+ export const types = perPlatformTypes[Platform.OS]

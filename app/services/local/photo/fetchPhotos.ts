@@ -7,7 +7,7 @@ import { joinPhotoUri } from '../helpers/joinPhotoUri';
 
 type FetchPhotosParams = Partial<Pick<Photo, 'name' | 'status' | 'is_fake' | 'parent_id'>>;
 
-type FetchPhotosResult = Photo & {
+export type FetchPhotosResult = Photo & {
   uri: string;
 };
 

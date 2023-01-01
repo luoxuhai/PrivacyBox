@@ -22,7 +22,15 @@ export enum PhotoTypes {
 
 export enum PhotoSubtypes {
   // 实况图片
-  LivePhoto = 4,
+  LivePhoto = 1,
+  // 截图
+  Screenshot,
+  DepthEffect,
+  Hdr,
+  HighFrameRate,
+  Panorama,
+  Stream,
+  Timelapse,
 }
 
 export enum Status {

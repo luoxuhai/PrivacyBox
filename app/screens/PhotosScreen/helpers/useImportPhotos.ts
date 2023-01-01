@@ -2,26 +2,27 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { Overlay } from '@/utils';
 import { translate } from '@/i18n';
-import { fileKeys } from '../constants';
+import { photoKeys } from '../constants';
 import { useStores } from '@/models';
-import { addFiles } from '@/services/local/file';
-import { IResult } from './FileImporter';
+import { PhotoImporterResult } from './PhotoImporter';
+import { addPhotos } from '@/services/local';
+import { albumKeys } from '@/screens/AlbumsScreen/constants';
 
-export function useImportFile(folderId: string) {
+export function useImportPhotos(albumId: string) {
   const queryClient = useQueryClient();
   const {
     appLockStore: { inFakeEnvironment },
   } = useStores();
   const { mutate: handleImportFile } = useMutation({
-    mutationFn: async (files?: IResult[] | void) => {
-      if (!files) {
+    mutationFn: async (photos?: PhotoImporterResult[] | void) => {
+      if (!photos) {
         return;
       }
 
-      await addFiles({
-        parent_id: folderId,
+      await addPhotos({
+        album_id: albumId,
         is_fake: inFakeEnvironment,
-        files,
+        photos,
       });
     },
     onError(error: Error) {
@@ -32,7 +33,8 @@ export function useImportFile(folderId: string) {
       });
     },
     onSuccess() {
-      queryClient.refetchQueries(fileKeys.list(`${inFakeEnvironment}:${folderId}`));
+      queryClient.refetchQueries(photoKeys.list(`${inFakeEnvironment}:${albumId}`));
+      queryClient.refetchQueries(albumKeys.detail(albumId));
       Overlay.toast({
         preset: 'done',
         title: translate('filesScreen.rename.success'),

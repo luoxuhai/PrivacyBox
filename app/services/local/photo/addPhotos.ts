@@ -1,24 +1,19 @@
 import { mkdir, moveFile } from 'react-native-fs';
 
 import { AppDataSource } from '@/database';
-import File from '@/database/entities/file';
 import * as path from '@/lib/path';
 import { generateUUID, LocalPathManager } from '@/utils';
-import { getFileTypeByMime } from '@/utils/getFileTypeByMime';
+import { getPhotoTypeByMime } from '@/utils/getFileTypeByMime';
+import Photo from '@/database/entities/photo';
+import { PhotoTypes } from '@/database/entities/types';
+import { PhotoImporterResult } from '@/screens/PhotosScreen/helpers/PhotoImporter';
 
-interface FileSource {
-  name: string;
-  uri: string;
-  size: number;
-  mime: string;
-  // 相册文件专属
-  localIdentifier?: string;
-}
+type PhotoSource = PhotoImporterResult;
 
 type AddFilesParams = {
-  parent_id: string | null;
+  album_id: string;
   is_fake: boolean;
-  files: FileSource[];
+  photos: PhotoSource[];
 };
 
 /**
@@ -29,42 +24,61 @@ export async function addPhotos(params: AddFilesParams) {
     throw Error('invalid params');
   }
 
-  const { parent_id, is_fake = false } = params;
+  const { album_id, is_fake = false } = params;
 
-  console.log(params.files);
+  console.log(params.photos);
 
-  for (const file of params.files) {
+  for (const photo of params.photos) {
     try {
-      const { name, size, mime, localIdentifier } = file;
+      const { name, mime, width, height, duration } = photo;
       // 文件主键
       const id = generateUUID();
 
       // 文件存放目录
-      const destDir = path.join(LocalPathManager.filePath, id);
+      const destDir = path.join(LocalPathManager.photoPath, id);
       await mkdir(destDir, { NSURLIsExcludedFromBackupKey: true });
 
       // 最终的文件地址
       const uri = path.join(destDir, name);
-      await moveFile(file.uri, uri);
+      await moveFile(photo.uri, uri);
 
       // 文件类型
-      const type = getFileTypeByMime(mime);
-      console.log(id, parent_id, name, size, mime, uri, is_fake, type);
+      const type = getPhotoTypeByMime(mime);
 
-      const data = {
+      const createdDate = Date.now();
+      const data: Photo = {
         id,
-        parent_id,
+        parent_id: album_id,
         name,
-        size,
-        mime,
-        uri,
+        size: photo.size,
+        mime: photo.mime,
         is_fake,
         type,
         metadata: {
-          localIdentifier,
+          localIdentifier: photo.localIdentifier,
+          exif: photo.exif,
+          location: photo.location,
+          ctime: photo.ctime,
+          mtime: photo.mtime,
         },
+        created_date: createdDate,
+        updated_date: createdDate,
       };
-      await AppDataSource.manager.insert(File, data);
+
+      if (type === PhotoTypes.Photo) {
+        data.image_details = {
+          width,
+          height,
+        };
+      } else {
+        data.video_details = {
+          width,
+          height,
+          duration,
+        };
+      }
+
+      await AppDataSource.manager.insert(Photo, data);
     } catch (error) {
       console.error('[Add File]', error);
     }
@@ -74,7 +88,7 @@ export async function addPhotos(params: AddFilesParams) {
 }
 
 function isValidParams(params: AddFilesParams) {
-  return params.files.length;
+  return params.photos.length && params.album_id;
 }
 
 // function getCriteria(params: DeleteFilesParams) {

@@ -1,10 +1,8 @@
 import DocumentPicker, { DocumentPickerOptions } from 'react-native-document-picker';
 import { DocumentCamera } from 'react-native-app-toolkit';
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { Alert } from 'react-native';
 import { stat } from 'react-native-fs';
 import mime from 'mime';
-import { getAssetInfoAsync } from 'expo-media-library';
 
 import { translate } from '@/i18n';
 import { randomNum, PermissionManager } from '@/utils';
@@ -15,6 +13,8 @@ export interface IResult {
   uri: string;
   mime: string | null;
   size: number | null;
+  ctime: number;
+  mtime: number;
   // 相册专属
   localIdentifier?: string;
   width?: number;
@@ -24,34 +24,6 @@ export interface IResult {
 }
 
 export class FileImporter {
-  public static album = {
-    async open(): Promise<IResult[] | void> {
-      if (!(await PermissionManager.checkPermissions(['ios.permission.PHOTO_LIBRARY']))) {
-        return;
-      }
-      const result = await launchImageLibrary({
-        mediaType: 'mixed',
-        selectionLimit: 0,
-        includeExtra: true,
-        quality: 1,
-        presentationStyle: 'pageSheet',
-      });
-
-      console.log('getAssetInfoAsync', await getAssetInfoAsync(result.assets[0].id));
-
-      return result.assets.map((asset) => ({
-        name: asset.fileName,
-        size: asset.fileSize,
-        uri: asset.uri.replace('file://', ''),
-        mime: asset.type,
-        width: asset.width,
-        height: asset.height,
-        duration: asset.duration ? asset.duration * 1000 : 0,
-        localIdentifier: asset.id,
-      }));
-    },
-  };
-
   public static document = {
     async open(options?: DocumentPickerOptions<'ios'>): Promise<IResult[] | void> {
       const result = await DocumentPicker.pick({
@@ -66,6 +38,8 @@ export class FileImporter {
         uri: decodeURI(item.uri?.replace(/^file:\/\//, '')),
         size: item.size,
         mime: item.type,
+        ctime: item.ctime,
+        mtime: item.mtime,
       }));
     },
   };
@@ -88,39 +62,17 @@ export class FileImporter {
 
       const { size } = await stat(result.source);
 
+      const ctime = Date.now();
       return [
         {
           name: `SCAN-${randomNum(5)}-${Date.now()}.pdf`,
           size,
           mime: mime.getType('pdf'),
           uri: result.source,
+          ctime,
+          mtime: ctime,
         },
       ];
-    },
-  };
-
-  public static camera = {
-    async open(): Promise<IResult[] | void> {
-      if (!(await PermissionManager.checkPermissions(['ios.permission.CAMERA']))) {
-        return;
-      }
-
-      const result = await launchCamera({
-        cameraType: 'back',
-        mediaType: 'mixed',
-        presentationStyle: 'fullScreen',
-        saveToPhotos: false,
-      });
-
-      return result.assets?.map((asset) => ({
-        name: asset.fileName,
-        size: asset.fileSize,
-        uri: asset.uri.replace('file://', ''),
-        mime: asset.type,
-        width: asset.width,
-        height: asset.height,
-        duration: asset.duration ? asset.duration * 1000 : 0,
-      }));
     },
   };
 }

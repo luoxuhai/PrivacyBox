@@ -7,8 +7,11 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { radius, useTheme, Colors } from '@/theme';
 import { translate } from '@/i18n';
-import { PhotoImportTypes } from '../constants';
-import { PhotoImporter } from '../helpers/PhotoImporter';
+import { PhotoImportTypes, photoKeys } from '../constants';
+import { IResult, PhotoImporter } from '../helpers/PhotoImporter';
+import { useImportPhotos } from '../helpers/useImportPhotos';
+import { useQueryClient } from '@tanstack/react-query';
+import { useStores } from '@/models';
 
 const ICON_PROPS = {
   size: 30,
@@ -23,23 +26,26 @@ export const PhotoImporterSheet = observer<PhotoImporterSheetProps>((props) => {
   const safeAreaInsets = useSafeAreaInsets();
   const actionSheetRef = useRef<ActionSheetRef>(null);
 
+  const handleImportPhotos = useImportPhotos(albumId);
   const list = useMemo(() => getFileImportList(colors), [colors]);
 
   async function handleImport(type: any) {
+    let photos: IResult[] | void;
     switch (type) {
       case PhotoImportTypes.Photos:
-        PhotoImporter.album.open();
+        photos = await PhotoImporter.album.open();
         break;
       case PhotoImportTypes.Document:
-        PhotoImporter.document.open();
+        photos = await PhotoImporter.document.open();
         break;
       case PhotoImportTypes.Camera:
-        PhotoImporter.camera.open();
-        break;
-      case PhotoImportTypes.Download:
-        PhotoImporter.download.open();
+        photos = await PhotoImporter.camera.open();
         break;
     }
+
+    console.log(photos);
+
+    handleImportPhotos(photos);
 
     // actionSheetRef.current.hide();
   }
@@ -128,18 +134,19 @@ function getFileImportList(colors: Colors) {
       title: translate('photosScreen.import.camera'),
       color: colors.palette.primary6,
     },
-    {
-      type: PhotoImportTypes.Download,
-      icon: (
-        <SFSymbol
-          name="arrow.down.circle"
-          color={ICON_PROPS.color}
-          style={{ width: ICON_PROPS.size, height: ICON_PROPS.size }}
-        />
-      ),
-      title: translate('photosScreen.import.download'),
-      color: colors.palette.green,
-    },
+    // TODO
+    // {
+    //   type: PhotoImportTypes.Download,
+    //   icon: (
+    //     <SFSymbol
+    //       name="arrow.down.circle"
+    //       color={ICON_PROPS.color}
+    //       style={{ width: ICON_PROPS.size, height: ICON_PROPS.size }}
+    //     />
+    //   ),
+    //   title: translate('photosScreen.import.download'),
+    //   color: colors.palette.green,
+    // },
   ];
 }
 

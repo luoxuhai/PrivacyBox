@@ -8,14 +8,14 @@ import { useQuery } from '@tanstack/react-query';
 
 import { AppStackParamList } from '@/navigators';
 import { FlatGrid, Screen } from '@/components';
-import {  useSafeAreaDimensions } from '@/utils';
+import { useSafeAreaDimensions } from '@/utils';
 import { ContextMenu } from './components/ContextMenu';
 import { PhotoItem } from './components/PhotoItem';
 import { ImportButton } from './components/ImportButton';
 import { HeaderAlbumDetail } from './components/HeaderAlbumDetail';
 import { photoKeys } from './constants';
 import { useStores } from '@/models';
-import { fetchPhotos } from '@/services/local';
+import { fetchPhotos, FetchPhotosResult } from '@/services/local';
 
 export interface PhotosNavigatorParams {
   albumId: string;
@@ -48,7 +48,7 @@ export const PhotosScreen: FC<StackScreenProps<AppStackParamList, 'Photos'>> = o
     enabled: true,
   });
 
-  const renderItem = useCallback(({ item }) => {
+  const renderItem = useCallback(({ item }: { item: FetchPhotosResult }) => {
     return (
       <ContextMenu item={item}>
         <PhotoItem item={item} />
@@ -58,23 +58,20 @@ export const PhotosScreen: FC<StackScreenProps<AppStackParamList, 'Photos'>> = o
 
   return (
     <Screen>
-      <SafeAreaView style={$safeAreaView} edges={['left', 'right']}>
+      <SafeAreaView style={$safeAreaView} edges={['left', 'right', 'bottom']}>
         <FlatGrid
           contentInsetAdjustmentBehavior="automatic"
           estimatedItemSize={150}
           itemWidth={landscape ? 120 : 110}
           autoHeight
           width={safeAreaDimensions.width}
-          horizontalSpacingShown={false}
           itemWidthFixed={false}
-          spacing={4}
+          spacing={2}
           data={photos}
           renderItem={renderItem}
-          refreshing={false}
-          onRefresh={() => {}}
         />
       </SafeAreaView>
-      <ImportButton albumId={'parentId'} />
+      <ImportButton albumId={albumId} />
     </Screen>
   );
 });

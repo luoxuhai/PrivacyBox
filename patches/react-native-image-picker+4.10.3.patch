@@ -1,27 +1,23 @@
 diff --git a/node_modules/react-native-image-picker/ios/ImagePickerManager.m b/node_modules/react-native-image-picker/ios/ImagePickerManager.m
-index 10c5b4e..4d67662 100644
+index 10c5b4e..f1a739f 100644
 --- a/node_modules/react-native-image-picker/ios/ImagePickerManager.m
 +++ b/node_modules/react-native-image-picker/ios/ImagePickerManager.m
-@@ -195,9 +195,16 @@ -(NSMutableDictionary *)mapImageToAsset:(UIImage *)image data:(NSData *)data phA
+@@ -195,9 +195,12 @@ -(NSMutableDictionary *)mapImageToAsset:(UIImage *)image data:(NSData *)data phA
      asset[@"height"] = @(newImage.size.height);
      
      if(phAsset){
 -        asset[@"timestamp"] = [self getDateTimeInUTC:phAsset.creationDate];
-+        long long ctime = phAsset.creationDate.timeIntervalSince1970 * 1000;
-+        long long mtime = phAsset.modificationDate.timeIntervalSince1970 * 1000;
-+        asset[@"ctime"] = @(ctime);
-+        asset[@"mtime"] = @(mtime);
          asset[@"id"] = phAsset.localIdentifier;
 -        // Add more extra data here ...
 +        CLLocation * location = phAsset.location;
 +        asset[@"location"] = @{@"speed": @(location.speed),
-+                              @"altitude": @(location.altitude),
-+                              @"latitude": @(location.coordinate.latitude),
++                               @"altitude": @(location.altitude),
++                               @"latitude": @(location.coordinate.latitude),
 +                               @"longitude": @(location.coordinate.longitude)};
      }
      
      return asset;
-@@ -252,7 +259,7 @@ -(NSMutableDictionary *)mapVideoToAsset:(NSURL *)url phAsset:(PHAsset * _Nullabl
+@@ -252,7 +255,7 @@ -(NSMutableDictionary *)mapVideoToAsset:(NSURL *)url phAsset:(PHAsset * _Nullabl
      NSMutableDictionary *asset = [[NSMutableDictionary alloc] init];
      CGSize dimentions = [ImagePickerUtils getVideoDimensionsFromUrl:videoDestinationURL];
      asset[@"fileName"] = fileName;
@@ -30,21 +26,17 @@ index 10c5b4e..4d67662 100644
      asset[@"uri"] = videoDestinationURL.absoluteString;
      asset[@"type"] = [ImagePickerUtils getFileTypeFromUrl:videoDestinationURL];
      asset[@"fileSize"] = [ImagePickerUtils getFileSizeFromUrl:videoDestinationURL];
-@@ -260,9 +267,16 @@ -(NSMutableDictionary *)mapVideoToAsset:(NSURL *)url phAsset:(PHAsset * _Nullabl
+@@ -260,9 +263,12 @@ -(NSMutableDictionary *)mapVideoToAsset:(NSURL *)url phAsset:(PHAsset * _Nullabl
      asset[@"height"] = @(dimentions.height);
  
      if(phAsset){
 -        asset[@"timestamp"] = [self getDateTimeInUTC:phAsset.creationDate];
-+        long long ctime = phAsset.creationDate.timeIntervalSince1970 * 1000;
-+        long long mtime = phAsset.modificationDate.timeIntervalSince1970 * 1000;
-+        asset[@"ctime"] = @(ctime);
-+        asset[@"mtime"] = @(mtime);
          asset[@"id"] = phAsset.localIdentifier;
 -        // Add more extra data here ...
 +        CLLocation * location = phAsset.location;
 +        asset[@"location"] = @{@"speed": @(location.speed),
-+                              @"altitude": @(location.altitude),
-+                              @"latitude": @(location.coordinate.latitude),
++                               @"altitude": @(location.altitude),
++                               @"latitude": @(location.coordinate.latitude),
 +                               @"longitude": @(location.coordinate.longitude)};
      }
  
@@ -66,3 +58,27 @@ index 3afe9d6..f0787cd 100644
      picker.modalPresentationStyle = [RCTConvert UIModalPresentationStyle:options[@"presentationStyle"]];
  }
  
+diff --git a/node_modules/react-native-image-picker/lib/typescript/types.d.ts b/node_modules/react-native-image-picker/lib/typescript/types.d.ts
+index 76f9bf1..aef66b5 100644
+--- a/node_modules/react-native-image-picker/lib/typescript/types.d.ts
++++ b/node_modules/react-native-image-picker/lib/typescript/types.d.ts
+@@ -29,6 +29,7 @@ export interface Asset {
+     bitrate?: number;
+     timestamp?: string;
+     id?: string;
++    location?: any;
+ }
+ export interface ImagePickerResponse {
+     didCancel?: boolean;
+diff --git a/node_modules/react-native-image-picker/src/types.ts b/node_modules/react-native-image-picker/src/types.ts
+index dd7d329..a770990 100644
+--- a/node_modules/react-native-image-picker/src/types.ts
++++ b/node_modules/react-native-image-picker/src/types.ts
+@@ -40,6 +40,7 @@ export interface Asset {
+   bitrate?: number;
+   timestamp?: string;
+   id?: string;
++  location?: any;
+ }
+ 
+ export interface ImagePickerResponse {

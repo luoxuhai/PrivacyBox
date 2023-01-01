@@ -32,7 +32,7 @@ export const ImportButton = observer<ImportButtonProps>((props) => {
       onPress={() => {
         SheetManager.show('photo-importer-sheet', {
           payload: {
-            parentId: props.albumId,
+            albumId: props.albumId,
           },
         });
         HapticFeedback.impact.light();

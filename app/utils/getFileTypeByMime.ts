@@ -1,4 +1,4 @@
-import { FileTypes } from '@/database/entities/types';
+import { FileTypes, PhotoTypes } from '@/database/entities/types';
 
 export function getFileTypeByMime(mime?: string | null): FileTypes {
   if (!mime) return FileTypes.Unknown;
@@ -17,5 +17,13 @@ export function getFileTypeByMime(mime?: string | null): FileTypes {
     return FileTypes.Model;
   } else {
     return FileTypes.Unknown;
+  }
+}
+
+export function getPhotoTypeByMime(mime: string): PhotoTypes {
+  if (mime.startsWith('image/')) {
+    return PhotoTypes.Photo;
+  } else {
+    return PhotoTypes.Video;
   }
 }

@@ -5,18 +5,17 @@ import { observer } from 'mobx-react-lite';
 import { ContextMenuView, MenuConfig } from 'react-native-ios-context-menu';
 import { SheetManager } from 'react-native-actions-sheet';
 
-import { FileTypes } from '@/database/entities/types';
+import { PhotoTypes } from '@/database/entities/types';
 import { translate } from '@/i18n';
-import { FetchFilesResult } from '@/services/local/file';
+import { FetchPhotosResult } from '@/services/local';
 
 interface ContextMenuProps {
-  item: FetchFilesResult;
+  item: FetchPhotosResult;
   children: ReactElement;
 }
 
 export const ContextMenu = observer<ContextMenuProps>((props) => {
-  const isFolder = props.item?.type === FileTypes.Folder;
-  const menuConfig = useMemo<MenuConfig>(() => getMenuConfig(isFolder), [isFolder]);
+  const menuConfig = useMemo<MenuConfig>(() => getMenuConfig(), []);
 
   const handlePressMenuItem = useCallback(({ nativeEvent }) => {
     switch (nativeEvent.actionKey) {
@@ -42,7 +41,11 @@ export const ContextMenu = observer<ContextMenuProps>((props) => {
   }, []);
 
   return (
-    <ContextMenuView menuConfig={menuConfig} onPressMenuItem={handlePressMenuItem}>
+    <ContextMenuView
+      style={{ flex: 1 }}
+      menuConfig={menuConfig}
+      onPressMenuItem={handlePressMenuItem}
+    >
       {props.children}
     </ContextMenuView>
   );
@@ -56,7 +59,7 @@ enum ContextMenuKeys {
   Delete = 'delete',
 }
 
-function getMenuConfig(isFolder: boolean): MenuConfig {
+function getMenuConfig(): MenuConfig {
   return {
     menuTitle: '',
     menuItems: [
@@ -80,7 +83,7 @@ function getMenuConfig(isFolder: boolean): MenuConfig {
               iconValue: 'pencil',
             },
           },
-          !isFolder && {
+          {
             actionKey: ContextMenuKeys.Share,
             actionTitle: translate('common.share'),
             icon: {
@@ -88,7 +91,7 @@ function getMenuConfig(isFolder: boolean): MenuConfig {
               iconValue: 'square.and.arrow.up',
             },
           },
-          !isFolder && {
+          {
             actionKey: ContextMenuKeys.SaveToLocal,
             actionTitle: translate('filesScreen.saveToLocal'),
             icon: {

@@ -15,4 +15,11 @@ declare global {
   interface Console {
     prettyLog(message?: any, ...optionalParams: any[]): void;
   }
+
+  interface Location {
+    latitude?: number;
+    longitude?: number;
+    altitude?: number;
+    speed?: number;
+  }
 }

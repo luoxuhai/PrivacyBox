@@ -95,7 +95,7 @@ function getFileDetailList(item: FetchFilesResult) {
         {
           type: 'ctime',
           label: t('filesScreen.detail.ctime'),
-          value: formatDate(item.created_date, 'yyyy-MM-dd HH:mm:ss'),
+          value: formatDate(item.created_date, 'YYYY-MM-DD HH:mm:ss'),
         },
       ].filter((item) => item)
     : [];

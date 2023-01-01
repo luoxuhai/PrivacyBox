@@ -3,19 +3,22 @@ import { Entity, Column, PrimaryColumn, VersionColumn } from 'typeorm';
 import { PhotoTypes, PhotoSubtypes, Status } from './types';
 
 interface PhotoMetadata {
-  compressed?: number;
-  hash?: string;
+  localIdentifier?: string;
+  exif?: Record<string, any>;
+  location?: Location;
+  ctime: number;
+  mtime: number;
 }
 
 interface ImageDetails {
   width?: number;
   height?: number;
-  duration?: number;
 }
 
 interface VideoDetails {
   width?: number;
   height?: number;
+  duration?: number;
 }
 
 type Extra = {
@@ -28,6 +31,11 @@ type Extra = {
   blurhash?: string;
   [key: string]: any;
 };
+
+interface FileLabel {
+  en?: string[];
+  zh_cn?: string[];
+}
 
 @Entity('photo')
 export default class Photo {

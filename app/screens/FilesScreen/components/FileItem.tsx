@@ -1,18 +1,8 @@
-import React, { FC } from 'react';
-import {
-  Text,
-  View,
-  ViewStyle,
-  StyleProp,
-  Pressable,
-  StyleSheet,
-  TextStyle,
-  TouchableOpacity,
-} from 'react-native';
+import React from 'react';
+import { Text, ViewStyle, TextStyle, TouchableOpacity } from 'react-native';
 import { observer } from 'mobx-react-lite';
-import { format } from 'date-fns-tz';
 
-import { radius, spacing, typography, useTheme } from '@/theme';
+import { useTheme } from '@/theme';
 import { FileThumbnail } from './FileThumbnail/FileThumbnail';
 import { translate } from '@/i18n';
 import { FileTypes } from '@/database/entities/types';
@@ -25,8 +15,7 @@ interface AlbumItemProps {
 }
 
 export const FileItem = observer<AlbumItemProps>((props) => {
-  const { isDark, colors } = useTheme();
-  const textColor = colors.label;
+  const { colors } = useTheme();
 
   return (
     <TouchableOpacity

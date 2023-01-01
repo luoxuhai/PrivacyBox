@@ -1,6 +1,6 @@
 import React from 'react';
 import { HeaderTitle } from '@/components';
-import { useAlbumDetail } from '../helpers/useAlbumDetail';
+import { useAlbumDetail } from '../../AlbumsScreen/helpers/useAlbumDetail';
 import { translate } from '@/i18n';
 import { useDeepMemo } from '@/utils';
 

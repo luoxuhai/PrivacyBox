@@ -1,59 +1,58 @@
-import React, { FC, useCallback } from 'react';
-import { View, ViewStyle } from 'react-native';
+import React, { FC, useCallback, useEffect } from 'react';
+import { ViewStyle } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { StackScreenProps } from '@react-navigation/stack';
-import { HoldItem } from 'react-native-hold-menu';
-// import { HoldItem } from 'react-native-ios-context-menu';
+import { useDeviceOrientation } from '@react-native-community/hooks';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useQuery } from '@tanstack/react-query';
 
 import { AppStackParamList } from '@/navigators';
-import { FlatGrid, Screen, Text } from '@/components';
-import { radius, useTheme } from '@/theme';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useSafeAreaDimensions } from '@/utils';
-import FastImage, { ImageStyle } from 'react-native-fast-image';
-import { useDeviceOrientation } from '@react-native-community/hooks';
+import { FlatGrid, Screen } from '@/components';
+import {  useSafeAreaDimensions } from '@/utils';
+import { ContextMenu } from './components/ContextMenu';
+import { PhotoItem } from './components/PhotoItem';
+import { ImportButton } from './components/ImportButton';
+import { HeaderAlbumDetail } from './components/HeaderAlbumDetail';
+import { photoKeys } from './constants';
+import { useStores } from '@/models';
+import { fetchPhotos } from '@/services/local';
 
-const DATA = Array.from(
-  {
-    length: 50,
-  },
-  (_, i) => ({
-    name: '动物🐒' + i,
-    code: '#1abc9c',
-    id: i,
-    count: i * 10,
-    src: 'https://img.ixintu.com/download/jpg/201911/515cc6ef7502d02ecc33e8eb8951c4b7.jpg!con0',
-  }),
-);
+export interface PhotosNavigatorParams {
+  albumId: string;
+  title?: string;
+}
 
-const MenuItems = [
-  { text: 'Actions', icon: 'home', isTitle: true, onPress: () => {} },
-  { text: 'Action 1', icon: 'edit', onPress: () => {} },
-  { text: 'Action 2', icon: 'map-pin', withSeparator: true, onPress: () => {} },
-  { text: 'Action 3', icon: 'trash', isDestructive: true, onPress: () => {} },
-];
+export const PhotosScreen: FC<StackScreenProps<AppStackParamList, 'Photos'>> = observer((props) => {
+  const { albumId, title } = props.route.params;
 
-export const PhotosScreen: FC<StackScreenProps<AppStackParamList, 'Photos'>> = observer(() => {
-  const { colors } = useTheme();
   const safeAreaDimensions = useSafeAreaDimensions();
   const { landscape } = useDeviceOrientation();
+  const {
+    appLockStore: { inFakeEnvironment },
+  } = useStores();
+
+  useEffect(() => {
+    props.navigation.setOptions({
+      headerTitle: () => <HeaderAlbumDetail name={title} id={albumId} />,
+    });
+  }, [title, albumId]);
+
+  const { data: photos, isLoading } = useQuery({
+    queryKey: photoKeys.list(`${inFakeEnvironment}:${albumId}`),
+    queryFn: async () => {
+      return await fetchPhotos({
+        is_fake: inFakeEnvironment,
+        parent_id: albumId,
+      });
+    },
+    enabled: true,
+  });
 
   const renderItem = useCallback(({ item }) => {
     return (
-      <HoldItem
-        containerStyles={{
-          flex: 1,
-        }}
-        items={MenuItems}
-      >
-        <FastImage
-          style={$image}
-          source={{
-            uri: item.src,
-          }}
-          resizeMode="cover"
-        />
-      </HoldItem>
+      <ContextMenu item={item}>
+        <PhotoItem item={item} />
+      </ContextMenu>
     );
   }, []);
 
@@ -69,21 +68,17 @@ export const PhotosScreen: FC<StackScreenProps<AppStackParamList, 'Photos'>> = o
           horizontalSpacingShown={false}
           itemWidthFixed={false}
           spacing={4}
-          data={DATA}
+          data={photos}
           renderItem={renderItem}
           refreshing={false}
           onRefresh={() => {}}
         />
       </SafeAreaView>
+      <ImportButton albumId={'parentId'} />
     </Screen>
   );
 });
 
 const $safeAreaView: ViewStyle = {
   flex: 1,
-};
-
-const $image: ImageStyle = {
-  flex: 1,
-  borderRadius: radius[4],
 };

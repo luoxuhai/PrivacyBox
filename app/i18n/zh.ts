@@ -62,7 +62,18 @@ const zh = {
       fail: '删除失败',
     },
   },
-  photosScreen: {},
+  photosScreen: {
+    import: {
+      photos: '相册',
+      document: '文件',
+      camera: '相机',
+      download: '下载',
+    },
+    subtitle: {
+      photo: '{{count}}张照片',
+      video: '{{count}}个视频',
+    },
+  },
   settingsScreen: {
     purchaseBanner: {
       title: '隐私盒子高级版',

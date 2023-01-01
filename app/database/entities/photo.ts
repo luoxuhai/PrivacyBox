@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryColumn, VersionColumn } from 'typeorm';
 
-import { PhotoTypes, Status } from './types';
+import { PhotoTypes, PhotoSubtypes, Status } from './types';
 
 interface PhotoMetadata {
   compressed?: number;
@@ -83,6 +83,12 @@ export default class Photo {
    */
   @Column('int', { nullable: false })
   type!: PhotoTypes;
+
+  /**
+   * 资源子类型
+   */
+  @Column('int', { nullable: true })
+  subtype?: PhotoSubtypes;
 
   /**
    * 图片/视频标签

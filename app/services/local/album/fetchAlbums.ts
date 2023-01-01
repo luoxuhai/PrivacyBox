@@ -32,7 +32,6 @@ async function fetchItemCount(parentItem: Photo) {
     where: {
       parent_id: parentItem.id,
       status: parentItem.status,
-      is_fake: parentItem.is_fake,
     },
   });
 

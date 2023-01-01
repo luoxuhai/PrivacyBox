@@ -67,7 +67,10 @@ export const AlbumsScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'Album'
         <AlbumItem
           item={item}
           onPress={() => {
-            props.navigation.navigate('Photos');
+            props.navigation.navigate('Photos', {
+              albumId: item.id,
+              title: item.name,
+            });
           }}
           onOpenEditor={() => onOpenActionSheet(item)}
         />

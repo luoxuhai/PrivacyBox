@@ -1,6 +1,6 @@
 import { AppDataSource } from '@/database';
 import File from '@/database/entities/file';
-import { Status } from '@/database/entities/types';
+import { FileTypes, Status } from '@/database/entities/types';
 import { IsNull } from 'typeorm';
 import { joinFileUri } from '../helpers/joinFileUri';
 
@@ -21,8 +21,11 @@ export async function fetchFiles(params: FetchFilesParams): Promise<FetchFilesRe
   })) as FetchFilesResult[];
 
   for (const item of result) {
-    item.item_count = await fetchItemCount(item.id);
-    item.uri = joinFileUri(item);
+    if (item.type === FileTypes.Folder) {
+      item.item_count = await fetchItemCount(item.id);
+    } else {
+      item.uri = joinFileUri(item);
+    }
   }
 
   return result;

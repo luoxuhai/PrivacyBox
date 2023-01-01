@@ -13,3 +13,4 @@ export * from './LottieView';
 export * from './Grid/FlatGrid';
 export * from './EmptyState';
 export * from './LoadState';
+export * from './HeaderTitle';

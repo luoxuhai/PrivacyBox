@@ -18,7 +18,10 @@ export enum PhotoTypes {
   Photo = 2,
   // 视频
   Video = 3,
-  //
+}
+
+export enum PhotoSubtypes {
+  // 实况图片
   LivePhoto = 4,
 }
 

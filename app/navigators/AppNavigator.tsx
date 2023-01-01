@@ -22,6 +22,7 @@ import {
   AppMaskScreen,
   ChangeLockPasscodeScreen,
   ChangeLockPasscodeScreenParams,
+  PhotosNavigatorParams,
 } from '@/screens';
 import { ContentNavigator, ContentTabParamList } from './ContentNavigator';
 import { navigationRef, useBackButtonHandler } from './navigationUtilities';
@@ -48,7 +49,7 @@ export type AppStackParamList = {
   FakeAppHome: undefined;
   Content: NavigatorScreenParams<ContentTabParamList>;
   Purchase: typeof PurchaseScreen;
-  Photos: undefined;
+  Photos: PhotosNavigatorParams;
   DataMigrator: undefined;
   HideApplications: undefined;
 };

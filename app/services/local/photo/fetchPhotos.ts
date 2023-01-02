@@ -28,6 +28,9 @@ export async function fetchPhotos(params: FetchPhotosParams): Promise<FetchPhoto
       ...params,
       type: In([PhotoTypes.Photo, PhotoTypes.Video]),
     },
+    order: {
+      created_date: 'DESC',
+    },
   })) as FetchPhotosResult[];
 
   for (const item of result) {
@@ -35,7 +38,7 @@ export async function fetchPhotos(params: FetchPhotosParams): Promise<FetchPhoto
     item.thumbnail = joinPhotoThumbnail(item.id);
 
     if (item.type === PhotoTypes.Video) {
-      item.poster = joinVideoPoster(item);
+      item.poster = joinVideoPoster(item.id);
     }
   }
 

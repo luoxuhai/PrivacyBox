@@ -1,8 +1,6 @@
 import React, { useMemo } from 'react';
 import { View, ViewStyle, Text, TextStyle } from 'react-native';
-import FastImage, { ImageStyle } from 'react-native-fast-image';
 
-import { radius } from '@/theme';
 import { FetchPhotosResult } from '@/services/local';
 import { PhotoTypes } from '@/database/entities/types';
 import { formatDuration } from '@/utils';
@@ -36,11 +34,6 @@ const $container: ViewStyle = {
   flex: 1,
 };
 
-const $image: ImageStyle = {
-  flex: 1,
-  borderRadius: radius[4],
-};
-
 const $extraInfo: ViewStyle = {
   position: 'absolute',
   bottom: 4,
@@ -53,6 +46,6 @@ const $duration: TextStyle = {
   fontSize: 12,
   fontWeight: '600',
   color: '#FFF',
-  textShadowColor: '#888',
-  textShadowRadius: 1,
+  textShadowColor: '#777',
+  textShadowRadius: 2,
 };

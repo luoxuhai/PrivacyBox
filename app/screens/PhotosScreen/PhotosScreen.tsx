@@ -7,7 +7,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useQuery } from '@tanstack/react-query';
 
 import { AppStackParamList } from '@/navigators';
-import { FlatGrid, Screen } from '@/components';
+import { FlatGrid, ContentStyle, Screen } from '@/components';
 import { useSafeAreaDimensions } from '@/utils';
 import { ContextMenu } from './components/ContextMenu';
 import { PhotoItem } from './components/PhotoItem';
@@ -16,6 +16,7 @@ import { HeaderAlbumDetail } from './components/HeaderAlbumDetail';
 import { photoKeys } from './constants';
 import { useStores } from '@/models';
 import { fetchPhotos, FetchPhotosResult } from '@/services/local';
+import { spacing } from '@/theme';
 
 export interface PhotosNavigatorParams {
   albumId: string;
@@ -60,6 +61,7 @@ export const PhotosScreen: FC<StackScreenProps<AppStackParamList, 'Photos'>> = o
     <Screen>
       <SafeAreaView style={$safeAreaView} edges={['left', 'right', 'bottom']}>
         <FlatGrid
+          contentContainerStyle={$contentContainerStyle}
           contentInsetAdjustmentBehavior="automatic"
           estimatedItemSize={150}
           itemWidth={landscape ? 120 : 110}
@@ -78,4 +80,8 @@ export const PhotosScreen: FC<StackScreenProps<AppStackParamList, 'Photos'>> = o
 
 const $safeAreaView: ViewStyle = {
   flex: 1,
+};
+
+const $contentContainerStyle: ContentStyle = {
+  paddingTop: spacing[6],
 };

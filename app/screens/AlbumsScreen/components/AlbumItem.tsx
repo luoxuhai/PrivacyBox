@@ -14,17 +14,22 @@ import { MoreVert } from 'iconoir-react-native';
 
 import { BlurView } from '@/components';
 import { radius, spacing, typography, useTheme } from '@/theme';
+import { FetchAlbumsResult } from '@/services/local';
 
 interface AlbumItemProps {
-  item: any;
-  onPress: (item: any) => void;
-  onOpenEditor: (item: any) => void;
+  item: FetchAlbumsResult;
+  onPress: (item: FetchAlbumsResult) => void;
+  onOpenEditor: (item: FetchAlbumsResult) => void;
 }
 
+const ImageNoImages = require('@/assets/images/no-images.png');
+
 export const AlbumItem = observer<AlbumItemProps>((props) => {
+  const { cover, name, item_count } = props.item;
   const { isDark, colors } = useTheme();
 
   const textColor = colors.label;
+  const imageSource = cover ? { uri: cover } : ImageNoImages;
 
   return (
     <TouchableOpacity
@@ -44,7 +49,7 @@ export const AlbumItem = observer<AlbumItemProps>((props) => {
             backgroundColor: colors.secondaryFill,
           },
         ]}
-        source={{ uri: props.item.src }}
+        source={imageSource}
         resizeMode="cover"
       />
 
@@ -56,10 +61,10 @@ export const AlbumItem = observer<AlbumItemProps>((props) => {
         />
         <View style={$textContainer}>
           <Text style={[$titleText, { color: textColor }]} numberOfLines={1}>
-            {props.item.name}
+            {name}
           </Text>
           <Text style={[$countText, { color: textColor }]} numberOfLines={1}>
-            {props.item.item_count ?? 0}
+            {item_count ?? 0}
           </Text>
         </View>
         <Pressable style={$configIcon} onPress={() => props.onOpenEditor(props.item)}>
@@ -109,7 +114,7 @@ const $blurView: ViewStyle = {
 const $configIcon: ViewStyle = {};
 
 const $titleText: TextStyle = {
-  ...typography.callout,
+  ...typography.subhead,
   fontWeight: '500',
 };
 

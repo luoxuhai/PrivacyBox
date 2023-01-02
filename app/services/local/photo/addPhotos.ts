@@ -1,5 +1,4 @@
 import { mkdir, moveFile } from 'react-native-fs';
-import { ThumbnailGenerator } from 'react-native-app-toolkit';
 
 import { AppDataSource } from '@/database';
 import * as path from '@/lib/path';
@@ -9,6 +8,7 @@ import Photo from '@/database/entities/photo';
 import { PhotoTypes } from '@/database/entities/types';
 import { PhotoImporterResult } from '@/screens/PhotosScreen/helpers/PhotoImporter';
 import { generatePhotoThumbnail } from '../helpers/generatePhotoThumbnail';
+import { generateVideoPoster } from '../helpers/generateVideoPoster';
 
 type PhotoSource = PhotoImporterResult;
 
@@ -30,6 +30,8 @@ export async function addPhotos(params: AddFilesParams) {
 
   console.log(params.photos);
 
+  const importedPhotos: PhotoSource[] = [];
+
   for (const photo of params.photos) {
     try {
       const { name, mime, width, height, duration } = photo;
@@ -44,10 +46,15 @@ export async function addPhotos(params: AddFilesParams) {
       const uri = path.join(destDir, name);
       await moveFile(photo.uri, uri);
 
-      await generatePhotoThumbnail(id, uri);
-
       // 文件类型
       const type = getPhotoTypeByMime(mime);
+      // 视频需要先获取封面
+      if (type === PhotoTypes.Video) {
+        await generateVideoPoster(id, uri, duration);
+        await generatePhotoThumbnail({ id, uri, isVideo: true });
+      } else {
+        await generatePhotoThumbnail({ id, uri, isVideo: false });
+      }
 
       const createdDate = Date.now();
       const data: Photo = {
@@ -83,12 +90,13 @@ export async function addPhotos(params: AddFilesParams) {
       }
 
       await AppDataSource.manager.insert(Photo, data);
+      importedPhotos.push(photo);
     } catch (error) {
       console.error('[Add File]', error);
     }
   }
 
-  return 'result';
+  return importedPhotos;
 }
 
 function isValidParams(params: AddFilesParams) {

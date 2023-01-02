@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { deleteAssetsAsync } from 'expo-media-library';
 
 import { Overlay } from '@/utils';
 import { translate } from '@/i18n';
@@ -12,14 +13,15 @@ export function useImportPhotos(albumId: string) {
   const queryClient = useQueryClient();
   const {
     appLockStore: { inFakeEnvironment },
+    settingsStore: { autoDeleteOriginEnabled },
   } = useStores();
   const { mutate: handleImportFile } = useMutation({
-    mutationFn: async (photos?: PhotoImporterResult[] | void) => {
+    mutationFn: async (photos?: PhotoImporterResult[]) => {
       if (!photos) {
-        return;
+        return [];
       }
 
-      await addPhotos({
+      return await addPhotos({
         album_id: albumId,
         is_fake: inFakeEnvironment,
         photos,
@@ -32,13 +34,20 @@ export function useImportPhotos(albumId: string) {
         message: error.message,
       });
     },
-    onSuccess() {
-      queryClient.refetchQueries(photoKeys.list(`${inFakeEnvironment}:${albumId}`));
-      queryClient.refetchQueries(albumKeys.detail(albumId));
+    onSuccess(importedPhotos) {
       Overlay.toast({
         preset: 'done',
         title: translate('filesScreen.rename.success'),
       });
+      queryClient.refetchQueries(photoKeys.list(`${inFakeEnvironment}:${albumId}`));
+      queryClient.refetchQueries(albumKeys.detail(albumId));
+
+      if (autoDeleteOriginEnabled) {
+        const localIdentifiers = importedPhotos
+          .map((item) => item.localIdentifier)
+          .filter((item) => item);
+        deleteAssetsAsync(localIdentifiers);
+      }
     },
   });
 

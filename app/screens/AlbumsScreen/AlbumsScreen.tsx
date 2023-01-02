@@ -12,7 +12,7 @@ import { Screen, FlatGrid } from '@/components';
 import { AlbumItem } from './components/AlbumItem';
 import { useAlbumEditor } from './helpers/useAlbumEditor';
 import { useAlbumCreator } from './helpers/useAlbumCreator';
-import { useSafeAreaDimensions } from '@/utils';
+import { useRefreshOnFocus, useSafeAreaDimensions } from '@/utils';
 import { fetchAlbums } from '@/services/local';
 import { albumKeys } from './constants';
 import { useStores } from '@/models';
@@ -46,10 +46,7 @@ export const AlbumsScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'Album'
     }, []);
 
     const {
-      isLoading,
       isFetching,
-      isInitialLoading,
-      isRefetching,
       data: albums,
       refetch,
     } = useQuery({
@@ -59,8 +56,11 @@ export const AlbumsScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'Album'
           is_fake: inFakeEnvironment,
         });
       },
+      placeholderData: [],
       enabled: true,
     });
+
+    useRefreshOnFocus(refetch);
 
     const renderItem = useCallback(({ item }) => {
       return (
@@ -91,12 +91,8 @@ export const AlbumsScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'Album'
             width={safeAreaDimensions.width}
             itemWidthFixed={false}
             spacing={26}
-            data={isFetching ? [] : albums}
+            data={albums}
             renderItem={renderItem}
-            refreshing={false}
-            onRefresh={() => {
-              refetch();
-            }}
           />
         </SafeAreaView>
       </Screen>

@@ -25,7 +25,7 @@ export interface IResult {
 
 export class FileImporter {
   public static document = {
-    async open(options?: DocumentPickerOptions<'ios'>): Promise<IResult[] | void> {
+    async open(options?: DocumentPickerOptions<'ios'>): Promise<IResult[]> {
       const result = await DocumentPicker.pick({
         type: [DocumentPicker.types.images, DocumentPicker.types.video],
         allowMultiSelection: true,

@@ -6,6 +6,7 @@ import { radius } from '@/theme';
 import { FetchPhotosResult } from '@/services/local';
 import { PhotoTypes } from '@/database/entities/types';
 import { formatDuration } from '@/utils';
+import { PhotoThumbnail } from '@/components';
 
 interface PhotoItemProps {
   item: FetchPhotosResult;
@@ -14,13 +15,7 @@ interface PhotoItemProps {
 export function PhotoItem(props: PhotoItemProps) {
   return (
     <View style={$container}>
-      <FastImage
-        style={$image}
-        source={{
-          uri: props.item.uri,
-        }}
-        resizeMode="cover"
-      />
+      <PhotoThumbnail item={props.item} />
       <ExtraInfo item={props.item} />
     </View>
   );

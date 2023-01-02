@@ -17,13 +17,13 @@ export class PhotoSubscriber implements EntitySubscriberInterface<Photo> {
   }
 
   afterInsert(event: InsertEvent<Photo>): void | Promise<any> {
-    console.log('afterInsert', event.metadata.columns);
+    console.log('afterInsert');
     queryAllPhotos(event.connection.manager);
     uploadToICloud();
   }
 
   afterUpdate(event: UpdateEvent<Photo>): void | Promise<any> {
-    console.log('afterUpdate', event.connection.manager);
+    console.log('afterUpdate');
     queryAllPhotos(event.connection.manager);
   }
 }

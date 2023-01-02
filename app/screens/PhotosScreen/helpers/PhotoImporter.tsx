@@ -1,9 +1,11 @@
 import { getAssetInfoAsync } from 'expo-media-library';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import { DocumentPickerOptions } from 'react-native-document-picker';
 
-import { PermissionManager } from '@/utils';
+import { getImageSize, getVideoInfo, PermissionManager } from '@/utils';
 import { FileImporter, IResult } from '@/screens/FilesScreen/helpers/FileImporter';
-import { PhotoSubtypes } from '@/database/entities/types';
+import { FileTypes, PhotoSubtypes } from '@/database/entities/types';
+import { getFileTypeByMime } from '@/utils/getFileTypeByMime';
 
 export { IResult };
 
@@ -39,7 +41,7 @@ export class PhotoImporter extends FileImporter {
           mime: asset.type,
           width,
           height,
-          duration: Math.round(asset.duration) || 0,
+          duration: asset.duration || 0,
           localIdentifier: asset.id,
           exif,
           subtypes: mediaSubtypes.map((val) => internalSubtypeMap[val]).filter((val) => val),
@@ -66,7 +68,6 @@ export class PhotoImporter extends FileImporter {
         saveToPhotos: false,
       });
 
-      console.log('result.assets', result.assets[0]);
       const ctime = Date.now();
       return result.assets?.map((asset) => ({
         name: asset.fileName,
@@ -75,10 +76,35 @@ export class PhotoImporter extends FileImporter {
         mime: asset.type,
         width: asset.width,
         height: asset.height,
-        duration: asset.duration ? asset.duration * 1000 : 0,
+        duration: asset.duration || 0,
         ctime,
         mtime: ctime,
       }));
+    },
+  };
+
+  public static document = {
+    async open(options?: DocumentPickerOptions<'ios'>) {
+      const files = await FileImporter.document.open(options);
+
+      for (const file of files) {
+        const type = getFileTypeByMime(file.mime);
+
+        if (type === FileTypes.Image) {
+          const { width, height } = await getImageSize(file.uri);
+          file.width = width;
+          file.height = height;
+        }
+
+        if (type === FileTypes.Video) {
+          const { width, height, duration } = await getVideoInfo(file.uri);
+          file.width = width;
+          file.height = height;
+          file.duration = duration;
+        }
+      }
+
+      return files;
     },
   };
 
@@ -88,10 +114,6 @@ export class PhotoImporter extends FileImporter {
     },
   };
 }
-
-// function translateSubtypeFromString() {
-//   switch ()
-// }
 
 const internalSubtypeMap = {
   depthEffect: PhotoSubtypes.DepthEffect,

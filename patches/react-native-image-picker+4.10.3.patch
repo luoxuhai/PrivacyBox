@@ -1,5 +1,5 @@
 diff --git a/node_modules/react-native-image-picker/ios/ImagePickerManager.m b/node_modules/react-native-image-picker/ios/ImagePickerManager.m
-index 10c5b4e..f1a739f 100644
+index 10c5b4e..892192c 100644
 --- a/node_modules/react-native-image-picker/ios/ImagePickerManager.m
 +++ b/node_modules/react-native-image-picker/ios/ImagePickerManager.m
 @@ -195,9 +195,12 @@ -(NSMutableDictionary *)mapImageToAsset:(UIImage *)image data:(NSData *)data phA
@@ -17,16 +17,23 @@ index 10c5b4e..f1a739f 100644
      }
      
      return asset;
-@@ -252,7 +255,7 @@ -(NSMutableDictionary *)mapVideoToAsset:(NSURL *)url phAsset:(PHAsset * _Nullabl
+@@ -252,7 +255,14 @@ -(NSMutableDictionary *)mapVideoToAsset:(NSURL *)url phAsset:(PHAsset * _Nullabl
      NSMutableDictionary *asset = [[NSMutableDictionary alloc] init];
      CGSize dimentions = [ImagePickerUtils getVideoDimensionsFromUrl:videoDestinationURL];
      asset[@"fileName"] = fileName;
 -    asset[@"duration"] = [NSNumber numberWithDouble:CMTimeGetSeconds([AVAsset assetWithURL:videoDestinationURL].duration)];
-+    asset[@"duration"] = @(phAsset.duration * 1000);
++    
++    if (target == camera) {
++        AVAsset * avasset = [AVAsset assetWithURL:videoDestinationURL];
++        asset[@"duration"] = @(CMTimeGetSeconds(avasset.duration) * 1000);
++    } else {
++        asset[@"duration"] = @(phAsset.duration * 1000);
++    }
++
      asset[@"uri"] = videoDestinationURL.absoluteString;
      asset[@"type"] = [ImagePickerUtils getFileTypeFromUrl:videoDestinationURL];
      asset[@"fileSize"] = [ImagePickerUtils getFileSizeFromUrl:videoDestinationURL];
-@@ -260,9 +263,12 @@ -(NSMutableDictionary *)mapVideoToAsset:(NSURL *)url phAsset:(PHAsset * _Nullabl
+@@ -260,9 +270,12 @@ -(NSMutableDictionary *)mapVideoToAsset:(NSURL *)url phAsset:(PHAsset * _Nullabl
      asset[@"height"] = @(dimentions.height);
  
      if(phAsset){

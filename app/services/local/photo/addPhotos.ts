@@ -1,4 +1,5 @@
 import { mkdir, moveFile } from 'react-native-fs';
+import { ThumbnailGenerator } from 'react-native-app-toolkit';
 
 import { AppDataSource } from '@/database';
 import * as path from '@/lib/path';
@@ -7,6 +8,7 @@ import { getPhotoTypeByMime } from '@/utils/getFileTypeByMime';
 import Photo from '@/database/entities/photo';
 import { PhotoTypes } from '@/database/entities/types';
 import { PhotoImporterResult } from '@/screens/PhotosScreen/helpers/PhotoImporter';
+import { generatePhotoThumbnail } from '../helpers/generatePhotoThumbnail';
 
 type PhotoSource = PhotoImporterResult;
 
@@ -41,6 +43,8 @@ export async function addPhotos(params: AddFilesParams) {
       // 最终的文件地址
       const uri = path.join(destDir, name);
       await moveFile(photo.uri, uri);
+
+      await generatePhotoThumbnail(id, uri);
 
       // 文件类型
       const type = getPhotoTypeByMime(mime);

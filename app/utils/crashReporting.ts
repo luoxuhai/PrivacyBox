@@ -5,9 +5,6 @@ import CodePush, { LocalPackage } from 'react-native-code-push';
 import { Application } from './application';
 import { Device } from './device';
 
-/**
- *  This is where you put your crash reporting service initialization code to call in `./app/app.tsx`
- */
 export const initCrashReporting = async () => {
   let updateMetadata: LocalPackage | undefined;
   try {
@@ -35,34 +32,33 @@ export const initCrashReporting = async () => {
   });
 };
 
-/**
- * Error classifications used to sort errors on error reporting services.
- */
-export enum ErrorType {
-  /**
-   * An error that would normally cause a red screen in dev
-   * and force the user to sign out and restart.
-   */
-  FATAL = 'Fatal',
-  /**
-   * An error caught by try/catch where defined using Reactotron.tron.error.
-   */
-  HANDLED = 'Handled',
-}
+type ErrorType = 'fatal' | 'error' | 'warning';
 
 /**
  * Manually report a handled error.
  */
-export const reportException = (
-  error: any,
-  type: ErrorType = ErrorType.FATAL,
-  extra?: Record<string, any>,
-) => {
-  error.message = `[${type}] ${error.message || 'Unknown'}`;
+export const reportException = ({
+  error,
+  message,
+  level = 'error',
+  extra,
+}: {
+  error?: Error;
+  message?: string;
+  level?: ErrorType;
+  extra?: Record<string, any>;
+}) => {
+  const _error = error || new Error(message);
+  _error.message = `[${level}] ${_error.message || 'Unknown'}`;
   if (__DEV__) {
-    console.error(error);
+    console.error(_error);
   } else {
-    error.message = `[${type}] ${error.message}`;
-    Sentry.captureException(error, { extra });
+    Sentry.captureException(_error, {
+      extra: {
+        customMessage: message,
+        ...extra,
+      },
+      level,
+    });
   }
 };

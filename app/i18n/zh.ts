@@ -293,6 +293,9 @@ const zh = {
       type: '类型',
       size: '大小',
       ctime: '创建时间',
+      importTime: '导入时间',
+      duration: '时长',
+      resolution: '分辨率',
     },
     types: {
       text: '文本',

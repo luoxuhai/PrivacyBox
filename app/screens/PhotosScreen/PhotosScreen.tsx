@@ -83,5 +83,5 @@ const $safeAreaView: ViewStyle = {
 };
 
 const $contentContainerStyle: ContentStyle = {
-  paddingTop: spacing[6],
+  paddingTop: spacing[4],
 };

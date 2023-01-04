@@ -1,6 +1,5 @@
 import React, { ReactElement, useCallback, useMemo } from 'react';
 import { Share } from 'react-native';
-import RNShare from 'react-native-share';
 import { observer } from 'mobx-react-lite';
 import { ContextMenuView, MenuConfig } from 'react-native-ios-context-menu';
 import { SheetManager } from 'react-native-actions-sheet';
@@ -8,6 +7,7 @@ import { SheetManager } from 'react-native-actions-sheet';
 import { PhotoTypes } from '@/database/entities/types';
 import { translate } from '@/i18n';
 import { FetchPhotosResult } from '@/services/local';
+import { exportPhotos } from '../helpers/exportPhotos';
 
 interface ContextMenuProps {
   item: FetchPhotosResult;
@@ -20,7 +20,7 @@ export const ContextMenu = observer<ContextMenuProps>((props) => {
   const handlePressMenuItem = useCallback(({ nativeEvent }) => {
     switch (nativeEvent.actionKey) {
       case ContextMenuKeys.Details:
-        SheetManager.show('file-detail-sheet', {
+        SheetManager.show('photo-detail-sheet', {
           payload: {
             item: props.item,
           },
@@ -32,10 +32,7 @@ export const ContextMenu = observer<ContextMenuProps>((props) => {
         });
         break;
       case ContextMenuKeys.SaveToLocal:
-        RNShare.open({
-          url: props.item.uri,
-          saveToFiles: true,
-        });
+        exportPhotos([props.item.uri]);
         break;
     }
   }, []);

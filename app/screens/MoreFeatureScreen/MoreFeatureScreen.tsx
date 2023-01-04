@@ -8,10 +8,11 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 
 import { FlatGrid, Screen } from '@/components';
 import { colors } from '@/theme';
-import { useSafeAreaDimensions } from '@/utils';
+import { Overlay, useSafeAreaDimensions } from '@/utils';
 import { MoreFeatureNavigatorParamList } from '@/navigators';
 import { FeatureItemView, FeatureItem } from './FeatureItemView';
 import { useStores } from '@/models';
+import { translate } from '@/i18n';
 
 function luminance(color: string, l = 0.1) {
   return colord(color).lighten(l).toRgbString();
@@ -58,12 +59,19 @@ export const MoreFeatureScreen = observer<
   const { purchaseStore } = useStores();
 
   const handleToScreen = (routeName: keyof MoreFeatureNavigatorParamList, needPremium: boolean) => {
-    if (needPremium && !purchaseStore.isPurchased) {
-      props.navigation.navigate('Purchase');
-      return;
-    }
+    if (routeName === 'ICloudSync') {
+      Overlay.toast({
+        title: translate('common.coming'),
+        preset: 'error',
+      });
+    } else {
+      if (needPremium && !purchaseStore.isPurchased) {
+        props.navigation.navigate('Purchase');
+        return;
+      }
 
-    props.navigation.navigate(routeName);
+      props.navigation.navigate(routeName);
+    }
   };
 
   return (

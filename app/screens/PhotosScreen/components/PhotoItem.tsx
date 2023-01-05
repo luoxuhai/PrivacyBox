@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { View, ViewStyle, Text, TextStyle } from 'react-native';
+import { View, ViewStyle, Text, TouchableOpacity, TextStyle } from 'react-native';
 
 import { FetchPhotosResult } from '@/services/local';
 import { PhotoTypes } from '@/database/entities/types';
@@ -12,10 +12,15 @@ interface PhotoItemProps {
 
 export function PhotoItem(props: PhotoItemProps) {
   return (
-    <View style={$container}>
+    <TouchableOpacity
+      style={$container}
+      onPress={() => {
+        console.log('xx');
+      }}
+    >
       <PhotoThumbnail item={props.item} />
       <ExtraInfo item={props.item} />
-    </View>
+    </TouchableOpacity>
   );
 }
 

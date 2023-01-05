@@ -51,7 +51,7 @@ export const ContextMenu = observer<ContextMenuProps>((props) => {
 enum ContextMenuKeys {
   Details = 'details',
   Share = 'share',
-  Rename = 'rename',
+  Move = 'move',
   SaveToLocal = 'save-to-local',
   Delete = 'delete',
 }
@@ -73,19 +73,19 @@ function getMenuConfig(): MenuConfig {
             },
           },
           {
-            actionKey: ContextMenuKeys.Rename,
-            actionTitle: translate('common.rename'),
-            icon: {
-              iconType: 'SYSTEM',
-              iconValue: 'pencil',
-            },
-          },
-          {
             actionKey: ContextMenuKeys.Share,
             actionTitle: translate('common.share'),
             icon: {
               iconType: 'SYSTEM',
               iconValue: 'square.and.arrow.up',
+            },
+          },
+          {
+            actionKey: ContextMenuKeys.Move,
+            actionTitle: translate('filesScreen.move'),
+            icon: {
+              iconType: 'SYSTEM',
+              iconValue: 'photo.on.rectangle.angled',
             },
           },
           {

@@ -17,6 +17,7 @@ import { photoKeys } from './constants';
 import { useStores } from '@/models';
 import { fetchPhotos, FetchPhotosResult } from '@/services/local';
 import { spacing } from '@/theme';
+import { MoreButton } from './components/MoreButton';
 
 export interface PhotosNavigatorParams {
   albumId: string;
@@ -35,6 +36,7 @@ export const PhotosScreen: FC<StackScreenProps<AppStackParamList, 'Photos'>> = o
   useEffect(() => {
     props.navigation.setOptions({
       headerTitle: () => <HeaderAlbumDetail name={title} id={albumId} />,
+      headerRight: () => <MoreButton />,
     });
   }, [title, albumId]);
 

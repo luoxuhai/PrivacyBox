@@ -265,6 +265,7 @@ const zh = {
   filesScreen: {
     title: '文件',
     saveToLocal: '保存到本地',
+    move: '移动',
     items: '项',
     import: {
       folder: '新建文件夹',

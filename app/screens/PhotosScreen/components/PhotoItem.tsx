@@ -12,15 +12,10 @@ interface PhotoItemProps {
 
 export function PhotoItem(props: PhotoItemProps) {
   return (
-    <TouchableOpacity
-      style={$container}
-      onPress={() => {
-        console.log('xx');
-      }}
-    >
+    <View style={$container}>
       <PhotoThumbnail item={props.item} />
       <ExtraInfo item={props.item} />
-    </TouchableOpacity>
+    </View>
   );
 }
 

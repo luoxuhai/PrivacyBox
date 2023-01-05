@@ -11,7 +11,7 @@ import { observer } from 'mobx-react-lite';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SheetProvider } from 'react-native-actions-sheet';
 
-import { initCrashReporting, useUpdateEffect } from './utils';
+import { initCrashReporting, useUpdateEffect, lockOrientation } from './utils';
 import { useInitialRootStore } from './models';
 import { useInitialDataSource } from './database/helpers/useInitDataSource';
 import { AppNavigator, useNavigationPersistence, RootNavigation } from './navigators';
@@ -30,6 +30,7 @@ const App = observer(() => {
   } = useNavigationPersistence(storage, NAVIGATION_PERSISTENCE_KEY);
 
   useEffect(() => {
+    lockOrientation();
     initBasePath();
     if (!__DEV__) {
       initCrashReporting();

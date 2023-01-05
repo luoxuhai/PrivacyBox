@@ -18,3 +18,4 @@ export * from './uuid';
 export * from './randomNum';
 export * from './getImageSize';
 export * from './getVideoInfo';
+export * from './lockOrientation';

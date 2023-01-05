@@ -267,6 +267,13 @@ const zh = {
     saveToLocal: '保存到本地',
     move: '移动',
     items: '项',
+    select: '选择',
+    selectAll: '全选',
+    deselectAll: '取消全选',
+    sort: '排序',
+    sortSize: '大小',
+    sortCtime: '创建时间',
+    sortName: '名称',
     import: {
       folder: '新建文件夹',
       scan: '扫描文档',

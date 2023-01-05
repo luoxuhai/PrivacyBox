@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import { ViewStyle } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { StackScreenProps } from '@react-navigation/stack';
@@ -18,6 +18,11 @@ import { useStores } from '@/models';
 import { fetchPhotos, FetchPhotosResult } from '@/services/local';
 import { spacing } from '@/theme';
 import { MoreButton } from './components/MoreButton';
+import {
+  PhotoSettingsContextProvider,
+  PhotoSettingsContextValue,
+  PhotoSettingsInitialValue,
+} from './context';
 
 export interface PhotosNavigatorParams {
   albumId: string;
@@ -26,6 +31,8 @@ export interface PhotosNavigatorParams {
 
 export const PhotosScreen: FC<StackScreenProps<AppStackParamList, 'Photos'>> = observer((props) => {
   const { albumId, title } = props.route.params;
+  const [photoSettings, setPhotoSettings] =
+    useState<PhotoSettingsContextValue>(PhotoSettingsInitialValue);
 
   const safeAreaDimensions = useSafeAreaDimensions();
   const { landscape } = useDeviceOrientation();
@@ -33,12 +40,17 @@ export const PhotosScreen: FC<StackScreenProps<AppStackParamList, 'Photos'>> = o
     appLockStore: { inFakeEnvironment },
   } = useStores();
 
+  // 顶部导航栏
   useEffect(() => {
-    props.navigation.setOptions({
+    props.navigation?.setOptions({
       headerTitle: () => <HeaderAlbumDetail name={title} id={albumId} />,
-      headerRight: () => <MoreButton />,
+      headerRight: () => (
+        <PhotoSettingsContextProvider value={photoSettings}>
+          <MoreButton onSort={setPhotoSettings} />
+        </PhotoSettingsContextProvider>
+      ),
     });
-  }, [title, albumId]);
+  }, [title, albumId, photoSettings]);
 
   const { data: photos, isLoading } = useQuery({
     queryKey: photoKeys.list(`${inFakeEnvironment}:${albumId}`),

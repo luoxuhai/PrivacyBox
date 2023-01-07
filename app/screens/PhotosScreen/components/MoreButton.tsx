@@ -3,12 +3,12 @@ import { TouchableOpacity, StyleSheet, ViewStyle } from 'react-native';
 import { MenuConfig, OnPressMenuItemEventObject } from 'react-native-ios-context-menu';
 import { SFSymbol } from 'react-native-sfsymbols';
 
-import { spacing } from '@/theme';
 import { PopoverMenu } from '@/components';
 import { translate } from '@/i18n';
 import { PhotoSettingsContext, PhotoSettingsContextValue } from '../context';
 
 interface MoreButtonProps {
+  visible: boolean;
   onSort?: (value: PhotoSettingsContextValue) => void;
   onSelect?: () => void;
 }
@@ -42,8 +42,16 @@ export function MoreButton(props: MoreButtonProps) {
   }
 
   return (
-    <PopoverMenu menus={menuConfig} onPressMenuItem={handlePressMenuItem}>
-      <SFSymbol style={$icon} size={24} name="ellipsis.circle" />
+    <PopoverMenu
+      style={{
+        display: props.visible ? 'flex' : 'none',
+      }}
+      menus={menuConfig}
+      onPressMenuItem={handlePressMenuItem}
+    >
+      <TouchableOpacity activeOpacity={0.5}>
+        <SFSymbol style={$icon} size={24} name="ellipsis.circle" />
+      </TouchableOpacity>
     </PopoverMenu>
   );
 }

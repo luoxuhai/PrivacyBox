@@ -124,6 +124,7 @@ export const Toolbar = observer<IToolbarProps>(
         {list.map((item) => {
           return item.type === 'menu' ? (
             <View
+              key={item.key}
               style={{
                 width: `${100 / list.length}%`,
               }}

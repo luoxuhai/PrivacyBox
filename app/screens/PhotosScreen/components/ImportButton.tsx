@@ -11,13 +11,14 @@ import { useTheme } from '@/theme';
 const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpacity);
 
 interface ImportButtonProps {
+  visible: boolean;
   albumId?: string;
 }
 
 export const ImportButton = observer<ImportButtonProps>((props) => {
   const { colors } = useTheme();
 
-  return (
+  return props.visible ? (
     <AnimatedTouchableOpacity
       entering={BounceIn.delay(150)}
       style={[
@@ -40,7 +41,7 @@ export const ImportButton = observer<ImportButtonProps>((props) => {
     >
       <SFSymbol name="plus.circle.fill" size={50} color={colors.palette.primary6} />
     </AnimatedTouchableOpacity>
-  );
+  ) : null;
 });
 
 const $container: ViewStyle = {

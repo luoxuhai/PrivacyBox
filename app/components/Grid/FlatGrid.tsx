@@ -1,11 +1,4 @@
-import React, {
-  forwardRef,
-  useState,
-  useCallback,
-  useImperativeHandle,
-  useRef,
-  useEffect,
-} from 'react';
+import React, { forwardRef, useState, useCallback, useImperativeHandle, useRef } from 'react';
 import { View, Dimensions, ViewStyle } from 'react-native';
 import Animated, { FadeIn } from 'react-native-reanimated';
 import { FlashList, FlashListProps, RenderTarget, ContentStyle } from '@shopify/flash-list';

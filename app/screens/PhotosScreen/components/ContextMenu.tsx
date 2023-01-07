@@ -4,14 +4,14 @@ import { observer } from 'mobx-react-lite';
 import { ContextMenuView, MenuConfig } from 'react-native-ios-context-menu';
 import { SheetManager } from 'react-native-actions-sheet';
 
-import { PhotoTypes } from '@/database/entities/types';
 import { translate } from '@/i18n';
 import { FetchPhotosResult } from '@/services/local';
 import { exportPhotos } from '../helpers/exportPhotos';
 
 interface ContextMenuProps {
   item: FetchPhotosResult;
-  children: ReactElement;
+  disabled?: boolean;
+  children?: ReactElement | ReactElement[];
 }
 
 export const ContextMenu = observer<ContextMenuProps>((props) => {
@@ -41,6 +41,7 @@ export const ContextMenu = observer<ContextMenuProps>((props) => {
     <ContextMenuView
       style={{ flex: 1 }}
       menuConfig={menuConfig}
+      isContextMenuEnabled={!props.disabled}
       onPressMenuItem={handlePressMenuItem}
     >
       {props.children}

@@ -28,3 +28,8 @@ import { TextKeyPath } from './i18n';
 export function translate(key: TextKeyPath, options?: TOptions) {
   return i18n.t(key, options);
 }
+
+/**
+ * Alias for translate
+ */
+export const t = translate;

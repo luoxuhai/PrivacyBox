@@ -78,6 +78,9 @@ PODS:
   - Firebase/Performance (10.1.0):
     - Firebase/CoreOnly
     - FirebasePerformance (~> 10.1.0)
+  - Firebase/RemoteConfig (10.1.0):
+    - Firebase/CoreOnly
+    - FirebaseRemoteConfig (~> 10.1.0)
   - FirebaseABTesting (10.3.0):
     - FirebaseCore (~> 10.0)
   - FirebaseAnalytics (10.1.0):
@@ -127,7 +130,7 @@ PODS:
     - GoogleUtilities/ISASwizzler (~> 7.8)
     - GoogleUtilities/MethodSwizzler (~> 7.8)
     - nanopb (< 2.30910.0, >= 2.30908.0)
-  - FirebaseRemoteConfig (10.3.0):
+  - FirebaseRemoteConfig (10.1.0):
     - FirebaseABTesting (~> 10.0)
     - FirebaseCore (~> 10.0)
     - FirebaseInstallations (~> 10.0)
@@ -333,6 +336,8 @@ PODS:
     - React-RCTSettings (= 0.69.7)
     - React-RCTText (= 0.69.7)
     - React-RCTVibration (= 0.69.7)
+  - react-airplay (1.2.0):
+    - React-Core
   - React-bridging (0.69.7):
     - RCT-Folly (= 2021.06.28.00-v2)
     - React-jsi (= 0.69.7)
@@ -530,6 +535,8 @@ PODS:
     - React-Core
   - react-native-blurhash (1.1.10):
     - React-Core
+  - react-native-classify-image (1.2.0):
+    - React-Core
   - react-native-cloud-store (0.9.1):
     - React-Core
   - react-native-document-picker (8.1.3):
@@ -567,6 +574,11 @@ PODS:
     - React
   - react-native-shake (5.1.1):
     - React
+  - react-native-video (5.2.1):
+    - React-Core
+    - react-native-video/Video (= 5.2.1)
+  - react-native-video/Video (5.2.1):
+    - React-Core
   - react-native-webserver (1.0.3):
     - GCDWebServer
     - React
@@ -661,6 +673,10 @@ PODS:
     - React-Core
   - RNFBPerf (16.4.3):
     - Firebase/Performance (= 10.1.0)
+    - React-Core
+    - RNFBApp
+  - RNFBRemoteConfig (16.4.3):
+    - Firebase/RemoteConfig (= 10.1.0)
     - React-Core
     - RNFBApp
   - RNFileViewer (2.1.5):
@@ -806,6 +822,7 @@ DEPENDENCIES:
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
   - React (from `../node_modules/react-native/`)
+  - react-airplay (from `../node_modules/react-airplay`)
   - React-bridging (from `../node_modules/react-native/ReactCommon`)
   - React-callinvoker (from `../node_modules/react-native/ReactCommon/callinvoker`)
   - React-Codegen (from `build/generated/ios`)
@@ -822,6 +839,7 @@ DEPENDENCIES:
   - react-native-app-toolkit (from `../node_modules/react-native-app-toolkit`)
   - "react-native-blur (from `../node_modules/@react-native-community/blur`)"
   - react-native-blurhash (from `../node_modules/react-native-blurhash`)
+  - react-native-classify-image (from `../node_modules/react-native-classify-image`)
   - react-native-cloud-store (from `../node_modules/react-native-cloud-store`)
   - react-native-document-picker (from `../node_modules/react-native-document-picker`)
   - react-native-get-random-values (from `../node_modules/react-native-get-random-values`)
@@ -837,6 +855,7 @@ DEPENDENCIES:
   - "react-native-segmented-control (from `../node_modules/@react-native-segmented-control/segmented-control`)"
   - react-native-sfsymbols (from `../node_modules/react-native-sfsymbols`)
   - react-native-shake (from `../node_modules/react-native-shake`)
+  - react-native-video (from `../node_modules/react-native-video`)
   - "react-native-webserver (from `../node_modules/@react-native-library/webserver`)"
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -860,6 +879,7 @@ DEPENDENCIES:
   - "RNFBAnalytics (from `../node_modules/@react-native-firebase/analytics`)"
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
   - "RNFBPerf (from `../node_modules/@react-native-firebase/perf`)"
+  - "RNFBRemoteConfig (from `../node_modules/@react-native-firebase/remote-config`)"
   - RNFileViewer (from `../node_modules/react-native-file-viewer`)
   - "RNFlashList (from `../node_modules/@shopify/flash-list`)"
   - RNFS (from `../node_modules/react-native-fs`)
@@ -1000,6 +1020,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/Libraries/TypeSafety"
   React:
     :path: "../node_modules/react-native/"
+  react-airplay:
+    :path: "../node_modules/react-airplay"
   React-bridging:
     :path: "../node_modules/react-native/ReactCommon"
   React-callinvoker:
@@ -1028,6 +1050,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/blur"
   react-native-blurhash:
     :path: "../node_modules/react-native-blurhash"
+  react-native-classify-image:
+    :path: "../node_modules/react-native-classify-image"
   react-native-cloud-store:
     :path: "../node_modules/react-native-cloud-store"
   react-native-document-picker:
@@ -1058,6 +1082,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-sfsymbols"
   react-native-shake:
     :path: "../node_modules/react-native-shake"
+  react-native-video:
+    :path: "../node_modules/react-native-video"
   react-native-webserver:
     :path: "../node_modules/@react-native-library/webserver"
   React-perflogger:
@@ -1104,6 +1130,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-firebase/app"
   RNFBPerf:
     :path: "../node_modules/@react-native-firebase/perf"
+  RNFBRemoteConfig:
+    :path: "../node_modules/@react-native-firebase/remote-config"
   RNFileViewer:
     :path: "../node_modules/react-native-file-viewer"
   RNFlashList:
@@ -1170,7 +1198,7 @@ SPEC CHECKSUMS:
   FirebaseCoreInternal: 29b76f784d607df8b2a1259d73c3f04f1210137b
   FirebaseInstallations: e2f26126089dcf41e215f7b8925af8d953c7d602
   FirebasePerformance: f5e6d88d6f06100a3ccfac854318dd48e4e006e1
-  FirebaseRemoteConfig: c24f767c17b0440ee63c7e93380d599173556113
+  FirebaseRemoteConfig: 20a413ed3ffeb84c12888bff19d02464f0faed69
   Flipper: 19985db5fff887a746c0e15585917bf1ab304317
   Flipper-Boost-iOSX: fd1e2b8cbef7e662a122412d7ac5f5bea715403c
   Flipper-DoubleConversion: 2dc99b02f658daf147069aad9dbd29d8feb06d30
@@ -1209,6 +1237,7 @@ SPEC CHECKSUMS:
   RCTRequired: 54bff6aa61efd9598ab59d2a823c382b4fe13d27
   RCTTypeSafety: 47632bfa768df7befde08e339a9847e6cff6ff78
   React: 72a676de573cc5ee0e375e5535238af9a4bd435c
+  react-airplay: 8197767f12cae11a7623b1507d29a89482a720ad
   React-bridging: 12b6677a30fbd46555a35aa6096331737a9af598
   React-callinvoker: bb574a923c2281d01be23ed3b5d405caa583f56d
   React-Codegen: a5e05592b65963a4a453808d2233a04edb7ac8cd
@@ -1223,6 +1252,7 @@ SPEC CHECKSUMS:
   react-native-app-toolkit: 74a5ebab791d43ab47f0a6bc052e68b1281903cd
   react-native-blur: 50c9feabacbc5f49b61337ebc32192c6be7ec3c3
   react-native-blurhash: add4df9a937b4e021a24bc67a0714f13e0bd40b7
+  react-native-classify-image: df9b0de27a0533aaf734a403ccf6acc5af96e9b4
   react-native-cloud-store: 25f59dded580ee1f5382cc0e8c1e0548255ac09f
   react-native-document-picker: 958e2bc82e128be69055be261aeac8d872c8d34c
   react-native-get-random-values: a6ea6a8a65dc93e96e24a11105b1a9c8cfe1d72a
@@ -1238,6 +1268,7 @@ SPEC CHECKSUMS:
   react-native-segmented-control: 06607462630512ff8eef652ec560e6235a30cc3e
   react-native-sfsymbols: bd3a0d3eab185e80b571bae60753dcf5a0d57967
   react-native-shake: 67d43d6af4abfc299400b17fea7d2ec0754c72ac
+  react-native-video: c26780b224543c62d5e1b2a7244a5cd1b50e8253
   react-native-webserver: de46b00b6c637085e4c96bb9f84c7a771c066a6c
   React-perflogger: 8e832d4e21fdfa613033c76d58d7e617341e804b
   React-RCTActionSheet: 9ca778182a9523991bff6381045885b6e808bb73
@@ -1261,6 +1292,7 @@ SPEC CHECKSUMS:
   RNFBAnalytics: db5c92053dc552f268a233228b565c538e058547
   RNFBApp: 90153cce9b119f4546a4e5fb1427bca963448dc5
   RNFBPerf: d54c45354104ffac7d008a5715a3600cf0c6de36
+  RNFBRemoteConfig: 3bc1ece331a73a5f222901e7b44e4dc31f368d93
   RNFileViewer: ce7ca3ac370e18554d35d6355cffd7c30437c592
   RNFlashList: 399bf6a0db68f594ad2c86aaff3ea39564f39f8a
   RNFS: 4ac0f0ea233904cb798630b3c077808c06931688

@@ -73,6 +73,11 @@ const zh = {
       photo: '{{count}}张照片',
       video: '{{count}}个视频',
     },
+    delete: {
+      title: '这{{count}}个项目将被删除',
+      softDeleteMsg: '删除后可到回收站中恢复',
+      deleteMsg: '回收站已关闭，删除后不可恢复',
+    },
   },
   photoViewerScreen: {
     bottomToolbar: {

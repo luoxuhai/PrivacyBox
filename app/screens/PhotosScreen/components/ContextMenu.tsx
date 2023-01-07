@@ -1,5 +1,4 @@
 import React, { ReactElement, useCallback, useMemo } from 'react';
-import { Share } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { ContextMenuView, MenuConfig } from 'react-native-ios-context-menu';
 import { SheetManager } from 'react-native-actions-sheet';
@@ -7,6 +6,8 @@ import { SheetManager } from 'react-native-actions-sheet';
 import { translate } from '@/i18n';
 import { FetchPhotosResult } from '@/services/local';
 import { exportPhotos } from '../helpers/exportPhotos';
+import { sharePhotos } from '../helpers/sharePhotos';
+import { useDeletePhotos } from '../helpers/useDeletePhotos';
 
 interface ContextMenuProps {
   item: FetchPhotosResult;
@@ -15,27 +16,33 @@ interface ContextMenuProps {
 }
 
 export const ContextMenu = observer<ContextMenuProps>((props) => {
+  const { item } = props;
   const menuConfig = useMemo<MenuConfig>(() => getMenuConfig(), []);
+  const deletePhotos = useDeletePhotos(item.parent_id);
 
-  const handlePressMenuItem = useCallback(({ nativeEvent }) => {
-    switch (nativeEvent.actionKey) {
-      case ContextMenuKeys.Details:
-        SheetManager.show('photo-detail-sheet', {
-          payload: {
-            item: props.item,
-          },
-        });
-        break;
-      case ContextMenuKeys.Share:
-        Share.share({
-          url: props.item.uri,
-        });
-        break;
-      case ContextMenuKeys.SaveToLocal:
-        exportPhotos([props.item.uri]);
-        break;
-    }
-  }, []);
+  const handlePressMenuItem = useCallback(
+    ({ nativeEvent }) => {
+      switch (nativeEvent.actionKey) {
+        case ContextMenuKeys.Details:
+          SheetManager.show('photo-detail-sheet', {
+            payload: {
+              item,
+            },
+          });
+          break;
+        case ContextMenuKeys.Share:
+          sharePhotos({ uri: item.uri });
+          break;
+        case ContextMenuKeys.SaveToLocal:
+          exportPhotos([item.uri]);
+          break;
+        case ContextMenuKeys.Delete:
+          deletePhotos({ ids: [item.id] });
+          break;
+      }
+    },
+    [item],
+  );
 
   return (
     <ContextMenuView

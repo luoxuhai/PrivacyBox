@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import React from 'react';
+import React, { useContext } from 'react';
 import { TouchableOpacity, ViewStyle } from 'react-native';
 import Animated, { BounceIn } from 'react-native-reanimated';
 import { SFSymbol } from 'react-native-sfsymbols';
@@ -7,18 +7,23 @@ import { SheetManager } from 'react-native-actions-sheet';
 
 import { HapticFeedback } from '@/utils';
 import { useTheme } from '@/theme';
+import { SelectionContext } from '../context';
 
 const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpacity);
 
 interface ImportButtonProps {
-  visible: boolean;
   albumId?: string;
 }
 
 export const ImportButton = observer<ImportButtonProps>((props) => {
   const { colors } = useTheme();
+  const selection = useContext(SelectionContext);
 
-  return props.visible ? (
+  if (selection.enabled) {
+    return null;
+  }
+
+  return (
     <AnimatedTouchableOpacity
       entering={BounceIn.delay(150)}
       style={[
@@ -41,7 +46,7 @@ export const ImportButton = observer<ImportButtonProps>((props) => {
     >
       <SFSymbol name="plus.circle.fill" size={50} color={colors.palette.primary6} />
     </AnimatedTouchableOpacity>
-  ) : null;
+  );
 });
 
 const $container: ViewStyle = {

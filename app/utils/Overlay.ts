@@ -17,6 +17,7 @@ type ToastOptions = {
 };
 
 function toast(options: ToastOptions) {
+  dismissAllAlerts();
   Burnt.toast({
     duration: 2,
     ...options,

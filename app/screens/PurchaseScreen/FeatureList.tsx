@@ -29,10 +29,10 @@ export const FeatureList = observer(() => {
 });
 
 const list: { title: TextKeyPath; icon: string }[] = [
-  {
-    title: 'purchaseScreen.features.icloud',
-    icon: 'arrow.clockwise.icloud.fill',
-  },
+  // {
+  //   title: 'purchaseScreen.features.icloud',
+  //   icon: 'arrow.clockwise.icloud.fill',
+  // },
   {
     title: 'purchaseScreen.features.hideApp',
     icon: 'eye.slash.fill',

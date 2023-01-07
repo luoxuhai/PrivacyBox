@@ -99,7 +99,7 @@ export const Toolbar = observer<IToolbarProps>(
           </TouchableOpacity>
         );
       },
-      [orientation, disabled],
+      [orientation, disabled, rest.onPress],
     );
 
     return (

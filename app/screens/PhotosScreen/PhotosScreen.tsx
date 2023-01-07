@@ -20,7 +20,6 @@ import { fetchPhotos, FetchPhotosResult } from '@/services/local';
 import { spacing } from '@/theme';
 import { MoreButton } from './components/MoreButton';
 import { SelectedMask } from './components/SelectedMask';
-import { HeaderSelectAll } from './components/HeaderSelectAll';
 import { HeaderDoneButton } from './components/HeaderDoneButton';
 import {
   PhotoSettingsContextProvider,
@@ -45,7 +44,6 @@ export const PhotosScreen: FC<StackScreenProps<AppStackParamList, 'Photos'>> = o
   const [photoSettings, setPhotoSettings] =
     useState<PhotoSettingsContextValue>(PhotoSettingsInitialValue);
   const [selection, setSelection] = useState<SelectionContextValue>(SelectionInitialValue);
-  const existsSelection = selection.isSelectAll || !!selection.items.length;
 
   const safeAreaDimensions = useSafeAreaDimensions();
   const { landscape } = useDeviceOrientation();
@@ -68,20 +66,20 @@ export const PhotosScreen: FC<StackScreenProps<AppStackParamList, 'Photos'>> = o
     }));
   }, [selection]);
 
-  const renderHeaderLeft = useCallback(() => {
-    return (
-      <HeaderSelectAll
-        visible={selection.enabled}
-        isSelectAll={selection.isSelectAll}
-        onPress={() => {
-          setSelection((prevValue) => ({
-            ...prevValue,
-            isSelectAll: !prevValue.isSelectAll,
-          }));
-        }}
-      />
-    );
-  }, [selection]);
+  // const renderHeaderLeft = useCallback(() => {
+  //   return (
+  //     <HeaderSelectAll
+  //       visible={selection.enabled}
+  //       isSelectAll={selection.isSelectAll}
+  //       onPress={() => {
+  //         setSelection((prevValue) => ({
+  //           ...prevValue,
+  //           isSelectAll: !prevValue.isSelectAll,
+  //         }));
+  //       }}
+  //     />
+  //   );
+  // }, [selection]);
 
   const renderHeaderRight = useCallback(() => {
     return (
@@ -131,7 +129,7 @@ export const PhotosScreen: FC<StackScreenProps<AppStackParamList, 'Photos'>> = o
           if (exists) {
             items = items.filter((_item) => _item !== item);
           } else {
-            items = items.concat(item);
+            items = [...items, item];
           }
 
           return {
@@ -186,8 +184,8 @@ export const PhotosScreen: FC<StackScreenProps<AppStackParamList, 'Photos'>> = o
             renderItem={renderItem}
           />
         </SafeAreaView>
-        <ImportButton visible={!selection.enabled} albumId={albumId} />
-        <BottomToolbar visible={selection.enabled} disabled={!existsSelection} />
+        <ImportButton albumId={albumId} />
+        <BottomToolbar />
       </Screen>
     </SelectionContextProvider>
   );

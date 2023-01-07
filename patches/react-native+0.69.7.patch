@@ -33,7 +33,7 @@ index 899455b..ac21fee 100644
  
  export interface Spec extends TurboModule {
 diff --git a/node_modules/react-native/React/CoreModules/RCTAlertManager.mm b/node_modules/react-native/React/CoreModules/RCTAlertManager.mm
-index c4a1cde..ec733b0 100644
+index c4a1cde..74b8bf9 100644
 --- a/node_modules/react-native/React/CoreModules/RCTAlertManager.mm
 +++ b/node_modules/react-native/React/CoreModules/RCTAlertManager.mm
 @@ -80,6 +80,8 @@ - (void)invalidate
@@ -45,15 +45,88 @@ index c4a1cde..ec733b0 100644
    UIKeyboardType keyboardType = [RCTConvert UIKeyboardType:args.keyboardType()];
  
    if (!title && !message) {
-@@ -109,6 +111,8 @@ - (void)invalidate
+@@ -109,6 +111,13 @@ - (void)invalidate
          textField.secureTextEntry = NO;
          textField.text = defaultValue;
          textField.keyboardType = keyboardType;
 +        textField.clearButtonMode = UITextFieldViewModeWhileEditing;
 +        textField.placeholder = placeholder;
++          float red = ((float)((0X8b79f8 & 0xFF0000) >> 16))/255.0;
++          float green = ((float)((0X8b79f8 & 0xFF00) >> 8))/255.0;
++          float blue = ((float)(0X8b79f8 & 0xFF))/255.0;
++        textField.tintColor = [UIColor colorWithRed:red green:green blue:blue alpha:1];
++        [textField selectAll:self];
        }];
        break;
      }
+@@ -152,32 +161,41 @@ - (void)invalidate
+       buttonStyle = UIAlertActionStyleDestructive;
+     }
+     __weak RCTAlertController *weakAlertController = alertController;
+-    [alertController
+-        addAction:[UIAlertAction
+-                      actionWithTitle:buttonTitle
+-                                style:buttonStyle
+-                              handler:^(__unused UIAlertAction *action) {
+-                                switch (type) {
+-                                  case RCTAlertViewStylePlainTextInput:
+-                                  case RCTAlertViewStyleSecureTextInput:
+-                                    callback(@[ buttonKey, [weakAlertController.textFields.firstObject text] ]);
+-                                    [weakAlertController hide];
+-                                    break;
+-                                  case RCTAlertViewStyleLoginAndPasswordInput: {
+-                                    NSDictionary<NSString *, NSString *> *loginCredentials = @{
+-                                      @"login" : [weakAlertController.textFields.firstObject text],
+-                                      @"password" : [weakAlertController.textFields.lastObject text]
+-                                    };
+-                                    callback(@[ buttonKey, loginCredentials ]);
+-                                    [weakAlertController hide];
+-                                    break;
+-                                  }
+-                                  case RCTAlertViewStyleDefault:
+-                                    callback(@[ buttonKey ]);
+-                                    [weakAlertController hide];
+-                                    break;
+-                                }
+-                              }]];
++      
++    UIAlertAction *action = [UIAlertAction
++                             actionWithTitle:buttonTitle
++                                       style:buttonStyle
++                                     handler:^(__unused UIAlertAction *action) {
++                                       switch (type) {
++                                         case RCTAlertViewStylePlainTextInput:
++                                         case RCTAlertViewStyleSecureTextInput:
++                                           callback(@[ buttonKey, [weakAlertController.textFields.firstObject text] ]);
++                                           [weakAlertController hide];
++                                           break;
++                                         case RCTAlertViewStyleLoginAndPasswordInput: {
++                                           NSDictionary<NSString *, NSString *> *loginCredentials = @{
++                                             @"login" : [weakAlertController.textFields.firstObject text],
++                                             @"password" : [weakAlertController.textFields.lastObject text]
++                                           };
++                                           callback(@[ buttonKey, loginCredentials ]);
++                                           [weakAlertController hide];
++                                           break;
++                                         }
++                                         case RCTAlertViewStyleDefault:
++                                           callback(@[ buttonKey ]);
++                                           [weakAlertController hide];
++                                           break;
++                                       }
++    }];
++      
++      if (![buttonKey isEqualToString:destructiveButtonKey]) {
++          float red = ((float)((0X8b79f8 & 0xFF0000) >> 16))/255.0;
++          float green = ((float)((0X8b79f8 & 0xFF00) >> 8))/255.0;
++          float blue = ((float)(0X8b79f8 & 0xFF))/255.0;
++          [action setValue:[UIColor colorWithRed:red green:green blue:blue alpha:1] forKey:@"_titleTextColor"];
++      }
++
++    [alertController addAction:action];
+   }
+ 
+   if (!_alertControllers) {
 diff --git a/node_modules/react-native/scripts/.packager.env b/node_modules/react-native/scripts/.packager.env
 new file mode 100644
 index 0000000..361f5fb

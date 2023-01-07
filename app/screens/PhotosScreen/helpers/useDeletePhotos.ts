@@ -1,12 +1,12 @@
+import { useRef } from 'react';
+import { Alert } from 'react-native';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { useStores } from '@/models';
-import { delay, Overlay } from '@/utils';
+import { Overlay } from '@/utils';
 import { deletePhotos, DeletePhotosParams } from '@/services/local';
 import { t } from '@/i18n';
 import { photoKeys } from '../constants';
-import { Alert } from 'react-native';
-import { useRef } from 'react';
 
 export function useDeletePhotos(albumId: string) {
   const queryClient = useQueryClient();

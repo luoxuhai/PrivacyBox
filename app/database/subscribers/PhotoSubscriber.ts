@@ -38,5 +38,4 @@ function uploadToICloud() {
 async function queryAllPhotos(manager: EntityManager) {
   const photos = await manager.find(Photo);
   uploadPhotos(photos);
-  console.log('photos', photos);
 }

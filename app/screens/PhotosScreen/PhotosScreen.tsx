@@ -1,5 +1,5 @@
-import React, { FC, useCallback, useEffect, useLayoutEffect, useState } from 'react';
-import { View, ViewStyle } from 'react-native';
+import React, { FC, useCallback, useEffect, useState } from 'react';
+import { ViewStyle } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { StackScreenProps } from '@react-navigation/stack';
 import { useDeviceOrientation } from '@react-native-community/hooks';

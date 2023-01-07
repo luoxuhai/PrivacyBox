@@ -78,6 +78,7 @@ const zh = {
       softDeleteMsg: '删除后可到回收站中恢复',
       deleteMsg: '回收站已关闭，删除后不可恢复',
     },
+    moveToAlbum: '移动到相册',
   },
   photoViewerScreen: {
     bottomToolbar: {

@@ -6,6 +6,7 @@ import { SelectionContext } from '../context';
 import { exportPhotos } from '../helpers/exportPhotos';
 import { sharePhotos } from '../helpers/sharePhotos';
 import { useDeletePhotos } from '../helpers/useDeletePhotos';
+import { useMovePhotos } from '../helpers/movePhotos';
 
 export function BottomToolbar() {
   const list = useMemo(getList, []);
@@ -13,6 +14,7 @@ export function BottomToolbar() {
   const albumId = selection.items?.[0]?.parent_id;
 
   const deletePhotos = useDeletePhotos(albumId);
+  const movePhotos = useMovePhotos(albumId);
 
   const handlePressItem = useCallback(
     async (key: BottomToolbarKeys) => {
@@ -27,7 +29,10 @@ export function BottomToolbar() {
           await exportPhotos(uris);
           break;
         case BottomToolbarKeys.Delete:
-          await deletePhotos({ ids });
+          deletePhotos({ ids });
+          break;
+        case BottomToolbarKeys.Move:
+          await movePhotos(ids);
           break;
       }
     },
@@ -57,7 +62,7 @@ function getList(): IToolbarItem[] {
       icon: 'square.and.arrow.down',
     },
     {
-      title: t('filesScreen.move'),
+      title: t('photosScreen.moveToAlbum'),
       key: BottomToolbarKeys.Move,
       icon: 'photo.on.rectangle.angled',
     },

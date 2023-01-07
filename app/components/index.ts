@@ -16,3 +16,4 @@ export * from './LoadState';
 export * from './HeaderTitle';
 export * from './PhotoThumbnail/PhotoThumbnail';
 export * from './PopoverMenu';
+export * from './ImageBrowser'

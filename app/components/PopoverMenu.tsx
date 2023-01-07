@@ -7,11 +7,12 @@ import {
   OnPressMenuItemEventObject,
 } from 'react-native-ios-context-menu';
 
-interface PopoverMenuProps {
+export interface PopoverMenuProps {
   menus: MenuConfig;
   permittedArrowDirections?: string[];
   children?: React.ReactNode;
   style?: ViewStyle;
+  disabled?: boolean;
   onPressMenuItem?: (event?: OnPressMenuItemEventObject) => void;
   onMenuWillShow?: () => void;
   onMenuWillHide?: () => void;
@@ -42,7 +43,9 @@ export const PopoverMenu = observer<PopoverMenuProps>((props) => {
     bottom: -window.height * 2,
   };
 
-  return (
+  return props.disabled ? (
+    props.children
+  ) : (
     <>
       <ContextMenuButton
         isMenuPrimaryAction

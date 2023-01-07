@@ -25,3 +25,4 @@ export * from './FilesScreen/FilesScreen';
 export * from './TransferScreen/TransferScreen';
 export * from './ICloudSyncScreen/ICloudSyncScreen';
 export * from './RecycleBinScreen/RecycleBinScreen';
+export * from './PhotoViewerScreen/PhotoViewerScreen';

@@ -13168,6 +13168,11 @@ react-native-override-color-scheme@^1.0.3:
   resolved "https://registry.npmmirror.com/react-native-override-color-scheme/-/react-native-override-color-scheme-1.0.3.tgz#5b1f04ceb2b583644b60c496169374cd6aa883f4"
   integrity sha512-AMHR0uOMbEJL59m61kl0CMcLKRC+dgo6uozNLd2S70o0kUDMIDhr+EF484/af8UDB22OHI5ehsprGMKLiXIfow==
 
+react-native-pager-view@^6.0.0-rc.2:
+  version "6.0.0-rc.2"
+  resolved "https://registry.npmjs.org/react-native-pager-view/-/react-native-pager-view-6.0.0-rc.2.tgz#8a10b5fb57fbdab82a7684238ea349a2410304b2"
+  integrity sha512-osWnYxGaTaKbH9+wxGULt8Q9c5h3AVo+njTEqf2jmxqaVpWzlaIsxU1MWF7Tbk1BN8RiC11szMtOQ0Jlx8Hcag==
+
 react-native-permissions@^3.6.1:
   version "3.6.1"
   resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-3.6.1.tgz#73adcc1cef8cd57a9ef167b4507405f4ff5749c4"

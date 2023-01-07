@@ -208,4 +208,4 @@ export const colors = {
   dark: darkColors,
 };
 
-export type Colors = typeof lightColors;
+export type Colors = typeof lightColors | typeof darkColors;

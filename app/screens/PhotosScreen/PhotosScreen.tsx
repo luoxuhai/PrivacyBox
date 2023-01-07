@@ -66,7 +66,12 @@ export const PhotosScreen: FC<StackScreenProps<AppStackParamList, 'Photos'>> = o
   const renderItem = useCallback(({ item }: { item: FetchPhotosResult }) => {
     return (
       <ContextMenu item={item}>
-        <PhotoItem item={item} />
+        <PhotoItem
+          item={item}
+          onPress={() => {
+            props.navigation.push('PhotoViewer');
+          }}
+        />
       </ContextMenu>
     );
   }, []);

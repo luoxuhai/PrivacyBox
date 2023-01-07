@@ -74,6 +74,13 @@ const zh = {
       video: '{{count}}个视频',
     },
   },
+  photoViewerScreen: {
+    bottomToolbar: {
+      more: '更多',
+      description: '修改描述',
+      moreTitle: '更多操作',
+    },
+  },
   settingsScreen: {
     purchaseBanner: {
       title: '隐私盒子高级版',

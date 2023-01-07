@@ -1,11 +1,13 @@
 import { spacing, typography, useTheme } from '@/theme';
 import React from 'react';
-import { View, ViewStyle, Text, TextProps, TextStyle, useWindowDimensions } from 'react-native';
+import { View, ViewStyle, Text, TextProps, TextStyle, StyleProp } from 'react-native';
 import { useSafeAreaFrame } from 'react-native-safe-area-context';
 
 interface HeaderTitleProps {
   title: string;
   subtitle: string;
+  titleStyle?: StyleProp<TextStyle>;
+  subtitleStyle?: StyleProp<TextStyle>;
 }
 const commonTextProps: TextProps = {
   numberOfLines: 1,
@@ -33,6 +35,7 @@ export function HeaderTitle(props: HeaderTitleProps) {
             {
               color: colors.label,
             },
+            props.titleStyle,
           ]}
           {...commonTextProps}
         >
@@ -46,6 +49,7 @@ export function HeaderTitle(props: HeaderTitleProps) {
             {
               color: colors.label,
             },
+            props.subtitleStyle,
           ]}
           {...commonTextProps}
         >

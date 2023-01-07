@@ -549,6 +549,8 @@ PODS:
     - React-Core
   - react-native-override-color-scheme (1.0.3):
     - React-Core
+  - react-native-pager-view (6.0.0-rc.2):
+    - React-Core
   - react-native-quick-sqlite (6.1.0):
     - React
     - React-callinvoker
@@ -829,6 +831,7 @@ DEPENDENCIES:
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-orientation-locker (from `../node_modules/react-native-orientation-locker`)
   - react-native-override-color-scheme (from `../node_modules/react-native-override-color-scheme`)
+  - react-native-pager-view (from `../node_modules/react-native-pager-view`)
   - react-native-quick-sqlite (from `../node_modules/react-native-quick-sqlite`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - "react-native-segmented-control (from `../node_modules/@react-native-segmented-control/segmented-control`)"
@@ -1043,6 +1046,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-orientation-locker"
   react-native-override-color-scheme:
     :path: "../node_modules/react-native-override-color-scheme"
+  react-native-pager-view:
+    :path: "../node_modules/react-native-pager-view"
   react-native-quick-sqlite:
     :path: "../node_modules/react-native-quick-sqlite"
   react-native-safe-area-context:
@@ -1227,6 +1232,7 @@ SPEC CHECKSUMS:
   react-native-netinfo: f80db8cac2151405633324cb645c60af098ee461
   react-native-orientation-locker: 851f6510d8046ea2f14aa169b1e01fcd309a94ba
   react-native-override-color-scheme: 3badbbee9a4ea2a9c3e5b4a5d9fd9eaba8761870
+  react-native-pager-view: c9171e3b9f212fe6a4a529818745d8cd21fe82a0
   react-native-quick-sqlite: 5500398412d420a201070c6f99004a411df3c60f
   react-native-safe-area-context: dfe5aa13bee37a0c7e8059d14f72ffc076d120e9
   react-native-segmented-control: 06607462630512ff8eef652ec560e6235a30cc3e

@@ -23,6 +23,7 @@ import {
   ChangeLockPasscodeScreen,
   ChangeLockPasscodeScreenParams,
   PhotosNavigatorParams,
+  PhotoViewerScreen,
 } from '@/screens';
 import { ContentNavigator, ContentTabParamList } from './ContentNavigator';
 import { navigationRef, useBackButtonHandler } from './navigationUtilities';
@@ -50,6 +51,7 @@ export type AppStackParamList = {
   Content: NavigatorScreenParams<ContentTabParamList>;
   Purchase: typeof PurchaseScreen;
   Photos: PhotosNavigatorParams;
+  PhotoViewer: undefined;
   DataMigrator: undefined;
   HideApplications: undefined;
 };
@@ -156,6 +158,16 @@ const AppStack = observer(function AppStack() {
             title: null,
           }}
           component={PurchaseScreen}
+        />
+
+        <Stack.Screen
+          name="PhotoViewer"
+          options={{
+            // title: null,
+            presentation: 'fullScreenModal',
+            animation: 'fade',
+          }}
+          component={PhotoViewerScreen}
         />
       </Stack.Group>
 

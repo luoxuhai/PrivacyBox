@@ -8,14 +8,15 @@ import { PhotoThumbnail } from '@/components';
 
 interface PhotoItemProps {
   item: FetchPhotosResult;
+  onPress?: () => void;
 }
 
 export function PhotoItem(props: PhotoItemProps) {
   return (
-    <View style={$container}>
+    <TouchableOpacity style={$container} activeOpacity={0.8} onPress={props.onPress}>
       <PhotoThumbnail item={props.item} />
       <ExtraInfo item={props.item} />
-    </View>
+    </TouchableOpacity>
   );
 }
 

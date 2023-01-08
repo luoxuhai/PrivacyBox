@@ -1,17 +1,16 @@
 import React, { FC, useCallback, useEffect } from 'react';
-import { TouchableOpacity, ViewStyle } from 'react-native';
+import { ViewStyle } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { StackScreenProps } from '@react-navigation/stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
-import { SFSymbol } from 'react-native-sfsymbols';
 import { useQuery } from '@tanstack/react-query';
 
 import { AlbumsNavigatorParamList } from '@/navigators';
 import { Screen, FlatGrid } from '@/components';
 import { AlbumItem } from './components/AlbumItem';
+import { HeaderCreateButton } from './components/HeaderCreateButton';
 import { useAlbumEditor } from './helpers/useAlbumEditor';
-import { useAlbumCreator } from './helpers/useAlbumCreator';
 import { useRefreshOnFocus, useSafeAreaDimensions } from '@/utils';
 import { fetchAlbums } from '@/services/local';
 import { albumKeys } from './constants';
@@ -25,23 +24,10 @@ export const AlbumsScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'Album'
     const bottomTabBarHeight = useBottomTabBarHeight();
     const safeAreaDimensions = useSafeAreaDimensions();
     const { onOpenActionSheet } = useAlbumEditor();
-    const { openAlert } = useAlbumCreator();
 
     useEffect(() => {
       props.navigation.setOptions({
-        headerRight: () => (
-          <TouchableOpacity
-            style={{
-              width: 30,
-              height: 30,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-            onPress={openAlert}
-          >
-            <SFSymbol size={26} name="plus.circle.fill" />
-          </TouchableOpacity>
-        ),
+        headerRight: HeaderCreateButton,
       });
     }, []);
 
@@ -50,7 +36,7 @@ export const AlbumsScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'Album'
       data: albums,
       refetch,
     } = useQuery({
-      queryKey: albumKeys.list(`${inFakeEnvironment}`),
+      queryKey: albumKeys.list({ inFakeEnvironment }),
       queryFn: async () => {
         return await fetchAlbums({
           is_fake: inFakeEnvironment,
@@ -62,20 +48,23 @@ export const AlbumsScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'Album'
 
     useRefreshOnFocus(refetch);
 
-    const renderItem = useCallback(({ item }) => {
-      return (
-        <AlbumItem
-          item={item}
-          onPress={() => {
-            props.navigation.navigate('Photos', {
-              albumId: item.id,
-              title: item.name,
-            });
-          }}
-          onOpenEditor={() => onOpenActionSheet(item)}
-        />
-      );
-    }, []);
+    const renderItem = useCallback(
+      ({ item }) => {
+        return (
+          <AlbumItem
+            item={item}
+            onPress={() => {
+              props.navigation.navigate('Photos', {
+                albumId: item.id,
+                title: item.name,
+              });
+            }}
+            onOpenEditor={() => onOpenActionSheet(item)}
+          />
+        );
+      },
+      [onOpenActionSheet],
+    );
 
     return (
       <Screen>

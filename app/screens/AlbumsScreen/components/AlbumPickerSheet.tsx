@@ -22,7 +22,7 @@ export const AlbumPickerSheet = observer<AlbumPickerSheetProps>((props) => {
   } = useStores();
 
   const { data: albums } = useQuery({
-    queryKey: albumKeys.list(`${inFakeEnvironment}`),
+    queryKey: albumKeys.list({ inFakeEnvironment }),
     queryFn: async () => {
       return await fetchAlbums({
         is_fake: inFakeEnvironment,

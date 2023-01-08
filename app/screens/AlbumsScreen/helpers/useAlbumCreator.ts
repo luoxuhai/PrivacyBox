@@ -41,7 +41,7 @@ export function useAlbumCreator() {
       });
     },
     onSuccess() {
-      queryClient.refetchQueries(albumKeys.list(`${inFakeEnvironment}`));
+      queryClient.refetchQueries(albumKeys.list({ inFakeEnvironment }));
       Overlay.toast({
         preset: 'done',
         title: translate('albumsScreen.createAlbum.success'),

@@ -6,12 +6,16 @@ import { useAirplayConnectivity } from 'react-airplay';
 import { SFSymbol } from 'react-native-sfsymbols';
 
 import Controls from './Controls';
+import { Overlay } from '@/utils';
 
 interface VideoPlayerProps {
+  title?: string;
   source: VideoProperties['source'];
   /** @default 'ignore' */
   ignoreSilentSwitch?: VideoProperties['ignoreSilentSwitch'];
   airplayTip?: string;
+  autoPausedTip?: string;
+  controlsVisible?: boolean;
   onBack?: () => void;
 }
 
@@ -20,8 +24,9 @@ export function VideoPlayer(props: VideoPlayerProps) {
   const [paused, setPaused] = useState(false);
   const [videoInfo, setVideoInfo] = useState<VideoInfo>();
   const [progress, setProgress] = useState<number>();
+  const [rate, setRate] = useState<number>(1);
   const isAirplayConnected = useAirplayConnectivity();
-  const [controlsVisible, setControlsVisible] = useState(false);
+  const [controlsVisible, setControlsVisible] = useState(props.controlsVisible ?? false);
 
   return (
     <Pressable
@@ -38,6 +43,11 @@ export function VideoPlayer(props: VideoPlayerProps) {
           source={props.source}
           controls={false}
           paused={paused}
+          rate={rate}
+          resizeMode="contain"
+          repeat
+          playInBackground={false}
+          playWhenInactive={false}
           onLoad={(data) => {
             setVideoInfo(data);
           }}
@@ -49,13 +59,25 @@ export function VideoPlayer(props: VideoPlayerProps) {
               setProgress(videoInfo.duration);
             }
           }}
+          onAudioBecomingNoisy={() => {
+            setPaused(true);
+            Overlay.toast({ preset: 'done', title: props.autoPausedTip });
+          }}
         />
         <Controls
           visible={controlsVisible}
+          title={props.title}
           videoInfo={videoInfo}
           paused={paused}
           progress={progress}
-          onBack={props.onBack}
+          onBack={() => {
+            setPaused(() => {
+              setTimeout(() => {
+                props.onBack();
+              });
+              return true;
+            });
+          }}
           onPlay={() => {
             setPaused(false);
           }}
@@ -68,6 +90,13 @@ export function VideoPlayer(props: VideoPlayerProps) {
           }}
           onVisible={() => {
             setControlsVisible(false);
+          }}
+          onRate={setRate}
+          onBackward={() => {
+            videoRef.current.seek(progress - 10);
+          }}
+          onForward={() => {
+            videoRef.current.seek(progress + 10);
           }}
         />
         {isAirplayConnected && <Airplayvideo text={props.airplayTip} />}

@@ -90,6 +90,7 @@ const zh = {
   },
   videoPlayerScreen: {
     airplayTip: '正在隔空播放',
+    autoPausedTip: '已暂停播放',
   },
   settingsScreen: {
     purchaseBanner: {

@@ -18,10 +18,13 @@ export const VideoPlayerScreen: FC<StackScreenProps<AppStackParamList, 'VideoPla
     return (
       <Screen>
         <VideoPlayer
-          source={{ uri: encodeURI('file://' + item.uri) }}
+          title={item.name}
+          source={{ uri: item.uri }}
           airplayTip={t('videoPlayerScreen.airplayTip')}
+          autoPausedTip={t('videoPlayerScreen.autoPausedTip')}
+          controlsVisible
           onBack={() => {
-            props.navigation.goBack();
+            props.navigation.pop(1);
           }}
         />
       </Screen>

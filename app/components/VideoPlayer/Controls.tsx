@@ -1,20 +1,30 @@
-import React, { useState, useMemo, useEffect } from 'react';
-import { StyleSheet, View, ViewStyle, Share, TouchableOpacity, Pressable } from 'react-native';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
+import {
+  StyleSheet,
+  View,
+  ViewStyle,
+  Share,
+  TouchableOpacity,
+  Pressable,
+  StatusBar,
+  Text,
+  TextStyle,
+  GestureResponderEvent,
+} from 'react-native';
 import Animated, { FadeIn, useSharedValue } from 'react-native-reanimated';
-
+import { isUndefined } from 'lodash';
+import { useAppState } from '@react-native-community/hooks';
 import { Slider } from 'react-native-awesome-slider';
 import { SFSymbol } from 'react-native-sfsymbols';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import OrientationLocker, { OrientationType } from 'react-native-orientation-locker';
-import { useAppState } from '@react-native-community/hooks';
-import { formatDuration } from '@/utils';
-import { isUndefined } from 'lodash';
 import { showRoutePicker, useExternalPlaybackAvailability } from 'react-airplay';
 
-const iconProps = {
-  size: 26,
-  color: '#FFF',
-};
+import { formatDuration } from '@/utils';
+import { BOTTOM_TABS_HEIGHT } from '@/constants';
+import { radius, spacing, typography, useTheme } from '@/theme';
+import { iconProps, IconButton } from './IconButton';
+import { BlurView } from '../BlurView';
 
 type Orientation = 'portrait' | 'landscape-left' | 'landscape-right';
 
@@ -29,14 +39,19 @@ interface ControlsProps {
   paused?: boolean;
   progress?: number;
   visible: boolean;
+  title?: string;
   onBack?: () => void;
   onPlay: () => void;
   onPause: () => void;
   onProgress: (progress: number) => void;
   onVisible: () => void;
+  onRate: (rate: number) => void;
+  onForward: () => void;
+  onBackward: () => void;
 }
 
 export default function Controls(props: ControlsProps) {
+  const { colors } = useTheme();
   const progress = useSharedValue(0);
   const min = useSharedValue(0);
   const max = useSharedValue(100);
@@ -44,6 +59,8 @@ export default function Controls(props: ControlsProps) {
   const [orientation, setOrientation] = useState<Orientation>('portrait');
   const appState = useAppState();
   const isExternalPlaybackAvailable = useExternalPlaybackAvailability();
+  const lastPressTime = useRef<number>();
+  const pressTimer = useRef<NodeJS.Timeout>();
 
   useEffect(() => {
     OrientationLocker.getOrientation((value) => {
@@ -58,6 +75,10 @@ export default function Controls(props: ControlsProps) {
           setOrientation('portrait');
       }
     });
+
+    return () => {
+      StatusBar.setHidden(false);
+    };
   }, []);
 
   useEffect(() => {
@@ -87,6 +108,10 @@ export default function Controls(props: ControlsProps) {
       props.onPause();
     }
   }, [appState]);
+
+  useEffect(() => {
+    StatusBar.setHidden(!props.visible, 'fade');
+  }, [props.visible]);
 
   const containerStyle: ViewStyle = useMemo(() => {
     const spacing = 16;
@@ -119,14 +144,6 @@ export default function Controls(props: ControlsProps) {
     }
   }
 
-  const iconStyle = useMemo(
-    () => ({
-      width: iconProps.size,
-      height: iconProps.size,
-    }),
-    [iconProps],
-  );
-
   function onSlidingComplete() {
     props.onPlay();
   }
@@ -136,6 +153,28 @@ export default function Controls(props: ControlsProps) {
       return;
     }
     props.onProgress((value / 100) * props.videoInfo.duration);
+  }
+
+  function handlePressBackground(event: GestureResponderEvent) {
+    clearTimeout(pressTimer.current);
+    const nowTime = event.nativeEvent.timestamp;
+
+    if (lastPressTime.current && nowTime - lastPressTime.current < 250) {
+      lastPressTime.current = null;
+      clearTimeout(pressTimer.current);
+      handlePlayState();
+      return;
+    }
+
+    if (!lastPressTime.current) {
+      lastPressTime.current = nowTime;
+      // 双击
+    }
+
+    pressTimer.current = setTimeout(() => {
+      lastPressTime.current = null;
+      props.onVisible();
+    }, 250);
   }
 
   return (
@@ -154,50 +193,57 @@ export default function Controls(props: ControlsProps) {
             paddingLeft: containerStyle.paddingLeft,
             paddingRight: containerStyle.paddingRight,
             paddingTop: containerStyle.paddingTop,
+            height: (orientation === 'portrait' ? BOTTOM_TABS_HEIGHT : BOTTOM_TABS_HEIGHT / 2) + 20,
           },
         ]}
       >
-        <TouchableOpacity onPress={props.onBack}>
-          <SFSymbol name="chevron.backward" color={iconProps.color} style={iconStyle} />
+        <BlurView style={StyleSheet.absoluteFill} blurType="thinMaterialDark" />
+        <TouchableOpacity
+          style={{
+            width: 33,
+            height: 44,
+            justifyContent:'center',
+          }}
+          onPress={props.onBack}
+        >
+          <SFSymbol
+            name="chevron.backward"
+            color={iconProps.color}
+            style={{
+              width: 22,
+              height: 22,
+            }}
+          />
         </TouchableOpacity>
+        {props.title ? (
+          <Text style={$title} numberOfLines={1} ellipsizeMode="middle">
+            {props.title}
+          </Text>
+        ) : null}
         <ViewGroup>
-          <TouchableOpacity
+          <IconButton
+            style={{
+              marginRight: 20,
+            }}
             disabled={!isExternalPlaybackAvailable}
+            name="airplayvideo"
             onPress={() => showRoutePicker({ prioritizesVideoDevices: true })}
-          >
-            <SFSymbol
-              name="airplayvideo"
-              color={iconProps.color}
-              style={[
-                iconStyle,
-                {
-                  marginRight: 20,
-                },
-              ]}
-            />
-          </TouchableOpacity>
-
-          <TouchableOpacity onPress={handleShare}>
-            <SFSymbol name="square.and.arrow.up" color={iconProps.color} style={iconStyle} />
-          </TouchableOpacity>
+          />
+          <IconButton name="square.and.arrow.up" onPress={handleShare} />
         </ViewGroup>
       </View>
-      <Pressable
-        style={styles.background}
-        onPress={() => {
-          props.onVisible();
-        }}
-      />
+      <Pressable style={styles.background} onPress={handlePressBackground} />
       <View
         style={[
           styles.bottomToolbar,
           {
             paddingLeft: containerStyle.paddingLeft,
             paddingRight: containerStyle.paddingRight,
-            paddingBottom: (containerStyle.paddingBottom as number) + 10,
+            paddingBottom: containerStyle.paddingBottom as number,
           },
         ]}
       >
+        <BlurView style={StyleSheet.absoluteFill} blurType="thinMaterialDark" />
         <Slider
           progress={progress}
           minimumValue={min}
@@ -208,39 +254,46 @@ export default function Controls(props: ControlsProps) {
           renderBubble={() => null}
           containerStyle={styles.slider}
           theme={{
-            minimumTrackTintColor: '#FFF',
-            maximumTrackTintColor: '#999999',
+            minimumTrackTintColor: colors.palette.primary6,
+            maximumTrackTintColor: colors.palette.primary1,
           }}
           disable={!props.videoInfo}
         />
         <View style={styles.bottomControls}>
           <ViewGroup>
-            <TouchableOpacity onPress={handlePlayState}>
-              <SFSymbol
-                name={props.paused ? 'play.fill' : 'pause.fill'}
-                color={iconProps.color}
-                style={[
-                  iconStyle,
-                  {
-                    marginRight: 20,
-                  },
-                ]}
-              />
-            </TouchableOpacity>
+            <IconButton
+              style={{
+                marginRight: 20,
+              }}
+              name={props.paused ? 'play.fill' : 'pause.fill'}
+              onPress={handlePlayState}
+            />
+            <IconButton
+              style={{
+                marginRight: 16,
+              }}
+              name="gobackward.10"
+              onPress={props.onBackward}
+            />
+            <IconButton
+              style={{
+                marginRight: 26,
+              }}
+              name="goforward.10"
+              onPress={props.onForward}
+            />
+
             <Progress currentTime={props.progress} duration={props.videoInfo?.duration} />
           </ViewGroup>
 
-          <TouchableOpacity onPress={handleOrientation}>
-            <SFSymbol
-              name={
-                orientation === 'portrait'
-                  ? 'arrow.up.backward.and.arrow.down.forward'
-                  : 'arrow.down.forward.and.arrow.up.backward'
-              }
-              color={iconProps.color}
-              style={iconStyle}
-            />
-          </TouchableOpacity>
+          <IconButton
+            name={
+              orientation === 'portrait'
+                ? 'arrow.up.backward.and.arrow.down.forward'
+                : 'arrow.down.forward.and.arrow.up.backward'
+            }
+            onPress={handleOrientation}
+          />
         </View>
       </View>
     </Animated.View>
@@ -275,12 +328,14 @@ const styles = StyleSheet.create({
   },
 
   bottomToolbar: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    paddingTop: 20,
+    borderTopLeftRadius: radius[10],
+    borderTopRightRadius: radius[10],
+    overflow: 'hidden',
+    paddingTop: spacing[8],
   },
   container: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0, 0, 0, 0.2)',
+    backgroundColor: 'transparent',
     justifyContent: 'space-between',
   },
   group: {
@@ -295,9 +350,18 @@ const styles = StyleSheet.create({
   },
   topToolbar: {
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    borderBottomLeftRadius: radius[10],
+    borderBottomRightRadius: radius[10],
     flexDirection: 'row',
     justifyContent: 'space-between',
+    overflow: 'hidden',
     paddingBottom: 20,
   },
 });
+
+const $title: TextStyle = {
+  flex: 1,
+  paddingRight:  spacing[4],
+  ...typography.headline,
+  color: '#FFF',
+};

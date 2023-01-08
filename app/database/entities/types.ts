@@ -35,5 +35,5 @@ export enum PhotoSubtypes {
 
 export enum Status {
   Normal = 1,
-  Deleted = 1,
+  Deleted = 2,
 }

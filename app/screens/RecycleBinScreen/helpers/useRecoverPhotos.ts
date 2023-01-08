@@ -1,10 +1,9 @@
-import { useRef } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { SheetManager } from 'react-native-actions-sheet';
 
 import { useStores } from '@/models';
 import { Overlay } from '@/utils';
-import { deletePhotos, RecoverDeletedPhotosParams } from '@/services/local';
+import { recoverDeletedPhotos, RecoverDeletedPhotosParams } from '@/services/local';
 import { t } from '@/i18n';
 import { recycleBinKeys } from '../constants';
 
@@ -13,19 +12,10 @@ export function useRecoverPhotos() {
   const {
     appLockStore: { inFakeEnvironment },
   } = useStores();
-  const timer = useRef<NodeJS.Timeout>();
 
   const { mutateAsync: handleRecoverPhotos } = useMutation({
     mutationFn: async (params: RecoverDeletedPhotosParams) => {
-      timer.current = setTimeout(() => {
-        Overlay.alert({
-          preset: 'spinner',
-          duration: 0,
-          title: '删除中...',
-        });
-      }, 1000);
-
-      return await deletePhotos(params);
+      return await recoverDeletedPhotos({ ...params, is_fake: inFakeEnvironment });
     },
     onSuccess() {
       queryClient.invalidateQueries(recycleBinKeys.list({ inFakeEnvironment }));
@@ -40,9 +30,6 @@ export function useRecoverPhotos() {
         title: t('albumsScreen.deleteAlbum.fail'),
         message: error.message,
       });
-    },
-    onSettled() {
-      clearTimeout(timer.current);
     },
   });
 

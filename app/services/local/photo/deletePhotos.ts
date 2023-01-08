@@ -9,14 +9,17 @@ import { LocalPathManager } from '@/utils';
 export type DeletePhotosParams = {
   ids?: string[];
   album_id?: string;
+  status?: Status;
+  is_fake?: boolean;
 };
 
 /**
  * 删除图片/视频
  */
 export async function deletePhotos(params: DeletePhotosParams) {
-  const { album_id, ids } = params;
+  const { album_id, ids, status, is_fake } = params;
 
+  // 按照相册删除
   if (album_id) {
     const photos = await AppDataSource.manager.find(Photo, {
       select: {
@@ -30,10 +33,27 @@ export async function deletePhotos(params: DeletePhotosParams) {
     });
 
     await removeFiles(photos.map((photo) => photo.id));
-  } else {
+
+    // 按照 ids 删除
+  } else if (ids) {
     await AppDataSource.manager.delete(Photo, ids);
 
     await removeFiles(ids);
+
+    // 按照状态删除
+  } else if (status) {
+    const criteria = {
+      status,
+      is_fake,
+    };
+    const photos = await AppDataSource.manager.find(Photo, {
+      select: {
+        id: true,
+      },
+      where: criteria,
+    });
+    await AppDataSource.manager.delete(Photo, criteria);
+    await removeFiles(photos.map((photo) => photo.id));
   }
 }
 

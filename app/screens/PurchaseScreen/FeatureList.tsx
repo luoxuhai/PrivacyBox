@@ -38,6 +38,10 @@ const list: { title: TextKeyPath; icon: string }[] = [
     icon: 'eye.slash.fill',
   },
   {
+    title: 'purchaseScreen.features.fakeHome',
+    icon: 'shield.righthalf.filled',
+  },
+  {
     title: 'purchaseScreen.features.transfer',
     icon: 'wifi.circle.fill',
   },

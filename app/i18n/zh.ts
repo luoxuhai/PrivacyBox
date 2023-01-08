@@ -159,6 +159,7 @@ const zh = {
     cardButton: '获取',
     features: {
       icloud: 'iCloud 同步数据',
+      fakeHome: '伪装 App 主页',
       hideApp: '从设备隐藏任意 App',
       transfer: 'WI-FI 无限传输',
       changeAppIcon: '更换 App 图标',
@@ -272,6 +273,7 @@ const zh = {
     delete: '删除',
     recoverAll: '恢复全部',
     deleteAll: '删除全部',
+    deleteTitle: '删除后不可恢复',
   },
   recycleBinSettingsScreen: {
     title: '回收站设置',

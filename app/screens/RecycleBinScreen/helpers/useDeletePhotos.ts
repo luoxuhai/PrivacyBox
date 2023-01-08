@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { useStores } from '@/models';
 import { Overlay } from '@/utils';
-import { deletePhotos, DestroyDeletedPhotosParams } from '@/services/local';
+import { destroyDeletedPhotos, DestroyDeletedPhotosParams } from '@/services/local';
 import { t } from '@/i18n';
 import { recycleBinKeys } from '../constants';
 
@@ -25,7 +25,7 @@ export function useDeletePhotos() {
         });
       }, 1000);
 
-      return await deletePhotos(params);
+      return await destroyDeletedPhotos({ ...params, is_fake: inFakeEnvironment });
     },
     onSuccess() {
       queryClient.invalidateQueries(recycleBinKeys.list({ inFakeEnvironment }));
@@ -47,26 +47,19 @@ export function useDeletePhotos() {
   });
 
   function handlePresentDeleteAlert(params: DestroyDeletedPhotosParams) {
-    const count = params.ids.length;
-    Alert.alert(
-      t('photosScreen.delete.title', {
-        count: count <= 1 ? '' : count,
-      }),
-      t('photosScreen.delete.deleteMsg'),
-      [
-        {
-          text: t('common.cancel'),
-          style: 'cancel',
+    Alert.alert(t('wastebasketScreen.deleteTitle'), undefined, [
+      {
+        text: t('common.cancel'),
+        style: 'cancel',
+      },
+      {
+        text: t('common.confirm'),
+        style: 'destructive',
+        onPress() {
+          handleDeletePhotos(params);
         },
-        {
-          text: t('common.confirm'),
-          style: 'destructive',
-          onPress() {
-            handleDeletePhotos(params);
-          },
-        },
-      ],
-    );
+      },
+    ]);
   }
 
   return handlePresentDeleteAlert;

@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { useStores } from '@/models';
 import { Overlay } from '@/utils';
-import { deletePhotos, DeletePhotosParams } from '@/services/local';
+import { deletePhotos, softDeletePhotos, DeletePhotosParams } from '@/services/local';
 import { t } from '@/i18n';
 import { photoKeys } from '../constants';
 
@@ -25,7 +25,8 @@ export function useDeletePhotos(albumId: string) {
         });
       }, 1000);
 
-      return await deletePhotos(params);
+      const fn = recycleBinEnabled ? softDeletePhotos : deletePhotos;
+      return await fn(params);
     },
     onSuccess() {
       queryClient.invalidateQueries(photoKeys.list(albumId));

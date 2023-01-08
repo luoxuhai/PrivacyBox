@@ -56,8 +56,13 @@ export const AlbumPickerSheet = observer<AlbumPickerSheetProps>((props) => {
             marginVertical: 0,
           }}
         >
-          {albums.map((album) => (
-            <AlbumItem key={album.id} item={album} onPress={handleDone} />
+          {albums.map((album, index) => (
+            <AlbumItem
+              key={album.id}
+              bottomSeparator={index < albums.length - 1}
+              item={album}
+              onPress={handleDone}
+            />
           ))}
         </ListSection>
       </SafeAreaScrollView>
@@ -82,9 +87,11 @@ function HeaderComponent(props: HeaderComponentProps) {
 
 function AlbumItem({
   item,
+  bottomSeparator,
   onPress,
 }: {
   item: FetchAlbumsResult;
+  bottomSeparator: boolean;
   onPress: (albumId: string) => void;
 }) {
   const { colors, isDark } = useTheme();
@@ -98,6 +105,7 @@ function AlbumItem({
       rightIcon={null}
       RightAccessory={String(item.item_count)}
       onPress={() => onPress(item.id)}
+      bottomSeparator={bottomSeparator}
     />
   );
 }

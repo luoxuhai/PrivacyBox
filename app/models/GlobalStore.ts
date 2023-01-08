@@ -2,9 +2,14 @@ import { Instance, SnapshotIn, SnapshotOut, types } from 'mobx-state-tree';
 
 export const GlobalStoreModel = types
   .model('GlobalStore')
-  .props({})
-  .views((self) => ({}))
-  .actions((self) => ({}));
+  .props({
+    bottomTabVisible: types.optional(types.boolean, true),
+  })
+  .actions((self) => ({
+    setBottomTabVisible(bottomTabVisible: boolean) {
+      self.bottomTabVisible = bottomTabVisible;
+    },
+  }));
 
 export interface GlobalStore extends Instance<typeof GlobalStoreModel> {}
 export interface GlobalStoreSnapshotOut extends SnapshotOut<typeof GlobalStoreModel> {}

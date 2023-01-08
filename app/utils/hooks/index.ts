@@ -5,3 +5,4 @@ export * from './useDeepMemo';
 export * from './useSafeAreaDimensions';
 export * from './useRefreshOnFocus';
 export * from './useAsyncMemo';
+export * from './useBlurEffect';

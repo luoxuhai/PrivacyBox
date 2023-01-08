@@ -268,6 +268,19 @@ const zh = {
   },
   wastebasketScreen: {
     title: '回收站',
+    recover: '恢复',
+    delete: '删除',
+    recoverAll: '恢复全部',
+    deleteAll: '删除全部',
+  },
+  recycleBinSettingsScreen: {
+    title: '回收站设置',
+    tip: '最多保留{{ duration }}天，之后将永久删除。',
+    enableTip: '回收站已关闭，可在右上角设置中打开。',
+    enableHeader: '关闭后，删除的文件不可恢复',
+    enableTitle: '开启回收站',
+    durationHeader: '保留天数',
+    day: '天',
   },
   transferScreen: {
     title: ' WI-FI 无线传输',

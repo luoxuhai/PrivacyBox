@@ -80,10 +80,6 @@ export const FilesScreen: FC<StackScreenProps<FilesNavigatorParamList, 'Files'>>
         } else {
           FileViewer.open(item.uri, {
             displayName: item.name,
-            // showAppsSuggestions?: boolean;
-            // showOpenWithDialog?: boolean;
-            // onDismiss?(): any;
-            // onContentUpdate?(): any;
           });
         }
       },

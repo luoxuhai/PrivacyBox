@@ -1,6 +1,7 @@
 import { AppQueriesSchemes } from '@/screens/UrgentSwitchScreen/type';
 import { Instance, SnapshotIn, SnapshotOut, types } from 'mobx-state-tree';
 import { clearBlockedApplications, setBlockedApplications } from '@/lib/ScreenTime';
+import { isUndefined } from 'lodash';
 
 export enum FakeHomeUnlockActions {
   PullRefresh = 'pull_refresh',
@@ -24,7 +25,7 @@ export const SettingsStoreModel = types
   .props({
     hapticFeedback: types.optional(types.boolean, true),
     recycleBinEnabled: types.optional(types.boolean, true),
-    recycleBinKeep: types.optional(types.number, 0),
+    recycleBinKeep: types.optional(types.number, 15),
     fakeHomeEnabled: types.optional(types.boolean, false),
     fakeHomeUnlockActions: types.optional(types.frozen<FakeHomeUnlockActions[]>(), [
       FakeHomeUnlockActions.Slide,
@@ -64,9 +65,14 @@ export const SettingsStoreModel = types
       self.hapticFeedback = value;
     },
 
-    setRecycleBin(value: { enabled: boolean; keep: number }) {
-      self.recycleBinEnabled = value.enabled;
-      self.recycleBinKeep = value.keep;
+    setRecycleBin(value: { enabled?: boolean; keep?: number }) {
+      if (!isUndefined(value.enabled)) {
+        self.recycleBinEnabled = value.enabled;
+      }
+
+      if (!isUndefined(value.keep)) {
+        self.recycleBinKeep = value.keep;
+      }
     },
 
     setFakeHomeEnabled(fakeHomeEnabled: boolean) {

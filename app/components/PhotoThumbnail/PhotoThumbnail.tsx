@@ -1,9 +1,9 @@
 import { FetchPhotosResult } from '@/services/local';
 import { radius, useTheme } from '@/theme';
 import React from 'react';
-import { View } from 'react-native';
 import { exists } from 'react-native-fs';
 import FastImage, { ImageStyle } from 'react-native-fast-image';
+
 import { useAsyncMemo } from '@/utils';
 import { PhotoTypes } from '@/database/entities/types';
 

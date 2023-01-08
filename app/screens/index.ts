@@ -27,3 +27,4 @@ export * from './ICloudSyncScreen/ICloudSyncScreen';
 export * from './RecycleBinScreen/RecycleBinScreen';
 export * from './PhotoViewerScreen/PhotoViewerScreen';
 export * from './PhotoViewerScreen/VideoPlayerScreen';
+export * from './RecycleBinScreen/RecycleBinSettingsScreen';

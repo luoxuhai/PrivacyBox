@@ -43,6 +43,7 @@ export const ContentNavigator = observer(function ContentNavigator() {
   const {
     settingsStore: { visibleBottomTabs },
     appLockStore,
+    globalStore: { bottomTabVisible },
   } = useStores();
   const bottomTabDarkle = appLockStore.inFakeEnvironment && appLockStore.bottomTabDarkleWhenFake;
 
@@ -56,6 +57,7 @@ export const ContentNavigator = observer(function ContentNavigator() {
           paddingTop: spacing[4],
           borderTopColor: colors.transparent,
           position: 'absolute',
+          display: bottomTabVisible ? 'flex' : 'none',
         },
         tabBarActiveTintColor: colors.palette.primary6,
         tabBarInactiveTintColor: colors.secondaryLabel,

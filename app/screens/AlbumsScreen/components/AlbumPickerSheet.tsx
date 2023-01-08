@@ -23,12 +23,13 @@ export const AlbumPickerSheet = observer<AlbumPickerSheetProps>((props) => {
 
   const { data: albums } = useQuery({
     queryKey: albumKeys.list({ inFakeEnvironment }),
+    placeholderData: [],
     queryFn: async () => {
       return await fetchAlbums({
         is_fake: inFakeEnvironment,
       });
     },
-    enabled: false,
+    enabled: true,
   });
 
   const handleDone = useCallback((albumId?: string) => {

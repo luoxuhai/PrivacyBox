@@ -9,6 +9,7 @@ import {
   RecycleBinScreen,
   ICloudSyncScreen,
   TransferScreen,
+  RecycleBinSettingsScreen,
 } from '@/screens';
 import { useTheme } from '@/theme';
 import { translate } from '@/i18n';
@@ -21,6 +22,7 @@ export type MoreFeatureNavigatorParamList = {
   RecycleBin: undefined;
   ICloudSync: undefined;
   Transfer: undefined;
+  RecycleBinSettings: undefined;
 } & AppStackParamList;
 
 const Stack = createNativeStackNavigator<MoreFeatureNavigatorParamList>();
@@ -90,8 +92,19 @@ export const MoreFeatureNavigator = observer(() => {
           name="RecycleBin"
           options={{
             title: translate('wastebasketScreen.title'),
+            headerLargeStyle: {
+              backgroundColor: colors.background,
+            },
           }}
           component={RecycleBinScreen}
+        />
+
+        <Stack.Screen
+          name="RecycleBinSettings"
+          options={{
+            title: translate('recycleBinSettingsScreen.title'),
+          }}
+          component={RecycleBinSettingsScreen}
         />
       </Stack.Group>
     </Stack.Navigator>

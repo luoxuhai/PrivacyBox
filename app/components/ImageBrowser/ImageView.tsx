@@ -38,7 +38,7 @@ export interface ImageViewProps
 let pressInEvent: NativeSyntheticTouchEvent['nativeEvent'];
 
 export const DEFAULT_PROPS = {
-  delayDoublePress: 250,
+  delayDoublePress: 200,
   delayLongPress: 500,
 };
 

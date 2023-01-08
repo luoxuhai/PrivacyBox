@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useState } from 'react';
+import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { ViewStyle } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { StackScreenProps } from '@react-navigation/stack';
@@ -46,7 +46,10 @@ export const PhotosScreen: FC<StackScreenProps<AppStackParamList, 'Photos'>> = o
 
   const safeAreaDimensions = useSafeAreaDimensions();
   const { landscape } = useDeviceOrientation();
-
+  const queryKey = useMemo(
+    () => photoKeys.list(albumId, photoSettings.orderBy),
+    [albumId, photoSettings.orderBy],
+  );
   // 重置 selection
   useUpdateEffect(() => {
     if (!selection.enabled) {
@@ -105,7 +108,7 @@ export const PhotosScreen: FC<StackScreenProps<AppStackParamList, 'Photos'>> = o
   }, [title, albumId, renderHeaderRight]);
 
   const { data: photos } = useQuery({
-    queryKey: photoKeys.list(albumId, photoSettings.orderBy),
+    queryKey,
     queryFn: async ({ queryKey }) => {
       const [_key1, _key2, { order }] = queryKey;
       return await fetchPhotos({
@@ -137,10 +140,13 @@ export const PhotosScreen: FC<StackScreenProps<AppStackParamList, 'Photos'>> = o
 
         // 打开项目
       } else {
-        props.navigation.push('PhotoViewer');
+        props.navigation.push('PhotoViewer', {
+          queryKey,
+          item,
+        });
       }
     },
-    [selection],
+    [selection, queryKey],
   );
 
   const renderItem = useCallback(

@@ -1,11 +1,10 @@
 import React, { useMemo } from 'react';
-import { SFSymbol } from 'react-native-sfsymbols';
 
 import { Toolbar, IToolbarItem } from '@/components/Toolbar';
 import { translate } from '@/i18n';
 import { FetchPhotosResult } from '@/services/local';
 import { MorePopoverMenu } from './MorePopoverMenu';
-import { Colors, useTheme } from '@/theme';
+import { observer } from 'mobx-react-lite';
 
 const t = translate;
 
@@ -15,12 +14,11 @@ interface BottomToolbarProps {
   item: FetchPhotosResult;
 }
 
-export function BottomToolbar(props: BottomToolbarProps) {
-  const { colors } = useTheme();
+export const BottomToolbar = observer((props: BottomToolbarProps) => {
   const list = useMemo(() => getList(props), [props]);
 
   return <Toolbar visible={props.visible} disabled={props.disabled} list={list} />;
-}
+});
 
 function getList(props: BottomToolbarProps): IToolbarItem[] {
   return [

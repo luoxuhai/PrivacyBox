@@ -49,6 +49,7 @@ const zh = {
       placeholder: '相册名称（20个字符内）',
       success: '',
       fail: '创建相册失败',
+      sameName: '相册名称不能相同',
     },
     renameAlbum: {
       title: '修改相册名称',
@@ -86,6 +87,9 @@ const zh = {
       description: '修改描述',
       moreTitle: '更多操作',
     },
+  },
+  videoPlayerScreen: {
+    airplayTip: '正在隔空播放',
   },
   settingsScreen: {
     purchaseBanner: {

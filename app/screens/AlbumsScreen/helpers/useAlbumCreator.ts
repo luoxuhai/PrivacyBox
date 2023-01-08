@@ -5,7 +5,7 @@ import { createAlbum, fetchAlbums } from '@/services/local';
 import { Overlay } from '@/utils';
 import { albumKeys } from '../constants';
 import { useStores } from '@/models';
-import { translate } from '@/i18n';
+import { t } from '@/i18n';
 
 export function useAlbumCreator() {
   const queryClient = useQueryClient();
@@ -36,7 +36,7 @@ export function useAlbumCreator() {
     onError(error: Error) {
       Overlay.toast({
         preset: 'error',
-        title: translate('albumsScreen.createAlbum.fail'),
+        title: t('albumsScreen.createAlbum.fail'),
         message: error.message,
       });
     },
@@ -44,20 +44,20 @@ export function useAlbumCreator() {
       queryClient.refetchQueries(albumKeys.list({ inFakeEnvironment }));
       Overlay.toast({
         preset: 'done',
-        title: translate('albumsScreen.createAlbum.success'),
+        title: t('albumsScreen.createAlbum.success'),
       });
     },
   });
 
   function openAlert() {
     Alert.prompt(
-      translate('albumsScreen.createAlbum.title'),
-      translate('albumsScreen.createAlbum.message'),
+      t('albumsScreen.createAlbum.title'),
+      t('albumsScreen.createAlbum.message'),
       handleCreateAlbum,
       'plain-text',
       '',
       'default',
-      translate('albumsScreen.createAlbum.placeholder'),
+      t('albumsScreen.createAlbum.placeholder'),
     );
   }
 

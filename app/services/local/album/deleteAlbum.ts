@@ -1,5 +1,6 @@
 import { AppDataSource } from '@/database';
 import Photo from '@/database/entities/photo';
+import { softDeletePhotos, deletePhotos } from '../photo';
 
 export type DeleteAlbumParams = Partial<Pick<Photo, 'id'>>;
 
@@ -10,16 +11,16 @@ export async function deleteAlbum(params: DeleteAlbumParams) {
   if (!params.id) {
     throw Error('missing params.id');
   }
-  const result = await AppDataSource.manager.delete(Photo, params.id);
 
-  return result;
+  await AppDataSource.manager.delete(Photo, params.id);
+  await deletePhotos({ album_id: params.id });
 }
 
 export async function softDeleteAlbum(params: DeleteAlbumParams) {
   if (!params.id) {
     throw Error('missing params.id');
   }
-  const result = await AppDataSource.manager.delete(Photo, params.id);
 
-  return result;
+  await AppDataSource.manager.delete(Photo, params.id);
+  await softDeletePhotos({ album_id: params.id });
 }

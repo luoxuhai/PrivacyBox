@@ -39,7 +39,7 @@ export function useImportPhotos(albumId: string) {
         preset: 'done',
         title: translate('filesScreen.rename.success'),
       });
-      queryClient.refetchQueries(photoKeys.list(`${inFakeEnvironment}:${albumId}`));
+      queryClient.refetchQueries(photoKeys.list(albumId));
       queryClient.refetchQueries(albumKeys.detail(albumId));
 
       if (autoDeleteOriginEnabled) {

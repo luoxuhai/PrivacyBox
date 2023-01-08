@@ -7,11 +7,9 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { radius, useTheme, Colors } from '@/theme';
 import { translate } from '@/i18n';
-import { PhotoImportTypes, photoKeys } from '../constants';
+import { PhotoImportTypes } from '../constants';
 import { IResult, PhotoImporter } from '../helpers/PhotoImporter';
 import { useImportPhotos } from '../helpers/useImportPhotos';
-import { useQueryClient } from '@tanstack/react-query';
-import { useStores } from '@/models';
 
 const ICON_PROPS = {
   size: 30,

@@ -22,4 +22,11 @@ declare global {
     altitude?: number;
     speed?: number;
   }
+
+  /**
+   * DESC: 降序
+   */
+  type OrderBy<T> = {
+    [key in keyof T]: 'DESC' | 'ASC';
+  };
 }

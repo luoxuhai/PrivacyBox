@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { HeaderTitle } from '@/components';
 import { useAlbumDetail } from '../../AlbumsScreen/helpers/useAlbumDetail';
 import { translate } from '@/i18n';

@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { View, ViewStyle, Text, TouchableOpacity, TextStyle, Pressable } from 'react-native';
+import { View, ViewStyle, Text, TextStyle, Pressable } from 'react-native';
 
 import { FetchPhotosResult } from '@/services/local';
 import { PhotoTypes } from '@/database/entities/types';

@@ -33,10 +33,9 @@ export function MoreButton(props: MoreButtonProps) {
         props.onSort?.({
           orderBy: {
             [item.actionKey]:
-              photoSettingsContext.orderBy[item.actionKey] === 'ASC' ? 'DESC' : 'ASC',
+              photoSettingsContext.orderBy?.[item.actionKey] === 'ASC' ? 'DESC' : 'ASC',
           },
         });
-
         break;
     }
   }

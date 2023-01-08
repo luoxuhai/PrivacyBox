@@ -11,7 +11,6 @@ import { photoKeys } from '../constants';
 export function useDeletePhotos(albumId: string) {
   const queryClient = useQueryClient();
   const {
-    appLockStore: { inFakeEnvironment },
     settingsStore: { recycleBinEnabled },
   } = useStores();
   const timer = useRef<NodeJS.Timeout>();
@@ -29,7 +28,7 @@ export function useDeletePhotos(albumId: string) {
       return await deletePhotos(params);
     },
     onSuccess() {
-      queryClient.invalidateQueries(photoKeys.list(`${inFakeEnvironment}:${albumId}`));
+      queryClient.invalidateQueries(photoKeys.list(albumId));
       Overlay.toast({
         preset: 'done',
         title: t('albumsScreen.deleteAlbum.success'),

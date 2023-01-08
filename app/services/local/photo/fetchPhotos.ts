@@ -1,4 +1,4 @@
-import { In } from 'typeorm';
+import { In, FindOptionsOrder } from 'typeorm';
 
 import { AppDataSource } from '@/database';
 import Photo from '@/database/entities/photo';
@@ -7,7 +7,9 @@ import { joinPhotoUri } from '../helpers/joinPhotoUri';
 import { joinPhotoThumbnail } from '../helpers/joinPhotoThumbnail';
 import { joinVideoPoster } from '../helpers/joinVideoPoster';
 
-type FetchPhotosParams = Partial<Pick<Photo, 'name' | 'status' | 'is_fake' | 'parent_id'>>;
+type FetchPhotosParams = Partial<Pick<Photo, 'name' | 'status' | 'is_fake' | 'parent_id'>> & {
+  order_by?: OrderBy<Partial<Photo>>;
+};
 
 export type FetchPhotosResult = Photo & {
   /** 图片/视频资源地址 */
@@ -22,15 +24,19 @@ export type FetchPhotosResult = Photo & {
  * 获取所有图片/视频
  */
 export async function fetchPhotos(params: FetchPhotosParams): Promise<FetchPhotosResult[]> {
+  const { order_by, ...rest } = params;
+
+  const order: FindOptionsOrder<Photo> = (order_by as unknown as FindOptionsOrder<Photo>) ?? {
+    created_date: 'DESC',
+  };
+
   const result = (await AppDataSource.manager.find(Photo, {
     where: {
       status: Status.Normal,
-      ...params,
+      ...rest,
       type: In([PhotoTypes.Photo, PhotoTypes.Video]),
     },
-    order: {
-      created_date: 'DESC',
-    },
+    order,
   })) as FetchPhotosResult[];
 
   for (const item of result) {

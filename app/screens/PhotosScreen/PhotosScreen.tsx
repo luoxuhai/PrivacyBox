@@ -15,7 +15,6 @@ import { ImportButton } from './components/ImportButton';
 import { HeaderAlbumDetail } from './components/HeaderAlbumDetail';
 import { BottomToolbar } from './components/BottomToolbar';
 import { photoKeys } from './constants';
-import { useStores } from '@/models';
 import { fetchPhotos, FetchPhotosResult } from '@/services/local';
 import { spacing } from '@/theme';
 import { MoreButton } from './components/MoreButton';
@@ -47,9 +46,6 @@ export const PhotosScreen: FC<StackScreenProps<AppStackParamList, 'Photos'>> = o
 
   const safeAreaDimensions = useSafeAreaDimensions();
   const { landscape } = useDeviceOrientation();
-  const {
-    appLockStore: { inFakeEnvironment },
-  } = useStores();
 
   // 重置 selection
   useUpdateEffect(() => {
@@ -97,7 +93,7 @@ export const PhotosScreen: FC<StackScreenProps<AppStackParamList, 'Photos'>> = o
         />
       </PhotoSettingsContextProvider>
     );
-  }, [selection.enabled]);
+  }, [selection.enabled, photoSettings]);
 
   // 顶部导航栏
   useEffect(() => {
@@ -106,14 +102,15 @@ export const PhotosScreen: FC<StackScreenProps<AppStackParamList, 'Photos'>> = o
       headerRight: renderHeaderRight,
       // headerLeft: renderHeaderLeft,
     });
-  }, [title, albumId, photoSettings, selection, renderHeaderRight]);
+  }, [title, albumId, renderHeaderRight]);
 
-  const { data: photos, isLoading } = useQuery({
-    queryKey: photoKeys.list(`${inFakeEnvironment}:${albumId}`),
-    queryFn: async () => {
+  const { data: photos } = useQuery({
+    queryKey: photoKeys.list(albumId, photoSettings.orderBy),
+    queryFn: async ({ queryKey }) => {
+      const [_key1, _key2, { order }] = queryKey;
       return await fetchPhotos({
-        is_fake: inFakeEnvironment,
         parent_id: albumId,
+        order_by: order,
       });
     },
     enabled: true,

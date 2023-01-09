@@ -1,7 +1,10 @@
 import React, { ErrorInfo } from 'react';
-import { ScrollView, TextStyle, ViewStyle } from 'react-native';
+import { ScrollView, TextStyle, ViewStyle, Linking } from 'react-native';
 import { Button, Screen, Text } from '@/components';
-import { spacing, useTheme } from '@/theme';
+import { spacing, typography, useTheme } from '@/theme';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import Config from '@/config';
+import { t } from '@/i18n';
 
 export interface ErrorDetailsProps {
   error: Error;
@@ -13,53 +16,70 @@ export function ErrorDetails(props: ErrorDetailsProps) {
   const { colors } = useTheme();
 
   return (
-    <Screen
-      safeAreaEdges={['top', 'bottom']}
-      contentContainerStyle={$contentContainer}
-    >
-      <ScrollView
-        style={[
-          $errorSection,
-          {
-            backgroundColor: colors.background,
-          },
-        ]}
-        contentContainerStyle={$errorSectionContentContainer}
+    <Screen>
+      <SafeAreaView
+        style={{
+          flex: 1,
+          alignItems: 'center',
+        }}
       >
         <Text
           style={{
-            color: colors.error,
+            ...typography.title3,
           }}
-          text={`${props.error}`.trim()}
-        />
-        <Text
-          selectable
-          style={[$errorBacktrace, { color: colors.tertiaryLabel }]}
-          text={`${props.errorInfo.componentStack}`.trim()}
-        />
-      </ScrollView>
+        >
+          🤯 {t('errorScreen.title')}
+        </Text>
+        <ScrollView
+          style={[
+            $errorSection,
+            {
+              backgroundColor: colors.background,
+            },
+          ]}
+          contentContainerStyle={$errorSectionContentContainer}
+        >
+          <Text
+            style={{
+              color: colors.error,
+            }}
+            selectable
+            text={`${props.error}`.trim()}
+          />
+          <Text
+            selectable
+            style={[$errorBacktrace, { color: colors.tertiaryLabel }]}
+            text={`${props.errorInfo.componentStack}`.trim()}
+          />
+        </ScrollView>
 
-      <Button
-        preset="reversed"
-        style={[
-          $resetButton,
-          {
-            backgroundColor: colors.error,
-          },
-        ]}
-        onPress={props.onReset}
-        tk="errorScreen.reset"
-      />
+        <Button
+          style={[
+            $resetButton,
+            {
+              backgroundColor: colors.error,
+              marginBottom: 10,
+            },
+          ]}
+          onPress={props.onReset}
+          tk="errorScreen.reset"
+        />
+        <Button
+          style={[
+            $resetButton,
+            {
+              backgroundColor: colors.error,
+            },
+          ]}
+          onPress={() => {
+            Linking.openURL(Config.TXC_FEEDBACK_URL);
+          }}
+          tk="errorScreen.feedback"
+        />
+      </SafeAreaView>
     </Screen>
   );
 }
-
-const $contentContainer: ViewStyle = {
-  alignItems: 'center',
-  paddingHorizontal: spacing[4],
-  paddingTop: spacing[10],
-  flex: 1,
-};
 
 const $errorSection: ViewStyle = {
   flex: 2,
@@ -76,5 +96,5 @@ const $errorBacktrace: TextStyle = {
 };
 
 const $resetButton: ViewStyle = {
-  paddingHorizontal: spacing[5],
+  width: 200,
 };

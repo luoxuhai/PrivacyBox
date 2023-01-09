@@ -140,7 +140,7 @@ export const PhotosScreen: FC<StackScreenProps<AppStackParamList, 'Photos'>> = o
 
         // 打开项目
       } else {
-        props.navigation.push('PhotoViewer', {
+        props.navigation.navigate('PhotoViewer', {
           queryKey,
           item,
         });

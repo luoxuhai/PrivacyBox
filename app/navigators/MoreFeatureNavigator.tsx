@@ -8,7 +8,6 @@ import {
   ApplicationPickerScreen,
   RecycleBinScreen,
   ICloudSyncScreen,
-  TransferScreen,
   RecycleBinSettingsScreen,
 } from '@/screens';
 import { useTheme } from '@/theme';
@@ -78,14 +77,6 @@ export const MoreFeatureNavigator = observer(() => {
             title: translate('icloudScreen.title'),
           }}
           component={ICloudSyncScreen}
-        />
-
-        <Stack.Screen
-          name="Transfer"
-          options={{
-            title: translate('transferScreen.title'),
-          }}
-          component={TransferScreen}
         />
 
         <Stack.Screen

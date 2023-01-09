@@ -34,11 +34,15 @@ export class LocalPathManager {
   }
 
   static get tempPath() {
-    return `${this.basePath}/temp`;
+    return `${this.temporaryPath}`;
   }
 
   static get logPath() {
     return `${this.basePath}/logs`;
+  }
+
+  static get staticPath() {
+    return `${this.basePath}/assets`;
   }
 }
 

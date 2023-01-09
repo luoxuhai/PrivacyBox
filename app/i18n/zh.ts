@@ -31,7 +31,9 @@ const zh = {
     settingsTab: '设置',
   },
   errorScreen: {
-    reset: '重置',
+    title: '出错了～',
+    reset: '重启',
+    feedback: '反馈',
   },
   dataMigratorScreen: {},
   albumsScreen: {
@@ -62,6 +64,12 @@ const zh = {
       success: '删除成功',
       fail: '删除失败',
     },
+  },
+  photoSearchPanel: {
+    all: '全部',
+    album: '相册',
+    image: '图片',
+    video: '视频',
   },
   photosScreen: {
     import: {
@@ -287,6 +295,11 @@ const zh = {
   transferScreen: {
     title: ' WI-FI 无线传输',
     subtitle: '免流量跨平台极速传输',
+    tip1: '在您的电脑或其他设备的浏览器中通过输入或扫描二维码打开以下网址。',
+    tip2: '必须连接到同一个WI-FI，请勿离开本页面',
+    errorTip: '请检查 WI-FI 连接',
+    connectFail: '连接失败，请重试！',
+    wifiTip: '请打开 WI-FI 后重试',
   },
   hideApplicationsScreen: {
     title: '隐藏App',

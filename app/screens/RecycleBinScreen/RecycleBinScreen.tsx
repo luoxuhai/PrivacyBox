@@ -22,11 +22,6 @@ import { useStores } from '@/models';
 import { HeaderDoneButton } from './components/HeaderDoneButton';
 import { MoreButton } from './components/MoreButton';
 
-export interface PhotosNavigatorParams {
-  albumId: string;
-  title?: string;
-}
-
 interface ListExtraData {
   selection: SelectionContextValue;
 }

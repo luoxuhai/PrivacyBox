@@ -30,13 +30,6 @@ export const AlbumsNavigator = observer(() => {
         name="Album"
         options={{
           title: translate('albumsScreen.title'),
-          headerSearchBarOptions: {
-            shouldShowHintSearchIcon: true,
-            hideNavigationBar: false,
-            hideWhenScrolling: false,
-            placeholder: translate('albumsScreen.searchPlaceholder'),
-            cancelButtonText: translate('common.cancel'),
-          },
           headerLargeTitle: true,
         }}
         component={AlbumsScreen}

@@ -1,7 +1,7 @@
-import React, { FC, useCallback, useEffect } from 'react';
+import React, { FC, useCallback, useEffect, useRef } from 'react';
 import { ViewStyle } from 'react-native';
 import { observer } from 'mobx-react-lite';
-import { StackScreenProps } from '@react-navigation/stack';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useQuery } from '@tanstack/react-query';
@@ -10,13 +10,17 @@ import { AlbumsNavigatorParamList } from '@/navigators';
 import { Screen, FlatGrid } from '@/components';
 import { AlbumItem } from './components/AlbumItem';
 import { HeaderCreateButton } from './components/HeaderCreateButton';
+import {
+  PhotoSearchPanel,
+  PhotoSearchPanelInstance,
+} from './components/PhotoSearchPanel/PhotoSearchPanel';
 import { useAlbumEditor } from './helpers/useAlbumEditor';
 import { useRefreshOnFocus, useSafeAreaDimensions } from '@/utils';
 import { fetchAlbums } from '@/services/local';
-import { albumKeys } from './constants';
+import { albumKeys, headerSearchBarOptions } from './constants';
 import { useStores } from '@/models';
 
-export const AlbumsScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'Album'>> = observer(
+export const AlbumsScreen: FC<NativeStackScreenProps<AlbumsNavigatorParamList, 'Album'>> = observer(
   (props) => {
     const {
       appLockStore: { inFakeEnvironment },
@@ -24,12 +28,20 @@ export const AlbumsScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'Album'
     const bottomTabBarHeight = useBottomTabBarHeight();
     const safeAreaDimensions = useSafeAreaDimensions();
     const { onOpenActionSheet } = useAlbumEditor();
+    const searchPanelRef = useRef<PhotoSearchPanelInstance>(null);
 
     useEffect(() => {
       props.navigation.setOptions({
         headerRight: HeaderCreateButton,
+        headerSearchBarOptions: {
+          ...headerSearchBarOptions,
+          onChangeText: (event) => searchPanelRef.current?.search(event.nativeEvent.text),
+          onCancelButtonPress: searchPanelRef.current?.hide,
+          onBlur: searchPanelRef.current?.hide,
+          onFocus: searchPanelRef.current?.show,
+        },
       });
-    }, []);
+    }, [searchPanelRef.current]);
 
     const {
       isFetching,
@@ -84,6 +96,7 @@ export const AlbumsScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'Album'
             renderItem={renderItem}
           />
         </SafeAreaView>
+        <PhotoSearchPanel ref={searchPanelRef} />
       </Screen>
     );
   },

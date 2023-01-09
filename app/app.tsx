@@ -1,11 +1,11 @@
+import 'react-native-get-random-values';
 import './i18n';
 import './utils/ignoreWarnings';
 import './utils/consoleExtension';
 import './utils/sheets';
 
-import { initBasePath } from './utils/initBasePath';
 import React, { useEffect } from 'react';
-import 'react-native-get-random-values';
+import { initBasePath } from './utils/initBasePath';
 import { initialWindowMetrics, SafeAreaProvider } from 'react-native-safe-area-context';
 import { observer } from 'mobx-react-lite';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';

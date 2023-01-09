@@ -27,6 +27,7 @@ import {
   VideoPlayerScreen,
   PhotoViewerScreenParams,
   VideoPlayerScreenParams,
+  TransferScreen,
 } from '@/screens';
 import { ContentNavigator, ContentTabParamList } from './ContentNavigator';
 import { navigationRef, useBackButtonHandler } from './navigationUtilities';
@@ -56,6 +57,7 @@ export type AppStackParamList = {
   Photos: PhotosNavigatorParams;
   PhotoViewer: PhotoViewerScreenParams;
   VideoPlayer: VideoPlayerScreenParams;
+  Transfer: undefined;
   DataMigrator: undefined;
   HideApplications: undefined;
 };
@@ -192,6 +194,14 @@ const AppStack = observer(function AppStack() {
         <Stack.Screen name="PhotoViewer" component={PhotoViewerScreen} />
         <Stack.Screen name="VideoPlayer" component={VideoPlayerScreen} />
       </Stack.Group>
+
+      <Stack.Screen
+        name="Transfer"
+        options={{
+          title: translate('transferScreen.title'),
+        }}
+        component={TransferScreen}
+      />
 
       <Stack.Screen
         name="HideApplications"

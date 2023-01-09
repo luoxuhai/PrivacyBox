@@ -12,6 +12,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SheetProvider } from 'react-native-actions-sheet';
 
 import { initCrashReporting, useUpdateEffect, lockOrientation } from './utils';
+import { initTask } from './utils/task/initTask';
 import { useInitialRootStore } from './models';
 import { useInitialDataSource } from './database/helpers/useInitDataSource';
 import { AppNavigator, useNavigationPersistence, RootNavigation } from './navigators';
@@ -32,6 +33,7 @@ const App = observer(() => {
   useEffect(() => {
     lockOrientation();
     initBasePath();
+    initTask();
     if (!__DEV__) {
       initCrashReporting();
     }

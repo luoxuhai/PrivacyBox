@@ -18,7 +18,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { useQuery } from '@tanstack/react-query';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
-import { isEmpty } from 'lodash';
+import { isEmpty, debounce } from 'lodash';
 
 import { PhotoTypes } from '@/database/entities/types';
 import { SectionGrid } from '@/components/Grid/SectionGrid/SectionGrid';
@@ -31,7 +31,7 @@ import { RootNavigation } from '@/navigators';
 import { FilterTypes, photoSearchKeys } from '../../constants';
 import { useStores } from '@/models';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { searchPhotos } from '@/services/local';
+import { searchPhotos, SearchPhotosParams } from '@/services/local';
 import { filterOptions } from './constants';
 import { BlurView } from '@/components';
 
@@ -52,7 +52,7 @@ export const PhotoSearchPanel = observer<PhotoSearchPanelProps, PhotoSearchPanel
     const segmentedControlTop = statusBarHeight + 60;
 
     const [visible, setVisible] = useState(false);
-    const [keywords, setKeywords] = useState<string | undefined>();
+    const [keywords, setKeywords] = useState<string>('');
     const [filterType, setFilterType] = useState<FilterTypes>(FilterTypes.All);
 
     const queryKey = useMemo(
@@ -62,7 +62,7 @@ export const PhotoSearchPanel = observer<PhotoSearchPanelProps, PhotoSearchPanel
           keywords,
           type: filterType,
         }),
-      [inFakeEnvironment],
+      [inFakeEnvironment, keywords, filterType],
     );
 
     const containerOpacity = useSharedValue(0.5);
@@ -83,9 +83,7 @@ export const PhotoSearchPanel = observer<PhotoSearchPanelProps, PhotoSearchPanel
       hide() {
         setVisible(false);
       },
-      search(v: string) {
-        setKeywords(v);
-      },
+      search: debounce(setKeywords, 250),
     }));
 
     useEffect(() => {
@@ -108,14 +106,23 @@ export const PhotoSearchPanel = observer<PhotoSearchPanelProps, PhotoSearchPanel
         const [_k1, _k2, { filter }] = queryKey;
         const { inFakeEnvironment, keywords, type } = filter;
 
-        return await searchPhotos({
+        if (!keywords) {
+          return [];
+        }
+
+        const params: SearchPhotosParams = {
           is_fake: inFakeEnvironment,
           keywords,
-          type,
-        });
+        };
+
+        if (type !== FilterTypes.All) {
+          params.type = type as unknown as PhotoTypes;
+        }
+
+        return await searchPhotos(params);
       },
       placeholderData: [],
-      enabled: false,
+      enabled: true,
     });
 
     const renderAlbumItem = useCallback(

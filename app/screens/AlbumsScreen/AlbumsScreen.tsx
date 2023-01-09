@@ -37,7 +37,6 @@ export const AlbumsScreen: FC<NativeStackScreenProps<AlbumsNavigatorParamList, '
           ...headerSearchBarOptions,
           onChangeText: (event) => searchPanelRef.current?.search(event.nativeEvent.text),
           onCancelButtonPress: searchPanelRef.current?.hide,
-          onBlur: searchPanelRef.current?.hide,
           onFocus: searchPanelRef.current?.show,
         },
       });

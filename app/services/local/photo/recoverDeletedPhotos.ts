@@ -19,9 +19,10 @@ export type DestroyDeletedPhotosParams = {
 export async function recoverDeletedPhotos(params: RecoverDeletedPhotosParams) {
   const { ids, is_all, target_id, is_fake } = params;
 
-  const updateData = {
+  const updateData: Partial<Photo> = {
     parent_id: target_id,
     status: Status.Normal,
+    deleted_date: null,
   };
   // 恢复全部
   if (is_all) {

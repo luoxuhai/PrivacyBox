@@ -4,8 +4,9 @@ import { Status } from '@/database/entities/types';
 import { rootStore } from '@/models';
 import { FetchPhotosResult } from '../photo';
 
-export interface SearchPhotosParams extends Pick<Photo, 'type' | 'is_fake'> {
+export interface SearchPhotosParams extends Pick<Photo, 'is_fake'> {
   keywords: string;
+  type?: Photo['type'];
 }
 
 export async function searchPhotos(params: SearchPhotosParams) {
@@ -31,5 +32,6 @@ export async function searchPhotos(params: SearchPhotosParams) {
     `SELECT * FROM photo WHERE ${sqlStr} ORDER BY type DESC`,
   )) as FetchPhotosResult[];
 
+  console.log('photos', photos);
   return photos;
 }

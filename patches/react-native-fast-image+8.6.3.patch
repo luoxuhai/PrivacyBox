@@ -1,0 +1,90 @@
+diff --git a/node_modules/react-native-fast-image/RNFastImage-Bridging-Header.h b/node_modules/react-native-fast-image/RNFastImage-Bridging-Header.h
+new file mode 100644
+index 0000000..1b2cb5d
+--- /dev/null
++++ b/node_modules/react-native-fast-image/RNFastImage-Bridging-Header.h
+@@ -0,0 +1,4 @@
++//
++//  Use this file to import your target's public headers that you would like to expose to Swift.
++//
++
+diff --git a/node_modules/react-native-fast-image/dist/index.cjs.js b/node_modules/react-native-fast-image/dist/index.cjs.js
+index 2df6a29..b556a99 100644
+--- a/node_modules/react-native-fast-image/dist/index.cjs.js
++++ b/node_modules/react-native-fast-image/dist/index.cjs.js
+@@ -64,6 +64,7 @@ function FastImageBase({
+   children,
+   // eslint-disable-next-line no-shadow
+   resizeMode = 'cover',
++  liveTextEnabled = false,
+   forwardedRef,
+   ...props
+ }) {
+@@ -105,7 +106,8 @@ function FastImageBase({
+     onFastImageLoad: onLoad,
+     onFastImageError: onError,
+     onFastImageLoadEnd: onLoadEnd,
+-    resizeMode: resizeMode
++    resizeMode: resizeMode,
++    liveTextEnabled: liveTextEnabled,
+   })), children);
+ }
+ 
+diff --git a/node_modules/react-native-fast-image/dist/index.d.ts b/node_modules/react-native-fast-image/dist/index.d.ts
+index 5abb7c9..f35e56d 100644
+--- a/node_modules/react-native-fast-image/dist/index.d.ts
++++ b/node_modules/react-native-fast-image/dist/index.d.ts
+@@ -57,6 +57,7 @@ export interface FastImageProps extends AccessibilityProps, ViewProps {
+     defaultSource?: ImageRequireSource;
+     resizeMode?: ResizeMode;
+     fallback?: boolean;
++    liveTextEnabled?: boolean;
+     onLoadStart?(): void;
+     onProgress?(event: OnProgressEvent): void;
+     onLoad?(event: OnLoadEvent): void;
+diff --git a/node_modules/react-native-fast-image/dist/index.js b/node_modules/react-native-fast-image/dist/index.js
+index 58e0308..674a6ce 100644
+--- a/node_modules/react-native-fast-image/dist/index.js
++++ b/node_modules/react-native-fast-image/dist/index.js
+@@ -57,6 +57,7 @@ function FastImageBase({
+   children,
+   // eslint-disable-next-line no-shadow
+   resizeMode = 'cover',
++  liveTextEnabled = false,
+   forwardedRef,
+   ...props
+ }) {
+@@ -98,7 +99,8 @@ function FastImageBase({
+     onFastImageLoad: onLoad,
+     onFastImageError: onError,
+     onFastImageLoadEnd: onLoadEnd,
+-    resizeMode: resizeMode
++    resizeMode: resizeMode,
++    liveTextEnabled: liveTextEnabled
+   })), children);
+ }
+ 
+diff --git a/node_modules/react-native-fast-image/ios/FastImage/FFFastImageView.h b/node_modules/react-native-fast-image/ios/FastImage/FFFastImageView.h
+index e52fca7..2a52138 100644
+--- a/node_modules/react-native-fast-image/ios/FastImage/FFFastImageView.h
++++ b/node_modules/react-native-fast-image/ios/FastImage/FFFastImageView.h
+@@ -19,6 +19,7 @@
+ @property (nonatomic, strong) FFFastImageSource *source;
+ @property (nonatomic, strong) UIImage *defaultSource;
+ @property (nonatomic, strong) UIColor *imageColor;
++@property (nonatomic) BOOL liveTextEnabled;
+ 
+ @end
+ 
+diff --git a/node_modules/react-native-fast-image/ios/FastImage/FFFastImageViewManager.m b/node_modules/react-native-fast-image/ios/FastImage/FFFastImageViewManager.m
+index 84ca94e..9d12f25 100644
+--- a/node_modules/react-native-fast-image/ios/FastImage/FFFastImageViewManager.m
++++ b/node_modules/react-native-fast-image/ios/FastImage/FFFastImageViewManager.m
+@@ -15,6 +15,7 @@ - (FFFastImageView*)view {
+ RCT_EXPORT_VIEW_PROPERTY(source, FFFastImageSource)
+ RCT_EXPORT_VIEW_PROPERTY(defaultSource, UIImage)
+ RCT_EXPORT_VIEW_PROPERTY(resizeMode, RCTResizeMode)
++RCT_EXPORT_VIEW_PROPERTY(liveTextEnabled, BOOL)
+ RCT_EXPORT_VIEW_PROPERTY(onFastImageLoadStart, RCTDirectEventBlock)
+ RCT_EXPORT_VIEW_PROPERTY(onFastImageProgress, RCTDirectEventBlock)
+ RCT_EXPORT_VIEW_PROPERTY(onFastImageError, RCTDirectEventBlock)

@@ -2,7 +2,6 @@ import Config from '@/config';
 import * as Sentry from '@sentry/react-native';
 
 import { Application } from './application';
-import { Device } from './device';
 import { DynamicUpdate, LocalPackage } from './DynamicUpdate';
 
 export const initCrashReporting = async () => {
@@ -20,12 +19,7 @@ export const initCrashReporting = async () => {
     tracesSampleRate: Config.sentry.tracesSampleRate,
   });
 
-  const freeDiskStorage = await Device.getFreeDiskStorage();
-
-  Sentry.setContext('deviceExtra', {
-    arch: Device.supportedCpuArchitectures,
-    freeDiskStorage,
-  });
+  // Sentry.setContext('deviceExtra', {});
 
   Sentry.setContext('appExtra', {
     dynamicUpdateLabel: updateMetadata?.label,

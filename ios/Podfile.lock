@@ -1,7 +1,7 @@
 PODS:
   - Base64 (1.1.2)
   - boost (1.76.0)
-  - Burnt (0.7.0):
+  - Burnt (0.8.1):
     - ExpoModulesCore
     - SPAlert
     - SPIndicator
@@ -15,8 +15,6 @@ PODS:
     - SSZipArchive (~> 2.2.2)
   - DoubleConversion (1.1.6)
   - EXApplication (4.2.2):
-    - ExpoModulesCore
-  - EXBlur (11.2.0):
     - ExpoModulesCore
   - EXConstants (13.2.4):
     - ExpoModulesCore
@@ -549,12 +547,10 @@ PODS:
     - React-Core
   - react-native-ios-context-menu (1.15.1):
     - React-Core
-  - react-native-live-text-image-view (0.4.0):
-    - React-Core
   - react-native-mmkv (2.5.1):
     - MMKV (>= 1.2.13)
     - React-Core
-  - react-native-netinfo (9.3.6):
+  - react-native-netinfo (9.3.7):
     - React-Core
   - react-native-orientation-locker (1.5.0):
     - React-Core
@@ -566,7 +562,7 @@ PODS:
     - React
     - React-callinvoker
     - React-Core
-  - react-native-safe-area-context (4.3.4):
+  - react-native-safe-area-context (4.4.1):
     - RCT-Folly
     - RCTRequired
     - RCTTypeSafety
@@ -655,7 +651,7 @@ PODS:
     - React-perflogger (= 0.69.7)
   - rn-kit-sqlite (6.0.3):
     - React-Core
-  - RNBootSplash (4.3.3):
+  - RNBootSplash (4.4.0):
     - React-Core
   - RNCClipboard (1.11.1):
     - React-Core
@@ -690,9 +686,9 @@ PODS:
     - React-Core
   - RNFS (2.20.0):
     - React-Core
-  - RNGestureHandler (2.5.0):
+  - RNGestureHandler (2.8.0):
     - React-Core
-  - RNIap (12.4.9):
+  - RNIap (12.4.12):
     - React-Core
   - RNInAppBrowser (3.7.0):
     - React-Core
@@ -700,7 +696,7 @@ PODS:
     - React-Core
   - RNPermissions (3.6.1):
     - React-Core
-  - RNReanimated (2.9.1):
+  - RNReanimated (2.13.0):
     - DoubleConversion
     - FBLazyVector
     - FBReactNativeSpec
@@ -727,13 +723,13 @@ PODS:
     - React-RCTText
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNScreens (3.15.0):
+  - RNScreens (3.18.2):
     - React-Core
     - React-RCTImage
-  - RNSentry (4.8.0):
+  - RNSentry (4.13.0):
     - React-Core
-    - Sentry (= 7.29.0)
-  - RNShare (8.0.1):
+    - Sentry/HybridSDK (= 7.31.5)
+  - RNShare (8.1.0):
     - React-Core
   - RNSVG (13.5.0):
     - React-Core
@@ -750,9 +746,7 @@ PODS:
   - SDWebImageWebPCoder (0.8.5):
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.10)
-  - Sentry (7.29.0):
-    - Sentry/Core (= 7.29.0)
-  - Sentry/Core (7.29.0)
+  - Sentry/HybridSDK (7.31.5)
   - SocketRocket (0.6.0)
   - SPAlert (4.2.0)
   - SPIndicator (1.6.4)
@@ -768,7 +762,6 @@ DEPENDENCIES:
   - CodePush (from `../node_modules/react-native-code-push`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - EXApplication (from `../node_modules/expo-application/ios`)
-  - EXBlur (from `../node_modules/expo-blur/ios`)
   - EXConstants (from `../node_modules/expo-constants/ios`)
   - EXDevice (from `../node_modules/expo-device/ios`)
   - EXFileSystem (from `../node_modules/expo-file-system/ios`)
@@ -850,7 +843,6 @@ DEPENDENCIES:
   - react-native-get-random-values (from `../node_modules/react-native-get-random-values`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-ios-context-menu (from `../node_modules/react-native-ios-context-menu`)
-  - react-native-live-text-image-view (from `../node_modules/react-native-live-text-image-view`)
   - react-native-mmkv (from `../node_modules/react-native-mmkv`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-orientation-locker (from `../node_modules/react-native-orientation-locker`)
@@ -961,8 +953,6 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
   EXApplication:
     :path: "../node_modules/expo-application/ios"
-  EXBlur:
-    :path: "../node_modules/expo-blur/ios"
   EXConstants:
     :path: "../node_modules/expo-constants/ios"
   EXDevice:
@@ -1069,8 +1059,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-image-picker"
   react-native-ios-context-menu:
     :path: "../node_modules/react-native-ios-context-menu"
-  react-native-live-text-image-view:
-    :path: "../node_modules/react-native-live-text-image-view"
   react-native-mmkv:
     :path: "../node_modules/react-native-mmkv"
   react-native-netinfo:
@@ -1175,13 +1163,12 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
   boost: a7c83b31436843459a1961bfd74b96033dc77234
-  Burnt: 1910e0ad3e961b03da50d9b85b8a93397587765d
+  Burnt: effadfb6411430375ca333f9358c7e9e8f10a878
   BVLinearGradient: 34a999fda29036898a09c6a6b728b0b4189e1a44
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   CodePush: ef496b6fd053012e985e3d4a0ab9f9dbf2739eac
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   EXApplication: e418d737a036e788510f2c4ad6c10a7d54d18586
-  EXBlur: a3556f992ca1cdf117f0e19d6e4775f3406e77c3
   EXConstants: 7c44785d41d8e959d527d23d29444277a4d1ee73
   EXDevice: 7647ca9b1fd8b269dfd896a7643d659343358054
   EXFileSystem: 927e0a8885aa9c49e50fc38eaba2c2389f2f1019
@@ -1268,14 +1255,13 @@ SPEC CHECKSUMS:
   react-native-get-random-values: a6ea6a8a65dc93e96e24a11105b1a9c8cfe1d72a
   react-native-image-picker: 60f4246eb5bb7187fc15638a8c1f13abd3820695
   react-native-ios-context-menu: b170594b4448c0cd10c79e13432216bac99de1ac
-  react-native-live-text-image-view: 483bacfdba464162b8cf176bba555364f18b584c
   react-native-mmkv: 69b9c003f10afdd01addf7c6ee784ce42ee2eff3
-  react-native-netinfo: f80db8cac2151405633324cb645c60af098ee461
+  react-native-netinfo: 2517ad504b3d303e90d7a431b0fcaef76d207983
   react-native-orientation-locker: 851f6510d8046ea2f14aa169b1e01fcd309a94ba
   react-native-override-color-scheme: 3badbbee9a4ea2a9c3e5b4a5d9fd9eaba8761870
   react-native-pager-view: c9171e3b9f212fe6a4a529818745d8cd21fe82a0
   react-native-quick-sqlite: 5500398412d420a201070c6f99004a411df3c60f
-  react-native-safe-area-context: dfe5aa13bee37a0c7e8059d14f72ffc076d120e9
+  react-native-safe-area-context: 99b24a0c5acd0d5dcac2b1a7f18c49ea317be99a
   react-native-segmented-control: 06607462630512ff8eef652ec560e6235a30cc3e
   react-native-sfsymbols: bd3a0d3eab185e80b571bae60753dcf5a0d57967
   react-native-shake: 67d43d6af4abfc299400b17fea7d2ec0754c72ac
@@ -1294,7 +1280,7 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: 65cd2782a57e1d59a68aa5d504edf94278578e41
   ReactCommon: 1e783348b9aa73ae68236271df972ba898560a95
   rn-kit-sqlite: 5ca1f7f50c623a9039f827fa0b76aa62f259a42e
-  RNBootSplash: 7e91ea56c7010aae487489789dbe212e8c905a0c
+  RNBootSplash: 8ecffd190fae05291b671ea2280c5238f15499a9
   RNCClipboard: 2834e1c4af68697089cdd455ee4a4cdd198fa7dd
   RNCMaskedView: bc0170f389056201c82a55e242e5d90070e18e5a
   RNDeviceInfo: 4701f0bf2a06b34654745053db0ce4cb0c53ada7
@@ -1307,20 +1293,20 @@ SPEC CHECKSUMS:
   RNFileViewer: ce7ca3ac370e18554d35d6355cffd7c30437c592
   RNFlashList: 399bf6a0db68f594ad2c86aaff3ea39564f39f8a
   RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
-  RNGestureHandler: bad495418bcbd3ab47017a38d93d290ebd406f50
-  RNIap: 8b26060630f5051294128b8b044009839828122c
+  RNGestureHandler: 62232ba8f562f7dea5ba1b3383494eb5bf97a4d3
+  RNIap: 6ba4323f44fc730197726188deb0dc25f4b785cf
   RNInAppBrowser: e36d6935517101ccba0e875bac8ad7b0cb655364
   RNLocalize: 0df7970cfc60389f00eb62fd7c097dc75af3fb4f
   RNPermissions: dcdb7b99796bbeda6975a6e79ad519c41b251b1c
-  RNReanimated: 2cf7451318bb9cc430abeec8d67693f9cf4e039c
-  RNScreens: 4a1af06327774490d97342c00aee0c2bafb497b7
-  RNSentry: db7fd7b66efda28885e4e904a8b5e7349aec61c1
-  RNShare: d93e00e906e6174657f6370b480437e4702bc86e
+  RNReanimated: f0d66bda3d074c43c72a18f4fd4f4c26687bc1fd
+  RNScreens: 34cc502acf1b916c582c60003dc3089fa01dc66d
+  RNSentry: acebe4104a6f5915ae871eb59dc73f13dcc92ef7
+  RNShare: 48b3113cd089a2be8ff0515c3ae7a46a4db8a76b
   RNSVG: 38ca962c970dbce1ca38991a5aebf26d163f9efb
   RNZipArchive: 68a0c6db4b1c103f846f1559622050df254a3ade
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SDWebImageWebPCoder: 908b83b6adda48effe7667cd2b7f78c897e5111d
-  Sentry: 4272663eb0eda312024d795ca3f5a562a8ce5e18
+  Sentry: 4c9babff9034785067c896fd580b1f7de44da020
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
   SPAlert: 735da1f16a887e294719217572ce1f936d8c8782
   SPIndicator: 93e0a4fb23de51294ac48e874c0f081a5e293e4f

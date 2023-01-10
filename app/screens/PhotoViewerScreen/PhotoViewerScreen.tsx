@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useMemo, useRef, useState } from 'react';
-import { StatusBar, ActionSheetIOS } from 'react-native';
+import { StatusBar } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { StackScreenProps } from '@react-navigation/stack';
 import { useQuery } from '@tanstack/react-query';
@@ -13,7 +13,7 @@ import { Header } from './components/Header';
 import { VideoPlayButton } from './components/VideoPlayButton';
 import { FetchPhotosResult } from '@/services/local';
 import { PhotoTypes } from '@/database/entities/types';
-import { HapticFeedback } from '@/utils';
+import { HapticFeedback, showActionSheet } from '@/utils';
 import { t } from '@/i18n';
 import { exportPhotos } from '../PhotosScreen/helpers/exportPhotos';
 
@@ -93,11 +93,10 @@ export const PhotoViewerScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'P
 
     const handleLongPress = useCallback(() => {
       HapticFeedback.impact.heavy();
-      ActionSheetIOS.showActionSheetWithOptions(
+      showActionSheet(
         {
           options: [t('filesScreen.saveToLocal'), t('common.cancel')],
           cancelButtonIndex: 1,
-          tintColor: colors.palette.primary6,
         },
         (buttonIndex) => {
           if (buttonIndex === 0) {

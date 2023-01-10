@@ -44,7 +44,7 @@ const App = observer(() => {
 
   const { rehydrated, rootStore } = useInitialRootStore();
   const { isInitialized } = useInitialDataSource();
-  const { isInitialized: x } = useDataMigrator();
+  useDataMigrator();
 
   useUpdateEffect(() => {
     if (rootStore.appLockStore.isLocked) {

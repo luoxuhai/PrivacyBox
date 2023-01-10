@@ -1,6 +1,6 @@
 import React, { FC, useCallback, useMemo } from 'react';
 import { observer } from 'mobx-react-lite';
-import { ViewStyle, ActionSheetIOS } from 'react-native';
+import { ViewStyle } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 
 import { AppStackParamList, SettingStackParamList } from '@/navigators';
@@ -8,7 +8,7 @@ import { ListCell, ListSection, SafeAreaScrollView, Screen, Switch } from '@/com
 import { spacing } from '@/theme';
 import { useStores } from '@/models';
 import { translate } from '@/i18n';
-import { useLocalAuth, getBiometricName } from '@/utils';
+import { useLocalAuth, getBiometricName, showActionSheet } from '@/utils';
 import { FakeAppLockSection } from './FakeAppLockSection';
 
 export const AppLockSettingsScreen: FC<
@@ -18,7 +18,7 @@ export const AppLockSettingsScreen: FC<
   const { appLockStore } = useStores();
 
   const handleSetAutolockTimeout = useCallback(() => {
-    ActionSheetIOS.showActionSheetWithOptions(
+    showActionSheet(
       {
         options: [
           translate('common.cancel'),

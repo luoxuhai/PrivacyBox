@@ -1,6 +1,11 @@
 const appId = '1597534147';
 
-const BaseConfig = {
+interface IBaseConfig {
+  catchErrors: 'always' | 'dev' | 'prod' | 'never';
+  [key: string]: any;
+}
+
+const BaseConfig: IBaseConfig = {
   // This feature is particularly useful in development mode, but
   // can be used in production as well if you prefer.
   persistNavigation: 'dev',

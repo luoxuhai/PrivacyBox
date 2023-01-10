@@ -1,16 +1,15 @@
-import { ActionSheetIOS } from 'react-native';
-
 import { t } from '@/i18n';
 import Photo from '@/database/entities/photo';
 import { useDeleteAlbum } from './useDeleteAlbum';
 import { useRenameAlbum } from './useRenameAlbum';
+import { showActionSheet } from '@/utils';
 
 export function useAlbumEditor() {
   const handleDeleteAlbum = useDeleteAlbum();
   const handleRenameAlbum = useRenameAlbum();
 
   function onOpenActionSheet(item: Photo) {
-    ActionSheetIOS.showActionSheetWithOptions(
+    showActionSheet(
       {
         options: [
           t('common.cancel'),

@@ -95,3 +95,28 @@ index c486731..90121aa 100644
  
      if (result.type == SQLiteError)
      {
+diff --git a/node_modules/react-native-quick-sqlite/lib/module/index.js b/node_modules/react-native-quick-sqlite/lib/module/index.js
+index e5d851f..d58896e 100644
+--- a/node_modules/react-native-quick-sqlite/lib/module/index.js
++++ b/node_modules/react-native-quick-sqlite/lib/module/index.js
+@@ -249,9 +249,9 @@ export const typeORMDriver = {
+     try {
+       QuickSQLite.open(options.name, options.location);
+       const connection = {
+-        executeSql: (sql, params, ok, fail) => {
++        executeSql: async (sql, params, ok, fail) => {
+           try {
+-            let response = QuickSQLite.execute(options.name, sql, params);
++            let response = await QuickSQLite.executeAsync(options.name, sql, params);
+             enhanceQueryResult(response);
+             ok(response);
+           } catch (e) {
+@@ -259,7 +259,7 @@ export const typeORMDriver = {
+           }
+         },
+         transaction: fn => {
+-          QuickSQLite.transaction(options.name, fn);
++         return QuickSQLite.transactionAsync(options.name, fn);
+         },
+         close: (ok, fail) => {
+           try {

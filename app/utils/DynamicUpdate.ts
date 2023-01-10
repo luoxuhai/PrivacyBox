@@ -1,7 +1,7 @@
-import { Alert, StatusBar } from 'react-native';
+import { Alert } from 'react-native';
 import CodePush, { LocalPackage } from 'react-native-code-push';
 
-import { ErrorType, reportCrash } from './crashReporting';
+import { reportException } from './crashReporting';
 
 export class DynamicUpdate {
   static timer?: NodeJS.Timer;
@@ -10,7 +10,6 @@ export class DynamicUpdate {
    * 检查并更新，不会重启应用
    */
   static sync(debug = false): void {
-    StatusBar.setNetworkActivityIndicatorVisible(true);
     if (debug) {
       CodePush.sync(
         {
@@ -31,15 +30,16 @@ export class DynamicUpdate {
         console.error(error);
       });
     } else {
-      CodePush.sync()
-        .catch((error) => {
-          reportCrash(error, ErrorType.HANDLED, {
-            title: '检查热更新失败',
-          });
-        })
-        .finally(() => {
-          StatusBar.setNetworkActivityIndicatorVisible(false);
+      CodePush.sync({
+        installMode: CodePush.InstallMode.ON_NEXT_RESTART,
+        mandatoryInstallMode: CodePush.InstallMode.ON_NEXT_SUSPEND,
+        minimumBackgroundDuration: 30,
+      }).catch((error) => {
+        reportException({
+          error,
+          message: '检查热更新失败',
         });
+      });
     }
   }
 
@@ -61,12 +61,15 @@ export class DynamicUpdate {
    * 定时检查并更新
    */
   static timingSync(): void {
+    const s = 60;
     if (this.timer) {
       clearInterval(this.timer);
     }
+
+    this.sync();
     this.timer = setInterval(() => {
       this.sync();
-    }, 1000 * 60);
+    }, 1000 * s);
   }
 
   /**
@@ -105,3 +108,5 @@ function transformSyncStatus(syncStatus: CodePush.SyncStatus) {
       return '同步操作遇到未知错误。';
   }
 }
+
+export { LocalPackage };

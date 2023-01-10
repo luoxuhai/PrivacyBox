@@ -9,6 +9,9 @@ import { AppRegistry } from 'react-native';
 
 BootSplash.hide({ fade: true });
 
+// 手动设置 __DEV__ 标识
+__DEV__ = false;
+
 function Main() {
   return <App />;
 }

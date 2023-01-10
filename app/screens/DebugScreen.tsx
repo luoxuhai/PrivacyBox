@@ -9,28 +9,30 @@ import { spacing, useTheme } from '@/theme';
 import { AppDataSource } from '@/database';
 import { storage } from '@/utils/storage';
 import { rootStore } from '@/models';
-import { LocalPathManager } from '@/utils';
+import { LocalPathManager, DynamicUpdate } from '@/utils';
 import { ICloud } from '@/services/icloud/icloud';
 import Photo from '@/database/entities/photo';
 import File from '@/database/entities/file';
 import { unlink } from 'react-native-fs';
 
-DevSettings.addMenuItem('Clear Storage', () => {
-  storage.clear();
-  DevSettings.reload();
-});
+if (__DEV__) {
+  DevSettings.addMenuItem('Clear Storage', () => {
+    storage.clear();
+    DevSettings.reload();
+  });
 
-DevSettings.addMenuItem('Clear Photo DB', async () => {
-  await AppDataSource.manager.clear(Photo);
-  await unlink(LocalPathManager.photoPath);
-  DevSettings.reload();
-});
+  DevSettings.addMenuItem('Clear Photo DB', async () => {
+    await AppDataSource.manager.clear(Photo);
+    await unlink(LocalPathManager.photoPath);
+    DevSettings.reload();
+  });
 
-DevSettings.addMenuItem('Clear File DB', async () => {
-  await AppDataSource.manager.clear(File);
-  await unlink(LocalPathManager.filePath);
-  DevSettings.reload();
-});
+  DevSettings.addMenuItem('Clear File DB', async () => {
+    await AppDataSource.manager.clear(File);
+    await unlink(LocalPathManager.filePath);
+    DevSettings.reload();
+  });
+}
 
 export const DebugScreen: FC<StackScreenProps<SettingStackParamList, 'Debug'>> = observer(
   function DebugScreen(props) {
@@ -65,6 +67,16 @@ export const DebugScreen: FC<StackScreenProps<SettingStackParamList, 'Debug'>> =
               rightIcon={null}
               onPress={() => {
                 rootStore.purchaseStore.clear();
+              }}
+            />
+            <ListCell
+              textStyle={{
+                color: colors.palette.blue,
+              }}
+              text="检测更新"
+              rightIcon={null}
+              onPress={() => {
+                DynamicUpdate.sync(true);
               }}
             />
           </ListSection>

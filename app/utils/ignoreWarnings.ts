@@ -4,10 +4,12 @@
  */
 import { LogBox } from 'react-native';
 
-// prettier-ignore
-LogBox.ignoreLogs([
+if (__DEV__) {
+  // prettier-ignore
+  LogBox.ignoreLogs([
   "Require cycle:",
   "Could not find Fiber",
   "You",
   "Found",
 ])
+}

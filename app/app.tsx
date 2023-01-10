@@ -11,7 +11,7 @@ import { observer } from 'mobx-react-lite';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SheetProvider } from 'react-native-actions-sheet';
 
-import { initCrashReporting, useUpdateEffect, lockOrientation } from './utils';
+import { initCrashReporting, useUpdateEffect, lockOrientation, DynamicUpdate } from './utils';
 import { initTask } from './utils/task/initTask';
 import { useInitialRootStore } from './models';
 import { useInitialDataSource } from './database/helpers/useInitDataSource';
@@ -31,10 +31,13 @@ const App = observer(() => {
   } = useNavigationPersistence(storage, NAVIGATION_PERSISTENCE_KEY);
 
   useEffect(() => {
-    lockOrientation();
     initBasePath();
     initTask();
+
+    // 线上环境
     if (!__DEV__) {
+      lockOrientation();
+      DynamicUpdate.timingSync();
       initCrashReporting();
     }
   }, []);
@@ -63,8 +66,12 @@ const App = observer(() => {
         <QueryClientProvider client={queryClient}>
           <SheetProvider>
             <AppNavigator
-              initialState={initialNavigationState}
-              onStateChange={onNavigationStateChange}
+              {...(__DEV__
+                ? {
+                    initialState: initialNavigationState,
+                    onStateChange: onNavigationStateChange,
+                  }
+                : {})}
             />
           </SheetProvider>
         </QueryClientProvider>

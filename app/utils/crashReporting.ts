@@ -1,14 +1,14 @@
 import Config from '@/config';
 import * as Sentry from '@sentry/react-native';
-import CodePush, { LocalPackage } from 'react-native-code-push';
 
 import { Application } from './application';
 import { Device } from './device';
+import { DynamicUpdate, LocalPackage } from './DynamicUpdate';
 
 export const initCrashReporting = async () => {
   let updateMetadata: LocalPackage | undefined;
   try {
-    updateMetadata = await CodePush.getUpdateMetadata();
+    updateMetadata = await DynamicUpdate.getUpdateMetadataAsync();
   } catch {}
   const dist = updateMetadata?.label ?? '0';
 

@@ -14,7 +14,7 @@ export function useImportPhotos(albumId: string) {
   const queryClient = useQueryClient();
   const {
     appLockStore: { inFakeEnvironment },
-    settingsStore: { autoDeleteOriginEnabled },
+    settingsStore: { autoDeleteOriginEnabled, smartSearchEnabled },
   } = useStores();
   const { mutate: handleImportFile } = useMutation({
     mutationFn: async (photos?: PhotoImporterResult[]) => {
@@ -47,10 +47,18 @@ export function useImportPhotos(albumId: string) {
         const localIdentifiers = importedPhotos
           .map((item) => item.localIdentifier)
           .filter((item) => item);
-        deleteAssetsAsync(localIdentifiers);
+
+        try {
+          global.isPausePresentMask = true
+          await deleteAssetsAsync(localIdentifiers);
+        } finally {
+          global.isPausePresentMask = false
+        }
       }
 
-      classifyImageTask.start();
+      if (smartSearchEnabled) {
+        classifyImageTask.start();
+      }
     },
   });
 

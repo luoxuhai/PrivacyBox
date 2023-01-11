@@ -1,10 +1,12 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useCallback } from 'react';
+import { SheetManager } from 'react-native-actions-sheet';
+import { observer } from 'mobx-react-lite';
 
 import { Toolbar, IToolbarItem } from '@/components/Toolbar';
 import { translate } from '@/i18n';
 import { FetchPhotosResult } from '@/services/local';
 import { MorePopoverMenu } from './MorePopoverMenu';
-import { observer } from 'mobx-react-lite';
+import { sharePhotos } from '../helpers/sharePhotos';
 
 const t = translate;
 
@@ -17,7 +19,28 @@ interface BottomToolbarProps {
 export const BottomToolbar = observer((props: BottomToolbarProps) => {
   const list = useMemo(() => getList(props), [props]);
 
-  return <Toolbar visible={props.visible} disabled={props.disabled} list={list} />;
+  const handlePressItem = useCallback((key: BottomToolbarKeys) => {
+    const uris = [props.item.uri]
+    const ids = [props.item.id]
+
+    switch (key) {
+      case BottomToolbarKeys.Share:
+        sharePhotos({ uris });
+        break;
+      case BottomToolbarKeys.Delete:
+        deletePhotos({ ids });
+        break;
+      case BottomToolbarKeys.Details:
+        SheetManager.show('photo-detail-sheet', {
+          payload: {
+            item,
+          },
+        });
+        break;
+    }
+  }, [props.item.id, props.item.uri])
+
+  return <Toolbar visible={props.visible} disabled={props.disabled} list={list} onPress={handlePressItem} />;
 });
 
 function getList(props: BottomToolbarProps): IToolbarItem[] {
@@ -43,7 +66,7 @@ function getList(props: BottomToolbarProps): IToolbarItem[] {
       icon: 'ellipsis.circle',
       type: 'menu',
       PopoverMenu: ({ children, disabled }) => (
-        <MorePopoverMenu disabled={disabled} item={props.item} onChange={props.onChange}>
+        <MorePopoverMenu disabled={disabled} item={props.item}>
           {children}
         </MorePopoverMenu>
       ),

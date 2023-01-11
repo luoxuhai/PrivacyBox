@@ -10,12 +10,21 @@ import { spacing } from '@/theme';
 import { TextKeyPath } from '@/i18n';
 import { BottomTabs } from '@/models/SettingsStore';
 import { useStores } from '@/models';
+import { classifyImageTask } from '@/utils/task/classifyImageTask';
 
 export const AdvancedSettingsScreen: FC<
   StackScreenProps<SettingStackParamList, 'AdvancedSettings'>
 > = observer(function AdvancedSettingsScreen() {
   const bottomTabBarHeight = useBottomTabBarHeight();
   const { settingsStore } = useStores();
+
+
+  function handleSmartSearchEnabled(enabled: boolean) {
+    settingsStore.setSmartSearchEnabled(enabled);
+    if (enabled) {
+      classifyImageTask()
+    }
+  }
 
   return (
     <Screen type="tabView">
@@ -43,7 +52,7 @@ export const AdvancedSettingsScreen: FC<
             RightAccessory={
               <Switch
                 value={settingsStore.smartSearchEnabled}
-                onValueChange={settingsStore.setSmartSearchEnabled}
+                onValueChange={handleSmartSearchEnabled}
               />
             }
           />

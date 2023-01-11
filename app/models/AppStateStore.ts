@@ -41,6 +41,7 @@ export const AppStateStoreModel = types
           }, appLockStore.autolockTimeout * 1000);
         } else if (state === 'active') {
           clearTimeout(lockTimer);
+          global.isPausePresentMask = true;
         }
       },
     };

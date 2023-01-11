@@ -5,7 +5,6 @@ import {
   DocumentDirectoryPath,
   pathForGroupSync,
 } from 'react-native-fs';
-import { stat } from 'react-native-cloud-store';
 
 import { APP_BASE_DIR } from '@/constants';
 
@@ -45,8 +44,3 @@ export class LocalPathManager {
     return `${this.basePath}/assets`;
   }
 }
-
-console.log('[groupPath]', LocalPathManager.groupPath);
-console.log('[LibraryDirectory]', LocalPathManager.libraryPath);
-
-stat(LocalPathManager.groupPath).then(console.log);

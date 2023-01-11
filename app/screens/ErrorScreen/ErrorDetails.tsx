@@ -25,7 +25,7 @@ export function ErrorDetails(props: ErrorDetailsProps) {
       >
         <Text
           style={{
-            ...typography.title3,
+            ...typography.title2,
           }}
         >
           🤯 {t('errorScreen.title')}
@@ -46,11 +46,13 @@ export function ErrorDetails(props: ErrorDetailsProps) {
             selectable
             text={`${props.error}`.trim()}
           />
-          <Text
-            selectable
-            style={[$errorBacktrace, { color: colors.tertiaryLabel }]}
-            text={`${props.errorInfo.componentStack}`.trim()}
-          />
+          {
+            __DEV__ && <Text
+              selectable
+              style={[$errorBacktrace, { color: colors.tertiaryLabel }]}
+              text={`${props.errorInfo.componentStack}`.trim()}
+            />
+          }
         </ScrollView>
 
         <Button
@@ -82,7 +84,7 @@ export function ErrorDetails(props: ErrorDetailsProps) {
 }
 
 const $errorSection: ViewStyle = {
-  flex: 2,
+  flex: 1,
   marginVertical: spacing[5],
   borderRadius: 6,
 };

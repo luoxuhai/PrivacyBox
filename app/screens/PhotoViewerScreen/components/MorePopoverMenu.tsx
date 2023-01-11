@@ -8,94 +8,35 @@ import { HapticFeedback } from '@/utils';
 import { extname } from '@/lib/path';
 import { FetchPhotosResult } from '@/services/local';
 import { translate } from '@/i18n';
+import { useRenamePhoto } from '../helpers/useRenamePhoto';
+import { useUpdatePhoto } from '../helpers/useUpdatePhoto';
 
 interface IContextMenuProps {
   item: FetchPhotosResult;
   disabled?: boolean;
   children?: React.ReactNode;
-  onChange?: (value: any) => void;
 }
 
 const t = translate;
 
 export const MorePopoverMenu = observer<IContextMenuProps>((props) => {
   const menus = useMemo(() => getMenus(), []);
-
-  function setCurrentFile(values: any) {
-    const newImage = cloneDeep(props.images);
-    for (const [index, item] of newImage.entries()) {
-      if (item.id === props.item.id) {
-        newImage[index] = {
-          ...item,
-          ...values,
-        };
-        break;
-      }
-    }
-
-    return newImage;
-  }
+  const handleRenamePhoto = useRenamePhoto()
+  const handleUpdatePhoto = useUpdatePhoto()
 
   const handleMenuItemPress = useCallback((key: string) => {
     switch (key) {
-      case 'rename':
-        Alert.prompt(
-          t('filesScreen.rename'),
-          undefined,
-          [
-            {
-              text: t('common:cancel'),
-              style: 'cancel',
-            },
-            {
-              text: t('common:confirm'),
-              async onPress(value: string | undefined) {
-                const name = value?.trim();
-                if (!name || name === props.item.name) return;
-
-                const fullName = `${name}${extname(props.item.name)}`;
-                const sourceId = props.item.extra?.source_id as string;
-                // await updateFile({
-                //   where: {
-                //     id: props.item.id,
-                //   },
-                //   data: {
-                //     name: fullName,
-                //   },
-                // });
-                // FS.moveFile(props.item.uri as string, getSourcePath(sourceId, fullName));
-
-                props.onChange?.(
-                  setCurrentFile({
-                    name: fullName,
-                  }),
-                );
-              },
-            },
-          ],
-          'plain-text',
-          props.item.name.replace(/\..+$/, ''),
-        );
+      case ContextMenuKeys.Rename:
+        handleRenamePhoto(props.item)
         break;
-      case 'description':
-      // services.nav.screens?.show('DescriptionForm', {
-      //   item: props.item,
-      //   async onDone(value?: string) {
-      //     await updateFile({
-      //       where: {
-      //         id: props.item.id,
-      //       },
-      //       data: {
-      //         description: value,
-      //       },
-      //     });
-      //     props.onChange?.(
-      //       setCurrentFile({
-      //         description: value,
-      //       }),
-      //     );
-      //   },
-      // });
+      case ContextMenuKeys.Description:
+        const description = await SheetManager.show('description-update-sheet', {
+          payload: {
+            item,
+          },
+        });
+
+        handleUpdatePhoto({ id: props.item.id, description })
     }
   }, []);
 
@@ -122,7 +63,7 @@ function getMenus(): MenuConfig {
     menuTitle: t('photoViewerScreen.bottomToolbar.moreTitle'),
     menuItems: [
       {
-        actionKey: 'description',
+        actionKey: ContextMenuKeys.Description,
         actionTitle: t('photoViewerScreen.bottomToolbar.description'),
         icon: {
           iconType: 'SYSTEM',
@@ -130,7 +71,7 @@ function getMenus(): MenuConfig {
         },
       },
       {
-        actionKey: 'rename',
+        actionKey: ContextMenuKeys.Rename,
         actionTitle: t('common.rename'),
         icon: {
           iconType: 'SYSTEM',
@@ -139,4 +80,9 @@ function getMenus(): MenuConfig {
       },
     ],
   };
+}
+
+enum ContextMenuKeys {
+  Rename = 'rename',
+  Description = 'description',
 }

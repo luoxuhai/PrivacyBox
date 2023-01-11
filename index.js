@@ -1,14 +1,12 @@
-// This is the first file that ReactNative will run when it starts up.
+import './app/utils/initGlobalValues';
 
-import App from './app/app.tsx';
 import React from 'react';
 import BootSplash from 'react-native-bootsplash';
 import { AppRegistry } from 'react-native';
 
-BootSplash.hide({ fade: true, duration: 0 });
+import App from './app/app.tsx';
 
-// 手动设置 __DEV__ 标识
-__DEV__ = false;
+BootSplash.hide({ fade: true, duration: 0 });
 
 function Main() {
   return <App />;

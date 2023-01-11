@@ -35,7 +35,7 @@ export function useImportPhotos(albumId: string) {
         message: error.message,
       });
     },
-    onSuccess(importedPhotos) {
+    async onSuccess(importedPhotos) {
       Overlay.toast({
         preset: 'done',
         title: translate('filesScreen.rename.success'),
@@ -49,10 +49,10 @@ export function useImportPhotos(albumId: string) {
           .filter((item) => item);
 
         try {
-          global.isPausePresentMask = true
+          global.isPausePresentMask = true;
           await deleteAssetsAsync(localIdentifiers);
         } finally {
-          global.isPausePresentMask = false
+          global.isPausePresentMask = false;
         }
       }
 

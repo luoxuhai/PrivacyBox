@@ -1,5 +1,5 @@
 import React, { ErrorInfo } from 'react';
-import { ScrollView, TextStyle, ViewStyle, Linking } from 'react-native';
+import { ScrollView, TextStyle, ViewStyle, Linking, View } from 'react-native';
 import { Button, Screen, Text } from '@/components';
 import { spacing, typography, useTheme } from '@/theme';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -19,41 +19,51 @@ export function ErrorDetails(props: ErrorDetailsProps) {
     <Screen>
       <SafeAreaView
         style={{
-          flex: 1,
           alignItems: 'center',
+          justifyContent: 'center',
+          flex: 1,
         }}
       >
         <Text
           style={{
-            ...typography.title2,
+            ...typography.title1,
+            marginBottom: spacing[3],
           }}
         >
           🤯 {t('errorScreen.title')}
         </Text>
-        <ScrollView
-          style={[
-            $errorSection,
-            {
-              backgroundColor: colors.background,
-            },
-          ]}
-          contentContainerStyle={$errorSectionContentContainer}
+
+        <View
+          style={{
+            height: 300,
+            width: '100%',
+          }}
         >
-          <Text
-            style={{
-              color: colors.error,
-            }}
-            selectable
-            text={`${props.error}`.trim()}
-          />
-          {
-            __DEV__ && <Text
+          <ScrollView
+            style={[
+              $errorSection,
+              {
+                backgroundColor: colors.background,
+              },
+            ]}
+            contentContainerStyle={$errorSectionContentContainer}
+          >
+            <Text
+              style={{
+                color: colors.error,
+              }}
               selectable
-              style={[$errorBacktrace, { color: colors.tertiaryLabel }]}
-              text={`${props.errorInfo.componentStack}`.trim()}
+              text={`${props.error}`.trim()}
             />
-          }
-        </ScrollView>
+            {__DEV__ && (
+              <Text
+                selectable
+                style={[$errorBacktrace, { color: colors.tertiaryLabel }]}
+                text={`${props.errorInfo.componentStack}`.trim()}
+              />
+            )}
+          </ScrollView>
+        </View>
 
         <Button
           style={[
@@ -84,9 +94,10 @@ export function ErrorDetails(props: ErrorDetailsProps) {
 }
 
 const $errorSection: ViewStyle = {
-  flex: 1,
   marginVertical: spacing[5],
+  marginHorizontal: spacing[5],
   borderRadius: 6,
+  flexGrow: 1,
 };
 
 const $errorSectionContentContainer: ViewStyle = {

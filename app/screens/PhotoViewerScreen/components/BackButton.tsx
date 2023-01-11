@@ -14,14 +14,21 @@ export function BackButton(props: BackButtonProps) {
   return (
     <TouchableOpacity
       style={{
-        width: 22,
+        width: 40,
         height: 40,
         justifyContent: 'center',
-        alignItems: 'center',
       }}
       onPress={props.onPress}
     >
-      <SFSymbol size={22} name="chevron.backward" weight="medium" color={colors.palette.primary6} />
+      <SFSymbol
+        style={{
+          width: 22,
+          height: 22,
+        }}
+        name="chevron.backward"
+        weight="medium"
+        color={colors.palette.primary6}
+      />
     </TouchableOpacity>
   );
 }

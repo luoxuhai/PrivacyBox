@@ -94,6 +94,7 @@ const zh = {
       more: '更多',
       description: '修改描述',
       moreTitle: '更多操作',
+      descPlaceholder: '请输入描述',
     },
   },
   videoPlayerScreen: {

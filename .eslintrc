@@ -22,7 +22,7 @@
     }
   },
   "globals": {
-    "__DEV__": false,
+    "__DEV__": true,
     "jasmine": false,
     "beforeAll": false,
     "afterAll": false,

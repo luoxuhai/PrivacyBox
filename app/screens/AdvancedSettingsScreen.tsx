@@ -18,11 +18,10 @@ export const AdvancedSettingsScreen: FC<
   const bottomTabBarHeight = useBottomTabBarHeight();
   const { settingsStore } = useStores();
 
-
   function handleSmartSearchEnabled(enabled: boolean) {
     settingsStore.setSmartSearchEnabled(enabled);
     if (enabled) {
-      classifyImageTask()
+      classifyImageTask.start();
     }
   }
 

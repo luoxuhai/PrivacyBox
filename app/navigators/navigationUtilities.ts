@@ -5,6 +5,7 @@ import {
   NavigationState,
   createNavigationContainerRef,
   NavigationAction,
+  NavigationContainerEventMap,
 } from '@react-navigation/native';
 import Config from '@/config';
 import type { PersistNavigationConfig } from '@/config/config.base';
@@ -167,6 +168,7 @@ export function canGoBack() {
     navigationRef.canGoBack();
   }
 }
+
 export function dispatch(action: NavigationAction) {
   if (navigationRef.isReady()) {
     navigationRef.dispatch(action);

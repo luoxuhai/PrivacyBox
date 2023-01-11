@@ -2,19 +2,23 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { SheetManager } from 'react-native-actions-sheet';
 
 import { Overlay } from '@/utils';
-import { movePhotos, MovePhotosParams } from '@/services/local';
+import { FetchPhotosResult, movePhotos, MovePhotosParams } from '@/services/local';
 import { t } from '@/i18n';
-import { photoKeys } from '../constants';
+import { QueryKeyContext } from '../context';
+import { useContext } from 'react';
 
-export function useMovePhotos(albumId: string) {
+export function useMovePhotos() {
   const queryClient = useQueryClient();
+  const queryKey = useContext(QueryKeyContext);
 
   const { mutateAsync: handleMovePhotos } = useMutation({
     mutationFn: async (params: MovePhotosParams) => {
       return await movePhotos(params);
     },
-    onSuccess() {
-      queryClient.invalidateQueries(photoKeys.list(albumId));
+    onSuccess(_, params) {
+      queryClient.setQueryData<FetchPhotosResult[]>(queryKey, (oldData) =>
+        oldData.filter((item) => !params.ids.includes(item.id)),
+      );
       Overlay.toast({
         preset: 'done',
         title: t('albumsScreen.deleteAlbum.success'),

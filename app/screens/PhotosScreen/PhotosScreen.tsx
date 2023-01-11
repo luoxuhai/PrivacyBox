@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite';
 import { StackScreenProps } from '@react-navigation/stack';
 import { useDeviceOrientation } from '@react-native-community/hooks';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { AppStackParamList } from '@/navigators';
 import { FlatGrid, ContentStyle, Screen } from '@/components';
@@ -27,7 +27,9 @@ import {
   SelectionContextProvider,
   SelectionContextValue,
   SelectionInitialValue,
+  QueryKeyContextProvider,
 } from './context';
+import { albumKeys } from '../AlbumsScreen/constants';
 
 export interface PhotosNavigatorParams {
   albumId: string;
@@ -43,7 +45,7 @@ export const PhotosScreen: FC<StackScreenProps<AppStackParamList, 'Photos'>> = o
   const [photoSettings, setPhotoSettings] =
     useState<PhotoSettingsContextValue>(PhotoSettingsInitialValue);
   const [selection, setSelection] = useState<SelectionContextValue>(SelectionInitialValue);
-
+  const queryClient = useQueryClient();
   const safeAreaDimensions = useSafeAreaDimensions();
   const { landscape } = useDeviceOrientation();
   const queryKey = useMemo(
@@ -116,8 +118,14 @@ export const PhotosScreen: FC<StackScreenProps<AppStackParamList, 'Photos'>> = o
         order_by: order,
       });
     },
+    placeholderData: [],
     enabled: true,
   });
+
+  useUpdateEffect(() => {
+    console.log('x');
+    queryClient.fetchQuery(albumKeys.detail(albumId));
+  }, [photos.length]);
 
   const handlePressItem = useCallback(
     (item: FetchPhotosResult) => {
@@ -168,29 +176,31 @@ export const PhotosScreen: FC<StackScreenProps<AppStackParamList, 'Photos'>> = o
   );
 
   return (
-    <SelectionContextProvider value={selection}>
-      <Screen>
-        <SafeAreaView style={$safeAreaView} edges={['left', 'right', 'bottom']}>
-          <FlatGrid
-            contentContainerStyle={$contentContainerStyle}
-            contentInsetAdjustmentBehavior="automatic"
-            estimatedItemSize={150}
-            itemWidth={landscape ? 120 : 110}
-            autoHeight
-            width={safeAreaDimensions.width}
-            itemWidthFixed={false}
-            spacing={2}
-            data={photos}
-            extraData={{
-              selection,
-            }}
-            renderItem={renderItem}
-          />
-        </SafeAreaView>
-        <ImportButton albumId={albumId} />
-        <BottomToolbar />
-      </Screen>
-    </SelectionContextProvider>
+    <QueryKeyContextProvider value={queryKey}>
+      <SelectionContextProvider value={selection}>
+        <Screen>
+          <SafeAreaView style={$safeAreaView} edges={['left', 'right', 'bottom']}>
+            <FlatGrid
+              contentContainerStyle={$contentContainerStyle}
+              contentInsetAdjustmentBehavior="automatic"
+              estimatedItemSize={150}
+              itemWidth={landscape ? 120 : 110}
+              autoHeight
+              width={safeAreaDimensions.width}
+              itemWidthFixed={false}
+              spacing={2}
+              data={photos}
+              extraData={{
+                selection,
+              }}
+              renderItem={renderItem}
+            />
+          </SafeAreaView>
+          <ImportButton albumId={albumId} />
+          <BottomToolbar />
+        </Screen>
+      </SelectionContextProvider>
+    </QueryKeyContextProvider>
   );
 });
 

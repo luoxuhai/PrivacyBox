@@ -29,4 +29,6 @@ declare global {
   type OrderBy<T> = {
     [key in keyof T]: 'DESC' | 'ASC';
   };
+
+  let __DEV__: any;
 }

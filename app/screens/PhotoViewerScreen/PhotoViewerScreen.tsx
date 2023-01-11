@@ -16,6 +16,7 @@ import { PhotoTypes } from '@/database/entities/types';
 import { HapticFeedback, showActionSheet } from '@/utils';
 import { t } from '@/i18n';
 import { exportPhotos } from '../PhotosScreen/helpers/exportPhotos';
+import { QueryKeyContextProvider } from '../PhotosScreen/context';
 
 export interface PhotoViewerScreenParams {
   item: FetchPhotosResult;
@@ -102,45 +103,47 @@ export const PhotoViewerScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'P
         },
         (buttonIndex) => {
           if (buttonIndex === 0) {
-            exportPhotos([]);
+            exportPhotos([currentItem.uri]);
           }
         },
       );
     }, []);
 
     return (
-      <Screen>
-        <Header
-          visible={toolbarVisible}
-          name={currentItem?.name}
-          ctime={currentItem?.created_date}
-          onBack={props.navigation.goBack}
-        />
-        <ImageBrowser
-          style={{
-            backgroundColor:
-              !toolbarVisible || isDark ? colors.palette.black : colors.palette.white,
-          }}
-          ref={imageBrowserRef}
-          images={images}
-          initialIndex={initialIndex}
-          renderExtraElements={renderExtraElements}
-          keyExtractor={(item) => item.id}
-          onPress={handleVisibleToolbar}
-          onLongPress={handleLongPress}
-          onPageChanged={setCurrentIdx}
-          onScrollBeginDrag={() => {
-            iconPlayOpacity.value = 0;
-          }}
-          onScrollEndDrag={(event) => {
-            iconPlayOpacity.value = 1;
-            if (event.nativeEvent.zoomScale > 1) {
-              setToolbarVisible(false);
-              StatusBar.setHidden(true, 'fade');
-            }
-          }}
-        />
-        <BottomToolbar visible={toolbarVisible} disabled={false} item={currentItem} />
-      </Screen>
+      <QueryKeyContextProvider value={queryKey}>
+        <Screen>
+          <Header
+            visible={toolbarVisible}
+            name={currentItem?.name}
+            ctime={currentItem?.created_date}
+            onBack={props.navigation.goBack}
+          />
+          <ImageBrowser
+            style={{
+              backgroundColor:
+                !toolbarVisible || isDark ? colors.palette.black : colors.palette.white,
+            }}
+            ref={imageBrowserRef}
+            images={images}
+            initialIndex={initialIndex}
+            renderExtraElements={renderExtraElements}
+            keyExtractor={(item) => item.id}
+            onPress={handleVisibleToolbar}
+            onLongPress={handleLongPress}
+            onPageChanged={setCurrentIdx}
+            onScrollBeginDrag={() => {
+              iconPlayOpacity.value = 0;
+            }}
+            onScrollEndDrag={(event) => {
+              iconPlayOpacity.value = 1;
+              if (event.nativeEvent.zoomScale > 1) {
+                console.log('ActionSheetRef, ');
+                StatusBar.setHidden(true, 'fade');
+              }
+            }}
+          />
+          <BottomToolbar visible={toolbarVisible} disabled={false} item={currentItem} />
+        </Screen>
+      </QueryKeyContextProvider>
     );
   });

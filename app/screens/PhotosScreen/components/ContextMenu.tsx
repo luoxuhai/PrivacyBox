@@ -8,7 +8,7 @@ import { FetchPhotosResult } from '@/services/local';
 import { exportPhotos } from '../helpers/exportPhotos';
 import { sharePhotos } from '../helpers/sharePhotos';
 import { useDeletePhotos } from '../helpers/useDeletePhotos';
-import { useMovePhotos } from '../helpers/movePhotos';
+import { useMovePhotos } from '../helpers/useMovePhotos';
 
 interface ContextMenuProps {
   item: FetchPhotosResult;
@@ -19,8 +19,8 @@ interface ContextMenuProps {
 export const ContextMenu = observer<ContextMenuProps>((props) => {
   const { item } = props;
   const menuConfig = useMemo<MenuConfig>(() => getMenuConfig(), []);
-  const deletePhotos = useDeletePhotos(item.parent_id);
-  const movePhotos = useMovePhotos(item.parent_id);
+  const deletePhotos = useDeletePhotos();
+  const movePhotos = useMovePhotos();
 
   const handlePressMenuItem = useCallback(
     ({ nativeEvent }) => {

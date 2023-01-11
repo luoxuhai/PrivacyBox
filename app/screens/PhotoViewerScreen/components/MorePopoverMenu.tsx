@@ -1,11 +1,9 @@
 import React, { useCallback, useMemo } from 'react';
-import { TouchableOpacity, Alert } from 'react-native';
 import { observer } from 'mobx-react-lite';
-import { cloneDeep } from 'lodash';
+import { SheetManager } from 'react-native-actions-sheet';
 
 import { PopoverMenu, MenuConfig } from '@/components/PopoverMenu';
 import { HapticFeedback } from '@/utils';
-import { extname } from '@/lib/path';
 import { FetchPhotosResult } from '@/services/local';
 import { translate } from '@/i18n';
 import { useRenamePhoto } from '../helpers/useRenamePhoto';
@@ -21,22 +19,34 @@ const t = translate;
 
 export const MorePopoverMenu = observer<IContextMenuProps>((props) => {
   const menus = useMemo(() => getMenus(), []);
-  const handleRenamePhoto = useRenamePhoto()
-  const handleUpdatePhoto = useUpdatePhoto()
+  const handleRenamePhoto = useRenamePhoto();
+  const handleUpdatePhoto = useUpdatePhoto();
 
-  const handleMenuItemPress = useCallback((key: string) => {
+  const handleMenuItemPress = useCallback(async (key: string) => {
     switch (key) {
       case ContextMenuKeys.Rename:
-        handleRenamePhoto(props.item)
+        handleRenamePhoto(props.item);
         break;
-      case ContextMenuKeys.Description:
-        const description = await SheetManager.show('description-update-sheet', {
-          payload: {
-            item,
+      case ContextMenuKeys.Description: {
+        const [isCancel, description]: [boolean, string] = await SheetManager.show(
+          'description-update-sheet',
+          {
+            payload: {
+              item: props.item,
+            },
           },
-        });
+        );
 
-        handleUpdatePhoto({ id: props.item.id, description })
+        if (isCancel) {
+          return;
+        }
+
+        if (description === props.item.description) {
+          return;
+        }
+
+        handleUpdatePhoto({ id: props.item.id, data: { description } });
+      }
     }
   }, []);
 

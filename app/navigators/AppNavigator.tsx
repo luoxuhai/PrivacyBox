@@ -10,7 +10,6 @@ import { StackScreenProps } from '@react-navigation/stack';
 import { observer } from 'mobx-react-lite';
 import React, { useMemo } from 'react';
 
-import Config from '@/config';
 import { useStores } from '@/models';
 import {
   AppLockScreen,
@@ -30,7 +29,7 @@ import {
   TransferScreen,
 } from '@/screens';
 import { ContentNavigator, ContentTabParamList } from './ContentNavigator';
-import { navigationRef, useBackButtonHandler } from './navigationUtilities';
+import { navigationRef } from './navigationUtilities';
 import { useTheme } from '@/theme';
 import { translate } from '@/i18n';
 
@@ -61,12 +60,6 @@ export type AppStackParamList = {
   DataMigrator: undefined;
   HideApplications: undefined;
 };
-
-/**
- * This is a list of all the route names that will exit the app if the back button
- * is pressed while in that screen. Only affects Android.
- */
-const exitRoutes = Config.exitRoutes;
 
 export type AppStackScreenProps<T extends keyof AppStackParamList> = StackScreenProps<
   AppStackParamList,
@@ -186,7 +179,7 @@ const AppStack = observer(function AppStack() {
 
       <Stack.Group
         screenOptions={{
-          presentation: 'fullScreenModal',
+          animation: 'fade',
           headerShown: false,
         }}
       >
@@ -223,8 +216,6 @@ interface NavigationProps extends Partial<React.ComponentProps<typeof Navigation
 
 export const AppNavigator = observer(function AppNavigator(props: NavigationProps) {
   const { colors, isDark } = useTheme();
-
-  useBackButtonHandler((routeName) => exitRoutes.includes(routeName));
 
   const theme: typeof DefaultTheme = useMemo(
     () => ({

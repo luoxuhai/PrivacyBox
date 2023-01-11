@@ -1,15 +1,21 @@
-import { useRef } from 'react';
+import { useContext, useRef } from 'react';
 import { Alert } from 'react-native';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { useStores } from '@/models';
 import { Overlay } from '@/utils';
-import { deletePhotos, softDeletePhotos, DeletePhotosParams } from '@/services/local';
+import {
+  deletePhotos,
+  softDeletePhotos,
+  DeletePhotosParams,
+  FetchPhotosResult,
+} from '@/services/local';
 import { t } from '@/i18n';
-import { photoKeys } from '../constants';
+import { QueryKeyContext } from '../context';
 
-export function useDeletePhotos(albumId: string) {
+export function useDeletePhotos() {
   const queryClient = useQueryClient();
+  const queryKey = useContext(QueryKeyContext);
   const {
     settingsStore: { recycleBinEnabled },
   } = useStores();
@@ -28,8 +34,10 @@ export function useDeletePhotos(albumId: string) {
       const fn = recycleBinEnabled ? softDeletePhotos : deletePhotos;
       return await fn(params);
     },
-    onSuccess() {
-      queryClient.invalidateQueries(photoKeys.list(albumId));
+    onSuccess(_, params) {
+      queryClient.setQueryData<FetchPhotosResult[]>(queryKey, (data) =>
+        data.filter((item) => !params.ids.includes(item.id)),
+      );
       Overlay.toast({
         preset: 'done',
         title: t('albumsScreen.deleteAlbum.success'),

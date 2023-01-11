@@ -2,10 +2,40 @@ const appId = '1597534147';
 
 interface IBaseConfig {
   catchErrors: 'always' | 'dev' | 'prod' | 'never';
-  [key: string]: any;
+  persistNavigation: 'always' | 'dev' | 'prod' | 'never';
+  productId: string;
+  groupIdentifier: string;
+  iCloudContainerIdentifier: string;
+  TXC_FEEDBACK_URL: string;
+  email: string;
+  qqGroup: string;
+  appId: string;
+  appStoreUrl: {
+    cn: string;
+    global: string;
+    urlSchema: string;
+  };
+  sentry: {
+    dsn: string;
+    tracesSampleRate: number;
+  };
+  privacyPolicy: {
+    zh_cn: string;
+    en_us: string;
+  };
+  userAgreement: {
+    zh_cn: string;
+    en_us: string;
+  };
+
+  /** 更新日志 */
+  changelog: {
+    zh_cn: string;
+    en_us: string;
+  };
 }
 
-const BaseConfig = {
+const BaseConfig: IBaseConfig = {
   // This feature is particularly useful in development mode, but
   // can be used in production as well if you prefer.
   persistNavigation: 'dev',
@@ -14,12 +44,6 @@ const BaseConfig = {
    * Only enable if we're catching errors in the right environment
    */
   catchErrors: 'always',
-
-  /**
-   * This is a list of all the route names that will exit the app if the back button
-   * is pressed while in that screen. Only affects Android.
-   */
-  exitRoutes: ['Welcome'],
 
   productId: 'net.darkce.privatespace_2',
 
@@ -66,8 +90,6 @@ const BaseConfig = {
   },
 };
 
-export type ConfigBaseProps = typeof BaseConfig & IBaseConfig;
-
-export type PersistNavigationConfig = ConfigBaseProps['persistNavigation'];
+export type PersistNavigationConfig = IBaseConfig['persistNavigation'];
 
 export default BaseConfig;

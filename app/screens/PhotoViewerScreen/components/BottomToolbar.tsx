@@ -6,7 +6,8 @@ import { Toolbar, IToolbarItem } from '@/components/Toolbar';
 import { translate } from '@/i18n';
 import { FetchPhotosResult } from '@/services/local';
 import { MorePopoverMenu } from './MorePopoverMenu';
-import { sharePhotos } from '../helpers/sharePhotos';
+import { sharePhotos } from '@/screens/PhotosScreen/helpers/sharePhotos';
+import { useDeletePhotos } from '@/screens/PhotosScreen/helpers/useDeletePhotos';
 
 const t = translate;
 
@@ -19,28 +20,42 @@ interface BottomToolbarProps {
 export const BottomToolbar = observer((props: BottomToolbarProps) => {
   const list = useMemo(() => getList(props), [props]);
 
-  const handlePressItem = useCallback((key: BottomToolbarKeys) => {
-    const uris = [props.item.uri]
-    const ids = [props.item.id]
+  const handleDeletePhotos = useDeletePhotos();
 
-    switch (key) {
-      case BottomToolbarKeys.Share:
-        sharePhotos({ uris });
-        break;
-      case BottomToolbarKeys.Delete:
-        deletePhotos({ ids });
-        break;
-      case BottomToolbarKeys.Details:
-        SheetManager.show('photo-detail-sheet', {
-          payload: {
-            item,
-          },
-        });
-        break;
-    }
-  }, [props.item.id, props.item.uri])
+  const handlePressItem = useCallback(
+    (key: BottomToolbarKeys) => {
+      const uris = [props.item.uri];
+      const ids = [props.item.id];
 
-  return <Toolbar visible={props.visible} disabled={props.disabled} list={list} onPress={handlePressItem} />;
+      switch (key) {
+        case BottomToolbarKeys.Share:
+          sharePhotos({ uris });
+          break;
+        case BottomToolbarKeys.Delete:
+          handleDeletePhotos({ ids });
+          break;
+        case BottomToolbarKeys.Details:
+          SheetManager.show('photo-detail-sheet', {
+            payload: {
+              item: props.item,
+            },
+          });
+          break;
+      }
+    },
+    [props.item],
+  );
+
+  return (
+    <>
+      <Toolbar
+        visible={props.visible}
+        disabled={props.disabled}
+        list={list}
+        onPress={handlePressItem}
+      />
+    </>
+  );
 });
 
 function getList(props: BottomToolbarProps): IToolbarItem[] {

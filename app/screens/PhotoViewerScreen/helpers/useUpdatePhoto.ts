@@ -1,32 +1,27 @@
-import { useRef } from 'react';
-import { Alert } from 'react-native';
+import { useContext } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { useStores } from '@/models';
 import { Overlay } from '@/utils';
-import { updatePhoto, UpdatePhotoParams } from '@/services/local';
+import { FetchPhotosResult, updatePhoto, UpdatePhotoParams } from '@/services/local';
 import { t } from '@/i18n';
-import { photoKeys } from '../constants';
+import { QueryKeyContext } from '@/screens/PhotosScreen/context';
 
-export function useUpdatePhoto(albumId: string) {
+export function useUpdatePhoto() {
   const queryClient = useQueryClient();
-  const {
-    settingsStore: { recycleBinEnabled },
-  } = useStores();
+  const queryKey = useContext(QueryKeyContext);
 
   const { mutateAsync: handleUpdatePhoto } = useMutation({
     mutationFn: async (params: UpdatePhotoParams) => {
       return await updatePhoto(params);
     },
     onSuccess(_data, { id, data }) {
-      queryClient.setQueryData(
-        list(albumId),
-        (oldData: FetchAlbumsResult[]) => oldData.map((item) => {
+      queryClient.setQueryData(queryKey, (oldData: FetchPhotosResult[]) =>
+        oldData.map((item) => {
           if (item.id === id) {
             return {
               ...item,
-              ...data
-            }
+              ...data,
+            };
           } else {
             return item;
           }
@@ -39,7 +34,7 @@ export function useUpdatePhoto(albumId: string) {
         title: t('albumsScreen.deleteAlbum.fail'),
         message: error.message,
       });
-    }
+    },
   });
 
   return handleUpdatePhoto;

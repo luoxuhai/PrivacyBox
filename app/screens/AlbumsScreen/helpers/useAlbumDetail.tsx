@@ -13,6 +13,7 @@ export function useAlbumDetail(id: string) {
     queryKey: albumKeys.detail(id),
     queryFn: () => fetchAlbumDetail({ id, status: Status.Normal }),
     enabled: true,
+    cacheTime: 0,
   });
 
   return query;

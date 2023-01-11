@@ -1,11 +1,12 @@
-import React, { useCallback, useContext, useMemo } from 'react';
-import { TouchableOpacity, StyleSheet, ViewStyle } from 'react-native';
+import React, { useContext, useMemo } from 'react';
+import { TouchableOpacity, ViewStyle } from 'react-native';
 import { MenuConfig, OnPressMenuItemEventObject } from 'react-native-ios-context-menu';
 import { SFSymbol } from 'react-native-sfsymbols';
 
 import { PopoverMenu } from '@/components';
 import { translate } from '@/i18n';
 import { PhotoSettingsContext, PhotoSettingsContextValue } from '../context';
+import { HapticFeedback } from '@/utils';
 
 interface MoreButtonProps {
   visible: boolean;
@@ -48,7 +49,12 @@ export function MoreButton(props: MoreButtonProps) {
       menus={menuConfig}
       onPressMenuItem={handlePressMenuItem}
     >
-      <TouchableOpacity activeOpacity={0.5}>
+      <TouchableOpacity
+        activeOpacity={0.5}
+        onPress={() => {
+          HapticFeedback.impact.light();
+        }}
+      >
         <SFSymbol style={$icon} size={24} name="ellipsis.circle" />
       </TouchableOpacity>
     </PopoverMenu>

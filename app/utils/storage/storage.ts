@@ -40,7 +40,7 @@ export function getAllKeys() {
   return mmkv.getAllKeys();
 }
 
-function JSONParse(data?: string) {
+export function JSONParse(data?: any) {
   if (!data) {
     return null;
   }
@@ -55,7 +55,7 @@ function JSONParse(data?: string) {
   }
 }
 
-function JSONStringify(data?: string) {
+export function JSONStringify(data?: string) {
   if (!data) {
     return null;
   }

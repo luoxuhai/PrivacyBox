@@ -33,7 +33,7 @@ export async function fetchAlbums(params: FetchAlbumsParams): Promise<FetchAlbum
   return result;
 }
 
-async function fetchItemCount(parentItem: Photo) {
+export async function fetchItemCount(parentItem: Photo) {
   const count = await AppDataSource.manager.count(Photo, {
     where: {
       parent_id: parentItem.id,
@@ -44,7 +44,7 @@ async function fetchItemCount(parentItem: Photo) {
   return count;
 }
 
-async function fetchAlbumCover(item: Photo) {
+export async function fetchAlbumCover(item: Photo) {
   const firstItem = await AppDataSource.manager.findOne(Photo, {
     where: {
       parent_id: item.id,

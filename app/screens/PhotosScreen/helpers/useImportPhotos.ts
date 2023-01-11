@@ -8,6 +8,7 @@ import { useStores } from '@/models';
 import { PhotoImporterResult } from './PhotoImporter';
 import { addPhotos } from '@/services/local';
 import { albumKeys } from '@/screens/AlbumsScreen/constants';
+import { classifyImageTask } from '@/utils/task/classifyImageTask';
 
 export function useImportPhotos(albumId: string) {
   const queryClient = useQueryClient();
@@ -48,6 +49,8 @@ export function useImportPhotos(albumId: string) {
           .filter((item) => item);
         deleteAssetsAsync(localIdentifiers);
       }
+
+      classifyImageTask.start();
     },
   });
 

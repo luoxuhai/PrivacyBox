@@ -20,6 +20,7 @@ import {
   ImageSource,
   LoadStatus,
 } from './type.d';
+import FastImage from 'react-native-fast-image';
 
 export interface ImageViewProps
   extends Pick<ScrollViewProps, 'onScrollEndDrag' | 'onScrollBeginDrag'> {

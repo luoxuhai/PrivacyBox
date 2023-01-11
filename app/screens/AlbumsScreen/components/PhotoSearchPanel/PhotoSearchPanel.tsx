@@ -26,28 +26,25 @@ import { PhotoItem } from '@/screens/PhotosScreen/components/PhotoItem';
 import { AlbumItem } from '../AlbumItem';
 import { HapticFeedback } from '@/utils';
 import { t } from '@/i18n';
-import { useTheme } from '@/theme';
+import { spacing, useTheme } from '@/theme';
 import { RootNavigation } from '@/navigators';
 import { FilterTypes, photoSearchKeys } from '../../constants';
 import { useStores } from '@/models';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { searchPhotos, SearchPhotosParams } from '@/services/local';
 import { filterOptions } from './constants';
-import { BlurView } from '@/components';
-
-type PhotoSearchPanelProps = {};
 
 export interface PhotoSearchPanelInstance {
   show: () => void;
   search: (v: string) => void;
   hide: () => void;
 }
-export const PhotoSearchPanel = observer<PhotoSearchPanelProps, PhotoSearchPanelInstance>(
-  forwardRef((props, ref) => {
+export const PhotoSearchPanel = observer<any, PhotoSearchPanelInstance>(
+  forwardRef((_, ref) => {
     const {
       appLockStore: { inFakeEnvironment },
     } = useStores();
-    const { colors, isDark } = useTheme();
+    const { colors } = useTheme();
     const { top: statusBarHeight } = useSafeAreaInsets();
     const segmentedControlTop = statusBarHeight + 60;
 
@@ -78,7 +75,9 @@ export const PhotoSearchPanel = observer<PhotoSearchPanelProps, PhotoSearchPanel
 
     useImperativeHandle(ref, () => ({
       show() {
-        setVisible(true);
+        setTimeout(() => {
+          setVisible(true);
+        }, 150);
       },
       hide() {
         setVisible(false);
@@ -122,15 +121,16 @@ export const PhotoSearchPanel = observer<PhotoSearchPanelProps, PhotoSearchPanel
         return await searchPhotos(params);
       },
       placeholderData: [],
-      enabled: true,
+      enabled: visible,
     });
 
     const renderAlbumItem = useCallback(
       ({ item }) => (
         <AlbumItem
-          // footerStyle={styles.albumFooter}
-          // style={styles.album}
-          // data={item}
+          style={styles.album}
+          operationStyle={styles.operationStyle}
+          item={item}
+          bottomOperationVisible={false}
           onPress={() => handlePress(item)}
         />
       ),
@@ -206,10 +206,6 @@ export const PhotoSearchPanel = observer<PhotoSearchPanelProps, PhotoSearchPanel
 
     return (
       <Animated.View style={[styles.container, containerStyle]} entering={FadeIn} exiting={FadeOut}>
-        <BlurView
-          style={StyleSheet.absoluteFill}
-          blurType={isDark ? 'materialDark' : 'materialLight'}
-        />
         <SegmentedControl
           style={[
             styles.segment,
@@ -252,6 +248,7 @@ export const PhotoSearchPanel = observer<PhotoSearchPanelProps, PhotoSearchPanel
 const styles = StyleSheet.create({
   album: {
     height: 160,
+    minWidth: 0,
   },
   albumFooter: {
     height: 40,
@@ -263,6 +260,10 @@ const styles = StyleSheet.create({
     right: 0,
     top: 0,
     zIndex: 999,
+  },
+  operationStyle: {
+    height: 46,
+    padding: spacing[3],
   },
   result: {
     flex: 1,

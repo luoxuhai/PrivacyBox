@@ -7,6 +7,8 @@ import Photo from '@/database/entities/photo';
 
 class ClassifyImageTask extends PhotoTask {
   public async start(): PVoid {
+    this.stop();
+
     this.status = 'STARTED';
     this.sendEvent('start');
 
@@ -26,7 +28,6 @@ class ClassifyImageTask extends PhotoTask {
             usesCPUOnly: __DEV__,
           });
 
-          console.log('result', result);
           await this.updateImageLabels(image.id as string, result);
           this.sendEvent('progress', {
             progress: ++this.progress,

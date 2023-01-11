@@ -31,6 +31,9 @@ export const PhotoViewerScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'P
 
     const { data: photos } = useQuery<FetchPhotosResult[]>({
       queryKey,
+      select(data) {
+        return data.filter((item) => item.type !== PhotoTypes.Folder);
+      },
       placeholderData: [],
       enabled: false,
     });
@@ -76,13 +79,12 @@ export const PhotoViewerScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'P
 
     const renderExtraElements = useCallback(
       ({ index, loadStatus }) => {
-        const visible = images[index].type === 'video';
-        const disabled = loadStatus !== LoadStatus.Succeeded;
+        const visible = images[index].type === 'video' && loadStatus === LoadStatus.Succeeded;
 
         return (
           <VideoPlayButton
             visible={visible}
-            disabled={disabled}
+            disabled={false}
             animatedStyle={iconPlayStyle}
             item={currentItem}
           />

@@ -40,13 +40,17 @@ export async function fetchPhotos(params: FetchPhotosParams): Promise<FetchPhoto
   })) as FetchPhotosResult[];
 
   for (const item of result) {
-    item.uri = joinPhotoUri(item);
-    item.thumbnail = joinPhotoThumbnail(item.id);
-
-    if (item.type === PhotoTypes.Video) {
-      item.poster = joinVideoPoster(item.id);
-    }
+    attachSourceUriForPhoto(item);
   }
 
   return result;
+}
+
+export function attachSourceUriForPhoto(item: FetchPhotosResult) {
+  item.uri = joinPhotoUri(item);
+  item.thumbnail = joinPhotoThumbnail(item.id);
+
+  if (item.type === PhotoTypes.Video) {
+    item.poster = joinVideoPoster(item.id);
+  }
 }

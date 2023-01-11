@@ -18,14 +18,18 @@ import { FetchAlbumsResult } from '@/services/local';
 
 interface AlbumItemProps {
   item: FetchAlbumsResult;
+  bottomOperationVisible?: boolean;
+  operationStyle?: ViewStyle;
+  style: ViewStyle;
   onPress: (item: FetchAlbumsResult) => void;
-  onOpenEditor: (item: FetchAlbumsResult) => void;
+  onOpenEditor?: (item: FetchAlbumsResult) => void;
 }
 
 const ImageNoImages = require('@/assets/images/no-images.png');
 
 export const AlbumItem = observer<AlbumItemProps>((props) => {
-  const { cover, name, item_count } = props.item;
+  const { bottomOperationVisible = true, item, style, operationStyle } = props;
+  const { cover, name, item_count } = item;
   const { isDark, colors } = useTheme();
 
   const textColor = colors.label;
@@ -38,6 +42,7 @@ export const AlbumItem = observer<AlbumItemProps>((props) => {
         {
           borderColor: colors.palette.gray6,
         },
+        style,
       ]}
       activeOpacity={0.8}
       onPress={() => props.onPress(props.item)}
@@ -53,7 +58,7 @@ export const AlbumItem = observer<AlbumItemProps>((props) => {
         resizeMode="cover"
       />
 
-      <View style={$bottomContainer}>
+      <View style={[$bottomContainer, operationStyle]}>
         <BlurView
           style={$blurView}
           blurType={isDark ? 'materialDark' : 'materialLight'}
@@ -67,9 +72,11 @@ export const AlbumItem = observer<AlbumItemProps>((props) => {
             {item_count ?? 0}
           </Text>
         </View>
-        <Pressable style={$configIcon} onPress={() => props.onOpenEditor(props.item)}>
-          <MoreVert width={25} height={30} strokeWidth={2} color={textColor} />
-        </Pressable>
+        {bottomOperationVisible ? (
+          <Pressable style={$configIcon} onPress={() => props.onOpenEditor?.(props.item)}>
+            <MoreVert width={25} height={30} strokeWidth={2} color={textColor} />
+          </Pressable>
+        ) : null}
       </View>
     </TouchableOpacity>
   );

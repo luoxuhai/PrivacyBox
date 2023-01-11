@@ -187,12 +187,17 @@ const AppStack = observer(function AppStack() {
       <Stack.Group
         screenOptions={{
           presentation: 'fullScreenModal',
-          animation: 'fade',
           headerShown: false,
         }}
       >
         <Stack.Screen name="PhotoViewer" component={PhotoViewerScreen} />
-        <Stack.Screen name="VideoPlayer" component={VideoPlayerScreen} />
+        <Stack.Screen
+          name="VideoPlayer"
+          options={{
+            animation: 'fade',
+          }}
+          component={VideoPlayerScreen}
+        />
       </Stack.Group>
 
       <Stack.Screen

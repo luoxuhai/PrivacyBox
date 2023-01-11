@@ -5,7 +5,7 @@ interface IBaseConfig {
   [key: string]: any;
 }
 
-const BaseConfig: IBaseConfig = {
+const BaseConfig = {
   // This feature is particularly useful in development mode, but
   // can be used in production as well if you prefer.
   persistNavigation: 'dev',
@@ -66,7 +66,7 @@ const BaseConfig: IBaseConfig = {
   },
 };
 
-export type ConfigBaseProps = typeof BaseConfig;
+export type ConfigBaseProps = typeof BaseConfig & IBaseConfig;
 
 export type PersistNavigationConfig = ConfigBaseProps['persistNavigation'];
 

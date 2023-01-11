@@ -16,7 +16,7 @@ import Animated, {
   useAnimatedStyle,
   withTiming,
 } from 'react-native-reanimated';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import SegmentedControl from '@react-native-segmented-control/segmented-control';
 import { isEmpty, debounce } from 'lodash';
 
@@ -24,7 +24,7 @@ import { PhotoTypes } from '@/database/entities/types';
 import { SectionGrid } from '@/components/Grid/SectionGrid/SectionGrid';
 import { PhotoItem } from '@/screens/PhotosScreen/components/PhotoItem';
 import { AlbumItem } from '../AlbumItem';
-import { HapticFeedback } from '@/utils';
+import { HapticFeedback, useUpdateEffect } from '@/utils';
 import { t } from '@/i18n';
 import { spacing, useTheme } from '@/theme';
 import { RootNavigation } from '@/navigators';
@@ -61,6 +61,8 @@ export const PhotoSearchPanel = observer<any, PhotoSearchPanelInstance>(
         }),
       [inFakeEnvironment, keywords, filterType],
     );
+
+    const queryClient = useQueryClient();
 
     const containerOpacity = useSharedValue(0.5);
     const containerStyle = useAnimatedStyle(() => {
@@ -123,6 +125,12 @@ export const PhotoSearchPanel = observer<any, PhotoSearchPanelInstance>(
       placeholderData: [],
       enabled: visible,
     });
+
+    useUpdateEffect(() => {
+      if (!visible) {
+        queryClient.setQueryData(queryKey, () => []);
+      }
+    }, [visible]);
 
     const renderAlbumItem = useCallback(
       ({ item }) => (
@@ -262,8 +270,9 @@ const styles = StyleSheet.create({
     zIndex: 999,
   },
   operationStyle: {
-    height: 46,
-    padding: spacing[3],
+    height: 50,
+    paddingHorizontal: spacing[3],
+    paddingVertical: spacing[2],
   },
   result: {
     flex: 1,

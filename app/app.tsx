@@ -53,11 +53,7 @@ const App = observer(() => {
   }, [rootStore.appLockStore.isLocked]);
 
   useUpdateEffect(() => {
-    if (
-      !rootStore.appStateStore.inForeground &&
-      !rootStore.appLockStore.isLocked &&
-      !global.isPausePresentMask
-    ) {
+    if (!rootStore.appStateStore.inForeground && !rootStore.appLockStore.isLocked) {
       RootNavigation.navigate('AppMask');
     }
   }, [rootStore.appStateStore.inForeground]);

@@ -120,9 +120,9 @@ const AppStack = observer(function AppStack() {
           name="AppMask"
           component={AppMaskScreen}
           options={{
-            presentation: 'transparentModal',
             animation: 'fade',
             autoHideHomeIndicator: true,
+            gestureEnabled: false,
           }}
         />
       </Stack.Group>

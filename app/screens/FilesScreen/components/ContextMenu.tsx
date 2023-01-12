@@ -20,34 +20,40 @@ export const ContextMenu = observer<ContextMenuProps>((props) => {
   const isFolder = props.item?.type === FileTypes.Folder;
   const menuConfig = useMemo<MenuConfig>(() => getMenuConfig(isFolder), [isFolder]);
   const handleRenameFile = useRenameFile(props.item.parent_id);
-  const handleDeleteFile = useDeleteFile(props.item);
+  const handleDeleteFile = useDeleteFile(props.item.parent_id);
 
   const handlePressMenuItem = useCallback(
     ({ nativeEvent }) => {
+      const { item } = props;
       switch (nativeEvent.actionKey) {
         case ContextMenuKeys.Details:
           SheetManager.show('file-detail-sheet', {
             payload: {
-              item: props.item,
+              item
             },
           });
           break;
         case ContextMenuKeys.Rename:
-          handleRenameFile(props.item);
+          handleRenameFile(item);
           break;
         case ContextMenuKeys.Share:
           Share.share({
-            url: props.item.uri,
+            url: item.uri,
           });
           break;
         case ContextMenuKeys.SaveToLocal:
           RNShare.open({
-            url: props.item.uri,
+            url: item.uri,
             saveToFiles: true,
           });
           break;
         case ContextMenuKeys.Delete:
-          handleDeleteFile();
+          handleDeleteFile({
+            items: [{
+              id: item.id,
+              type: item.type,
+            }]
+          });
           break;
       }
     },

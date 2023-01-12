@@ -4,19 +4,17 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Overlay } from '@/utils';
 import { fileKeys } from '../constants';
 import { useStores } from '@/models';
-import { FetchFilesResult, deleteFiles } from '@/services/local/file';
+import { FetchFilesResult, deleteFiles, DeleteFilesParams } from '@/services/local/file';
 import { translate } from '@/i18n';
 
-export function useDeleteFile(item: FetchFilesResult) {
+export function useDeleteFile(folderId: string) {
   const queryClient = useQueryClient();
   const {
     appLockStore: { inFakeEnvironment },
   } = useStores();
   const { mutateAsync: handleDeleteAlbum } = useMutation({
-    mutationFn: async (id: string) => {
-      await deleteFiles({
-        id,
-      });
+    async mutationFn(params: DeleteFilesParams) {
+      return await deleteFiles(params);
     },
     onError(error: Error) {
       Overlay.toast({
@@ -25,9 +23,9 @@ export function useDeleteFile(item: FetchFilesResult) {
         message: error.message,
       });
     },
-    onSuccess() {
-      queryClient.refetchQueries(fileKeys.list(`${inFakeEnvironment}:${item.parent_id}`));
-      console.log(item);
+    onSuccess(_, { items }) {
+      const ids = items.map(item => item.id);
+      queryClient.setQueryData(fileKeys.list(`${inFakeEnvironment}:${folderId}`), (oldData) => oldData.filter(item => !ids.includes(item.id)));
       Overlay.toast({
         preset: 'done',
         title: translate('albumsScreen.deleteAlbum.success'),
@@ -35,7 +33,7 @@ export function useDeleteFile(item: FetchFilesResult) {
     },
   });
 
-  function handlePresentDeleteAlert() {
+  function handlePresentDeleteAlert(params: DeleteFilesParams) {
     Alert.alert(translate('albumsScreen.deleteAlbum.title'), undefined, [
       {
         text: translate('common.cancel'),
@@ -45,7 +43,7 @@ export function useDeleteFile(item: FetchFilesResult) {
         text: translate('common.confirm'),
         style: 'destructive',
         onPress() {
-          handleDeleteAlbum(item.id);
+          handleDeleteAlbum(params);
         },
       },
     ]);

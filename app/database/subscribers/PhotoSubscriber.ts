@@ -7,7 +7,7 @@ import {
   EntityManager,
 } from 'typeorm';
 
-import { uploadPhotos } from '@/services/icloud/photo';
+// import { uploadPhotos } from '@/services/icloud/photo';
 import Photo from '../entities/photo';
 
 @EventSubscriber()
@@ -16,16 +16,16 @@ export class PhotoSubscriber implements EntitySubscriberInterface<Photo> {
     return Photo;
   }
 
-  afterInsert(event: InsertEvent<Photo>): void | Promise<any> {
-    console.log('afterInsert');
-    queryAllPhotos(event.connection.manager);
-    uploadToICloud();
-  }
+  // afterInsert(event: InsertEvent<Photo>): void | Promise<any> {
+  //   console.log('afterInsert');
+  //   queryAllPhotos(event.connection.manager);
+  //   uploadToICloud();
+  // }
 
-  afterUpdate(event: UpdateEvent<Photo>): void | Promise<any> {
-    console.log('afterUpdate');
-    queryAllPhotos(event.connection.manager);
-  }
+  // afterUpdate(event: UpdateEvent<Photo>): void | Promise<any> {
+  //   console.log('afterUpdate');
+  //   queryAllPhotos(event.connection.manager);
+  // }
 }
 
 function uploadToICloud() {

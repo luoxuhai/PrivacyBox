@@ -7,9 +7,8 @@ import { fetchFiles } from './fetchFiles';
 import * as path from '@/lib/path';
 import { LocalPathManager } from '@/utils';
 
-interface DeleteFilesParams {
-  id?: string;
-  ids?: string[];
+export interface DeleteFilesParams {
+  items?: { id: string; type: FileTypes }[];
 }
 
 /**
@@ -20,20 +19,38 @@ export async function deleteFiles(params: DeleteFilesParams) {
     throw Error('invalid params');
   }
 
-  const item = (
-    await fetchFiles({
-      id: params.id,
-    })
-  )[0];
+  const { items = [] } = params;
+  const folders = items.filter(item => file.type === FileTypes.Folder);
+  const files = items.filter(item => file.type !== FileTypes.Folder);
 
-  const result = await AppDataSource.manager.delete(File, getCriteria(params));
-  if (item.type === FileTypes.Folder) {
-    await AppDataSource.manager.delete(File, {
-      parent_id: params.id,
-    });
-  } else {
-    // 删除文件
-    await unlink(path.join(LocalPathManager.photoPath, item.id));
+  // 删除文件类型
+  if (files.length) {
+    const fileIds = files.map(item => item.id);
+    await AppDataSource.manager.delete(File, fileIds);
+    await removeFilesFromDisk(fileIds)
+  }
+
+  if (folders.length) {
+    const ids = folders.map(item => item.id);
+    // 先删除文件夹
+    await AppDataSource.manager.delete(File, ids);
+
+    for (const id of ids) {
+      const children = await AppDataSource.manager.find(Photo, {
+        select: {
+          id: true,
+          type: true,
+        },
+        where: {
+          parent_id: folder_id,
+          // 只删除正常状态的文件
+          status: Status.Normal,
+        },
+      });
+      await deleteFiles({
+        items: children.map(item => ({ id: item.id, type: item.type }))
+      });
+    }
   }
 
   return result;
@@ -55,11 +72,20 @@ export async function softDeleteFiles(params: DeleteFilesParams) {
 }
 
 function isValidParams(params: DeleteFilesParams) {
-  const ids = params.ids?.filter((id) => id);
-
-  return params.id || ids?.length;
+  const items = params.items?.filter((id) => id);
+  return !!items?.length;
 }
 
 function getCriteria(params: DeleteFilesParams) {
   return params.id ?? params.ids;
+}
+
+async function removeFilesFromDisk(ids: string[]) {
+  for (const id of ids) {
+    try {
+      await unlink(join(LocalPathManager.filePath, id));
+    } catch (error) {
+      console.error(error);
+    }
+  }
 }

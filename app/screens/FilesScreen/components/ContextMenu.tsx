@@ -19,37 +19,40 @@ interface ContextMenuProps {
 export const ContextMenu = observer<ContextMenuProps>((props) => {
   const isFolder = props.item?.type === FileTypes.Folder;
   const menuConfig = useMemo<MenuConfig>(() => getMenuConfig(isFolder), [isFolder]);
-  const handleRenameFile = useRenameFile(props.item);
+  const handleRenameFile = useRenameFile(props.item.parent_id);
   const handleDeleteFile = useDeleteFile(props.item);
 
-  const handlePressMenuItem = useCallback(({ nativeEvent }) => {
-    switch (nativeEvent.actionKey) {
-      case ContextMenuKeys.Details:
-        SheetManager.show('file-detail-sheet', {
-          payload: {
-            item: props.item,
-          },
-        });
-        break;
-      case ContextMenuKeys.Rename:
-        handleRenameFile();
-        break;
-      case ContextMenuKeys.Share:
-        Share.share({
-          url: props.item.uri,
-        });
-        break;
-      case ContextMenuKeys.SaveToLocal:
-        RNShare.open({
-          url: props.item.uri,
-          saveToFiles: true,
-        });
-        break;
-      case ContextMenuKeys.Delete:
-        handleDeleteFile();
-        break;
-    }
-  }, []);
+  const handlePressMenuItem = useCallback(
+    ({ nativeEvent }) => {
+      switch (nativeEvent.actionKey) {
+        case ContextMenuKeys.Details:
+          SheetManager.show('file-detail-sheet', {
+            payload: {
+              item: props.item,
+            },
+          });
+          break;
+        case ContextMenuKeys.Rename:
+          handleRenameFile(props.item);
+          break;
+        case ContextMenuKeys.Share:
+          Share.share({
+            url: props.item.uri,
+          });
+          break;
+        case ContextMenuKeys.SaveToLocal:
+          RNShare.open({
+            url: props.item.uri,
+            saveToFiles: true,
+          });
+          break;
+        case ContextMenuKeys.Delete:
+          handleDeleteFile();
+          break;
+      }
+    },
+    [props.item],
+  );
 
   return (
     <ContextMenuView menuConfig={menuConfig} onPressMenuItem={handlePressMenuItem}>

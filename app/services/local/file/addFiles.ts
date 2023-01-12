@@ -31,8 +31,6 @@ export async function addFiles(params: AddFilesParams) {
 
   const { parent_id, is_fake = false } = params;
 
-  console.log(params.files);
-
   for (const file of params.files) {
     try {
       const { name, size, mime, localIdentifier } = file;
@@ -49,7 +47,6 @@ export async function addFiles(params: AddFilesParams) {
 
       // 文件类型
       const type = getFileTypeByMime(mime);
-      console.log(id, parent_id, name, size, mime, uri, is_fake, type);
 
       const data = {
         id,

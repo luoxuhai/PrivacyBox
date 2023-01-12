@@ -13,7 +13,7 @@ import { Header } from './components/Header';
 import { VideoPlayButton } from './components/VideoPlayButton';
 import { FetchPhotosResult } from '@/services/local';
 import { PhotoTypes } from '@/database/entities/types';
-import { HapticFeedback, showActionSheet } from '@/utils';
+import { HapticFeedback, showActionSheet, useUpdateEffect } from '@/utils';
 import { t } from '@/i18n';
 import { exportPhotos } from '../PhotosScreen/helpers/exportPhotos';
 import { QueryKeyContextProvider } from '../PhotosScreen/context';
@@ -57,6 +57,12 @@ export const PhotoViewerScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'P
         }),
       [photos],
     );
+
+    useUpdateEffect(() => {
+      if (!images.length) {
+        props.navigation.goBack();
+      }
+    }, [images.length]);
 
     const initialIndex = photos.findIndex((photo) => photo.id === initialItem.id);
     const [currentIdx, setCurrentIdx] = useState(initialIndex ?? 0);

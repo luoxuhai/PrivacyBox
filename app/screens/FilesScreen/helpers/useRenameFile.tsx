@@ -4,32 +4,26 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Overlay } from '@/utils';
 import { translate } from '@/i18n';
 import { fileKeys } from '../constants';
-import Photo from '@/database/entities/photo';
 import { useStores } from '@/models';
-import { FetchFilesResult, updateFiles, fetchFiles } from '@/services/local/file';
+import { FetchFilesResult, renameFiles, RenameFilesParams } from '@/services/local/file';
+import { extname } from '@/lib/path';
 
-export function useRenameFile(item: FetchFilesResult) {
+export function useRenameFile(parentId: string) {
   const queryClient = useQueryClient();
   const {
     appLockStore: { inFakeEnvironment },
   } = useStores();
-  const { mutate: handleRename } = useMutation({
-    mutationFn: async (params: { id: string; data: Partial<Photo> }) => {
-      if (!params.id || !params.data.name) {
-        throw Error('');
+  const { mutateAsync: handleRename } = useMutation({
+    mutationFn: async (params: RenameFilesParams) => {
+      const items = queryClient.getQueryData<FetchFilesResult[]>(
+        fileKeys.list(`${inFakeEnvironment}:${parentId}`),
+      );
+
+      if (items.find((item) => item.name === params.name)) {
+        throw Error('文件名称重复');
       }
 
-      const exists = !!(
-        await fetchFiles({
-          name: params.data.name,
-        })
-      ).length;
-
-      if (exists) {
-        throw Error('相册名称不能相同');
-      }
-
-      await updateFiles(params);
+      await renameFiles(params);
     },
     onError(error: Error) {
       Overlay.toast({
@@ -38,30 +32,43 @@ export function useRenameFile(item: FetchFilesResult) {
         message: error.message,
       });
     },
-    onSuccess() {
-      console.log('item.parent_id', item.parent_id);
-      queryClient.refetchQueries(fileKeys.list(`${inFakeEnvironment}:${item.parent_id}`));
-      Overlay.toast({
-        preset: 'done',
-        title: translate('filesScreen.rename.success'),
-      });
+    onSuccess(_, { id, name }) {
+      queryClient.setQueryData<FetchFilesResult[]>(
+        fileKeys.list(`${inFakeEnvironment}:${parentId}`),
+        (oldData) =>
+          oldData.map((item) => {
+            if (item.id === id) {
+              return {
+                ...item,
+                name,
+              };
+            } else {
+              return item;
+            }
+          }),
+      );
     },
   });
 
-  function handlePresentRenamePrompt() {
+  function handlePresentRenamePrompt(params: RenameFilesParams) {
     Alert.prompt(
-      translate('filesScreen.folderForm.title'),
-      translate('filesScreen.folderForm.msg'),
-      (name: string) => {
-        handleRename({
-          id: item.id,
-          data: {
-            name: name.trim(),
-          },
-        });
+      translate('common.rename'),
+      undefined,
+      (value: string) => {
+        const name = value.trim();
+        if (!name || name === params.name) {
+          return;
+        }
+
+        const newName = `${name}${extname(params.name)}`;
+        if (newName === params.name) {
+          return;
+        }
+
+        handleRename({ ...params, name: newName });
       },
       'plain-text',
-      item.name,
+      params.name.replace(/\..+$/, ''),
       'default',
       translate('filesScreen.folderForm.placeholder'),
     );

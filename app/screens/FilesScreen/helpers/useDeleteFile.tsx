@@ -12,7 +12,7 @@ export function useDeleteFile(item: FetchFilesResult) {
   const {
     appLockStore: { inFakeEnvironment },
   } = useStores();
-  const { mutate: handleDeleteAlbum } = useMutation({
+  const { mutateAsync: handleDeleteAlbum } = useMutation({
     mutationFn: async (id: string) => {
       await deleteFiles({
         id,
@@ -27,7 +27,7 @@ export function useDeleteFile(item: FetchFilesResult) {
     },
     onSuccess() {
       queryClient.refetchQueries(fileKeys.list(`${inFakeEnvironment}:${item.parent_id}`));
-      console.log(item)
+      console.log(item);
       Overlay.toast({
         preset: 'done',
         title: translate('albumsScreen.deleteAlbum.success'),

@@ -18,6 +18,8 @@ export function useImportFile(folderId: string) {
         return;
       }
 
+      console.prettyLog(files)
+
       await addFiles({
         parent_id: folderId,
         is_fake: inFakeEnvironment,

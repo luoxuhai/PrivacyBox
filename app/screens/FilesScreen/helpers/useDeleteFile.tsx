@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Overlay } from '@/utils';
 import { fileKeys } from '../constants';
 import { useStores } from '@/models';
-import { FetchFilesResult, deleteFiles, DeleteFilesParams } from '@/services/local/file';
+import { deleteFiles, DeleteFilesParams, FetchFilesResult } from '@/services/local/file';
 import { translate } from '@/i18n';
 
 export function useDeleteFile(folderId: string) {
@@ -24,8 +24,11 @@ export function useDeleteFile(folderId: string) {
       });
     },
     onSuccess(_, { items }) {
-      const ids = items.map(item => item.id);
-      queryClient.setQueryData(fileKeys.list(`${inFakeEnvironment}:${folderId}`), (oldData) => oldData.filter(item => !ids.includes(item.id)));
+      const ids = items.map((item) => item.id);
+      queryClient.setQueryData<FetchFilesResult[]>(
+        fileKeys.list(`${inFakeEnvironment}:${folderId}`),
+        (oldData) => oldData.filter((item) => !ids.includes(item.id)),
+      );
       Overlay.toast({
         preset: 'done',
         title: translate('albumsScreen.deleteAlbum.success'),

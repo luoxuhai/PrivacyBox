@@ -1,7 +1,8 @@
+import { IsNull } from 'typeorm';
+
 import { AppDataSource } from '@/database';
 import File from '@/database/entities/file';
 import { FileTypes, Status } from '@/database/entities/types';
-import { IsNull } from 'typeorm';
 import { joinFileUri } from '../helpers/joinFileUri';
 
 type FetchFilesParams = Partial<Pick<File, 'name' | 'status' | 'is_fake' | 'parent_id' | 'id'>>;
@@ -17,6 +18,9 @@ export async function fetchFiles(params: FetchFilesParams): Promise<FetchFilesRe
       ...params,
       parent_id: params.parent_id ?? IsNull(),
       status: Status.Normal,
+    },
+    order: {
+      type: 'ASC',
     },
   })) as FetchFilesResult[];
 

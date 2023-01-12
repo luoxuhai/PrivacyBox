@@ -39,7 +39,7 @@ export const AppIconSection = observer(() => {
   const handleChangeAppIcon = useCallback(async (iconName: AppIcons) => {
     const supports = await AppIconManager.supportsDynamicAppIcon();
     if (supports) {
-      AppIconManager.setAppIcon(iconName);
+      AppIconManager.setAppIcon(iconName === AppIcons.Default ? null : iconName);
       setAppIcon(iconName);
       HapticFeedback.selection();
     } else {

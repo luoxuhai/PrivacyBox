@@ -11,10 +11,6 @@ export const appIconOptions: {
     name: AppIcons.Default,
   },
   {
-    title: 'appIconName.dark',
-    name: AppIcons.Dark,
-  },
-  {
     title: 'appIconName.calculator',
     name: AppIcons.Calculator,
     needsBuy: true,

@@ -23,6 +23,7 @@ export const TextButton = observer<TextButtonProps>((props) => {
         tk={tk}
         text={text}
         tkOptions={tkOptions}
+        adjustsFontSizeToFit
       />
     </TouchableOpacity>
   );

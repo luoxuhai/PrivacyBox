@@ -13,6 +13,7 @@ import { useStores } from '@/models';
 import { UrgentSwitchActions } from '@/models/SettingsStore';
 import { TextKeyPath } from '@/i18n';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+import { HapticFeedback } from '@/utils';
 
 export const UrgentSwitchScreen: FC<StackScreenProps<SettingStackParamList, 'UrgentSwitch'>> =
   observer(function UrgentSwitchScreen() {
@@ -55,6 +56,7 @@ export const UrgentSwitchScreen: FC<StackScreenProps<SettingStackParamList, 'Urg
                   }
                   onPress={() => {
                     settingsStore.setUrgentSwitchTarget(option.value);
+                    HapticFeedback.selection();
                   }}
                 />
               );

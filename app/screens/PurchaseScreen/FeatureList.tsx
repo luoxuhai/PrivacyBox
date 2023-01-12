@@ -20,7 +20,7 @@ export const FeatureList = observer(() => {
               color="#EED198"
               backgroundColor="#FCF6E9"
             />
-            <Text style={$featureText} tk={item.title} color={colors.label} />
+            <Text style={$featureText} tk={item.title} color={colors.label} numberOfLines={2} />
           </View>
         );
       })}

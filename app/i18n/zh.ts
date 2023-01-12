@@ -238,7 +238,6 @@ const zh = {
   },
   appIconName: {
     default: '默认',
-    dark: '深色',
     calculator: '计算器',
     passwordBox: '密码箱',
     clock: '时钟',
@@ -260,8 +259,8 @@ const zh = {
     QRCodeMosaic: '二维码/条形码打码',
   },
   fakeAppHomeSettingsScreen: {
-    title: '伪装界面',
-    fakeHomeEnabled: '开启伪装界面',
+    title: '伪装首页',
+    fakeHomeEnabled: '开启伪装首页',
     unlockAction: '解锁方式',
     pullRefresh: '下拉刷新',
     slide: '向左滑动',

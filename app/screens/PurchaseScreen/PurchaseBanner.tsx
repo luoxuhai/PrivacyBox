@@ -38,7 +38,7 @@ export const PurchaseBanner = observer(() => {
       <View style={$content}>
         <View style={isPurchased && $compactTextContainer}>
           <View style={$titleContainer}>
-            <Text style={$title} tk="settingsScreen.purchaseBanner.title" size="lg" />
+            <Text style={$title} tk="settingsScreen.purchaseBanner.title" />
             <LottieView style={$lottie} source="Pro" autoPlay loop />
           </View>
           <Text
@@ -97,7 +97,8 @@ const $title: TextStyle = {
 };
 
 const $lottie: TextStyle = {
-  marginLeft: spacing[2],
+  marginLeft: spacing[1],
+  width: 50,
 };
 
 const $subtitle: TextStyle = {

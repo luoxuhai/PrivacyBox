@@ -177,7 +177,7 @@ const ExtraText = observer(({ text }: { text: string }) => {
 const $container: ViewStyle = {
   flexDirection: 'row',
   alignItems: 'center',
-  minHeight: 45,
+  minHeight: 44,
 };
 
 const $content: ViewStyle = {
@@ -191,6 +191,8 @@ const $content: ViewStyle = {
 
 const $text: TextStyle = {
   ...typography.body,
+  paddingVertical: spacing[2],
+  flex: 1,
 };
 
 const $rightContent: ViewStyle = {

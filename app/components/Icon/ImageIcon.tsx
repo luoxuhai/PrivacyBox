@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { Image, ImageStyle, StyleProp, TouchableOpacityProps, ViewStyle } from 'react-native';
 
-import IconAppIcon from '@/assets/icons/app-icon/privatespace.svg';
-import IconAppIconDark from '@/assets/icons/app-icon/privatespace.dark.svg';
+import IconAppIcon from '@/assets/icons/app-icon/private_space.svg';
 import AppIconCalculator from '@/assets/icons/app-icon/calculator.svg';
 import AppIconHousekeeper from '@/assets/icons/app-icon/housekeeper.svg';
 import AppIconPasswordBox from '@/assets/icons/app-icon/password_box.svg';
@@ -71,7 +70,6 @@ export const iconRegistry = {
 
 export const iconSvgRegistry = {
   [AppIcons.Default]: IconAppIcon,
-  [AppIcons.Dark]: IconAppIconDark,
   [AppIcons.Calculator]: AppIconCalculator,
   [AppIcons.Clock]: AppIconClock,
   [AppIcons.Housekeeper]: AppIconHousekeeper,

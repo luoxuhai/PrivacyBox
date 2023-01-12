@@ -10,6 +10,7 @@ import { spacing, useTheme } from '@/theme';
 import { useStores } from '@/models';
 import { t } from '@/i18n';
 import { ICON_CHECK_SIZE } from '@/constants';
+import { HapticFeedback } from '@/utils';
 
 export const RecycleBinSettingsScreen: FC<
   StackScreenProps<MoreFeatureNavigatorParamList, 'RecycleBinSettings'>
@@ -61,6 +62,7 @@ export const RecycleBinSettingsScreen: FC<
                 value={settingsStore.recycleBinEnabled}
                 onValueChange={(enabled) => {
                   settingsStore.setRecycleBin({ enabled });
+                  HapticFeedback.selection();
                 }}
               />
             }

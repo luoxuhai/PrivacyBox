@@ -1,6 +1,5 @@
 export enum AppIcons {
   Default = 'default',
-  Dark = 'dark',
   Calculator = 'calculator',
   Clock = 'clock',
   Todo = 'todo',

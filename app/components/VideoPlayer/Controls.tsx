@@ -3,7 +3,6 @@ import {
   StyleSheet,
   View,
   ViewStyle,
-  Share,
   TouchableOpacity,
   Pressable,
   StatusBar,
@@ -20,7 +19,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import OrientationLocker, { OrientationType } from 'react-native-orientation-locker';
 import { showRoutePicker, useExternalPlaybackAvailability } from 'react-airplay';
 
-import { formatDuration } from '@/utils';
+import { formatDuration, useUpdateEffect } from '@/utils';
 import { BOTTOM_TABS_HEIGHT } from '@/constants';
 import { radius, spacing, typography, useTheme } from '@/theme';
 import { iconProps, IconButton } from './IconButton';
@@ -48,6 +47,7 @@ interface ControlsProps {
   onRate: (rate: number) => void;
   onForward: () => void;
   onBackward: () => void;
+  onShare: () => void;
 }
 
 export default function Controls(props: ControlsProps) {
@@ -78,6 +78,7 @@ export default function Controls(props: ControlsProps) {
 
     return () => {
       StatusBar.setHidden(false);
+      OrientationLocker.unlockAllOrientations();
     };
   }, []);
 
@@ -91,16 +92,13 @@ export default function Controls(props: ControlsProps) {
     }
   }, [props.progress]);
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     if (orientation === 'portrait') {
       OrientationLocker.lockToPortrait();
     } else {
       OrientationLocker.lockToLandscape();
     }
-
-    return () => {
-      OrientationLocker.unlockAllOrientations();
-    };
+    props.onVisible();
   }, [orientation]);
 
   useEffect(() => {
@@ -123,12 +121,6 @@ export default function Controls(props: ControlsProps) {
       paddingTop: top === 0 ? top + spacing : top,
     };
   }, [insets]);
-
-  function handleShare() {
-    Share.share({
-      url: '',
-    });
-  }
 
   function handleOrientation() {
     setOrientation((old) => {
@@ -178,7 +170,7 @@ export default function Controls(props: ControlsProps) {
   }
 
   return (
-    <Animated.View
+    <View
       style={[
         styles.container,
         {
@@ -202,9 +194,12 @@ export default function Controls(props: ControlsProps) {
           style={{
             width: 33,
             height: 44,
-            justifyContent:'center',
+            justifyContent: 'center',
           }}
-          onPress={props.onBack}
+          onPress={() => {
+            OrientationLocker.unlockAllOrientations();
+            props.onBack();
+          }}
         >
           <SFSymbol
             name="chevron.backward"
@@ -229,7 +224,7 @@ export default function Controls(props: ControlsProps) {
             name="airplayvideo"
             onPress={() => showRoutePicker({ prioritizesVideoDevices: true })}
           />
-          <IconButton name="square.and.arrow.up" onPress={handleShare} />
+          <IconButton name="square.and.arrow.up" onPress={props.onShare} />
         </ViewGroup>
       </View>
       <Pressable style={styles.background} onPress={handlePressBackground} />
@@ -296,7 +291,7 @@ export default function Controls(props: ControlsProps) {
           />
         </View>
       </View>
-    </Animated.View>
+    </View>
   );
 }
 
@@ -361,7 +356,7 @@ const styles = StyleSheet.create({
 
 const $title: TextStyle = {
   flex: 1,
-  paddingRight:  spacing[4],
+  paddingRight: spacing[4],
   ...typography.headline,
   color: '#FFF',
 };

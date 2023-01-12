@@ -1,5 +1,5 @@
-import React, { useImperativeHandle, useRef, useState } from 'react';
-import { StyleSheet, View, Text, Pressable } from 'react-native';
+import React, { useCallback, useImperativeHandle, useRef, useState } from 'react';
+import { StyleSheet, View, Text, Pressable, Share } from 'react-native';
 import Video, { VideoProperties } from 'react-native-video';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useAirplayConnectivity } from 'react-airplay';
@@ -39,6 +39,12 @@ export const VideoPlayer = observer<VideoPlayerProps, VideoPlayerRef>(
         setPaused(true);
       },
     }));
+
+    const handleShare = useCallback(() => {
+      Share.share({
+        url: props.source.uri,
+      });
+    }, [props.source]);
 
     return (
       <Pressable
@@ -88,7 +94,7 @@ export const VideoPlayer = observer<VideoPlayerProps, VideoPlayerRef>(
                   props.onBack();
                 });
 
-                return false;
+                return true;
               });
             }}
             onPlay={() => {
@@ -111,6 +117,7 @@ export const VideoPlayer = observer<VideoPlayerProps, VideoPlayerRef>(
             onForward={() => {
               videoRef.current.seek(progress + 10);
             }}
+            onShare={handleShare}
           />
           {isAirplayConnected && <Airplayvideo text={props.airplayTip} />}
         </SafeAreaProvider>

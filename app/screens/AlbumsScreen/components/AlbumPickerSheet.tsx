@@ -1,15 +1,22 @@
 import React, { useCallback, useRef } from 'react';
-import { TextStyle, View, ViewStyle } from 'react-native';
+import { ViewStyle } from 'react-native';
 import ActionSheet, { SheetProps, ActionSheetRef, SheetManager } from 'react-native-actions-sheet';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { observer } from 'mobx-react-lite';
 import { useQuery } from '@tanstack/react-query';
 
-import { radius, spacing, typography, useTheme } from '@/theme';
-import { ExitButton, ListCell, ListSection, SafeAreaScrollView, Text } from '@/components';
+import { radius, spacing, useTheme } from '@/theme';
+import {
+  ActionSheetHeader,
+  ExitButton,
+  ListCell,
+  ListSection,
+  SafeAreaScrollView,
+} from '@/components';
 import { albumKeys } from '../constants';
 import { useStores } from '@/models';
 import { fetchAlbums, FetchAlbumsResult } from '@/services/local';
+import { t } from '@/i18n';
 
 interface AlbumPickerSheetProps extends SheetProps {}
 
@@ -79,10 +86,13 @@ function HeaderComponent(props: HeaderComponentProps) {
   const { colors } = useTheme();
 
   return (
-    <View style={$headerContainer}>
-      <Text style={$headerTitle} tk="photosScreen.moveToAlbum" color={colors.label} />
-      <ExitButton onPress={() => props.onPress()} />
-    </View>
+    <ActionSheetHeader
+      title={t('photosScreen.moveToAlbum')}
+      titleStyle={{
+        color: colors.label,
+      }}
+      RightAccessory={<ExitButton onPress={() => props.onPress()} />}
+    />
   );
 }
 
@@ -116,17 +126,6 @@ const $containerStyle: ViewStyle = {
   borderTopLeftRadius: radius[10],
   borderTopRightRadius: radius[10],
   paddingVertical: spacing[5],
-};
-
-const $headerContainer: ViewStyle = {
-  flexDirection: 'row',
-  justifyContent: 'space-between',
-  paddingHorizontal: spacing[6],
-};
-
-const $headerTitle: TextStyle = {
-  ...typography.title3,
-  fontWeight: '500',
 };
 
 const $scrollView: ViewStyle = {

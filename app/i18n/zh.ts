@@ -350,6 +350,8 @@ const zh = {
       importTime: '导入时间',
       duration: '时长',
       resolution: '分辨率',
+      description: '描述',
+      labels: '标签',
     },
     types: {
       text: '文本',

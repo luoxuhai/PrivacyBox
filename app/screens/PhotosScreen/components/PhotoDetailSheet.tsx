@@ -1,11 +1,7 @@
 import React, { useRef } from 'react';
 import { View, Text, ViewStyle, TextStyle, ScrollView, Pressable } from 'react-native';
 import { observer } from 'mobx-react-lite';
-import ActionSheet, {
-  SheetProps,
-  ActionSheetRef,
-  useScrollHandlers,
-} from 'react-native-actions-sheet';
+import ActionSheet, { SheetProps, ActionSheetRef, SheetManager } from 'react-native-actions-sheet';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { radius, spacing, typography, useTheme } from '@/theme';
@@ -14,6 +10,7 @@ import { getPhotoTypeName } from '../helpers/getPhotoTypeName';
 import { formatDate, formatDuration, formatSize, useDeepMemo } from '@/utils';
 import { FetchPhotosResult } from '@/services/local';
 import { PhotoTypes } from '@/database/entities/types';
+import { ActionSheetHeader, ExitButton } from '@/components';
 
 const t = translate;
 
@@ -24,7 +21,6 @@ export const PhotoDetailSheet = observer<FileDetailSheetProps>((props) => {
   const { colors, isDark } = useTheme();
   const safeAreaInsets = useSafeAreaInsets();
   const actionSheetRef = useRef<ActionSheetRef>(null);
-  const scrollHandlers = useScrollHandlers<ScrollView>(props.sheetId, actionSheetRef);
 
   const list = useDeepMemo(() => getPhotoDetailList(item), [item]);
 
@@ -37,15 +33,22 @@ export const PhotoDetailSheet = observer<FileDetailSheetProps>((props) => {
         borderTopRightRadius: radius[10],
         paddingBottom: safeAreaInsets.bottom,
         backgroundColor: isDark ? colors.secondaryBackground : colors.background,
-        height: 340,
+        height: 360,
+        paddingVertical: spacing[5],
       }}
-      indicatorStyle={{
-        width: 80,
-        backgroundColor: colors.tertiaryFill,
-      }}
-      gestureEnabled={true}
+      gestureEnabled={false}
+      headerAlwaysVisible
+      CustomHeaderComponent={
+        <ActionSheetHeader
+          title={t('filesScreen.detail.title')}
+          titleStyle={{
+            color: colors.label,
+          }}
+          RightAccessory={<ExitButton onPress={() => SheetManager.hide(props.sheetId)} />}
+        />
+      }
     >
-      <ScrollView contentContainerStyle={$bottomSheetContent} {...scrollHandlers}>
+      <ScrollView contentContainerStyle={$bottomSheetContent}>
         <Pressable>
           {list?.map((item) => (
             <View style={$listContainer} key={item.type}>
@@ -64,7 +67,7 @@ export const PhotoDetailSheet = observer<FileDetailSheetProps>((props) => {
                 <Text
                   selectable
                   ellipsizeMode="middle"
-                  numberOfLines={2}
+                  numberOfLines={item.numberOfLines ?? 2}
                   style={{ color: colors.label }}
                 >
                   {item.value}
@@ -120,6 +123,17 @@ function getPhotoDetailList(item: FetchPhotosResult) {
           label: t('filesScreen.detail.ctime'),
           value: formatDate(item.metadata.ctime, 'YYYY-MM-DD HH:mm:ss'),
         },
+        {
+          type: 'description',
+          label: t('filesScreen.detail.description'),
+          value: item.description || '-',
+          numberOfLines: 10,
+        },
+        {
+          type: 'labels',
+          label: t('filesScreen.detail.labels'),
+          value: item.labels?.zh_cn?.join('、') || '-',
+        },
       ].filter((item) => item)
     : [];
 }
@@ -132,7 +146,7 @@ const $bottomSheetContent: ViewStyle = {
 const $listContainer: ViewStyle = {
   flexDirection: 'row',
   alignItems: 'center',
-  height: 40,
+  minHeight: 40,
 };
 
 const $label: TextStyle = {

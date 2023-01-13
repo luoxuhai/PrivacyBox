@@ -18,3 +18,4 @@ export * from './PhotoThumbnail/PhotoThumbnail';
 export * from './PopoverMenu';
 export * from './ImageBrowser'
 export * from './VideoPlayer'
+export * from './ActionSheetHeader'

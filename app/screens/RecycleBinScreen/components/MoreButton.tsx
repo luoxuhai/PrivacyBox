@@ -8,6 +8,7 @@ import { RootNavigation } from '@/navigators';
 
 interface MoreButtonProps {
   visible: boolean;
+  selectVisible: boolean;
   onSelect?: () => void;
 }
 
@@ -18,7 +19,10 @@ export function MoreButton(props: MoreButtonProps) {
 
   return (
     <View style={$container}>
-      <TextButton style={$button} tk="filesScreen.select" onPress={props.onSelect} />
+      {props.selectVisible && (
+        <TextButton style={$button} tk="filesScreen.select" onPress={props.onSelect} />
+      )}
+
       <TouchableOpacity
         activeOpacity={0.5}
         onPress={() => {

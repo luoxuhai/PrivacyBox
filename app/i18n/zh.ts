@@ -35,7 +35,13 @@ const zh = {
     reset: '重启',
     feedback: '反馈',
   },
-  dataMigratorScreen: {},
+  dataMigratorScreen: {
+    title: '旧版本数据迁移',
+    success: '迁移成功',
+    fail: '迁移失败',
+    tip: '请勿关闭本页面',
+    doing: '正在迁移旧版本数据',
+  },
   albumsScreen: {
     title: '相册',
     searchPlaceholder: '搜索相册、图片、视频',
@@ -48,7 +54,7 @@ const zh = {
     createAlbum: {
       title: '新建相册',
       message: '请输入相册名称',
-      placeholder: '相册名称（20个字符内）',
+      placeholder: '相册名称（255个字符内）',
       success: '',
       fail: '创建相册失败',
       sameName: '相册名称不能相同',
@@ -334,7 +340,7 @@ const zh = {
       placeholder: '文件夹名称（50个字符内）',
     },
     rename: {
-      placeholder: "文件名称（255个字符内）",
+      placeholder: '文件名称（255个字符内）',
       success: '重命名成功',
       fail: '重命名失败',
     },
@@ -364,6 +370,7 @@ const zh = {
       folder: '文件夹',
       unknown: '未知',
     },
+    deleteMsg: '删除后不可恢复',
   },
   permissionManager: {
     camera: '相机',

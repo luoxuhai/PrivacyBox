@@ -14,10 +14,6 @@ export interface DeleteFilesParams {
  * 删除文件
  */
 export async function deleteFiles(params: DeleteFilesParams) {
-  if (!isValidParams(params)) {
-    throw Error('invalid params');
-  }
-
   const { items = [] } = params;
   const folders = items.filter((item) => item.type === FileTypes.Folder);
   const files = items.filter((item) => item.type !== FileTypes.Folder);
@@ -51,11 +47,6 @@ export async function deleteFiles(params: DeleteFilesParams) {
       });
     }
   }
-}
-
-function isValidParams(params: DeleteFilesParams) {
-  const items = params.items?.filter((id) => id);
-  return !!items?.length;
 }
 
 async function removeFilesFromDisk(ids: string[]) {

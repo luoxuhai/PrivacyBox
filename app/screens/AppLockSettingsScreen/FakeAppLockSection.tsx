@@ -69,8 +69,11 @@ export const FakeAppLockSection = observer(() => {
           }}
           rightIcon={
             <Switch
-              value={appLockStore.biometricsEnabledWhenFake}
-              onValueChange={appLockStore.setBiometricsEnabledWhenFake}
+              value={!appLockStore.biometricsEnabledWhenFake}
+              onValueChange={(value) => {
+                console.log(!value);
+                appLockStore.setBiometricsEnabledWhenFake(!value);
+              }}
             />
           }
         />

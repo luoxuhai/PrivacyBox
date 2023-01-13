@@ -103,8 +103,8 @@ const AppStack = observer(function AppStack() {
           name="AppLock"
           component={AppLockScreen}
           options={{
-            presentation: 'fullScreenModal',
             animation: 'fade',
+            gestureEnabled: false,
           }}
         />
 
@@ -177,21 +177,24 @@ const AppStack = observer(function AppStack() {
         component={PhotosScreen}
       />
 
-      <Stack.Group
-        screenOptions={{
-          animation: 'fade',
+      <Stack.Screen
+        name="PhotoViewer"
+        options={{
           headerShown: false,
+          animation: 'fade_from_bottom',
+          animationDuration: 200,
         }}
-      >
-        <Stack.Screen name="PhotoViewer" component={PhotoViewerScreen} />
-        <Stack.Screen
-          name="VideoPlayer"
-          options={{
-            animation: 'fade',
-          }}
-          component={VideoPlayerScreen}
-        />
-      </Stack.Group>
+        component={PhotoViewerScreen}
+      />
+
+      <Stack.Screen
+        name="VideoPlayer"
+        options={{
+          headerShown: false,
+          animation: 'fade',
+        }}
+        component={VideoPlayerScreen}
+      />
 
       <Stack.Screen
         name="Transfer"

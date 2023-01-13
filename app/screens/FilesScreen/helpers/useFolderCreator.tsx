@@ -6,9 +6,8 @@ import { translate } from '@/i18n';
 import { Overlay } from '@/utils';
 import { fileKeys } from '../constants';
 import { useStores } from '@/models';
-import { createFolder, fetchFiles } from '@/services/local/file';
+import { createFolder, FetchFilesResult } from '@/services/local/file';
 import { RootNavigation } from '@/navigators';
-import { SheetManager } from 'react-native-actions-sheet';
 
 export function useFolderCreator(parentId?: string | null) {
   const queryClient = useQueryClient();
@@ -52,7 +51,6 @@ export function useFolderCreator(parentId?: string | null) {
 
       const pushAction = StackActions.push('Files', { parentId: id, title: name });
       RootNavigation.dispatch(pushAction);
-
     },
   });
 

@@ -16,9 +16,8 @@ export function useRenameAlbum() {
 
   const { mutateAsync: handleRename } = useMutation({
     mutationFn: async (params: { id: string; data: Partial<Photo> }) => {
-      const { id, data } = params;
-      if (!id || !data.name) {
-        throw Error('');
+      if (params.data.name?.length > 255) {
+        throw Error('名称字数不能超过255个字符');
       }
 
       const albums = queryClient.getQueryData<FetchAlbumsResult[]>(
@@ -57,10 +56,6 @@ export function useRenameAlbum() {
             return item;
           }),
       );
-      Overlay.toast({
-        preset: 'done',
-        title: t('albumsScreen.renameAlbum.success'),
-      });
     },
   });
 
@@ -68,11 +63,14 @@ export function useRenameAlbum() {
     Alert.prompt(
       t('albumsScreen.renameAlbum.title'),
       t('albumsScreen.renameAlbum.message'),
-      (name: string) => {
+      (value: string) => {
+        const name = value?.trim();
+        if (!name || name === item.name) return;
+
         handleRename({
           id: item.id,
           data: {
-            name: name.trim(),
+            name,
           },
         });
       },

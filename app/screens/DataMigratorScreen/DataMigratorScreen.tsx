@@ -1,5 +1,5 @@
-import React, { FC, useEffect, useMemo, useRef, useState } from 'react';
-import { ViewStyle, View, ScrollView, TextStyle, Alert } from 'react-native';
+import React, { FC, useEffect, useRef } from 'react';
+import { ViewStyle, View, ScrollView, TextStyle } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { StackScreenProps } from '@react-navigation/stack';
 import CircularProgress, { ProgressRef } from 'react-native-circular-progress-indicator';
@@ -35,14 +35,13 @@ export const DataMigratorScreen: FC<StackScreenProps<AppStackParamList, 'DataMig
 
           const items = await DataBaseV1.queryFiles();
 
-          const folders = items.filter(item => item.type)
-          const files = items.filter(item => item.type)
+          const folders = items.filter((item) => item.type);
+          const files = items.filter((item) => item.type);
 
-          const albums = items.filter(item => item.type)
-          const photos = items.filter(item => item.type)
+          const albums = items.filter((item) => item.type);
+          const photos = items.filter((item) => item.type);
 
           if (folders.length) {
-            
           }
 
           if (files.length) {
@@ -55,7 +54,7 @@ export const DataMigratorScreen: FC<StackScreenProps<AppStackParamList, 'DataMig
           }
         })
         .catch(() => {
-          Alert.alert('x');
+          // Alert.alert('x');
         });
     }, []);
 
@@ -97,8 +96,8 @@ export const DataMigratorScreen: FC<StackScreenProps<AppStackParamList, 'DataMig
               },
             ]}
           >
-            <Text style={$title} color={colors.label} text="正在迁移数据" />
-            <Text style={$subtitle} color={colors.secondaryLabel} text="请勿关闭本页面" />
+            <Text style={$title} color={colors.label} tk="dataMigratorScreen.doing" />
+            <Text style={$subtitle} color={colors.secondaryLabel} tk="dataMigratorScreen.tip" />
           </View>
 
           <CircularProgress

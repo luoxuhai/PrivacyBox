@@ -1,4 +1,5 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
+import CodePush from 'react-native-code-push';
 
 import { ErrorDetails } from './ErrorDetails';
 import { reportException } from '@/utils';
@@ -40,6 +41,7 @@ export class ErrorBoundary extends Component<Props, State> {
 
   // Reset the error back to null
   resetError = () => {
+    CodePush.restartApp()
     this.setState({ error: null, errorInfo: null });
   };
 

@@ -6,7 +6,11 @@ import { SelectionContext, SelectionContextValue } from '../context';
 import { useDeletePhotos } from '../helpers/useDeletePhotos';
 import { useRecoverPhotos } from '../helpers/useRecoverPhotos';
 
-export function BottomToolbar() {
+interface BottomToolbarProps {
+  onDone: () => void;
+}
+
+export function BottomToolbar(props: BottomToolbarProps) {
   const selection = useContext(SelectionContext);
   const list = useMemo(() => getList(selection), [selection]);
 
@@ -20,12 +24,14 @@ export function BottomToolbar() {
 
       switch (key) {
         case BottomToolbarKeys.Delete:
-          deletePhotos({ ids, is_all: isAll });
+          await deletePhotos({ ids, is_all: isAll });
           break;
         case BottomToolbarKeys.Recover:
-          recoverPhotos({ ids, is_all: isAll });
+          await recoverPhotos({ ids, is_all: isAll });
           break;
       }
+
+      props.onDone();
     },
     [selection],
   );

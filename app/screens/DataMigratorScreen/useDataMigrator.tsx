@@ -1,31 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import { ViewStyle } from 'react-native';
+import { useEffect } from 'react';
 import FS from 'react-native-fs';
 import BootSplash from 'react-native-bootsplash';
 
-import { DataBaseV1, DB_NAME } from '@/database/v1';
-import { useNavigation } from '@react-navigation/native';
+import { DB_NAME } from '@/database/v1';
 import { navigate } from '@/navigators';
-import { LocalPathManager } from '@/utils';
+import { LocalPathManager, reportException } from '@/utils';
+import { join } from '@/lib/path';
 
 export function useDataMigrator(isReay: boolean) {
   useEffect(() => {
     if (!isReay) {
-      return
+      return;
     }
 
     FS.exists(join(LocalPathManager.libraryPath, 'LocalDatabase', DB_NAME))
       .then((exist) => {
         if (exist) {
-          navigate('DataMigrator')
+          navigate('DataMigrator');
         }
       })
-      .catch(() => {
-        // 上报 
-        throw Error('[FS.exists] FS.exists error');
+      .catch((error) => {
+        reportException({ error, message: '判断数据库文件是否存在出错', level: 'fatal' });
+        throw error;
       })
-      .faliy(() => {
+      .finally(() => {
         BootSplash.hide({ fade: true, duration: 0 });
-      })
+      });
   }, [isReay]);
 }

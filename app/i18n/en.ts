@@ -37,7 +37,13 @@ const en: Translations = {
     reset: 'Try Again',
     feedback: 'Feedback',
   },
-  dataMigratorScreen: {},
+  dataMigratorScreen: {
+    title: 'Old Version Data Migration',
+    success: 'Migration Succeeded',
+    fail: 'Migration Failed',
+    tip: 'Do not close this page',
+    doing: 'Migrating Old Version Data',
+  },
   albumsScreen: {
     title: 'Albums',
     searchPlaceholder: 'Albums, Images and Videos',
@@ -340,6 +346,7 @@ const en: Translations = {
       placeholder: 'Folder name (within 50 characters)',
     },
     rename: {
+      placeholder: 'File name (within 255 chars)',
       success: 'Renamed successfully',
       fail: 'Rename failed',
     },
@@ -356,6 +363,8 @@ const en: Translations = {
       importTime: 'Imported Date',
       duration: 'Duration',
       resolution: 'Resolution',
+      description: 'Description',
+      labels: 'Labels',
     },
     types: {
       text: 'Text',
@@ -367,6 +376,7 @@ const en: Translations = {
       folder: 'Folder',
       unknown: 'Unknown',
     },
+    deleteMsg: 'Deleted cannot be recovered',
   },
   permissionManager: {
     camera: 'Camera',

@@ -3,6 +3,7 @@ import { observer } from 'mobx-react-lite';
 import { ViewStyle } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { useDeviceOrientation } from '@react-native-community/hooks';
+import { CommonActions } from '@react-navigation/native';
 
 import { AppStackParamList } from '@/navigators';
 import { Screen } from '@/components';
@@ -42,14 +43,12 @@ export const AppLockScreen: FC<StackScreenProps<AppStackParamList, 'AppLock'>> =
     useUpdateEffect(() => {
       if (passcode.length === PASSCODE_LENGTH) {
         if (appLockStore.fakePasscodeEnabled && appLockStore.fakePasscode === passcode) {
-          appLockStore.setInFakeEnvironment(true);
-          unlock();
+          unlock(true);
           return;
         }
 
         if (passcode === appLockStore.passcode) {
-          appLockStore.setInFakeEnvironment(false);
-          unlock();
+          unlock(false);
           return;
         }
 
@@ -71,9 +70,20 @@ export const AppLockScreen: FC<StackScreenProps<AppStackParamList, 'AppLock'>> =
       setPasscode((v) => v.slice(0, -1));
     }
 
-    function unlock() {
+    function unlock(inFake: boolean) {
+      appLockStore.setInFakeEnvironment(inFake);
+
       if (props.navigation.canGoBack()) {
-        props.navigation.goBack();
+        if (inFake) {
+          props.navigation.dispatch(() => {
+            return CommonActions.reset({
+              index: 1,
+              routes: [{ name: 'Album' }],
+            });
+          });
+        } else {
+          props.navigation.goBack();
+        }
       } else {
         props.navigation.replace('Content');
       }
@@ -93,7 +103,7 @@ export const AppLockScreen: FC<StackScreenProps<AppStackParamList, 'AppLock'>> =
           passcode={passcode}
           style={$safeAreaViewStyles}
           icon="lock.fill"
-          tk='appLockScreen.enterPassword'
+          tk="appLockScreen.enterPassword"
           isError={passcodeError}
           biometricsVisible
           onChange={handlePasscodeChange}

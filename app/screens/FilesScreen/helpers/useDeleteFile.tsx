@@ -5,7 +5,7 @@ import { Overlay } from '@/utils';
 import { fileKeys } from '../constants';
 import { useStores } from '@/models';
 import { deleteFiles, DeleteFilesParams, FetchFilesResult } from '@/services/local/file';
-import { translate } from '@/i18n';
+import { t } from '@/i18n';
 
 export function useDeleteFile(folderId: string) {
   const queryClient = useQueryClient();
@@ -19,7 +19,7 @@ export function useDeleteFile(folderId: string) {
     onError(error: Error) {
       Overlay.toast({
         preset: 'error',
-        title: translate('albumsScreen.deleteAlbum.fail'),
+        title: t('albumsScreen.deleteAlbum.fail'),
         message: error.message,
       });
     },
@@ -31,19 +31,19 @@ export function useDeleteFile(folderId: string) {
       );
       Overlay.toast({
         preset: 'done',
-        title: translate('albumsScreen.deleteAlbum.success'),
+        title: t('albumsScreen.deleteAlbum.success'),
       });
     },
   });
 
   function handlePresentDeleteAlert(params: DeleteFilesParams) {
-    Alert.alert(translate('albumsScreen.deleteAlbum.title'), t('photosScreen.delete.deleteMsg'), [
+    Alert.alert(t('albumsScreen.deleteAlbum.title'), t('filesScreen.deleteMsg'), [
       {
-        text: translate('common.cancel'),
+        text: t('common.cancel'),
         style: 'cancel',
       },
       {
-        text: translate('common.confirm'),
+        text: t('common.confirm'),
         style: 'destructive',
         onPress() {
           handleDeleteAlbum(params);

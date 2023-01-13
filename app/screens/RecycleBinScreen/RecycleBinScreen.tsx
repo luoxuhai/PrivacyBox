@@ -60,30 +60,6 @@ export const RecycleBinScreen: FC<StackScreenProps<MoreFeatureNavigatorParamList
       }));
     }, [selection]);
 
-    const renderHeaderRight = useCallback(() => {
-      return (
-        <>
-          <HeaderDoneButton visible={selection.enabled} onPress={handleCancelSelect} />
-          <MoreButton
-            visible={!selection.enabled}
-            onSelect={() => {
-              setSelection((prevValue) => ({
-                ...prevValue,
-                enabled: true,
-              }));
-            }}
-          />
-        </>
-      );
-    }, [selection.enabled]);
-
-    // 顶部导航栏
-    useEffect(() => {
-      props.navigation?.setOptions({
-        headerRight: renderHeaderRight,
-      });
-    }, [renderHeaderRight]);
-
     const { data: photos } = useQuery({
       queryKey: recycleBinKeys.list({ inFakeEnvironment }),
       queryFn: async ({ queryKey }) => {
@@ -95,6 +71,31 @@ export const RecycleBinScreen: FC<StackScreenProps<MoreFeatureNavigatorParamList
       placeholderData: [],
       enabled: true,
     });
+
+    const renderHeaderRight = useCallback(() => {
+      return (
+        <>
+          <HeaderDoneButton visible={selection.enabled} onPress={handleCancelSelect} />
+          <MoreButton
+            visible={!selection.enabled}
+            selectVisible={!!photos.length}
+            onSelect={() => {
+              setSelection((prevValue) => ({
+                ...prevValue,
+                enabled: true,
+              }));
+            }}
+          />
+        </>
+      );
+    }, [selection.enabled, photos.length]);
+
+    // 顶部导航栏
+    useEffect(() => {
+      props.navigation?.setOptions({
+        headerRight: renderHeaderRight,
+      });
+    }, [renderHeaderRight]);
 
     const handlePressItem = useCallback(
       (item: FetchPhotosResult) => {
@@ -162,7 +163,14 @@ export const RecycleBinScreen: FC<StackScreenProps<MoreFeatureNavigatorParamList
               renderItem={renderItem}
             />
           </SafeAreaView>
-          <BottomToolbar />
+          <BottomToolbar
+            onDone={() => {
+              setSelection((prev) => ({
+                ...prev,
+                enabled: false,
+              }));
+            }}
+          />
         </Screen>
       </SelectionContextProvider>
     );

@@ -64,28 +64,25 @@ const BaseConfig: IBaseConfig = {
   },
 
   sentry: {
-    dsn: 'https://d04bc938d0934611b16c70c75a8f20d5@o264285.ingest.sentry.io/6139676',
+    dsn: 'https://cd90588a06004ec398afa1c15e9c5275@o264285.ingest.sentry.io/4504497505107968',
     tracesSampleRate: 0.5,
   },
 
   /** 隐私政策 */
   privacyPolicy: {
-    zh_cn:
-      'https://privatespace-4gagcjdu022008e0-1258504012.tcloudbaseapp.com/zh-cn/privacy-policy.html',
+    zh_cn: 'https://private-space-web.netlify.app/zh-cn/privacy-policy',
     en_us: 'https://private-space-web.netlify.app/en-us/privacy-policy',
   },
 
   /** 用户协议 */
   userAgreement: {
-    zh_cn:
-      'https://privatespace-4gagcjdu022008e0-1258504012.tcloudbaseapp.com/zh-cn/user-agreement.html',
+    zh_cn: 'https://private-space-web.netlify.app/zh-cn/user-agreement',
     en_us: 'https://private-space-web.netlify.app/en-us/user-agreement',
   },
 
   /** 更新日志 */
   changelog: {
-    zh_cn:
-      'https://privatespace-4gagcjdu022008e0-1258504012.tcloudbaseapp.com/zh-cn/changelog.html',
+    zh_cn: 'https://private-space-web.netlify.app/zh-cn/changelog',
     en_us: 'https://private-space-web.netlify.app/en-us/changelog',
   },
 };

@@ -14,7 +14,7 @@ export function useRecoverPhotos() {
   } = useStores();
 
   const { mutateAsync: handleRecoverPhotos } = useMutation({
-    mutationFn: async (params: RecoverDeletedPhotosParams) => {
+    mutationFn: async (params: Omit<RecoverDeletedPhotosParams, 'is_fake'>) => {
       return await recoverDeletedPhotos({ ...params, is_fake: inFakeEnvironment });
     },
     onSuccess() {
@@ -33,7 +33,9 @@ export function useRecoverPhotos() {
     },
   });
 
-  async function handlePresentRecoverAlert(params: Omit<RecoverDeletedPhotosParams, 'target_id'>) {
+  async function handlePresentRecoverAlert(
+    params: Omit<RecoverDeletedPhotosParams, 'target_id' | 'is_fake'>,
+  ) {
     const albumId = (await SheetManager.show('album-picker-sheet')) as string;
 
     if (albumId) {

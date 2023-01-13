@@ -2,11 +2,12 @@ import { Alert } from 'react-native';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { Overlay } from '@/utils';
-import { translate } from '@/i18n';
+import { t } from '@/i18n';
 import { fileKeys } from '../constants';
 import { useStores } from '@/models';
 import { FetchFilesResult, renameFiles, RenameFilesParams } from '@/services/local/file';
 import { extname } from '@/lib/path';
+import { FileTypes } from '@/database/entities/types';
 
 export function useRenameFile(parentId: string) {
   const queryClient = useQueryClient();
@@ -32,7 +33,7 @@ export function useRenameFile(parentId: string) {
     onError(error: Error) {
       Overlay.toast({
         preset: 'error',
-        title: translate('filesScreen.rename.fail'),
+        title: t('filesScreen.rename.fail'),
         message: error.message,
       });
     },
@@ -56,7 +57,7 @@ export function useRenameFile(parentId: string) {
 
   function handlePresentRenamePrompt(params: RenameFilesParams) {
     Alert.prompt(
-      translate('common.rename'),
+      t('common.rename'),
       undefined,
       (value: string) => {
         const name = value.trim();
@@ -64,7 +65,7 @@ export function useRenameFile(parentId: string) {
           return;
         }
 
-        const newName = `${name}${extname(params.name)}`;
+        const newName = params.type === FileTypes.Folder ? name : `${name}${extname(params.name)}`;
         if (newName === params.name) {
           return;
         }
@@ -74,7 +75,7 @@ export function useRenameFile(parentId: string) {
       'plain-text',
       params.name.replace(/\..+$/, ''),
       'default',
-      translate('filesScreen.rename.placeholder')
+      t('filesScreen.rename.placeholder'),
     );
   }
 

@@ -14,6 +14,16 @@ export function useRenamePhoto() {
 
   const { mutateAsync: handleRenamePhoto } = useMutation({
     mutationFn: async (params: RenamePhotoParams) => {
+      if (params.name.length > 255) {
+        throw Error('名称字数不能超过255个字符');
+      }
+
+      const items = queryClient.getQueryData<FetchPhotosResult[]>(queryKey);
+
+      if (items.find((item) => item.name === params.name)) {
+        throw Error('文件名称重复');
+      }
+
       return await renamePhoto(params);
     },
     onSuccess(_data, { id, name }) {
@@ -52,14 +62,20 @@ export function useRenamePhoto() {
           text: t('common.confirm'),
           async onPress(value: string | undefined) {
             const name = value?.trim();
-            if (!name || name === params.name) return;
 
-            handleRenamePhoto({ ...params, name: `${name}${extname(params.name)}` });
+            if (!name) return;
+
+            const newName = `${name}${extname(params.name)}`;
+            if (newName === params.name) return;
+
+            handleRenamePhoto({ ...params, name: newName });
           },
         },
       ],
       'plain-text',
       params.name.replace(/\..+$/, ''),
+      'default',
+      t('filesScreen.rename.placeholder'),
     );
   }
 

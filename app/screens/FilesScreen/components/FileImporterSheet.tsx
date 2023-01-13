@@ -1,8 +1,8 @@
-import React, { useMemo, useRef } from 'react';
+import React, { useMemo } from 'react';
 import { TouchableOpacity, View, Text, ViewStyle, TextStyle } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { SFSymbol } from 'react-native-sfsymbols';
-import ActionSheet, { SheetProps, ActionSheetRef, SheetManager } from 'react-native-actions-sheet';
+import ActionSheet, { SheetProps, SheetManager } from 'react-native-actions-sheet';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import DocumentPicker from 'react-native-document-picker';
 
@@ -43,7 +43,6 @@ export const FileImporterSheet = observer<FileImporterSheetProps>((props) => {
           }
           const results = await FileImporter.documentCamera.open();
           handleImportFile(results);
-          SheetManager.hide(props.sheetId);
         }
         break;
       case FileImportTypes.Document: {
@@ -51,9 +50,10 @@ export const FileImporterSheet = observer<FileImporterSheetProps>((props) => {
           type: [DocumentPicker.types.allFiles],
         });
         handleImportFile(results);
-        SheetManager.hide(props.sheetId);
       }
     }
+
+    SheetManager.hide(props.sheetId);
   }
 
   return (

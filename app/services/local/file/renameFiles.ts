@@ -3,6 +3,7 @@ import { moveFile } from 'react-native-fs';
 import { AppDataSource } from '@/database';
 import File from '@/database/entities/file';
 import { joinFileUri } from '../helpers/joinFileUri';
+import { FileTypes } from '@/database/entities/types';
 
 export type RenameFilesParams = Pick<File, 'id' | 'name' | 'type'>;
 

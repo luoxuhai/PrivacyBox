@@ -16,7 +16,7 @@ export function useDeletePhotos() {
   const timer = useRef<NodeJS.Timeout>();
 
   const { mutateAsync: handleDeletePhotos } = useMutation({
-    mutationFn: async (params: DestroyDeletedPhotosParams) => {
+    mutationFn: async (params: Pick<DestroyDeletedPhotosParams, 'ids' | 'is_all'>) => {
       timer.current = setTimeout(() => {
         Overlay.alert({
           preset: 'spinner',
@@ -46,7 +46,7 @@ export function useDeletePhotos() {
     },
   });
 
-  function handlePresentDeleteAlert(params: DestroyDeletedPhotosParams) {
+  function handlePresentDeleteAlert(params: Pick<DestroyDeletedPhotosParams, 'ids' | 'is_all'>) {
     Alert.alert(t('wastebasketScreen.deleteTitle'), undefined, [
       {
         text: t('common.cancel'),

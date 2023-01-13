@@ -69,6 +69,7 @@ const zh = {
       title: '确认删除',
       success: '删除成功',
       fail: '删除失败',
+      doing: '删除中...',
     },
   },
   photoSearchPanel: {
@@ -327,6 +328,9 @@ const zh = {
     sortCtime: '创建时间',
     sortName: '名称',
     import: {
+      success: '导入成功',
+      fail: '导入失败',
+      doing: '导入中...',
       folder: '新建文件夹',
       scan: '扫描文档',
       document: '导入文件',

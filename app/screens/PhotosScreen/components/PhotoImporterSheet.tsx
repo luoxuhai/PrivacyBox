@@ -10,21 +10,22 @@ import { translate } from '@/i18n';
 import { PhotoImportTypes } from '../constants';
 import { IResult, PhotoImporter } from '../helpers/PhotoImporter';
 import { useImportPhotos } from '../helpers/useImportPhotos';
+import { QueryKey } from '@tanstack/react-query';
 
 const ICON_PROPS = {
   size: 30,
   color: '#FFF',
 };
 
-interface PhotoImporterSheetProps extends SheetProps<{ albumId?: string }> {}
+interface PhotoImporterSheetProps extends SheetProps<{ queryKey?: QueryKey }> {}
 
 export const PhotoImporterSheet = observer<PhotoImporterSheetProps>((props) => {
-  const { albumId } = props.payload;
+  const { queryKey } = props.payload;
   const { colors, isDark } = useTheme();
   const safeAreaInsets = useSafeAreaInsets();
   const actionSheetRef = useRef<ActionSheetRef>(null);
 
-  const handleImportPhotos = useImportPhotos(albumId);
+  const handleImportPhotos = useImportPhotos(queryKey);
   const list = useMemo(() => getFileImportList(colors), [colors]);
 
   async function handleImport(type: any) {

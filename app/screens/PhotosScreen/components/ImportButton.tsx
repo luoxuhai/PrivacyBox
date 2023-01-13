@@ -4,6 +4,7 @@ import { TouchableOpacity, ViewStyle } from 'react-native';
 import Animated, { BounceIn } from 'react-native-reanimated';
 import { SFSymbol } from 'react-native-sfsymbols';
 import { SheetManager } from 'react-native-actions-sheet';
+import { QueryKey } from '@tanstack/react-query';
 
 import { HapticFeedback } from '@/utils';
 import { useTheme } from '@/theme';
@@ -12,7 +13,7 @@ import { SelectionContext } from '../context';
 const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpacity);
 
 interface ImportButtonProps {
-  albumId?: string;
+  queryKey?: QueryKey;
 }
 
 export const ImportButton = observer<ImportButtonProps>((props) => {
@@ -38,7 +39,7 @@ export const ImportButton = observer<ImportButtonProps>((props) => {
       onPress={() => {
         SheetManager.show('photo-importer-sheet', {
           payload: {
-            albumId: props.albumId,
+            queryKey: props.queryKey,
           },
         });
         HapticFeedback.impact.light();

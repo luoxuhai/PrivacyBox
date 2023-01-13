@@ -195,7 +195,7 @@ export const PhotosScreen: FC<StackScreenProps<AppStackParamList, 'Photos'>> = o
               renderItem={renderItem}
             />
           </SafeAreaView>
-          <ImportButton albumId={albumId} />
+          <ImportButton queryKey={queryKey} />
           <BottomToolbar />
         </Screen>
       </SelectionContextProvider>

@@ -27,7 +27,7 @@ export function useDeletePhotos() {
         Overlay.alert({
           preset: 'spinner',
           duration: 0,
-          title: '删除中...',
+          title: t('albumsScreen.deleteAlbum.doing'),
         });
       }, 1000);
 

@@ -13,6 +13,7 @@ export async function createAlbum(params: CreateAlbumParams) {
   const exists = await AppDataSource.manager.exists(Photo, {
     where: {
       name: params.name,
+      is_fake: params.is_fake,
     },
   });
 

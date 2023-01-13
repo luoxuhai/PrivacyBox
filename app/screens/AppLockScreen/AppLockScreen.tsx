@@ -81,6 +81,8 @@ export const AppLockScreen: FC<StackScreenProps<AppStackParamList, 'AppLock'>> =
               routes: [{ name: 'Album' }],
             });
           });
+
+          props.navigation.popToTop();
         } else {
           props.navigation.goBack();
         }

@@ -16,6 +16,7 @@ export function useAlbumCreator() {
     mutationFn: async (name: string) => {
       return await createAlbum({
         name,
+        is_fake: inFakeEnvironment,
       });
     },
     onError(error: Error) {

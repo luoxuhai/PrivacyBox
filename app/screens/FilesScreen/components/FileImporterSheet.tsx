@@ -2,7 +2,7 @@ import React, { useMemo, useRef } from 'react';
 import { TouchableOpacity, View, Text, ViewStyle, TextStyle } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { SFSymbol } from 'react-native-sfsymbols';
-import ActionSheet, { SheetProps, ActionSheetRef } from 'react-native-actions-sheet';
+import ActionSheet, { SheetProps, ActionSheetRef, SheetManager } from 'react-native-actions-sheet';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import DocumentPicker from 'react-native-document-picker';
 
@@ -12,6 +12,7 @@ import { useFolderCreator } from '../helpers/useFolderCreator';
 import { translate } from '@/i18n';
 import { FileImporter } from '../helpers/FileImporter';
 import { useImportFile } from '../helpers/useImportFile';
+import { canUsePremium } from '@/utils/canUsePremium';
 
 const ICON_PROPS = {
   size: 30,
@@ -24,7 +25,6 @@ export const FileImporterSheet = observer<FileImporterSheetProps>((props) => {
   const { parentId } = props.payload;
   const { colors, isDark } = useTheme();
   const safeAreaInsets = useSafeAreaInsets();
-  const actionSheetRef = useRef<ActionSheetRef>(null);
 
   const handleCreateFolder = useFolderCreator(parentId);
   const handleImportFile = useImportFile(parentId);
@@ -38,22 +38,26 @@ export const FileImporterSheet = observer<FileImporterSheetProps>((props) => {
         break;
       case FileImportTypes.Scan:
         {
+          if (!canUsePremium()) {
+            return;
+          }
           const results = await FileImporter.documentCamera.open();
           handleImportFile(results);
+          SheetManager.hide(props.sheetId);
         }
         break;
       case FileImportTypes.Document: {
-        const results = await FileImporter.document.open({ type: [DocumentPicker.types.allFiles] });
+        const results = await FileImporter.document.open({
+          type: [DocumentPicker.types.allFiles],
+        });
         handleImportFile(results);
+        SheetManager.hide(props.sheetId);
       }
     }
-
-    actionSheetRef.current.hide();
   }
 
   return (
     <ActionSheet
-      ref={actionSheetRef}
       id={props.sheetId}
       containerStyle={{
         borderTopLeftRadius: radius[10],
@@ -65,6 +69,7 @@ export const FileImporterSheet = observer<FileImporterSheetProps>((props) => {
         width: 80,
         backgroundColor: colors.tertiaryFill,
       }}
+      isModal={false}
       gestureEnabled={true}
     >
       <View style={$bottomSheetContent}>

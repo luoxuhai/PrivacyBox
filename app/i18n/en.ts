@@ -258,10 +258,10 @@ const en: Translations = {
     actionFaceDown: 'Screen Face Down',
   },
   fakeAppHomeScreen: {
-    removeInfo: 'Remove image privacy information',
-    faceMosaic: 'Portrait coding',
-    textMosaic: 'Text coding',
-    QRCodeMosaic: 'QR code/barcode coding',
+    removeInfo: 'Remove Image Privacy Information',
+    faceMosaic: 'Portrait Coding',
+    textMosaic: 'Text Coding',
+    QRCodeMosaic: 'QR Code/Barcode Coding',
   },
   fakeAppHomeSettingsScreen: {
     title: 'Fake Home Page',

@@ -11,8 +11,8 @@ import { colors } from '@/theme';
 import { Overlay, useSafeAreaDimensions } from '@/utils';
 import { MoreFeatureNavigatorParamList } from '@/navigators';
 import { FeatureItemView, FeatureItem } from './FeatureItemView';
-import { useStores } from '@/models';
 import { translate } from '@/i18n';
+import { canUsePremium } from '@/utils/canUsePremium';
 
 function luminance(color: string, l = 0.1) {
   return colord(color).lighten(l).toRgbString();
@@ -56,7 +56,6 @@ export const MoreFeatureScreen = observer<
 >((props) => {
   const bottomTabBarHeight = useBottomTabBarHeight();
   const safeAreaDimensions = useSafeAreaDimensions();
-  const { purchaseStore } = useStores();
 
   const handleToScreen = (routeName: keyof MoreFeatureNavigatorParamList, needPremium: boolean) => {
     if (['ICloudSync', 'HideApplications'].includes(routeName)) {
@@ -65,8 +64,7 @@ export const MoreFeatureScreen = observer<
         preset: 'error',
       });
     } else {
-      if (needPremium && !purchaseStore.isPurchased) {
-        props.navigation.navigate('Purchase');
+      if (needPremium && !canUsePremium()) {
         return;
       }
 

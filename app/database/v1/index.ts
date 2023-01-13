@@ -13,11 +13,9 @@ export class DataBaseV1 {
   private static db: any;
 
   static async init(): PVoid {
-    console.log('LocalDatabase:', `${LocalPathManager.libraryPath}/LocalDatabase`);
     try {
       const isExistDB = await FS.exists(`${LocalPathManager.libraryPath}/LocalDatabase/${DB_NAME}`);
       if (!isExistDB) {
-        console.log('[isExistDB]', '不存在DB v1');
         return;
       }
 

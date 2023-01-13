@@ -14,6 +14,8 @@ import { UrgentSwitchActions } from '@/models/SettingsStore';
 import { TextKeyPath } from '@/i18n';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { HapticFeedback } from '@/utils';
+import { AppQueriesSchemes } from './type';
+import { canUsePremium } from '@/utils/canUsePremium';
 
 export const UrgentSwitchScreen: FC<StackScreenProps<SettingStackParamList, 'UrgentSwitch'>> =
   observer(function UrgentSwitchScreen() {
@@ -23,6 +25,14 @@ export const UrgentSwitchScreen: FC<StackScreenProps<SettingStackParamList, 'Urg
 
     const options = useMemo(() => getUrgentOptions(colors), [colors]);
 
+    function handleSelectTarget(value: AppQueriesSchemes) {
+      if (!canUsePremium()) {
+        return;
+      }
+
+      settingsStore.setUrgentSwitchTarget(value);
+      HapticFeedback.selection();
+    }
     return (
       <Screen type="tabView">
         <ScrollSafeAreaView
@@ -54,10 +64,7 @@ export const UrgentSwitchScreen: FC<StackScreenProps<SettingStackParamList, 'Urg
                       />
                     ) : null
                   }
-                  onPress={() => {
-                    settingsStore.setUrgentSwitchTarget(option.value);
-                    HapticFeedback.selection();
-                  }}
+                  onPress={() => handleSelectTarget(option.value)}
                 />
               );
             })}

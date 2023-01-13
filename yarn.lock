@@ -13194,10 +13194,10 @@ react-native-gradle-plugin@^0.0.7:
   resolved "https://registry.npmmirror.com/react-native-gradle-plugin/-/react-native-gradle-plugin-0.0.7.tgz#96602f909745239deab7b589443f14fce5da2056"
   integrity sha512-+4JpbIx42zGTONhBTIXSyfyHICHC29VTvhkkoUOJAh/XHPEixpuBduYgf6Y4y9wsN1ARlQhBBoptTvXvAFQf5g==
 
-react-native-iap@^12.4.12:
-  version "12.4.12"
-  resolved "https://registry.npmjs.org/react-native-iap/-/react-native-iap-12.4.12.tgz#92dab1087fe125981f300fb55a1771e49dd22156"
-  integrity sha512-RrAaz7NLxmxHVWb2AqRcVaCrePnpx3XdqkaJJeUxRTa4443xjXA7ujsJMnD6MBMqLgmiAXZ7PVzGycwCuL6fAg==
+react-native-iap@12.4.9:
+  version "12.4.9"
+  resolved "https://registry.npmjs.org/react-native-iap/-/react-native-iap-12.4.9.tgz#5dcad3a5256453d2e62fce7b2dde1ecbfab43849"
+  integrity sha512-2Qghn3UV4hN5LDWfS5E+vcCJVY0tJeLlo6PJNi/8/89mzEG+areybxZL310PKLT9qm10xtkcUZeO5W7srSZU6g==
 
 react-native-image-picker@^4.10.3:
   version "4.10.3"

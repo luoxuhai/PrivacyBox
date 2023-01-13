@@ -110,7 +110,7 @@ export class PhotoImporter extends FileImporter {
 
   public static download = {
     open() {
-      console.log('download');
+      //
     },
   };
 }

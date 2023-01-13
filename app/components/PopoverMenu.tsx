@@ -24,7 +24,6 @@ export type { MenuConfig };
 
 export const PopoverMenu = observer<PopoverMenuProps>((props) => {
   const [visibleOutside, setVisibleOutside] = useState(false);
-  const window = useWindowDimensions();
 
   function hideOutsideView() {
     setVisibleOutside(false);
@@ -32,16 +31,7 @@ export const PopoverMenu = observer<PopoverMenuProps>((props) => {
 
   function showOutsideView() {
     setVisibleOutside(true);
-    console.log('showOutsideView');
   }
-
-  const maskStyle: ViewStyle = {
-    display: visibleOutside ? 'flex' : 'none',
-    top: -window.width * 2,
-    left: -window.width * 2,
-    right: -window.width * 2,
-    bottom: -window.height * 2,
-  };
 
   return props.disabled ? (
     props.children
@@ -62,8 +52,8 @@ export const PopoverMenu = observer<PopoverMenuProps>((props) => {
   );
 });
 
-const $mask: ViewStyle = {
-  opacity: 0,
-  ...StyleSheet.absoluteFillObject,
-  backgroundColor: '#F00',
-};
+// const $mask: ViewStyle = {
+//   opacity: 0,
+//   ...StyleSheet.absoluteFillObject,
+//   backgroundColor: '#F00',
+// };

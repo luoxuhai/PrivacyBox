@@ -43,10 +43,10 @@ export const PurchaseScreen: FC<StackScreenProps<SettingStackParamList, 'Purchas
       queryKey: purchaseKeys.product,
       queryFn: async () => {
         await InAppPurchase.shared.init(Config.productId, handleBackDelay);
-        return await InAppPurchase.shared.getProduct();
+        const product = await InAppPurchase.shared.getProduct();
+        return product;
       },
       enabled: true,
-      cacheTime: 0,
     });
 
     function handleBackDelay() {

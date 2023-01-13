@@ -11,7 +11,7 @@ export type RenameFilesParams = Pick<File, 'id' | 'name'>;
  */
 export async function renameFiles(params: RenameFilesParams) {
   const { id, name } = params;
-  console.log(id, name);
+
   const oldData = await AppDataSource.manager.findOneBy(File, { id });
   const result = await AppDataSource.manager.update(File, id, { name });
 

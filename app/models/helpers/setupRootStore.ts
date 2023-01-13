@@ -87,7 +87,6 @@ function observeSystemAppearanceChange(store: ThemeStore) {
     },
   ).subscribe(() => {
     if (store.isSystemAppearance) {
-      console.log('isSystemAppearance');
       store.setAppearanceMode('auto');
     }
   });

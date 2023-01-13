@@ -10,6 +10,7 @@ import { spacing } from '@/theme';
 import { useStores } from '@/models';
 import { FakeHomeUnlockActions } from '@/models/SettingsStore';
 import { TextKeyPath } from '@/i18n';
+import { canUsePremium } from '@/utils/canUsePremium';
 
 export const FakeAppHomeSettingsScreen: FC<
   StackScreenProps<SettingStackParamList, 'FakeAppHomeSettings'>
@@ -29,7 +30,13 @@ export const FakeAppHomeSettingsScreen: FC<
             rightIcon={
               <Switch
                 value={settingsStore.fakeHomeEnabled}
-                onValueChange={settingsStore.setFakeHomeEnabled}
+                onValueChange={(value) => {
+                  if (!canUsePremium()) {
+                    return;
+                  }
+
+                  settingsStore.setFakeHomeEnabled(value);
+                }}
               />
             }
           />

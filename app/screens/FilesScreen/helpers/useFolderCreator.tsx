@@ -8,6 +8,7 @@ import { fileKeys } from '../constants';
 import { useStores } from '@/models';
 import { createFolder, fetchFiles } from '@/services/local/file';
 import { RootNavigation } from '@/navigators';
+import { SheetManager } from 'react-native-actions-sheet';
 
 export function useFolderCreator(parentId?: string | null) {
   const queryClient = useQueryClient();
@@ -55,6 +56,8 @@ export function useFolderCreator(parentId?: string | null) {
         preset: 'done',
         title: translate('filesScreen.createFolder.success'),
       });
+
+      SheetManager.hideAll();
     },
   });
 

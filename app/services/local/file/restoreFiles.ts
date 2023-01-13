@@ -8,5 +8,5 @@ type RestoreFilesParams = {
  * 恢复软删除的文件
  */
 export async function restoreFiles(params: RestoreFilesParams) {
-  console.log(params);
+  //
 }

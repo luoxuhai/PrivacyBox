@@ -123,7 +123,6 @@ export const PhotosScreen: FC<StackScreenProps<AppStackParamList, 'Photos'>> = o
   });
 
   useUpdateEffect(() => {
-    console.log('x');
     queryClient.fetchQuery(albumKeys.detail(albumId));
   }, [photos.length]);
 

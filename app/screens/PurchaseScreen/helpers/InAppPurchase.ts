@@ -13,7 +13,7 @@ import {
   PurchaseError,
 } from 'react-native-iap';
 import { rootStore } from '@/models';
-import { Overlay } from '@/utils';
+import { Overlay, reportException } from '@/utils';
 import { translate } from '@/i18n';
 
 /**
@@ -33,7 +33,6 @@ export class InAppPurchase {
     onPurchaseSuccess?: (purchase: SubscriptionPurchase | ProductPurchase) => void,
     onPurchaseError?: (error: PurchaseError) => void,
   ) {
-    console.log('[StartInitConnection]');
     if (this.isInitialized) {
       return;
     }
@@ -43,7 +42,6 @@ export class InAppPurchase {
     this.addPurchaseUpdatedListener(onPurchaseSuccess);
     this.addPurchaseErrorListener(onPurchaseError);
     this.isInitialized = true;
-    console.log('[InitConnection]');
   }
 
   public async destroy() {
@@ -61,18 +59,27 @@ export class InAppPurchase {
    * @returns
    */
   public async getProduct() {
-    return (await getProducts({ skus: [this.productId] }))[0];
+    try {
+      return (await getProducts({ skus: [this.productId] }))[0];
+    } catch (error) {
+      reportException({ error, message: '获取产品价格信息失败', level: 'fatal' });
+      throw error;
+    }
   }
 
   /**
    * 发起付款
    */
   public async requestPurchase() {
-    console.log('productId', this.productId);
-    return await requestPurchase({
-      sku: this.productId,
-      andDangerouslyFinishTransactionAutomaticallyIOS: false,
-    });
+    try {
+      return await requestPurchase({
+        sku: this.productId,
+        andDangerouslyFinishTransactionAutomaticallyIOS: false,
+      });
+    } catch (error) {
+      reportException({ error, message: '点击发起购买', level: 'fatal' });
+      throw error;
+    }
   }
 
   /**
@@ -111,7 +118,7 @@ export class InAppPurchase {
             Overlay.alert({ preset: 'done', title: translate('purchaseScreen.purchaseSuccess') });
             handler?.(purchase);
           } catch (error) {
-            this._purchaseErrorHandler(error);
+            this.purchaseErrorHandler(error);
           }
         },
       );
@@ -125,19 +132,19 @@ export class InAppPurchase {
     if (!this.purchaseErrorSubscription) {
       this.purchaseErrorSubscription = purchaseErrorListener((error: PurchaseError) => {
         console.warn('[purchaseError]', error);
-        this._purchaseErrorHandler();
+        this.purchaseErrorHandler();
         handler?.(error);
-        // }
       });
     }
   }
 
-  private _purchaseErrorHandler(error?: PurchaseError) {
+  public purchaseErrorHandler(error?: PurchaseError) {
     Overlay.alert({
       preset: 'error',
       title: translate('purchaseScreen.purchaseFail'),
       message: error?.message ?? '',
     });
     this.setPurchasedState(false);
+    reportException({ error, message: '购买失败', level: 'fatal' });
   }
 }

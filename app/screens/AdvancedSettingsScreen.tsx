@@ -11,6 +11,7 @@ import { TextKeyPath } from '@/i18n';
 import { BottomTabs } from '@/models/SettingsStore';
 import { useStores } from '@/models';
 import { classifyImageTask } from '@/utils/task/classifyImageTask';
+import { canUsePremium } from '@/utils/canUsePremium';
 
 export const AdvancedSettingsScreen: FC<
   StackScreenProps<SettingStackParamList, 'AdvancedSettings'>
@@ -19,6 +20,10 @@ export const AdvancedSettingsScreen: FC<
   const { settingsStore } = useStores();
 
   function handleSmartSearchEnabled(enabled: boolean) {
+    if (enabled && !canUsePremium()) {
+      return;
+    }
+
     settingsStore.setSmartSearchEnabled(enabled);
     if (enabled) {
       classifyImageTask.start();

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { observer } from 'mobx-react-lite';
 import { ViewStyle, View, StyleSheet, ActivityIndicator, LayoutRectangle } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -11,7 +11,7 @@ import { openPrivacyPolicy, openUserAgreement, openDeveloperEmail } from '@/scre
 import { purchaseKeys } from './constants';
 import { InAppPurchase } from './helpers/InAppPurchase';
 import { Overlay } from '@/utils';
-import { translate } from '@/i18n';
+import { i18n, SupportedLanguage, translate } from '@/i18n';
 import { useStores } from '@/models';
 
 interface BottomActionBarProps {
@@ -24,10 +24,6 @@ export const BottomActionBar = observer<BottomActionBarProps>((props) => {
     purchaseStore: { isPurchased },
   } = useStores();
   const { colors, isDark } = useTheme();
-
-  useEffect(() => {
-    console.log('BottomActionBar');
-  }, []);
 
   const { data: product, isLoading } = useQuery<Product>({
     queryKey: purchaseKeys.product,
@@ -43,8 +39,14 @@ export const BottomActionBar = observer<BottomActionBarProps>((props) => {
       title: translate('purchaseScreen.purchasing'),
       duration: 0,
     });
-    InAppPurchase.shared.requestPurchase();
+    try {
+      await InAppPurchase.shared.requestPurchase();
+    } catch (error) {
+      InAppPurchase.shared.purchaseErrorHandler(error);
+    }
   }, []);
+
+  const fontSize = i18n.language === SupportedLanguage.EN ? 12 : 17;
 
   return (
     <View
@@ -79,11 +81,17 @@ export const BottomActionBar = observer<BottomActionBarProps>((props) => {
                 marginRight: spacing[4],
               },
             ]}
+            textStyle={{
+              fontSize,
+            }}
             tk="aboutScreen.private"
             onPress={() => openPrivacyPolicy(true)}
           />
           <TextButton
             style={$agreementText}
+            textStyle={{
+              fontSize,
+            }}
             tk="aboutScreen.userAgreement"
             onPress={() => openUserAgreement(true)}
           />
@@ -131,6 +139,7 @@ const $blurView: ViewStyle = {
 const $agreementWrapper: ViewStyle = {
   flexDirection: 'row',
   alignItems: 'center',
+  width: '50%',
 };
 
 const $body: ViewStyle = {

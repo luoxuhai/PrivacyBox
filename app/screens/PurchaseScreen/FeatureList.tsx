@@ -33,10 +33,10 @@ const list: { title: TextKeyPath; icon: string }[] = [
   //   title: 'purchaseScreen.features.icloud',
   //   icon: 'arrow.clockwise.icloud.fill',
   // },
-  {
-    title: 'purchaseScreen.features.hideApp',
-    icon: 'eye.slash.fill',
-  },
+  // {
+  //   title: 'purchaseScreen.features.hideApp',
+  //   icon: 'eye.slash.fill',
+  // },
   {
     title: 'purchaseScreen.features.fakeHome',
     icon: 'shield.righthalf.filled',

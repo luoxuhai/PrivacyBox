@@ -19,6 +19,8 @@ import { TextKeyPath } from '@/i18n';
 import { appIconOptions } from './constants';
 import { HapticFeedback, Overlay } from '@/utils';
 import { AppIcons } from './types';
+import { RootNavigation } from '@/navigators';
+import { canUsePremium } from '@/utils/canUsePremium';
 
 const APP_ICON_ITEM_SIZE = 58;
 const APP_ICON_LIST_PADDING = spacing[5];
@@ -37,6 +39,10 @@ export const AppIconSection = observer(() => {
   }, [layout?.width]);
 
   const handleChangeAppIcon = useCallback(async (iconName: AppIcons) => {
+    if (!canUsePremium()) {
+      return;
+    }
+
     const supports = await AppIconManager.supportsDynamicAppIcon();
     if (supports) {
       AppIconManager.setAppIcon(iconName === AppIcons.Default ? null : iconName);

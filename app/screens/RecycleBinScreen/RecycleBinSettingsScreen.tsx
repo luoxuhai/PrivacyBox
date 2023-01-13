@@ -11,6 +11,7 @@ import { useStores } from '@/models';
 import { t } from '@/i18n';
 import { ICON_CHECK_SIZE } from '@/constants';
 import { HapticFeedback } from '@/utils';
+import { canUsePremium } from '@/utils/canUsePremium';
 
 export const RecycleBinSettingsScreen: FC<
   StackScreenProps<MoreFeatureNavigatorParamList, 'RecycleBinSettings'>
@@ -88,6 +89,10 @@ export const RecycleBinSettingsScreen: FC<
                 }
                 bottomSeparator={index < options.length - 1}
                 onPress={() => {
+                  if (!canUsePremium()) {
+                    return;
+                  }
+
                   settingsStore.setRecycleBin({
                     keep: option.value,
                   });

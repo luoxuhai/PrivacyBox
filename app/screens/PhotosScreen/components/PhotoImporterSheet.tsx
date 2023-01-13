@@ -41,11 +41,11 @@ export const PhotoImporterSheet = observer<PhotoImporterSheetProps>((props) => {
         break;
     }
 
-    console.log(photos);
+    if (photos) {
+      handleImportPhotos(photos);
+    }
 
-    handleImportPhotos(photos);
-
-    // actionSheetRef.current.hide();
+    actionSheetRef.current.hide();
   }
 
   return (

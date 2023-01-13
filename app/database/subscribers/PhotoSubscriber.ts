@@ -28,14 +28,14 @@ export class PhotoSubscriber implements EntitySubscriberInterface<Photo> {
   // }
 }
 
-function uploadToICloud() {
-  console.log('xxxxxx uploadToICloud');
-  return debounce(() => {
-    console.log('xxxxxx uploadToICloud');
-  }, 5000);
-}
+// function uploadToICloud() {
+//   console.log('xxxxxx uploadToICloud');
+//   return debounce(() => {
+//     console.log('xxxxxx uploadToICloud');
+//   }, 5000);
+// }
 
-async function queryAllPhotos(manager: EntityManager) {
-  const photos = await manager.find(Photo);
-  uploadPhotos(photos);
-}
+// async function queryAllPhotos(manager: EntityManager) {
+//   const photos = await manager.find(Photo);
+//   uploadPhotos(photos);
+// }

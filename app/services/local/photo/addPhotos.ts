@@ -28,8 +28,6 @@ export async function addPhotos(params: AddFilesParams) {
 
   const { album_id, is_fake = false } = params;
 
-  console.log(params.photos);
-
   const importedPhotos: PhotoSource[] = [];
 
   for (const photo of params.photos) {

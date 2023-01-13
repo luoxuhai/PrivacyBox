@@ -143,7 +143,6 @@ export const PhotoViewerScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'P
             onScrollEndDrag={(event) => {
               iconPlayOpacity.value = 1;
               if (event.nativeEvent.zoomScale > 1) {
-                console.log('ActionSheetRef, ');
                 StatusBar.setHidden(true, 'fade');
               }
             }}

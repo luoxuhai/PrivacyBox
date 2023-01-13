@@ -32,7 +32,6 @@ const fileSeeds: File[] = [
 ];
 
 export async function loadFixtures(manager: EntityManager) {
-  console.log('isInitializedDBSeed', storage.get('isInitializedDBSeed', 'boolean'));
   if (storage.get('isInitializedDBSeed', 'boolean')) {
     return;
   }

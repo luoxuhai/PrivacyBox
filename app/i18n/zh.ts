@@ -330,10 +330,11 @@ const zh = {
     },
     folderForm: {
       title: '新建文件夹',
-      msg: '请输入新文件夹名',
+      msg: '请输入新文件夹名称',
       placeholder: '文件夹名称（50个字符内）',
     },
     rename: {
+      placeholder: "文件名称（255个字符内）",
       success: '重命名成功',
       fail: '重命名失败',
     },

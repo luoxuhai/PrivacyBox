@@ -4,18 +4,21 @@ import { AppDataSource } from '@/database';
 import File from '@/database/entities/file';
 import { joinFileUri } from '../helpers/joinFileUri';
 
-export type RenameFilesParams = Pick<File, 'id' | 'name'>;
+export type RenameFilesParams = Pick<File, 'id' | 'name' | 'type'>;
 
 /**
  * 更新文件名称
  */
 export async function renameFiles(params: RenameFilesParams) {
-  const { id, name } = params;
+  const { id, name, type } = params;
 
   const oldData = await AppDataSource.manager.findOneBy(File, { id });
   const result = await AppDataSource.manager.update(File, id, { name });
 
-  console.prettyLog(oldData)
+  if (type === FileTypes.Folder) {
+    return result?.generatedMaps;
+  }
+
   const oldUri = joinFileUri(oldData);
   const newUri = joinFileUri({ id, name });
 

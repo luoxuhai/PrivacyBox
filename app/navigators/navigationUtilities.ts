@@ -134,7 +134,7 @@ export function useNavigationPersistence(storage: Storage, persistenceKey: strin
   };
 
   useEffect(() => {
-    if (!isRestored) restoreState();
+    if (!isRestored && __DEV__) restoreState();
   }, [isRestored]);
 
   return { onNavigationStateChange, restoreState, isRestored, initialNavigationState };

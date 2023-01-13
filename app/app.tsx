@@ -44,7 +44,10 @@ const App = observer(() => {
 
   const { rehydrated, rootStore } = useInitialRootStore();
   const { isInitialized } = useInitialDataSource();
-  useDataMigrator();
+  const isReay = rehydrated && isNavigationStateRestored && isInitialized;
+
+  // 判断是否需要迁移
+  useDataMigrator(isReay);
 
   useUpdateEffect(() => {
     if (rootStore.appLockStore.isLocked) {
@@ -58,8 +61,8 @@ const App = observer(() => {
     }
   }, [rootStore.appStateStore.inForeground]);
 
-  if (!rehydrated || !isNavigationStateRestored || !isInitialized) return null;
-
+  if (!isReay) return null;
+  
   return (
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       <ErrorBoundary catchErrors={Config.catchErrors}>

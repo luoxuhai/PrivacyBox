@@ -25,11 +25,33 @@ export const DataMigratorScreen: FC<StackScreenProps<AppStackParamList, 'DataMig
     useEffect(() => {
       DataBaseV1.init()
         .then(async () => {
+          // 恢复密码
           const passcodes = await DataBaseV1.queryAllPassword();
           if (passcodes.admin && !appLockStore.passcode) {
             appLockStore.setPasscode(passcodes.admin);
           } else if (passcodes.ghost && !appLockStore.fakePasscode) {
             appLockStore.setFakePasscode(passcodes.ghost);
+          }
+
+          const items = await DataBaseV1.queryFiles();
+
+          const folders = items.filter(item => item.type)
+          const files = items.filter(item => item.type)
+
+          const albums = items.filter(item => item.type)
+          const photos = items.filter(item => item.type)
+
+          if (folders.length) {
+            
+          }
+
+          if (files.length) {
+          }
+
+          if (albums.length) {
+          }
+
+          if (photos.length) {
           }
         })
         .catch(() => {

@@ -15,6 +15,10 @@ export function useRenameFile(parentId: string) {
   } = useStores();
   const { mutateAsync: handleRename } = useMutation({
     mutationFn: async (params: RenameFilesParams) => {
+      if (params.name.length > 255) {
+        throw Error('名称字数不能超过255个字符');
+      }
+
       const items = queryClient.getQueryData<FetchFilesResult[]>(
         fileKeys.list(`${inFakeEnvironment}:${parentId}`),
       );
@@ -70,7 +74,7 @@ export function useRenameFile(parentId: string) {
       'plain-text',
       params.name.replace(/\..+$/, ''),
       'default',
-      translate('filesScreen.folderForm.placeholder'),
+      translate('filesScreen.rename.placeholder')
     );
   }
 

@@ -6,8 +6,6 @@ import { AppRegistry } from 'react-native';
 
 import App from './app/app.tsx';
 
-BootSplash.hide({ fade: true, duration: 0 });
-
 function Main() {
   return <App />;
 }

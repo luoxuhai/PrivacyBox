@@ -18,10 +18,9 @@ export function useFolderCreator(parentId?: string | null) {
   } = useStores();
 
   const { mutate: handleCreateFolder } = useMutation({
-    mutationFn: async (text?: string) => {
-      const name = text?.trim();
-      if (!name) {
-        throw Error('缺少 name');
+    mutationFn: async (name: string) => {
+      if (name.length > 255) {
+        throw Error('名称字数不能超过255个字符');
       }
 
       const params = {
@@ -30,10 +29,12 @@ export function useFolderCreator(parentId?: string | null) {
         is_fake: inFakeEnvironment,
       };
 
-      const exists = !!(await fetchFiles(params)).length;
+      const items = queryClient.getQueryData<FetchFilesResult[]>(
+        fileKeys.list(`${inFakeEnvironment}:${parentId}`),
+      );
 
-      if (exists) {
-        throw Error('文件夹名称不能相同');
+      if (items.find((item) => item.name === params.name)) {
+        throw Error('文件夹名称重复');
       }
 
       return await createFolder(params);
@@ -45,19 +46,13 @@ export function useFolderCreator(parentId?: string | null) {
         message: error.message,
       });
     },
-    onSuccess(data) {
+    onSuccess(data, name) {
       const id = data[0].id;
+      queryClient.refetchQueries(fileKeys.list(`${inFakeEnvironment}:${parentId}`));
 
-      const pushAction = StackActions.push('Files', { parentId: id, title: 'xxx' });
+      const pushAction = StackActions.push('Files', { parentId: id, title: name });
       RootNavigation.dispatch(pushAction);
 
-      queryClient.refetchQueries(fileKeys.list(`${inFakeEnvironment}:${parentId}`));
-      Overlay.toast({
-        preset: 'done',
-        title: translate('filesScreen.createFolder.success'),
-      });
-
-      SheetManager.hideAll();
     },
   });
 
@@ -73,13 +68,20 @@ export function useFolderCreator(parentId?: string | null) {
         {
           text: translate('common.confirm'),
           style: 'default',
-          onPress: handleCreateFolder,
+          onPress: (value) => {
+            const name = value?.trim();
+            if (!name) {
+              return
+            }
+
+            handleCreateFolder(name)
+          },
         },
       ],
       'plain-text',
       '',
       'default',
-      translate('filesScreen.folderForm.placeholder'),
+      translate('filesScreen.rename.placeholder'),
     );
   };
 }

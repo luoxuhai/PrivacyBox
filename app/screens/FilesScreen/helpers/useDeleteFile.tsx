@@ -37,7 +37,7 @@ export function useDeleteFile(folderId: string) {
   });
 
   function handlePresentDeleteAlert(params: DeleteFilesParams) {
-    Alert.alert(translate('albumsScreen.deleteAlbum.title'), undefined, [
+    Alert.alert(translate('albumsScreen.deleteAlbum.title'), t('photosScreen.delete.deleteMsg'), [
       {
         text: translate('common.cancel'),
         style: 'cancel',

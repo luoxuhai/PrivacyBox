@@ -7,7 +7,7 @@ import { File } from './entities/file';
 
 SQLite.enablePromise(true);
 
-const DB_NAME = 'private-space';
+export const DB_NAME = 'private-space';
 
 export class DataBaseV1 {
   private static db: any;
@@ -56,16 +56,14 @@ export class DataBaseV1 {
   // 读取文件
   public static queryFiles(): Promise<File[]> {
     return new Promise((resolve, reject) => {
-      this.db.transaction((tx) => {
-        tx.executeSql(
-          'SELECT * FROM file',
-          [],
-          (_, results) => {
-            resolve(results.rows.raw() as File[]);
-          },
-          reject,
-        );
-      });
+      this.db.executeSql(
+        'SELECT * FROM file',
+        [],
+        (_, results) => {
+          resolve(results.rows.raw() as File[]);
+        },
+        reject,
+      )
     });
   }
 

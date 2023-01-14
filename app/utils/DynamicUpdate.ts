@@ -61,7 +61,7 @@ export class DynamicUpdate {
    * 定时检查并更新
    */
   static timingSync(): void {
-    const s = 60;
+    const s = 60 * 5;
     if (this.timer) {
       clearInterval(this.timer);
     }

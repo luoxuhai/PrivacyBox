@@ -580,7 +580,7 @@ PODS:
   - react-native-video/Video (6.0.0-alpha.4):
     - PromisesSwift
     - React-Core
-  - react-native-webserver (1.0.3):
+  - react-native-webserver (1.0.2):
     - GCDWebServer
     - React
   - React-perflogger (0.69.7)
@@ -1266,7 +1266,7 @@ SPEC CHECKSUMS:
   react-native-sfsymbols: bd3a0d3eab185e80b571bae60753dcf5a0d57967
   react-native-shake: 67d43d6af4abfc299400b17fea7d2ec0754c72ac
   react-native-video: b2a6434fa0cc7a5381985ca2af8f8c570f110743
-  react-native-webserver: de46b00b6c637085e4c96bb9f84c7a771c066a6c
+  react-native-webserver: 85b65ad865d5ee7e91e642b63392419e817481d5
   React-perflogger: 8e832d4e21fdfa613033c76d58d7e617341e804b
   React-RCTActionSheet: 9ca778182a9523991bff6381045885b6e808bb73
   React-RCTAnimation: 9ced26ad20b96e532ac791a8ab92a7b1ce2266b8

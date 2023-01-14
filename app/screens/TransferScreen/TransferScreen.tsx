@@ -111,6 +111,8 @@ export const TransferScreen = observer<StackScreenProps<MoreFeatureNavigatorPara
       const origin = `http://${ip}:${port}`;
 
       await HttpServer.start(port, 'http_service', async (request, response) => {
+        console.log("request", request)
+
         if (request.method === 'OPTIONS') {
           response.send(200);
         }
@@ -121,6 +123,7 @@ export const TransferScreen = observer<StackScreenProps<MoreFeatureNavigatorPara
             filePath = join(WebClient.path, 'index.html');
           }
 
+          console.log("filePath", filePath)
           if (await FS.exists(filePath)) {
             response.sendFile(filePath);
             return;

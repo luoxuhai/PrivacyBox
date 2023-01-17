@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { ViewStyle } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
@@ -12,6 +12,7 @@ import { BottomTabs } from '@/models/SettingsStore';
 import { useStores } from '@/models';
 import { classifyImageTask } from '@/utils/task/classifyImageTask';
 import { canUsePremium } from '@/utils/canUsePremium';
+import { existsOldData } from '@/screens/DataMigratorScreen/helpers/existsOldData';
 
 export const AdvancedSettingsScreen: FC<
   StackScreenProps<SettingStackParamList, 'AdvancedSettings'>
@@ -62,6 +63,7 @@ export const AdvancedSettingsScreen: FC<
           />
         </ListSection>
         <BottomTabVisibleSection />
+        <DataExportSection />
       </SafeAreaScrollView>
     </Screen>
   );
@@ -99,6 +101,30 @@ const BottomTabVisibleSection = observer(() => {
           />
         );
       })}
+    </ListSection>
+  );
+});
+
+const DataExportSection = observer(() => {
+  const [isExistsOldData, setIsExistsOldData] = useState(false);
+
+  useEffect(() => {
+    existsOldData().then(setIsExistsOldData);
+  }, []);
+
+  if (!isExistsOldData) {
+    return null;
+  }
+
+  return (
+    <ListSection titleTk="advancedSettingsScreen.dataExport">
+      <ListCell
+        tk="advancedSettingsScreen.exceptionDataExport"
+        bottomSeparator={false}
+        onPress={() => {
+          console.log('x');
+        }}
+      />
     </ListSection>
   );
 });

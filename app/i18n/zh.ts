@@ -226,6 +226,8 @@ const zh = {
     smartSearch: '智能搜索',
     smartSearchTip: '开启后可识别图片内容进行搜索',
     bottomTabVisible: '显隐底部导航项',
+    dataExport: '数据导出',
+    exceptionDataExport: '导出迁移失败的数据',
   },
   thirdPartyApp: {
     browser: '浏览器',

@@ -32,7 +32,7 @@ const list: FeatureItem[] = [
     subtitle: 'transferScreen.subtitle',
     icon: 'wifi.circle.fill',
     color: luminance(colors.light.palette.orange),
-    needPremium: true,
+    needPremium: !__DEV__,
     routeName: 'Transfer',
   },
   {

@@ -1,11 +1,9 @@
 import { useEffect } from 'react';
-import FS from 'react-native-fs';
 import BootSplash from 'react-native-bootsplash';
 
-import { DB_NAME } from '@/database/v1';
 import { navigate } from '@/navigators';
-import { LocalPathManager, reportException } from '@/utils';
-import { join } from '@/lib/path';
+import { reportException } from '@/utils';
+import { existsOldData } from './helpers/existsOldData';
 
 export function useDataMigrator(isReay: boolean) {
   useEffect(() => {
@@ -13,7 +11,7 @@ export function useDataMigrator(isReay: boolean) {
       return;
     }
 
-    FS.exists(join(LocalPathManager.libraryPath, 'LocalDatabase', DB_NAME))
+    existsOldData()
       .then((exist) => {
         if (exist) {
           navigate('DataMigrator');

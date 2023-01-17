@@ -1,9 +1,7 @@
 import { exists } from 'react-native-fs';
 
-import { LocalPathManager } from '@/utils';
-import { join } from '@/lib/path';
-import { DB_NAME } from '@/database/v1';
+import { OLD_DB_PATH } from '../constants';
 
 export function existsOldData() {
-  return exists(join(LocalPathManager.libraryPath, 'LocalDatabase', DB_NAME));
+  return exists(OLD_DB_PATH);
 }

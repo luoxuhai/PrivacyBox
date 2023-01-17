@@ -4,6 +4,7 @@ import SQLite from '@rn-kit/sqlite';
 import { LocalPathManager } from '@/utils';
 import { User, UserType } from './entities/user';
 import { File } from './entities/file';
+import { OLD_DB_PATH } from '@/screens/DataMigratorScreen/constants';
 
 SQLite.enablePromise(true);
 
@@ -14,7 +15,7 @@ export class DataBaseV1 {
 
   static async init(): PVoid {
     try {
-      const isExistDB = await FS.exists(`${LocalPathManager.libraryPath}/LocalDatabase/${DB_NAME}`);
+      const isExistDB = await FS.exists(OLD_DB_PATH);
       if (!isExistDB) {
         return;
       }
@@ -28,23 +29,23 @@ export class DataBaseV1 {
     }
   }
 
-  // 读取密码
-  public static queryAllPassword(): Promise<{
-    admin?: string;
-    ghost?: string;
+  // 读取用户
+  public static queryAllUsers(): Promise<{
+    admin?: User;
+    ghost?: User;
   }> {
     return new Promise((resolve, reject) => {
       this.db.transaction((tx) => {
         tx.executeSql(
-          'SELECT password,type FROM user',
+          'SELECT * FROM user',
           [],
           (_, results) => {
             const users = results.rows.raw() as User[];
-            const adminPassword = users.find((item) => item.type === UserType.ADMIN).password;
-            const ghostPassword = users.find((item) => item.type === UserType.GHOST).password;
+            const admin = users.find((item) => item.type === UserType.ADMIN);
+            const ghost = users.find((item) => item.type === UserType.GHOST);
             resolve({
-              admin: adminPassword,
-              ghost: ghostPassword,
+              admin,
+              ghost,
             });
           },
           reject,
@@ -63,14 +64,12 @@ export class DataBaseV1 {
           resolve(results.rows.raw() as File[]);
         },
         reject,
-      )
+      );
     });
   }
 
-  static clear(): void {
-    this.db?.close(() => {
-      FS.unlink(`${LocalPathManager.libraryPath}/LocalDatabase`);
-    });
+  static close() {
+    return this.db?.close();
   }
 
   static queryFileCount(): Promise<number> {

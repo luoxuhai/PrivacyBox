@@ -41,6 +41,9 @@ const zh = {
     fail: '迁移失败',
     tip: '请勿关闭本页面',
     doing: '正在迁移旧版本数据',
+    someFailTitle: '是否导出迁移失败的数据',
+    someFailMsg: '后续可到设置->高级设置里导出',
+    export: '导出',
   },
   albumsScreen: {
     title: '相册',

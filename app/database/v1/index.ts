@@ -1,14 +1,11 @@
 import FS from 'react-native-fs';
 
 import SQLite from '@rn-kit/sqlite';
-import { LocalPathManager } from '@/utils';
 import { User, UserType } from './entities/user';
 import { File } from './entities/file';
-import { OLD_DB_PATH } from '@/screens/DataMigratorScreen/constants';
+import { DB_NAME, OLD_DB_PATH } from '@/screens/DataMigratorScreen/constants';
 
 SQLite.enablePromise(true);
-
-export const DB_NAME = 'private-space';
 
 export class DataBaseV1 {
   private static db: any;
@@ -68,8 +65,8 @@ export class DataBaseV1 {
     });
   }
 
-  static close() {
-    return this.db?.close();
+  static close(onCallback: () => void) {
+    return this.db?.close(onCallback, onCallback);
   }
 
   static queryFileCount(): Promise<number> {

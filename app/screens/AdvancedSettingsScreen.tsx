@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC } from 'react';
 import { observer } from 'mobx-react-lite';
 import { ViewStyle } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
@@ -12,7 +12,10 @@ import { BottomTabs } from '@/models/SettingsStore';
 import { useStores } from '@/models';
 import { classifyImageTask } from '@/utils/task/classifyImageTask';
 import { canUsePremium } from '@/utils/canUsePremium';
-import { existsOldData } from '@/screens/DataMigratorScreen/helpers/existsOldData';
+import { exportFailData } from './DataMigratorScreen/helpers/exportFailData';
+import { useMutation } from '@tanstack/react-query';
+import { Overlay } from '@/utils';
+import { clearOldData } from './DataMigratorScreen/helpers/clearOldData';
 
 export const AdvancedSettingsScreen: FC<
   StackScreenProps<SettingStackParamList, 'AdvancedSettings'>
@@ -106,11 +109,24 @@ const BottomTabVisibleSection = observer(() => {
 });
 
 const DataExportSection = observer(() => {
-  const [isExistsOldData, setIsExistsOldData] = useState(false);
+  const { globalStore } = useStores();
+  const isExistsOldData = !!globalStore.migrationFailedUris?.length;
 
-  useEffect(() => {
-    existsOldData().then(setIsExistsOldData);
-  }, []);
+  const { mutateAsync: handleExport } = useMutation({
+    async mutationFn() {
+      const uris = globalStore.migrationFailedUris;
+      return await exportFailData(uris);
+    },
+    onSuccess(data) {
+      if (data.success) {
+        globalStore.setMigrationFailed([]);
+        clearOldData();
+      }
+    },
+    onError(error) {
+      Overlay.toast({ preset: 'error', message: error?.message || '' });
+    },
+  });
 
   if (!isExistsOldData) {
     return null;
@@ -121,9 +137,7 @@ const DataExportSection = observer(() => {
       <ListCell
         tk="advancedSettingsScreen.exceptionDataExport"
         bottomSeparator={false}
-        onPress={() => {
-          console.log('x');
-        }}
+        onPress={handleExport}
       />
     </ListSection>
   );

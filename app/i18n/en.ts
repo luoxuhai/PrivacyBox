@@ -43,6 +43,9 @@ const en: Translations = {
     fail: 'Migration Failed',
     tip: 'Do not close this page',
     doing: 'Migrating Old Version Data',
+    someFailTitle: 'Whether to export data that failed to migrate',
+    someFailMsg: 'You can export it later in Settings > Advanced Settings',
+    export: 'Export',
   },
   albumsScreen: {
     title: 'Albums',

@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { ViewStyle, View, ScrollView, TextStyle, Alert } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { StackScreenProps } from '@react-navigation/stack';
@@ -13,9 +13,13 @@ import { spacing, typography, useTheme } from '@/theme';
 import { DataBaseV1 } from '@/database/v1';
 import { useStores } from '@/models';
 import { addFiles, addPhotos, createAlbum, createFolder } from '@/services/local';
-import { reportException } from '@/utils';
+import { reportException, useUpdateEffect } from '@/utils';
 import { getSourceDir, getSourceUri } from './helpers/getSourcePath';
 import { unlink } from 'react-native-fs';
+import { t } from '@/i18n';
+import { exportFailData } from './helpers/exportFailData';
+import { File } from '@/database/v1/entities/file';
+import { clearOldData } from './helpers/clearOldData';
 
 export const DataMigratorScreen: FC<StackScreenProps<AppStackParamList, 'DataMigrator'>> = observer(
   (props) => {
@@ -24,7 +28,8 @@ export const DataMigratorScreen: FC<StackScreenProps<AppStackParamList, 'DataMig
     const progressRef = useRef<ProgressRef>(null);
     const headerHeight = useHeaderHeight();
     const { portrait } = useDeviceOrientation();
-    const { appLockStore } = useStores();
+    const { appLockStore, globalStore } = useStores();
+    const [progress, setProgress] = useState(0);
 
     useEffect(() => {
       DataBaseV1.init()
@@ -72,7 +77,7 @@ export const DataMigratorScreen: FC<StackScreenProps<AppStackParamList, 'DataMig
             }
           }
 
-          const failFiles = [];
+          const failFiles: File[] = [];
           if (files.length) {
             for (const file of files) {
               try {
@@ -99,7 +104,7 @@ export const DataMigratorScreen: FC<StackScreenProps<AppStackParamList, 'DataMig
             }
           }
 
-          const failPhotos = [];
+          const failPhotos: File[] = [];
           if (photos.length) {
             for (const photo of photos) {
               try {
@@ -139,16 +144,53 @@ export const DataMigratorScreen: FC<StackScreenProps<AppStackParamList, 'DataMig
                 failPhotos,
               },
             });
-            Alert.alert('有迁移失败的数据', '后续可到设置->高级设置里导出');
+
+            const uris = [...failFiles, ...failPhotos].map((item) =>
+              getSourceUri(item.extra.source_id),
+            );
+
+            globalStore.setMigrationFailed(uris);
+            handleExportFailData(uris);
+          } else {
+            DataBaseV1.close(() => {
+              clearOldData();
+            });
           }
 
-          DataBaseV1.close();
+          setProgress(100);
         })
         .catch((error) => {
           reportException({ error, message: '初始化旧数据库失败' });
-          Alert.alert('有迁移失败的数据', '后续可到设置->高级设置里导出');
+          props.navigation.goBack();
         });
     }, []);
+
+    useUpdateEffect(() => {
+      if (progress === 100) {
+        setTimeout(() => {
+          props.navigation.goBack();
+        }, 500);
+      }
+    }, [progress]);
+
+    function handleExportFailData(uris: string[]) {
+      Alert.alert(t('dataMigratorScreen.someFailTitle'), t('dataMigratorScreen.someFailMsg'), [
+        {
+          text: t('common.cancel'),
+          style: 'cancel',
+          onPress() {
+            props.navigation.goBack();
+          },
+        },
+        {
+          text: t('dataMigratorScreen.export'),
+          style: 'default',
+          onPress() {
+            exportFailData(uris);
+          },
+        },
+      ]);
+    }
 
     useEffect(() => {
       props.navigation.setOptions({
@@ -194,7 +236,7 @@ export const DataMigratorScreen: FC<StackScreenProps<AppStackParamList, 'DataMig
 
           <CircularProgress
             ref={progressRef}
-            value={80}
+            value={progress || 99}
             radius={120}
             title="%"
             titleStyle={{

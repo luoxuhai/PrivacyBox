@@ -25,7 +25,6 @@ export const AppMaskScreen: FC<StackScreenProps<AppStackParamList, 'AppMask'>> =
 
     return (
       <FullWindowOverlay style={{ flex: 1 }}>
-        <StatusBar hidden />
         <BlurView style={$blurView} blurType={blurType} />
       </FullWindowOverlay>
     );

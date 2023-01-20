@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import { observer } from 'mobx-react-lite';
 import { ViewStyle } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
-import { StatusBar } from 'expo-status-bar';
 import { FullWindowOverlay } from 'react-native-screens';
 
 import { AppStackParamList } from '@/navigators';

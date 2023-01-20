@@ -101,25 +101,27 @@ export const AppLockScreen: FC<StackScreenProps<AppStackParamList, 'AppLock'>> =
     }
 
     return (
-      <Screen style={{ backgroundColor: colors.background, flex: 1 }}>
-        <FullWindowOverlay style={{ flex: 1 }}>
-          <AppLockView
-            passcode={passcode}
-            style={$safeAreaViewStyles}
-            icon="lock.fill"
-            tk="appLockScreen.enterPassword"
-            isError={passcodeError}
-            biometricsVisible
-            onChange={handlePasscodeChange}
-            onDelete={handlePasscodeDelete}
-            onUnlock={unlock}
-            onUnlockFailed={failedUnlock}
-          />
-        </FullWindowOverlay>
-      </Screen>
+      <FullWindowOverlay style={$overlay}>
+        <AppLockView
+          passcode={passcode}
+          style={$safeAreaViewStyles}
+          icon="lock.fill"
+          tk="appLockScreen.enterPassword"
+          isError={passcodeError}
+          biometricsVisible
+          onChange={handlePasscodeChange}
+          onDelete={handlePasscodeDelete}
+          onUnlock={unlock}
+          onUnlockFailed={failedUnlock}
+        />
+      </FullWindowOverlay>
     );
   },
 );
+
+const $overlay: ViewStyle = {
+  flex: 1,
+};
 
 const $safeAreaView: ViewStyle = {
   flex: 1,

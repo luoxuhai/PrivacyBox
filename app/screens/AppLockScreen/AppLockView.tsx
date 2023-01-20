@@ -60,7 +60,7 @@ export const AppLockView = observer<AppLockViewProps>((props) => {
   }, [props.isError]);
 
   return (
-    <SafeAreaView style={props.style}>
+    <SafeAreaView style={[props.style, { backgroundColor: colors.background }]}>
       <View style={$header}>
         {props.icon ? (
           <Animated.View style={[$iconStyle, $animatedStyles]}>

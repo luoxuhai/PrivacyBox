@@ -62,7 +62,7 @@ const App = observer(() => {
   }, [rootStore.appStateStore.inForeground]);
 
   if (!isReay) return null;
-  
+
   return (
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       <ErrorBoundary catchErrors={Config.catchErrors}>

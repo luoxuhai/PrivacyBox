@@ -37,9 +37,9 @@ export const DataMigratorScreen: FC<StackScreenProps<AppStackParamList, 'DataMig
           // 恢复密码
           const users = await DataBaseV1.queryAllUsers();
 
-          if (users.admin?.password && !appLockStore.passcode) {
+          if (users.admin?.password?.length === 6 && !appLockStore.passcode) {
             appLockStore.setPasscode(users.admin.password);
-          } else if (users.ghost?.password && !appLockStore.fakePasscode) {
+          } else if (users.ghost?.password?.length === 6 && !appLockStore.fakePasscode) {
             appLockStore.setFakePasscode(users.ghost.password);
           }
 

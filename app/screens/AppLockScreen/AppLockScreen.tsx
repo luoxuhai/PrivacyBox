@@ -4,6 +4,7 @@ import { ViewStyle } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { useDeviceOrientation } from '@react-native-community/hooks';
 import { CommonActions } from '@react-navigation/native';
+import { FullWindowOverlay } from 'react-native-screens';
 
 import { AppStackParamList } from '@/navigators';
 import { Screen } from '@/components';
@@ -100,19 +101,21 @@ export const AppLockScreen: FC<StackScreenProps<AppStackParamList, 'AppLock'>> =
     }
 
     return (
-      <Screen style={{ backgroundColor: colors.background }}>
-        <AppLockView
-          passcode={passcode}
-          style={$safeAreaViewStyles}
-          icon="lock.fill"
-          tk="appLockScreen.enterPassword"
-          isError={passcodeError}
-          biometricsVisible
-          onChange={handlePasscodeChange}
-          onDelete={handlePasscodeDelete}
-          onUnlock={unlock}
-          onUnlockFailed={failedUnlock}
-        />
+      <Screen style={{ backgroundColor: colors.background, flex: 1 }}>
+        <FullWindowOverlay style={{ flex: 1 }}>
+          <AppLockView
+            passcode={passcode}
+            style={$safeAreaViewStyles}
+            icon="lock.fill"
+            tk="appLockScreen.enterPassword"
+            isError={passcodeError}
+            biometricsVisible
+            onChange={handlePasscodeChange}
+            onDelete={handlePasscodeDelete}
+            onUnlock={unlock}
+            onUnlockFailed={failedUnlock}
+          />
+        </FullWindowOverlay>
       </Screen>
     );
   },

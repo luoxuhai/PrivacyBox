@@ -3,6 +3,7 @@ import { observer } from 'mobx-react-lite';
 import { ViewStyle } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { StatusBar } from 'expo-status-bar';
+import { FullWindowOverlay } from 'react-native-screens';
 
 import { AppStackParamList } from '@/navigators';
 import { BlurView } from '@/components';
@@ -23,10 +24,10 @@ export const AppMaskScreen: FC<StackScreenProps<AppStackParamList, 'AppMask'>> =
     }, [appStateStore.inForeground, appLockStore.isLocked]);
 
     return (
-      <>
+      <FullWindowOverlay style={{ flex: 1 }}>
         <StatusBar hidden />
-        <BlurView style={$blurView} blurType={blurType} blurAmount={50} />
-      </>
+        <BlurView style={$blurView} blurType={blurType} />
+      </FullWindowOverlay>
     );
   },
 );

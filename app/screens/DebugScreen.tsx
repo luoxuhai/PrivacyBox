@@ -16,7 +16,7 @@ import Photo from '@/database/entities/photo';
 import File from '@/database/entities/file';
 import { readDir, unlink } from 'react-native-fs';
 import { DATA_PATH, OLD_DB_PATH } from './DataMigratorScreen/constants';
-import { JSONParse, JSONStringify } from '@/utils/storage/storage';
+import { JSONStringify } from '@/utils/storage/storage';
 
 if (__DEV__) {
   DevSettings.addMenuItem('Clear Storage', () => {

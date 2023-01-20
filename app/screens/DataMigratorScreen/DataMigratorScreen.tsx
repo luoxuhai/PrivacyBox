@@ -18,7 +18,7 @@ import { getSourceDir, getSourceUri } from './helpers/getSourcePath';
 import { unlink } from 'react-native-fs';
 import { t } from '@/i18n';
 import { exportFailData } from './helpers/exportFailData';
-import { File } from '@/database/v1/entities/file';
+import { File, FileRepository, FileType } from '@/database/v1/entities/file';
 import { clearOldData } from './helpers/clearOldData';
 
 export const DataMigratorScreen: FC<StackScreenProps<AppStackParamList, 'DataMigrator'>> = observer(
@@ -50,11 +50,19 @@ export const DataMigratorScreen: FC<StackScreenProps<AppStackParamList, 'DataMig
 
           const items = await DataBaseV1.queryFiles();
 
-          const folders = items.filter((item) => item.type);
-          const files = items.filter((item) => item.type);
+          const folders = items.filter(
+            (item) => item.repository === FileRepository.File && item.type === FileType.Folder,
+          );
+          const files = items.filter(
+            (item) => item.repository === FileRepository.File && item.type === FileType.File,
+          );
 
-          const albums = items.filter((item) => item.type);
-          const photos = items.filter((item) => item.type);
+          const albums = items.filter(
+            (item) => item.repository === FileRepository.Album && item.type === FileType.Folder,
+          );
+          const photos = items.filter(
+            (item) => item.repository === FileRepository.Album && item.type === FileType.File,
+          );
 
           // 恢复文件夹
           if (folders.length) {
@@ -64,6 +72,7 @@ export const DataMigratorScreen: FC<StackScreenProps<AppStackParamList, 'DataMig
                 parent_id: folder.parent_id,
                 is_fake: idMapFake[folder.owner],
               });
+              DataBaseV1.delete(folder.id);
             }
           }
 
@@ -74,6 +83,7 @@ export const DataMigratorScreen: FC<StackScreenProps<AppStackParamList, 'DataMig
                 name: album.name,
                 is_fake: idMapFake[album.owner],
               });
+              DataBaseV1.delete(album.id);
             }
           }
 
@@ -97,6 +107,7 @@ export const DataMigratorScreen: FC<StackScreenProps<AppStackParamList, 'DataMig
                   ],
                 });
 
+                DataBaseV1.delete(file.id);
                 unlink(sourceDir);
               } catch (error) {
                 failFiles.push(file);
@@ -129,6 +140,7 @@ export const DataMigratorScreen: FC<StackScreenProps<AppStackParamList, 'DataMig
                   ],
                 });
 
+                DataBaseV1.delete(photo.id);
                 unlink(sourceDir);
               } catch (error) {
                 failPhotos.push(photo);
@@ -137,6 +149,12 @@ export const DataMigratorScreen: FC<StackScreenProps<AppStackParamList, 'DataMig
           }
 
           if (failFiles.length || failPhotos.length) {
+            const uris = [...failFiles, ...failPhotos].map((item) =>
+              getSourceUri(item.extra.source_id),
+            );
+
+            globalStore.setMigrationFailed(uris);
+            handleExportFailData(uris);
             reportException({
               message: '有迁移失败的数据',
               extra: {
@@ -144,24 +162,16 @@ export const DataMigratorScreen: FC<StackScreenProps<AppStackParamList, 'DataMig
                 failPhotos,
               },
             });
-
-            const uris = [...failFiles, ...failPhotos].map((item) =>
-              getSourceUri(item.extra.source_id),
-            );
-
-            globalStore.setMigrationFailed(uris);
-            handleExportFailData(uris);
           } else {
             DataBaseV1.close(() => {
               clearOldData();
             });
+            setProgress(100);
           }
-
-          setProgress(100);
         })
         .catch((error) => {
-          reportException({ error, message: '初始化旧数据库失败' });
           props.navigation.goBack();
+          reportException({ error, message: '初始化旧数据库失败' });
         });
     }, []);
 
@@ -169,9 +179,9 @@ export const DataMigratorScreen: FC<StackScreenProps<AppStackParamList, 'DataMig
       if (progress === 100) {
         setTimeout(() => {
           props.navigation.goBack();
-        }, 500);
+        }, 1000);
       }
-    }, [progress]);
+    }, [progress, props.navigation]);
 
     function handleExportFailData(uris: string[]) {
       Alert.alert(t('dataMigratorScreen.someFailTitle'), t('dataMigratorScreen.someFailMsg'), [

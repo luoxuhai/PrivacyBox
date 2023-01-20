@@ -4,6 +4,7 @@ import SQLite from '@rn-kit/sqlite';
 import { User, UserType } from './entities/user';
 import { File } from './entities/file';
 import { DB_NAME, OLD_DB_PATH } from '@/screens/DataMigratorScreen/constants';
+import { JSONParse } from '@/utils/storage/storage';
 
 SQLite.enablePromise(true);
 
@@ -54,14 +55,28 @@ export class DataBaseV1 {
   // 读取文件
   public static queryFiles(): Promise<File[]> {
     return new Promise((resolve, reject) => {
-      this.db.executeSql(
-        'SELECT * FROM file',
-        [],
-        (_, results) => {
-          resolve(results.rows.raw() as File[]);
-        },
-        reject,
-      );
+      this.db.transaction((tx) => {
+        tx.executeSql(
+          'SELECT * FROM file',
+          [],
+          (_, results) => {
+            const items = results.rows.raw() as File[];
+            for (const item of items) {
+              item.extra = JSONParse(item.extra);
+            }
+            resolve(items);
+          },
+          reject,
+        );
+      });
+    });
+  }
+
+  static delete(id: string) {
+    return new Promise((resolve, reject) => {
+      this.db.transaction((tx) => {
+        tx.executeSql(`DELETE FROM file WHERE id = '${id}'`, [], resolve, reject);
+      });
     });
   }
 

@@ -2,6 +2,7 @@ import React, { FC, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import { DevSettings, ViewStyle, Text, View, TextStyle } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
+import Clipboard from '@react-native-clipboard/clipboard';
 
 import { SettingStackParamList } from '@/navigators';
 import { Screen, ExitButton, SafeAreaScrollView, ListSection, ListCell } from '@/components';
@@ -13,7 +14,9 @@ import { LocalPathManager, DynamicUpdate } from '@/utils';
 import { ICloud } from '@/services/icloud/icloud';
 import Photo from '@/database/entities/photo';
 import File from '@/database/entities/file';
-import { unlink } from 'react-native-fs';
+import { readDir, unlink } from 'react-native-fs';
+import { DATA_PATH, OLD_DB_PATH } from './DataMigratorScreen/constants';
+import { JSONParse, JSONStringify } from '@/utils/storage/storage';
 
 if (__DEV__) {
   DevSettings.addMenuItem('Clear Storage', () => {
@@ -77,6 +80,34 @@ export const DebugScreen: FC<StackScreenProps<SettingStackParamList, 'Debug'>> =
               rightIcon={null}
               onPress={() => {
                 DynamicUpdate.sync(true);
+              }}
+            />
+            <ListCell
+              textStyle={{
+                color: colors.palette.blue,
+              }}
+              text="复制旧版本磁盘结构"
+              rightIcon={null}
+              onPress={async () => {
+                try {
+                  Clipboard.setString(JSONStringify(await readDir(DATA_PATH)));
+                } catch {
+                  Clipboard.setString('[]');
+                }
+              }}
+            />
+            <ListCell
+              textStyle={{
+                color: colors.palette.blue,
+              }}
+              text="复制旧版本数据库结构"
+              rightIcon={null}
+              onPress={async () => {
+                try {
+                  Clipboard.setString(JSONStringify(await readDir(OLD_DB_PATH)));
+                } catch {
+                  Clipboard.setString('[]');
+                }
               }}
             />
           </ListSection>

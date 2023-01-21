@@ -1,4 +1,4 @@
-import React, { FC, useRef } from 'react';
+import React, { FC, useCallback, useRef } from 'react';
 import { observer } from 'mobx-react-lite';
 import { StackScreenProps } from '@react-navigation/stack';
 
@@ -21,8 +21,15 @@ export const VideoPlayerScreen: FC<StackScreenProps<AppStackParamList, 'VideoPla
       ref.current?.pause();
     });
 
+    const handleOrientation = useCallback((portrait: boolean) => {
+      props.navigation.setOptions({
+        gestureEnabled: portrait,
+        autoHideHomeIndicator: !portrait,
+      });
+    }, []);
+
     return (
-      <Screen>
+      <Screen statusBarStyle="light">
         <VideoPlayer
           ref={ref}
           title={item.name}
@@ -33,6 +40,7 @@ export const VideoPlayerScreen: FC<StackScreenProps<AppStackParamList, 'VideoPla
           onBack={() => {
             props.navigation.goBack();
           }}
+          onOrientation={handleOrientation}
         />
       </Screen>
     );

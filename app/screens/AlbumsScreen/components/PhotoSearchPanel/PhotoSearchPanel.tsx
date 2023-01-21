@@ -43,6 +43,7 @@ export const PhotoSearchPanel = observer<any, PhotoSearchPanelInstance>(
   forwardRef((_, ref) => {
     const {
       appLockStore: { inFakeEnvironment },
+      globalStore,
     } = useStores();
     const { colors } = useTheme();
     const { top: statusBarHeight } = useSafeAreaInsets();
@@ -77,12 +78,14 @@ export const PhotoSearchPanel = observer<any, PhotoSearchPanelInstance>(
 
     useImperativeHandle(ref, () => ({
       show() {
+        globalStore.setBottomTabVisible(false);
         setTimeout(() => {
           setVisible(true);
-        }, 150);
+        }, 100);
       },
       hide() {
         setVisible(false);
+        globalStore.setBottomTabVisible(true);
       },
       search: debounce(setKeywords, 250),
     }));

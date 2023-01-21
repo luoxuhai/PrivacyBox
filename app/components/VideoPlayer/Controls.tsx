@@ -48,6 +48,7 @@ interface ControlsProps {
   onForward: () => void;
   onBackward: () => void;
   onShare: () => void;
+  onOrientation?: (portrait: boolean) => void;
 }
 
 export default function Controls(props: ControlsProps) {
@@ -98,6 +99,8 @@ export default function Controls(props: ControlsProps) {
     } else {
       OrientationLocker.lockToLandscape();
     }
+
+    props.onOrientation(orientation === 'portrait');
     props.onVisible();
   }, [orientation]);
 
@@ -198,7 +201,7 @@ export default function Controls(props: ControlsProps) {
           }}
           onPress={() => {
             OrientationLocker.unlockAllOrientations();
-            props.onBack();
+            setTimeout(props.onBack, 500);
           }}
         >
           <SFSymbol

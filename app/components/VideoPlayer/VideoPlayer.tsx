@@ -18,6 +18,7 @@ interface VideoPlayerProps {
   autoPausedTip?: string;
   controlsVisible?: boolean;
   onBack?: () => void;
+  onOrientation?: (portrait: boolean) => void;
 }
 
 export interface VideoPlayerRef {
@@ -118,6 +119,7 @@ export const VideoPlayer = observer<VideoPlayerProps, VideoPlayerRef>(
               videoRef.current.seek(progress + 10);
             }}
             onShare={handleShare}
+            onOrientation={props.onOrientation}
           />
           {isAirplayConnected && <Airplayvideo text={props.airplayTip} />}
         </SafeAreaProvider>

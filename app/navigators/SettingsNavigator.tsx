@@ -13,6 +13,7 @@ import {
   AdvancedSettingsScreen,
   UrgentSwitchScreen,
   FakeAppHomeSettingsScreen,
+  FakeAppLockSettingsScreen,
 } from '@/screens';
 import { useTheme } from '@/theme';
 import { AppStackParamList } from './AppNavigator';
@@ -26,6 +27,7 @@ export type SettingStackParamList = {
   FakeAppHomeSettings: typeof FakeAppHomeSettingsScreen;
   AdvancedSettings: typeof AdvancedSettingsScreen;
   UrgentSwitch: typeof UrgentSwitchScreen;
+  FakeAppLockSettings: typeof FakeAppLockSettingsScreen;
 } & AppStackParamList;
 
 const SettingStack = createNativeStackNavigator<SettingStackParamList>();
@@ -71,6 +73,13 @@ export const SettingNavigator: FC<StackScreenProps<SettingStackParamList>> = obs
           title: translate('appLockSettingsScreen.title'),
         }}
         component={AppLockSettingsScreen}
+      />
+      <SettingStack.Screen
+        name="FakeAppLockSettings"
+        options={{
+          title: translate('fakeAppLockSettingsScreen.title'),
+        }}
+        component={FakeAppLockSettingsScreen}
       />
       <SettingStack.Screen
         name="FakeAppHomeSettings"

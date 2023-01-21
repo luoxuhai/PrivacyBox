@@ -4,7 +4,6 @@ import {
   ScrollView,
   ScrollViewProps,
   StyleSheet,
-  ActivityIndicator,
   Text,
   PlatformColor,
   View,
@@ -39,7 +38,7 @@ export interface ImageViewProps
 let pressInEvent: NativeSyntheticTouchEvent['nativeEvent'];
 
 export const DEFAULT_PROPS = {
-  delayDoublePress: 200,
+  delayDoublePress: 250,
   delayLongPress: 500,
 };
 
@@ -76,8 +75,16 @@ function ImageView(props: ImageViewProps): JSX.Element {
   }, [props.inViewport]);
 
   const renderIndicator = useCallback(() => {
-    return <ActivityIndicator size="large" />;
-  }, [props.source.blurhash]);
+    return (
+      <FastImage
+        style={styles.image}
+        source={{
+          uri: props.source.thumbnail,
+        }}
+        resizeMode="contain"
+      />
+    );
+  }, [props.source.thumbnail]);
 
   const renderError = useCallback(() => {
     return (
@@ -153,10 +160,10 @@ function ImageView(props: ImageViewProps): JSX.Element {
           <FastImageProgress
             style={styles.image}
             source={{
-              uri: props.source.poster || props.source.uri || props.source.thumbnail,
+              uri: props.source.poster || props.source.uri,
             }}
             resizeMode="contain"
-            threshold={20}
+            threshold={30}
             onLoadStart={() => {
               setLoadStatus(LoadStatus.Loading);
             }}

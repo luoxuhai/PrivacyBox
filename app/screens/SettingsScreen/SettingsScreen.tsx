@@ -57,6 +57,16 @@ export const SettingScreen: FC<StackScreenProps<SettingStackParamList, 'Settings
               }}
             />
             <ListCell
+              tk="fakeAppLockSettingsScreen.title"
+              visible={!appLockStore.inFakeEnvironment}
+              RightAccessory={translate(
+                appLockStore.fakePasscodeEnabled ? 'common.enabled' : 'common.disabled',
+              )}
+              onPress={() => {
+                navigation.navigate('FakeAppLockSettings');
+              }}
+            />
+            <ListCell
               tk="fakeAppHomeSettingsScreen.title"
               RightAccessory={translate(
                 settingsStore.fakeHomeEnabled ? 'common.enabled' : 'common.disabled',

@@ -9,6 +9,7 @@ export * from './AppearanceScreen/AppearanceScreen';
 export * from './DebugScreen';
 export * from './PasscodeLockScreen';
 export * from './AppLockSettingsScreen/AppLockSettingsScreen';
+export * from './AppLockSettingsScreen/FakeAppLockSettingsScreen';
 export * from './AppLockSettingsScreen/ChangeLockPasscodeScreen';
 export * from './AppLockScreen/AppLockScreen';
 export * from './AdvancedSettingsScreen';

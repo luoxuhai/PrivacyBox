@@ -9,7 +9,6 @@ import { spacing } from '@/theme';
 import { useStores } from '@/models';
 import { translate } from '@/i18n';
 import { useLocalAuth, getBiometricName, showActionSheet } from '@/utils';
-import { FakeAppLockSection } from './FakeAppLockSection';
 
 export const AppLockSettingsScreen: FC<
   StackScreenProps<SettingStackParamList & AppStackParamList, 'AppLockSettings'>
@@ -46,7 +45,7 @@ export const AppLockSettingsScreen: FC<
   return (
     <Screen type="tabView">
       <SafeAreaScrollView contentContainerStyle={$contentContainer}>
-        <ListSection titleTk="appLockSettingsScreen.sectionTitle">
+        <ListSection>
           <ListCell
             tk="appLockSettingsScreen.changePasscode"
             onPress={() => {
@@ -94,7 +93,6 @@ export const AppLockSettingsScreen: FC<
             </>
           )}
         </ListSection>
-        <FakeAppLockSection />
       </SafeAreaScrollView>
     </Screen>
   );

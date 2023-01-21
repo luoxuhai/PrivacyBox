@@ -112,7 +112,8 @@ const AppStack = observer(function AppStack() {
           name="ChangeLockPasscode"
           component={ChangeLockPasscodeScreen}
           options={{
-            presentation: 'fullScreenModal',
+            animation: 'fade_from_bottom',
+            animationDuration: 200,
           }}
         />
 

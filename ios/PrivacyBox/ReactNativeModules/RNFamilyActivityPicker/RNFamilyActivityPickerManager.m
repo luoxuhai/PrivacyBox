@@ -1,3 +1,4 @@
+/*
 #import <Foundation/Foundation.h>
 #import "React/RCTViewManager.h"
 #import "React/RCTComponentEvent.h"
@@ -39,3 +40,4 @@ RCT_EXPORT_SWIFTUI_CALLBACK(onActivityChange, RCTDirectEventBlock, RNFamilyActiv
 }
 
 @end
+*/

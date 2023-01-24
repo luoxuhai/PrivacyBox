@@ -1,3 +1,4 @@
+/*
 import SwiftUI
 import React
 
@@ -27,3 +28,4 @@ import React
   }
 }
 
+ */

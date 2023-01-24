@@ -38,7 +38,7 @@ export const AboutScreen: FC<StackScreenProps<SettingStackParamList, 'About'>> =
           <ListSection>
             <ListCell
               tk="aboutScreen.version"
-              RightAccessory={`${Application.version} (${labelWithoutPrefix})`}
+              RightAccessory={`${Application.version}(${Application.buildNumber})-${labelWithoutPrefix}`}
               rightIcon={null}
               onPress={() => {
                 pressedCount.current++;

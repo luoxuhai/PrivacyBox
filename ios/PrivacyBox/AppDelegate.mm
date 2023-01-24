@@ -4,7 +4,7 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import "ExpoModulesCore-Swift.h"
-#import "PrivacyBox-Swift.h"
+// #import "PrivacyBox-Swift.h"
 
 #import <React/RCTAppSetupUtils.h>
 
@@ -69,9 +69,9 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
   [RNBootSplash initWithStoryboard:@"LaunchScreen" rootView:rootView];
   
 #if DEBUG
-  [AuthorizationCenterAsync requestAuthorizationWithCompletionHandler:^(NSError * _Nullable) {
+ // [AuthorizationCenterAsync requestAuthorizationWithCompletionHandler:^(NSError * _Nullable) {
     //
-  }];
+  // }];
 #endif
   
 #if !DEBUG

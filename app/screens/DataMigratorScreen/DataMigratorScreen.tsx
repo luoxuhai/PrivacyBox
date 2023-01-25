@@ -68,8 +68,9 @@ export const DataMigratorScreen: FC<StackScreenProps<AppStackParamList, 'DataMig
           if (folders.length) {
             for (const folder of folders) {
               await createFolder({
+                id: folder.id,
                 name: folder.name,
-                parent_id: folder.parent_id,
+                parent_id: folder.parent_id || null,
                 is_fake: idMapFake[folder.owner],
               });
               DataBaseV1.delete(folder.id);
@@ -80,6 +81,7 @@ export const DataMigratorScreen: FC<StackScreenProps<AppStackParamList, 'DataMig
           if (albums.length) {
             for (const album of albums) {
               await createAlbum({
+                id: album.id,
                 name: album.name,
                 is_fake: idMapFake[album.owner],
               });

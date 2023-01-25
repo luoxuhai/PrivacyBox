@@ -19,6 +19,7 @@ import type { RootStore } from '../RootStore';
 import { appearanceToMode, ThemeStore } from '../ThemeStore';
 import { persist } from './persist';
 import { UrgentSwitchActions } from '../SettingsStore';
+import { AppQueriesSchemes } from '@/screens/UrgentSwitchScreen/type';
 
 // 主题
 const THEME_STATE_STORAGE_KEY = 'theme-v1';
@@ -110,7 +111,8 @@ function observeShake(rootStore: RootStore) {
   Shake.addListener(async () => {
     if (
       !rootStore.appLockStore.isLocked &&
-      rootStore.settingsStore.urgentSwitchActions.includes(UrgentSwitchActions.Shake)
+      rootStore.settingsStore.urgentSwitchActions.includes(UrgentSwitchActions.Shake) &&
+      rootStore.settingsStore.urgentSwitchTarget !== AppQueriesSchemes.Disable
     ) {
       await Linking.openURL(rootStore.settingsStore.urgentSwitchTarget);
       rootStore.appLockStore.setIsLocked(true);
@@ -131,7 +133,7 @@ function observeDeviceMotion(rootStore: RootStore) {
       if (
         !rootStore.appLockStore.isLocked &&
         rootStore.settingsStore.urgentSwitchActions.includes(UrgentSwitchActions.FaceDown) &&
-        rootStore.settingsStore.urgentSwitchTarget
+        rootStore.settingsStore.urgentSwitchTarget !== AppQueriesSchemes.Disable
       ) {
         await Linking.openURL(rootStore.settingsStore.urgentSwitchTarget);
         rootStore.appLockStore.setIsLocked(true);

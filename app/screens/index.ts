@@ -10,7 +10,7 @@ export * from './AppLockSettingsScreen/AppLockSettingsScreen';
 export * from './AppLockSettingsScreen/FakeAppLockSettingsScreen';
 export * from './AppLockSettingsScreen/ChangeLockPasscodeScreen';
 export * from './AppLockScreen/AppLockScreen';
-export * from './AdvancedSettingsScreen';
+export * from './AdvancedSettingsScreen/AdvancedSettingsScreen';
 export * from './UrgentSwitchScreen/UrgentSwitchScreen';
 export * from './PurchaseScreen/PurchaseScreen';
 export * from './AppMaskScreen';

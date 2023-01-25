@@ -45,6 +45,7 @@ export const BiometricsButton: FC<BiometricsButtonProps> = observer((props) => {
     if (
       appLockStore.isLocked &&
       usedBiometricType &&
+      !appLockStore.inFakeEnvironment &&
       appLockStore.biometricsEnabled &&
       appLockStore.autoTriggerBiometrics &&
       appStateStore.inForeground

@@ -4,16 +4,18 @@ import { PhotoTypes } from '@/database/entities/types';
 import { generateUUID } from '@/utils';
 import { t } from '@/i18n';
 
-type CreateAlbumParams = Partial<Pick<Photo, 'name' | 'is_fake'>>;
+type CreateAlbumParams = Partial<Pick<Photo, 'id' | 'name' | 'is_fake'>>;
 
 /**
  * 创建相册
  */
 export async function createAlbum(params: CreateAlbumParams) {
+  const { id, is_fake, name } = params;
+
   const exists = await AppDataSource.manager.exists(Photo, {
     where: {
-      name: params.name,
-      is_fake: params.is_fake,
+      name,
+      is_fake,
     },
   });
 
@@ -22,9 +24,9 @@ export async function createAlbum(params: CreateAlbumParams) {
   }
 
   const result = await AppDataSource.manager.insert(Photo, {
-    id: generateUUID(),
-    is_fake: params.is_fake,
-    name: params.name,
+    id: id || generateUUID(),
+    is_fake,
+    name,
     parent_id: null,
     type: PhotoTypes.Folder,
   });

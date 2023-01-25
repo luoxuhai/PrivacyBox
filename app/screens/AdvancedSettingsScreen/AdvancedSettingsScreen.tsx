@@ -3,19 +3,23 @@ import { observer } from 'mobx-react-lite';
 import { ViewStyle } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+import Share from 'react-native-share';
 
 import { SettingStackParamList } from '@/navigators';
 import { Screen, SafeAreaScrollView, ListSection, ListCell, Switch } from '@/components';
 import { spacing } from '@/theme';
-import { TextKeyPath } from '@/i18n';
+import { t, TextKeyPath } from '@/i18n';
 import { BottomTabs } from '@/models/SettingsStore';
 import { useStores } from '@/models';
 import { classifyImageTask } from '@/utils/task/classifyImageTask';
 import { canUsePremium } from '@/utils/canUsePremium';
-import { exportFailData } from './DataMigratorScreen/helpers/exportFailData';
+import { exportFailData } from '../DataMigratorScreen/helpers/exportFailData';
 import { useMutation } from '@tanstack/react-query';
-import { Overlay } from '@/utils';
-import { clearOldData } from './DataMigratorScreen/helpers/clearOldData';
+import { Overlay, showActionSheet } from '@/utils';
+import { clearOldData } from '../DataMigratorScreen/helpers/clearOldData';
+import { exportPhotos } from '../PhotosScreen/helpers/exportPhotos';
+import { fetchAllPhotoUris } from './helpers/fetchAllPhotoUris';
+import { fetchAllFileUris } from './helpers/fetchAllFileUris';
 
 export const AdvancedSettingsScreen: FC<
   StackScreenProps<SettingStackParamList, 'AdvancedSettings'>
@@ -128,16 +132,53 @@ const DataExportSection = observer(() => {
     },
   });
 
-  if (!isExistsOldData) {
-    return null;
+  function handleExportToFile(urls: string[]) {
+    if (!urls?.length) {
+      return;
+    }
+
+    Share.open({
+      urls,
+      saveToFiles: true,
+    });
+  }
+
+  function handleSelectDest() {
+    showActionSheet(
+      {
+        title: t('advancedSettingsScreen.dest.title'),
+        options: [
+          t('advancedSettingsScreen.dest.album'),
+          t('advancedSettingsScreen.dest.file'),
+          t('common.cancel'),
+        ],
+        cancelButtonIndex: 2,
+      },
+      async (buttonIndex) => {
+        const urls = await fetchAllPhotoUris();
+        switch (buttonIndex) {
+          case 0:
+            exportPhotos(urls);
+            break;
+          case 1:
+            handleExportToFile(urls);
+        }
+      },
+    );
   }
 
   return (
     <ListSection titleTk="advancedSettingsScreen.dataExport">
       <ListCell
         tk="advancedSettingsScreen.exceptionDataExport"
+        visible={isExistsOldData}
+        onPress={() => handleExport()}
+      />
+      <ListCell tk="advancedSettingsScreen.allPhotoExport" onPress={() => handleSelectDest()} />
+      <ListCell
+        tk="advancedSettingsScreen.allFileExport"
         bottomSeparator={false}
-        onPress={handleExport}
+        onPress={async () => handleExportToFile(await fetchAllFileUris())}
       />
     </ListSection>
   );

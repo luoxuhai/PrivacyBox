@@ -63,6 +63,7 @@ export const PhotoImporterSheet = observer<PhotoImporterSheetProps>((props) => {
         width: 80,
         backgroundColor: colors.tertiaryFill,
       }}
+      isModal={false}
       gestureEnabled={true}
     >
       <View style={$bottomSheetContent}>

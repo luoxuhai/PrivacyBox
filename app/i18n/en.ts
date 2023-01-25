@@ -74,6 +74,7 @@ const en: Translations = {
       title: 'Confirm Deletion',
       success: 'Delete successful',
       fail: 'Delete failed',
+      doing: 'Deleting...',
     },
   },
   photoSearchPanel: {
@@ -232,6 +233,15 @@ const en: Translations = {
     smartSearch: 'Smart Search',
     smartSearchTip: 'After opening, it can identify the content of the image to search',
     bottomTabVisible: 'Display and hide bottom navigation items',
+    dataExport: 'Data Export',
+    exceptionDataExport: 'Export migration failed data',
+    allPhotoExport: 'Export all pictures and videos',
+    allFileExport: 'Export all files',
+    dest: {
+      title: 'Export pictures and videos to the following location',
+      album: 'Album',
+      file: 'file',
+    },
   },
   thirdPartyApp: {
     browser: 'Browser',
@@ -339,6 +349,9 @@ const en: Translations = {
       folder: 'New Folder',
       scan: 'Scan Documents',
       document: 'Files',
+      success: 'Imported successfully',
+      fail: 'Import failed',
+      doing: 'Importing...',
       nonsupport: {
         msg: 'The current device does not support this function',
       },

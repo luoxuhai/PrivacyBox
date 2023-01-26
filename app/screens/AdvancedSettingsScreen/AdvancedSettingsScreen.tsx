@@ -13,13 +13,15 @@ import { BottomTabs } from '@/models/SettingsStore';
 import { useStores } from '@/models';
 import { classifyImageTask } from '@/utils/task/classifyImageTask';
 import { canUsePremium } from '@/utils/canUsePremium';
-import { exportFailData } from '../DataMigratorScreen/helpers/exportFailData';
 import { useMutation } from '@tanstack/react-query';
-import { Overlay, showActionSheet } from '@/utils';
+import { LocalPathManager, Overlay, showActionSheet } from '@/utils';
 import { clearOldData } from '../DataMigratorScreen/helpers/clearOldData';
 import { exportPhotos } from '../PhotosScreen/helpers/exportPhotos';
 import { fetchAllPhotoUris } from './helpers/fetchAllPhotoUris';
 import { fetchAllFileUris } from './helpers/fetchAllFileUris';
+import { exists, readdir } from 'react-native-fs';
+import { SOURCE_PATH } from '../DataMigratorScreen/constants';
+import { join } from '@/lib/path';
 
 export const AdvancedSettingsScreen: FC<
   StackScreenProps<SettingStackParamList, 'AdvancedSettings'>
@@ -114,30 +116,47 @@ const BottomTabVisibleSection = observer(() => {
 
 const DataExportSection = observer(() => {
   const { globalStore } = useStores();
-  const isExistsOldData = !!globalStore.migrationFailedUris?.length;
 
   const { mutateAsync: handleExport } = useMutation({
     async mutationFn() {
-      const uris = globalStore.migrationFailedUris;
-      return await exportFailData(uris);
+      const uris: string[] = [];
+      const dirs = await readdir(SOURCE_PATH);
+      for (const dir of dirs) {
+        try {
+          const subDirs = await readdir(join(SOURCE_PATH, dir));
+          const sourceName = subDirs.filter((item) => item !== 'poster.jpg')?.[0];
+          const sourceUri = join(SOURCE_PATH, dir, sourceName);
+
+          if (await exists(sourceUri)) {
+            uris.push(sourceUri);
+          }
+        } catch {}
+      }
+
+      return await handleExportToFile(uris);
     },
     onSuccess(data) {
-      if (data.success) {
-        globalStore.setMigrationFailed([]);
+      if (data?.success) {
         clearOldData();
+      } else {
+        throw data?.message;
       }
     },
     onError(error) {
-      Overlay.toast({ preset: 'error', message: error?.message || '' });
+      Overlay.toast({
+        preset: 'error',
+        title: t('photosScreen.export.fail'),
+        message: error?.message || '',
+      });
     },
   });
 
   function handleExportToFile(urls: string[]) {
     if (!urls?.length) {
-      return;
+      return null;
     }
 
-    Share.open({
+    return Share.open({
       urls,
       saveToFiles: true,
     });
@@ -169,11 +188,7 @@ const DataExportSection = observer(() => {
 
   return (
     <ListSection titleTk="advancedSettingsScreen.dataExport">
-      <ListCell
-        tk="advancedSettingsScreen.exceptionDataExport"
-        visible={isExistsOldData}
-        onPress={() => handleExport()}
-      />
+      <ListCell tk="advancedSettingsScreen.exceptionDataExport" onPress={() => handleExport()} />
       <ListCell tk="advancedSettingsScreen.allPhotoExport" onPress={() => handleSelectDest()} />
       <ListCell
         tk="advancedSettingsScreen.allFileExport"

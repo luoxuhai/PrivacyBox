@@ -90,8 +90,8 @@ const zh = {
     },
     export: {
       success: '已导出',
-      fail: "存在导出失败的文件",
-      message:"导出失败个数：{{count}}"
+      fail: '部分文件导出失败',
+      message: '导出失败个数：{{count}}',
     },
     subtitle: {
       photo: '{{count}}张照片',
@@ -402,6 +402,13 @@ const zh = {
     motion: '运动',
     unavailable: '{{permission}}功能不可用',
     blocked: '请前往设置授予{{permissions}}权限，才能正常使用该功能',
+  },
+  appUpdate: {
+    alert: {
+      title: '发现新版本(V{{version}})',
+      ok: '更新',
+      cancel: '取消',
+    },
   },
 };
 

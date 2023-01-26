@@ -410,6 +410,13 @@ const en: Translations = {
     blocked:
       'Please go to settings to grant {{permissions}} permission to use this function normally',
   },
+  appUpdate: {
+    alert: {
+      title: 'New Version Found (V{{version}})',
+      ok: 'Update',
+      cancel: 'Cancel',
+    },
+  },
 };
 
 export default en;

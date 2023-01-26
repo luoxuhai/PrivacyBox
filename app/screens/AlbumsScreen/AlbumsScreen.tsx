@@ -15,7 +15,7 @@ import {
   PhotoSearchPanelInstance,
 } from './components/PhotoSearchPanel/PhotoSearchPanel';
 import { useAlbumEditor } from './helpers/useAlbumEditor';
-import { useRefreshOnFocus, useSafeAreaDimensions } from '@/utils';
+import { appUpdateCheck, useRefreshOnFocus, useSafeAreaDimensions } from '@/utils';
 import { fetchAlbums } from '@/services/local';
 import { albumKeys, headerSearchBarOptions } from './constants';
 import { useStores } from '@/models';
@@ -29,6 +29,12 @@ export const AlbumsScreen: FC<NativeStackScreenProps<AlbumsNavigatorParamList, '
     const safeAreaDimensions = useSafeAreaDimensions();
     const { onOpenActionSheet } = useAlbumEditor();
     const searchPanelRef = useRef<PhotoSearchPanelInstance>(null);
+
+    useEffect(() => {
+      setTimeout(() => {
+        appUpdateCheck();
+      }, 3000);
+    }, []);
 
     useEffect(() => {
       props.navigation.setOptions({

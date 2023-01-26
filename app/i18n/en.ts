@@ -334,6 +334,8 @@ const en: Translations = {
   hideApplicationsScreen: {
     title: 'Hide Apps',
     subtitle: 'Hide the app you specified from the device',
+    enabled: 'Open Hidden',
+    selection: 'Select App to Hide',
   },
   applicationPickerScreen: {
     title: 'Choose the app that needs to be hidden',
@@ -406,9 +408,11 @@ const en: Translations = {
     photoLibrary: 'Photo Library',
     mediaLibrary: 'Media Library',
     motion: 'Motion',
+    screenTime: 'Screen Time Access Restrictions',
     unavailable: '{{permission}} unavailable',
     blocked:
       'Please go to settings to grant {{permissions}} permission to use this function normally',
+    openSettings: 'Open Settings',
   },
   appUpdate: {
     alert: {

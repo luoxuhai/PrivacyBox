@@ -60,23 +60,25 @@ export class PermissionManager {
     }
 
     if (blockedList.length) {
-      Alert.alert(
+      alertPermissionBlocked(
         t('permissionManager.blocked', {
           permissions: blockedList.map((item) => this.permissionMapTitle[item]).join('、'),
         }),
-        undefined,
-        [
-          {
-            text: t('common.cancel'),
-            style: 'cancel',
-          },
-          {
-            text: t('common.confirm'),
-            onPress: openSettings,
-          },
-        ],
       );
       return false;
     }
   }
+}
+
+export function alertPermissionBlocked(title: string) {
+  Alert.alert(title, undefined, [
+    {
+      text: t('common.cancel'),
+      style: 'cancel',
+    },
+    {
+      text: t('permissionManager.openSettings'),
+      onPress: openSettings,
+    },
+  ]);
 }

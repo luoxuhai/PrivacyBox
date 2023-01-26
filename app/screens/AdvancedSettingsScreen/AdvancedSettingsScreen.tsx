@@ -14,7 +14,7 @@ import { useStores } from '@/models';
 import { classifyImageTask } from '@/utils/task/classifyImageTask';
 import { canUsePremium } from '@/utils/canUsePremium';
 import { useMutation } from '@tanstack/react-query';
-import { LocalPathManager, Overlay, showActionSheet } from '@/utils';
+import { Overlay, showActionSheet } from '@/utils';
 import { clearOldData } from '../DataMigratorScreen/helpers/clearOldData';
 import { exportPhotos } from '../PhotosScreen/helpers/exportPhotos';
 import { fetchAllPhotoUris } from './helpers/fetchAllPhotoUris';
@@ -115,8 +115,6 @@ const BottomTabVisibleSection = observer(() => {
 });
 
 const DataExportSection = observer(() => {
-  const { globalStore } = useStores();
-
   const { mutateAsync: handleExport } = useMutation({
     async mutationFn() {
       const uris: string[] = [];

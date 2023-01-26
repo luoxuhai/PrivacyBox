@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { StackScreenProps } from '@react-navigation/stack';
-import { Alert, TextStyle } from 'react-native';
+import { TextStyle } from 'react-native';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 
 import { MoreFeatureNavigatorParamList } from '@/navigators';
@@ -9,8 +9,9 @@ import { ListCell, ListSection, SafeAreaScrollView, Screen, Switch, Text } from 
 import { spacing, useTheme } from '@/theme';
 import { clearBlockedApplications, isApproved } from '@/lib/ScreenTime';
 import { useFocusEffect } from '@react-navigation/native';
-import { useUpdateEffect } from '@/utils';
+import { alertPermissionBlocked } from '@/utils';
 import { useStores } from '@/models';
+import { t } from '@/i18n';
 
 export const HideApplicationsScreen: FC<
   StackScreenProps<MoreFeatureNavigatorParamList, 'HideApplications'>
@@ -29,15 +30,16 @@ export const HideApplicationsScreen: FC<
   useFocusEffect(() => {
     isApproved().then((v) => {
       setApproved(v);
+      if (!v) {
+        settingsStore.setBlockedAppsEnabled(false);
+        alertPermissionBlocked(
+          t('permissionManager.blocked', {
+            permissions: t('permissionManager.screenTime'),
+          }),
+        );
+      }
     });
   });
-
-  useUpdateEffect(() => {
-    if (!approved) {
-      settingsStore.setBlockedAppsEnabled(false);
-      Alert.alert('x', '', [{}]);
-    }
-  }, [approved]);
 
   return (
     <Screen type="tabView">
@@ -51,7 +53,7 @@ export const HideApplicationsScreen: FC<
       >
         <ListSection>
           <ListCell
-            text="开启隐藏"
+            tk="hideApplicationsScreen.enabled"
             rightIcon={null}
             RightAccessory={
               <Switch
@@ -62,7 +64,7 @@ export const HideApplicationsScreen: FC<
             }
           />
           <ListCell
-            text="选择要隐藏的 App"
+            tk="hideApplicationsScreen.selection"
             disabled={!approved}
             bottomSeparator={false}
             RightAccessory={

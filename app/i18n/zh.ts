@@ -328,6 +328,8 @@ const zh = {
   hideApplicationsScreen: {
     title: '隐藏App',
     subtitle: '从设备隐藏你指定的 App',
+    enabled: '开启隐藏',
+    selection: '选择要隐藏的 App',
   },
   applicationPickerScreen: {
     title: '选择需要隐藏的 App',
@@ -400,8 +402,10 @@ const zh = {
     photoLibrary: '相册',
     mediaLibrary: '媒体库',
     motion: '运动',
+    screenTime: '屏幕使用时间访问限制',
     unavailable: '{{permission}}功能不可用',
     blocked: '请前往设置授予{{permissions}}权限，才能正常使用该功能',
+    openSettings: '打开设置',
   },
   appUpdate: {
     alert: {

@@ -15,7 +15,7 @@ import { useStores } from '@/models';
 import { addFiles, addPhotos, createAlbum, createFolder } from '@/services/local';
 import { reportException, useUpdateEffect } from '@/utils';
 import { getSourceDir, getSourceUri } from './helpers/getSourcePath';
-import { unlink } from 'react-native-fs';
+import { exists, unlink } from 'react-native-fs';
 import { t } from '@/i18n';
 import { exportFailData } from './helpers/exportFailData';
 import { File, FileRepository, FileType } from '@/database/v1/entities/file';
@@ -94,7 +94,7 @@ export const DataMigratorScreen: FC<StackScreenProps<AppStackParamList, 'DataMig
             for (const file of files) {
               try {
                 const sourceDir = getSourceDir(file.extra.source_id);
-                const uri = getSourceUri(file.extra.source_id);
+                const uri = getSourceUri(file.extra.source_id, file.name);
 
                 await addFiles({
                   parent_id: file.parent_id,
@@ -122,7 +122,7 @@ export const DataMigratorScreen: FC<StackScreenProps<AppStackParamList, 'DataMig
             for (const photo of photos) {
               try {
                 const sourceDir = getSourceDir(photo.extra.source_id);
-                const uri = getSourceUri(photo.extra.source_id);
+                const uri = getSourceUri(photo.extra.source_id, photo.name);
 
                 await addPhotos({
                   album_id: photo.parent_id,
@@ -152,11 +152,17 @@ export const DataMigratorScreen: FC<StackScreenProps<AppStackParamList, 'DataMig
 
           if (failFiles.length || failPhotos.length) {
             const uris = [...failFiles, ...failPhotos].map((item) =>
-              getSourceUri(item.extra.source_id),
+              getSourceUri(item.extra?.source_id, item.name),
             );
 
-            globalStore.setMigrationFailed(uris);
-            handleExportFailData(uris);
+            const validUris = [];
+            for (const uri of uris) {
+              if (await exists(uri)) {
+                validUris.push(uri);
+              }
+            }
+            globalStore.setMigrationFailed(validUris);
+            handleExportFailData(validUris);
             reportException({
               message: '有迁移失败的数据',
               extra: {

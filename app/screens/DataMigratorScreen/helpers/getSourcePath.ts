@@ -8,7 +8,7 @@ import { SOURCE_PATH } from '../constants';
  * @param filename
  * @returns 本地路径
  */
-export function getSourceUri(sourceId: string, filename?: string): string {
+export function getSourceUri(sourceId: string, filename: string): string {
   return join(SOURCE_PATH, sourceId, filename);
 }
 

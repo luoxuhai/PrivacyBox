@@ -90,6 +90,11 @@ const en: Translations = {
       camera: 'Camera',
       download: 'Download',
     },
+    export: {
+      success: 'Exported',
+      fail: 'Export Failed',
+      message: 'Number of export failures: {{count}}',
+    },
     subtitle: {
       photo: '{{count}} photos',
       video: '{{count}} videos',

@@ -58,7 +58,7 @@ export const MoreFeatureScreen = observer<
   const safeAreaDimensions = useSafeAreaDimensions();
 
   const handleToScreen = (routeName: keyof MoreFeatureNavigatorParamList, needPremium: boolean) => {
-    if (['ICloudSync', 'HideApplications'].includes(routeName)) {
+    if (['ICloudSync'].includes(routeName)) {
       Overlay.toast({
         title: translate('common.coming'),
         preset: 'error',

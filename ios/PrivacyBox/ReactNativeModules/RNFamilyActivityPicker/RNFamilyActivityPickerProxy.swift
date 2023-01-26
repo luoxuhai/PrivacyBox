@@ -1,4 +1,3 @@
-/*
 import SwiftUI
 import React
 
@@ -27,5 +26,3 @@ import React
     return vc.view
   }
 }
-
- */

@@ -1,4 +1,3 @@
-/*
 import ManagedSettings
 import FamilyControls
 import Foundation
@@ -43,4 +42,3 @@ class RNManagedSettings: NSObject {
       resolve(authorizationStatus.rawValue);
     }
 }
-*/

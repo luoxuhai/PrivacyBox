@@ -1,4 +1,3 @@
-/*
 import SwiftUI
 import FamilyControls
 import React
@@ -51,4 +50,3 @@ struct RNFamilyActivityPicker: View {
       }
    }
 }
- */

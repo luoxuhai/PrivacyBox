@@ -1,3 +1,4 @@
+import { t } from '@/i18n';
 import { Overlay } from '@/utils';
 import { saveToLibraryAsync } from 'expo-media-library';
 
@@ -9,21 +10,28 @@ export async function exportPhotos(uris: string[]) {
     });
   }, 1000);
 
-  try {
-    for (const uri of uris) {
+  const failedUris: string[] = [];
+  for (const uri of uris) {
+    try {
       await saveToLibraryAsync(uri);
+    } catch {
+      failedUris.push(uri);
     }
-    Overlay.alert({
-      preset: 'done',
-      title: '已导出',
-    });
-  } catch (error) {
-    console.error(error);
+  }
+
+  clearTimeout(timer);
+  if (failedUris.length) {
     Overlay.alert({
       preset: 'error',
-      title: '导出失败',
+      title: t('photosScreen.export.fail'),
+      message: t('photosScreen.export.fail', {
+        count: failedUris.length,
+      }),
     });
-  } finally {
-    clearTimeout(timer);
+  } else {
+    Overlay.alert({
+      preset: 'done',
+      title: t('photosScreen.export.success'),
+    });
   }
 }

@@ -1,5 +1,3 @@
-/*
-
 import FamilyControls
 import Foundation
 
@@ -16,4 +14,3 @@ import Foundation
     }
   }
 }
-*/

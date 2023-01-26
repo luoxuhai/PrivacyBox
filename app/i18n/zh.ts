@@ -88,6 +88,11 @@ const zh = {
       camera: '相机',
       download: '下载',
     },
+    export: {
+      success: '已导出',
+      fail: "存在导出失败的文件",
+      message:"导出失败个数：{{count}}"
+    },
     subtitle: {
       photo: '{{count}}张照片',
       video: '{{count}}个视频',

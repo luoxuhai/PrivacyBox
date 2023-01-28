@@ -200,8 +200,12 @@ export default function Controls(props: ControlsProps) {
             justifyContent: 'center',
           }}
           onPress={() => {
-            OrientationLocker.unlockAllOrientations();
-            setTimeout(props.onBack, 500);
+            if (orientation === 'portrait') {
+              props.onBack();
+            } else {
+              setOrientation('portrait');
+              setTimeout(props.onBack, 500);
+            }
           }}
         >
           <SFSymbol

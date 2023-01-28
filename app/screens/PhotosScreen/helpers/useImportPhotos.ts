@@ -9,7 +9,6 @@ import { PhotoImporterResult } from './PhotoImporter';
 import { addPhotos } from '@/services/local';
 import { albumKeys } from '@/screens/AlbumsScreen/constants';
 import { classifyImageTask } from '@/utils/task/classifyImageTask';
-import { useRef } from 'react';
 
 export function useImportPhotos(queryKey: ReturnType<typeof photoKeys.list>) {
   const queryClient = useQueryClient();
@@ -17,7 +16,6 @@ export function useImportPhotos(queryKey: ReturnType<typeof photoKeys.list>) {
     appLockStore: { inFakeEnvironment },
     settingsStore: { autoDeleteOriginEnabled, smartSearchEnabled },
   } = useStores();
-  const timer = useRef<NodeJS.Timeout>();
 
   const [_k1, _k2, { filter: albumId }] = queryKey;
 
@@ -27,14 +25,6 @@ export function useImportPhotos(queryKey: ReturnType<typeof photoKeys.list>) {
         return [];
       }
 
-      timer.current = setTimeout(() => {
-        Overlay.alert({
-          preset: 'spinner',
-          duration: 0,
-          title: t('filesScreen.import.doing'),
-        });
-      }, 1000);
-
       return await addPhotos({
         album_id: albumId,
         is_fake: inFakeEnvironment,
@@ -42,7 +32,6 @@ export function useImportPhotos(queryKey: ReturnType<typeof photoKeys.list>) {
       });
     },
     onError(error: Error) {
-      clearTimeout(timer.current);
       Overlay.toast({
         preset: 'error',
         title: t('filesScreen.import.fail'),
@@ -50,7 +39,6 @@ export function useImportPhotos(queryKey: ReturnType<typeof photoKeys.list>) {
       });
     },
     async onSuccess(importedPhotos) {
-      clearTimeout(timer.current);
       Overlay.toast({
         preset: 'done',
         title: t('filesScreen.import.success'),

@@ -2510,10 +2510,10 @@
   resolved "https://registry.npmjs.org/@react-native-firebase/remote-config/-/remote-config-16.4.3.tgz#e446867f4d6ff593c6f8c81b678e1902b8e30ebb"
   integrity sha512-19P1iRTu1OzJLkJjMiZaziaUFn0XjqwooHhNLV27Oj3DnF77xOXF6DfeOnuDOh0++Y8GjWy81WvSdxSujLAAtQ==
 
-"@react-native-library/webserver@1.0.2":
-  version "1.0.2"
-  resolved "https://registry.npmjs.org/@react-native-library/webserver/-/webserver-1.0.2.tgz#da43b74f650532bf363ee2b699c79bc8ec2bd983"
-  integrity sha512-xVzeg/OKVQkeggeyl1Ssky/rF3LXBCoB4T6/LYQoK9z12m9ZzLijKaD0puH40o1y39O1bxPQR0JGolkXDwc3Rg==
+"@react-native-library/webserver@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.npmjs.org/@react-native-library/webserver/-/webserver-1.0.3.tgz#2b5137c2550df5acf6abfab0b58006754998b809"
+  integrity sha512-8i8Cmk83eW48mjm9ZYA9oQaFaop0akcD1sja3Zy/Tqm7XJ3cKoRlU5BYly5cieEUAy3O/7mwdAgCmyNWUQsnOA==
 
 "@react-native-masked-view/masked-view@^0.2.8":
   version "0.2.8"

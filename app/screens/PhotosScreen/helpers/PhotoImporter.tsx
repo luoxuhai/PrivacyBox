@@ -2,10 +2,11 @@ import { getAssetInfoAsync } from 'expo-media-library';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import { DocumentPickerOptions } from 'react-native-document-picker';
 
-import { getImageSize, getVideoInfo, PermissionManager } from '@/utils';
+import { getImageSize, getVideoInfo, Overlay, PermissionManager } from '@/utils';
 import { FileImporter, IResult } from '@/screens/FilesScreen/helpers/FileImporter';
 import { FileTypes, PhotoSubtypes } from '@/database/entities/types';
 import { getFileTypeByMime } from '@/utils/getFileTypeByMime';
+import { t } from '@/i18n';
 
 export { IResult };
 
@@ -29,6 +30,12 @@ export class PhotoImporter extends FileImporter {
         presentationStyle: 'pageSheet',
       }, null, () => {
         //
+      });
+
+      Overlay.alert({
+        preset: 'spinner',
+        duration: 0,
+        title: t('filesScreen.import.doing'),
       });
 
       const results: PhotoImporterResult[] = [];
@@ -88,6 +95,12 @@ export class PhotoImporter extends FileImporter {
   public static document = {
     async open(options?: DocumentPickerOptions<'ios'>) {
       const files = await FileImporter.document.open(options);
+
+      Overlay.alert({
+        preset: 'spinner',
+        duration: 0,
+        title: t('filesScreen.import.doing'),
+      });
 
       for (const file of files) {
         const type = getFileTypeByMime(file.mime);

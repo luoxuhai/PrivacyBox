@@ -87,7 +87,7 @@ function HeaderComponent(props: HeaderComponentProps) {
 
   return (
     <ActionSheetHeader
-      title={t('photosScreen.moveToAlbum')}
+      title={t('photosScreen.moveToAlbum.fail')}
       titleStyle={{
         color: colors.label,
       }}

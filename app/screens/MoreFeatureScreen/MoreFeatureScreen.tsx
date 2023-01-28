@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { StackScreenProps } from '@react-navigation/stack';
 import { observer } from 'mobx-react-lite';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+import { requestReview } from 'expo-store-review';
 
 import { FlatGrid, Screen } from '@/components';
 import { colors } from '@/theme';
@@ -56,6 +57,12 @@ export const MoreFeatureScreen = observer<
 >((props) => {
   const bottomTabBarHeight = useBottomTabBarHeight();
   const safeAreaDimensions = useSafeAreaDimensions();
+
+  useEffect(() => {
+    setTimeout(() => {
+      requestReview?.()
+    }, 500);
+  }, [])
 
   const handleToScreen = (routeName: keyof MoreFeatureNavigatorParamList, needPremium: boolean) => {
     if (['ICloudSync'].includes(routeName)) {

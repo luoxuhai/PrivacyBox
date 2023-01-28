@@ -102,7 +102,11 @@ const zh = {
       softDeleteMsg: '删除后可到回收站中恢复',
       deleteMsg: '回收站已关闭，删除后不可恢复',
     },
-    moveToAlbum: '移动到相册',
+    moveToAlbum: {
+      title: '移动到相册',
+      success: '已移动',
+      fail: '移动失败',
+    },
   },
   photoViewerScreen: {
     bottomToolbar: {
@@ -158,6 +162,7 @@ const zh = {
     qqGroup: 'QQ 反馈群',
     emailCopied: '已复制邮箱',
     qqGroupCopied: '已复制 QQ 群号',
+    checkUpdate: "正在检查更新"
   },
   debugScreen: {
     title: '调试',

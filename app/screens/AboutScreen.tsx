@@ -1,9 +1,10 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useEffect, useRef, useState, useCallback } from 'react';
 import { Linking, ViewStyle } from 'react-native';
 import Clipboard from '@react-native-clipboard/clipboard';
 import { observer } from 'mobx-react-lite';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { StackScreenProps } from '@react-navigation/stack';
+import CodePush from 'react-native-code-push';
 
 import { ListSection, ListCell, Screen, SafeAreaScrollView } from '@/components';
 import { spacing, useTheme, colors } from '@/theme';
@@ -32,6 +33,31 @@ export const AboutScreen: FC<StackScreenProps<SettingStackParamList, 'About'>> =
       },
     ];
 
+    const handleOpenDebug = useCallback(() => {
+      pressedCount.current++;
+      if (__DEV__ || pressedCount.current === 10) {
+        pressedCount.current = 0;
+        props.navigation.navigate('Debug');
+      }
+    })
+
+    const handleCheckUpdate = useCallback(() => {
+      Overlay.alert({
+        preset: 'spinner',
+        duration: 0,
+        title: t('aboutScreen.checkUpdate'),
+      });
+      CodePush.sync({
+        installMode: CodePush.InstallMode.IMMEDIATE,
+        mandatoryInstallMode: CodePush.InstallMode.IMMEDIATE,
+      },
+      (status) => {
+        if (status !== CodePush.SyncStatus.CHECKING_FOR_UPDATE) {
+          Overlay.dismissAllAlerts();
+        }
+      })
+    })
+
     return (
       <Screen type="tabView">
         <SafeAreaScrollView contentContainerStyle={$contentContainerStyles}>
@@ -40,13 +66,8 @@ export const AboutScreen: FC<StackScreenProps<SettingStackParamList, 'About'>> =
               tk="aboutScreen.version"
               RightAccessory={`${Application.version}(${Application.buildNumber})-${labelWithoutPrefix}`}
               rightIcon={null}
-              onPress={() => {
-                pressedCount.current++;
-                if (__DEV__ || pressedCount.current === 10) {
-                  pressedCount.current = 0;
-                  props.navigation.navigate('Debug');
-                }
-              }}
+              onPress={handleOpenDebug}
+              onLongPress={handleCheckUpdate}
             />
             <ListCell
               tk="aboutScreen.changelog"

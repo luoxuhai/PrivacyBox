@@ -21,13 +21,13 @@ export function useMovePhotos() {
       );
       Overlay.toast({
         preset: 'done',
-        title: t('albumsScreen.deleteAlbum.success'),
+        title: t('photosScreen.moveToAlbum.success'),
       });
     },
     onError(error: Error) {
       Overlay.toast({
         preset: 'error',
-        title: t('albumsScreen.deleteAlbum.fail'),
+        title: t('photosScreen.moveToAlbum.fail'),
         message: error.message,
       });
     },

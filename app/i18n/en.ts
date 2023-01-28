@@ -104,7 +104,11 @@ const en: Translations = {
       softDeleteMsg: 'It can be recovered in the recycle bin after deletion',
       deleteMsg: 'The recycle bin is closed and cannot be restored after deletion',
     },
-    moveToAlbum: 'Move to Album',
+    moveToAlbum: {
+      title: 'Move to Album',
+      success: 'Moved',
+      fail: 'Move Failed',
+    },
   },
   photoViewerScreen: {
     bottomToolbar: {
@@ -160,6 +164,7 @@ const en: Translations = {
     qqGroup: 'QQ Feedback Group',
     emailCopied: 'Email has been copied',
     qqGroupCopied: 'QQ group number has been copied',
+    checkUpdate: 'Checking for update',
   },
   debugScreen: {
     title: 'Debug',

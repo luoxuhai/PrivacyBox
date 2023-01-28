@@ -27,6 +27,8 @@ export class PhotoImporter extends FileImporter {
         includeExtra: true,
         quality: 1,
         presentationStyle: 'pageSheet',
+      }, null, () => {
+        //
       });
 
       const results: PhotoImporterResult[] = [];

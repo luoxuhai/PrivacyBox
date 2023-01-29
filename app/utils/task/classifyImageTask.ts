@@ -1,9 +1,10 @@
 import * as ClassifyImage from 'react-native-classify-image';
 
-import { reportException } from '@/utils';
+import { reportException, Device } from '@/utils';
 import { PhotoTask } from './PhotoTask';
 import { AppDataSource } from '@/database';
 import Photo from '@/database/entities/photo';
+import { rootStore } from '@/models';
 
 class ClassifyImageTask extends PhotoTask {
   public async start(): PVoid {
@@ -25,7 +26,7 @@ class ClassifyImageTask extends PhotoTask {
         try {
           const result = await ClassifyImage.request(image.uri, {
             minConfidence: 0.7,
-            usesCPUOnly: __DEV__,
+            usesCPUOnly: Device.isEmulator ? true : !rootStore.appStateStore.inForeground,
           });
 
           await this.updateImageLabels(image.id as string, result);

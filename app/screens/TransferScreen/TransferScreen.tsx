@@ -9,23 +9,26 @@ import { HttpServer } from '@react-native-library/webserver';
 import { StackScreenProps } from '@react-navigation/stack';
 import { SFSymbol } from 'react-native-sfsymbols';
 
-import { Status } from '@/database/entities/types';
-import { SafeAreaScrollView, Screen } from '@/components';
+import { PhotoTypes, Status } from '@/database/entities/types';
+import { getAvailableThumbnail, SafeAreaScrollView, Screen } from '@/components';
 import WebClient from './helpers/WebClient';
 import {
   HapticFeedback,
   Overlay,
   randomNumRange,
-  generateUUID,
   Device,
   LocalPathManager,
+  reportException,
+  generateUUID,
 } from '@/utils';
 import { MoreFeatureNavigatorParamList } from '@/navigators';
 import { useTheme } from '@/theme';
 import { extname, join } from '@/lib/path';
 import { t } from '@/i18n';
-import { fetchAlbums, fetchPhotos } from '@/services/local';
+import { addPhotos, fetchAlbums, fetchPhotos } from '@/services/local';
 import { useStores } from '@/models';
+import { getPhotoTypeByMime } from '@/utils/getFileTypeByMime';
+import { IResult, transformPhotoFromUri } from '../PhotosScreen/helpers/PhotoImporter';
 
 let unsubscribeNetInfo: NetInfoSubscription | null;
 
@@ -130,7 +133,7 @@ export const TransferScreen = observer<StackScreenProps<MoreFeatureNavigatorPara
                 code: 0,
                 data: {
                   list: items.map((item) => {
-                    item.cover = transformRemoteUri(item.cover);
+                    item.cover = transformRemoteUri(origin, item.cover);
                     return item;
                   }),
                   total: items.length,
@@ -138,6 +141,7 @@ export const TransferScreen = observer<StackScreenProps<MoreFeatureNavigatorPara
               }),
             );
           } catch (error) {
+            reportException({ error });
             response.send(500);
           }
           // 获取文件
@@ -149,38 +153,45 @@ export const TransferScreen = observer<StackScreenProps<MoreFeatureNavigatorPara
               is_fake: inFakeEnvironment,
             });
 
+            for (const [idx, item] of items.entries()) {
+              const availableThumbnail = await getAvailableThumbnail({
+                thumbnail: item.thumbnail,
+                poster: item.poster,
+              });
+              if (availableThumbnail) {
+                item.thumbnail = availableThumbnail;
+              } else {
+                item.thumbnail = item.type === PhotoTypes.Photo ? item.uri : '';
+              }
+
+              item.poster = item.thumbnail ? item.poster : '';
+
+              const _item = {
+                ...item,
+                source: transformRemoteUri(origin, item.uri),
+                thumbnail: transformRemoteUri(origin, item.thumbnail),
+                poster: transformRemoteUri(origin, item.poster),
+              };
+
+              delete _item.uri;
+              delete _item.extra;
+
+              items[idx] = _item;
+            }
+
             response.send(
               200,
               'application/json',
               JSON.stringify({
                 code: 0,
                 data: {
-                  list: items.map((item) => {
-                    const availableThumbnail = await getAvailableThumbnail(item.thumbnail, item.poster);
-                    if (availableThumbnail) {
-                      item.thumbnail = availableThumbnail
-                    } else {
-                      item.thumbnail = item.type === PhotoTypes.Photo ? item.uri : ''
-                    }
-
-                    item.poster = item.thumbnail ? item.poster : ''
-
-                    const _item = {
-                      ...item,
-                      source: transformRemoteUri(item.uri),
-                      thumbnail: transformRemoteUri(item.thumbnail),
-                      poster: transformRemoteUri(item.poster),
-                    };
-
-                    delete _item.uri;
-                    delete _item.extra;
-                    return _item;
-                  }),
+                  list: items,
                   total: items.length,
                 },
               }),
             );
           } catch (error) {
+            reportException({ error });
             response.send(500);
           }
           // 上传文件
@@ -192,25 +203,36 @@ export const TransferScreen = observer<StackScreenProps<MoreFeatureNavigatorPara
           }
 
           try {
-            const type = getFileTypeByMime(asset.type);
-            const info = await transformPhotoFromUri(file.path, type === FileTypes.Video)
+            const tempPath = join(
+              LocalPathManager.tempPath,
+              generateUUID() + extname(file.filename),
+            );
+            await FS.moveFile(file.path, tempPath);
+            const type = getPhotoTypeByMime(file.mimeType);
+
+            const info = (await transformPhotoFromUri(
+              tempPath,
+              type === PhotoTypes.Video,
+              true,
+            )) as IResult;
+
             const results = await addPhotos({
               album_id: query.album_id,
               is_fake: inFakeEnvironment,
               photos: [
                 {
-                  uri: file.path,
+                  uri: tempPath,
                   name: file.filename,
                   mime: file.mimeType,
                   ...info,
-                }
-              ]
-            })
+                },
+              ],
+            });
 
             if (results.length > 0) {
               response.send(200);
             } else {
-              throw ""
+              reportException({ message: '添加传输的文件出错' });
             }
           } catch (error) {
             response.send(500);
@@ -386,6 +408,6 @@ const styles = StyleSheet.create({
   },
 });
 
-function transformRemoteUri(uri: string) {
-  return uri.replace(LocalPathManager.basePath, `${origin}/api/file`);
+function transformRemoteUri(origin: string, uri: string) {
+  return uri?.replace(LocalPathManager.basePath, `${origin}/api/file`);
 }

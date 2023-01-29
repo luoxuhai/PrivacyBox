@@ -7,7 +7,6 @@ import { FileImporter, IResult } from '@/screens/FilesScreen/helpers/FileImporte
 import { FileTypes, PhotoSubtypes } from '@/database/entities/types';
 import { getFileTypeByMime } from '@/utils/getFileTypeByMime';
 import { t } from '@/i18n';
-import { ImagePickerResult } from 'react-native';
 import { stat } from 'react-native-fs';
 
 export { IResult };
@@ -28,8 +27,6 @@ export class PhotoImporter extends FileImporter {
         {
           mediaType: 'mixed',
           selectionLimit: 0,
-          includeExtra: true,
-          quality: 1,
           presentationStyle: 'pageSheet',
         },
         null,
@@ -78,19 +75,21 @@ export class PhotoImporter extends FileImporter {
         return;
       }
 
-      const result = await launchCamera({
-        cameraType: 'back',
-        mediaType: 'mixed',
-        presentationStyle: 'fullScreen',
-      },
-      null,
-      () => {
-        Overlay.alert({
-          preset: 'spinner',
-          duration: 0,
-          title: t('filesScreen.import.doing'),
-        });
-      });
+      const result = await launchCamera(
+        {
+          cameraType: 'back',
+          mediaType: 'mixed',
+          presentationStyle: 'fullScreen',
+        },
+        null,
+        () => {
+          Overlay.alert({
+            preset: 'spinner',
+            duration: 0,
+            title: t('filesScreen.import.doing'),
+          });
+        },
+      );
 
       const asset = result?.assets?.[0];
       if (!asset) {
@@ -99,16 +98,19 @@ export class PhotoImporter extends FileImporter {
 
       const ctime = Date.now();
 
-      return [{
-        name: asset.fileName,
-        uri: asset.uri.replace('file://', ''),
-        mime: asset.type,
-        width: asset.width,
-        height: asset.height,
-        duration: Math.round(asset.duration),
-        ctime,
-        mtime: ctime,
-      }];
+      return [
+        {
+          name: asset.fileName,
+          uri: asset.uri.replace('file://', ''),
+          mime: asset.type,
+          width: asset.width,
+          height: asset.height,
+          duration: Math.round(asset.duration),
+          size: asset.fileSize,
+          ctime,
+          mtime: ctime,
+        },
+      ];
     },
   };
 
@@ -116,7 +118,7 @@ export class PhotoImporter extends FileImporter {
     async open(options?: DocumentPickerOptions<'ios'>): Promise<PhotoImporterResult[] | void> {
       const files = await FileImporter.document.open(options);
 
-      if (!files) {
+      if (!files?.length) {
         return;
       }
 
@@ -126,10 +128,10 @@ export class PhotoImporter extends FileImporter {
         title: t('filesScreen.import.doing'),
       });
 
-      for (const file of files) {
+      for (const [idx, file] of files.entries()) {
         const type = getFileTypeByMime(file.mime);
-        const info = await transformPhotoFromUri(file.uri, type === FileTypes.Video)
-        file = { ...file, ...info }
+        const info = await transformPhotoFromUri(file.uri, type === FileTypes.Video);
+        files[idx] = { ...file, ...info };
       }
 
       return files;
@@ -154,8 +156,8 @@ const internalSubtypeMap = {
   timelapse: PhotoSubtypes.Timelapse,
 };
 
-async function transformPhotoFromUri(uri: string, isVideo: boolean, includeSize = flase) {
-  const result = {};
+export async function transformPhotoFromUri(uri: string, isVideo: boolean, includeSize = false) {
+  const result: Partial<IResult> = {};
 
   if (isVideo) {
     const { width, height, duration } = await getVideoInfo(uri);
@@ -173,5 +175,5 @@ async function transformPhotoFromUri(uri: string, isVideo: boolean, includeSize 
     result.size = size;
   }
 
-  return result
+  return result;
 }

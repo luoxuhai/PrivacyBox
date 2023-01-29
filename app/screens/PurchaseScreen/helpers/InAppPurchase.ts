@@ -107,7 +107,6 @@ export class InAppPurchase {
     if (!this.purchaseUpdateSubscription) {
       this.purchaseUpdateSubscription = purchaseUpdatedListener(
         async (purchase: SubscriptionPurchase | ProductPurchase) => {
-          console.warn('[purchaseUpdate]');
           if (this.getPurchasedState() || purchase.productId !== this.productId) {
             return;
           }
@@ -131,7 +130,6 @@ export class InAppPurchase {
   private addPurchaseErrorListener(handler?: (error: PurchaseError) => void) {
     if (!this.purchaseErrorSubscription) {
       this.purchaseErrorSubscription = purchaseErrorListener((error: PurchaseError) => {
-        console.warn('[purchaseError]', error);
         this.purchaseErrorHandler();
         handler?.(error);
       });

@@ -25,11 +25,17 @@ export function useImportPhotos(queryKey: ReturnType<typeof photoKeys.list>) {
         return [];
       }
 
-      return await addPhotos({
+      const importedPhotos = await addPhotos({
         album_id: albumId,
         is_fake: inFakeEnvironment,
         photos,
       });
+
+      if (importedPhotos.length === 0) {
+        throw Error('导入失败');
+      }
+
+      return importedPhotos;
     },
     onError(error: Error) {
       Overlay.toast({

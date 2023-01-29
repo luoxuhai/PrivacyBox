@@ -39,7 +39,7 @@
     "@react-native-firebase/app": "16.4.3",
     "@react-native-firebase/perf": "16.4.3",
     "@react-native-firebase/remote-config": "16.4.3",
-    "@react-native-library/photos-picker": "^1.0.1",
+    "@react-native-library/photos-picker": "^1.0.6",
     "@react-native-library/webserver": "^1.0.3",
     "@react-native-masked-view/masked-view": "^0.2.8",
     "@react-native-segmented-control/segmented-control": "^2.4.0",

@@ -29,8 +29,6 @@ export function useImportFile(folderId: string) {
         });
       }, 1000);
 
-      console.prettyLog(files);
-
       await addFiles({
         parent_id: folderId,
         is_fake: inFakeEnvironment,

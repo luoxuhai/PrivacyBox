@@ -42,6 +42,10 @@ export const FileImporterSheet = observer<FileImporterSheetProps>((props) => {
             return;
           }
           const results = await FileImporter.documentCamera.open();
+          if (!results?.length) {
+            return;
+          }
+
           handleImportFile(results);
         }
         break;
@@ -49,6 +53,9 @@ export const FileImporterSheet = observer<FileImporterSheetProps>((props) => {
         const results = await FileImporter.document.open({
           type: [DocumentPicker.types.allFiles],
         });
+        if (!results?.length) {
+          return;
+        }
         handleImportFile(results);
       }
     }

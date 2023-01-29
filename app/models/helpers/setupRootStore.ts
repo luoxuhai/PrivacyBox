@@ -59,9 +59,6 @@ export async function setupRootStore(rootStore: RootStore) {
       appearanceToMode(themeStore.appearance, themeStore.isSystemAppearance),
     );
 
-    console.prettyLog('settings', settings);
-    console.prettyLog('appLock', appLock);
-
     observeSystemAppearanceChange(themeStore);
     observeAppStateChange(appStateStore);
     observeShake(rootStore);

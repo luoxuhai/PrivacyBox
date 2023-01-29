@@ -44,7 +44,7 @@ export class FileImporter {
         }));
       } catch (error) {
         if (DocumentPicker.isCancel(error)) {
-          return []
+          return [];
         } else {
           throw error;
         }

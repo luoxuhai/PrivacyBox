@@ -1,4 +1,4 @@
-import { mkdir, moveFile } from 'react-native-fs';
+import { mkdir, moveFile, stat } from 'react-native-fs';
 
 import { AppDataSource } from '@/database';
 import * as path from '@/lib/path';
@@ -39,9 +39,9 @@ export async function addPhotos(params: AddFilesParams) {
       // 文件存放目录
       const destDir = path.join(LocalPathManager.photoPath, id);
       await mkdir(destDir, { NSURLIsExcludedFromBackupKey: true });
-
       // 最终的文件地址
       const uri = path.join(destDir, name);
+
       await moveFile(photo.uri, uri);
 
       // 文件类型

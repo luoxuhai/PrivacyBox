@@ -27,7 +27,6 @@ export class DynamicUpdate {
         },
       ).catch((error) => {
         Alert.alert('更新失败', error.message);
-        console.error(error);
       });
     } else {
       CodePush.sync({

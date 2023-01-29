@@ -58,7 +58,7 @@ export class PhotoImporter extends FileImporter {
           mime: asset.type,
           width,
           height,
-          duration: asset.duration || 0,
+          duration: Math.round(asset.duration || 0),
           localIdentifier: asset.id,
           exif,
           subtypes: mediaSubtypes.map((val) => internalSubtypeMap[val]).filter((val) => val),
@@ -82,31 +82,33 @@ export class PhotoImporter extends FileImporter {
         cameraType: 'back',
         mediaType: 'mixed',
         presentationStyle: 'fullScreen',
+      },
+      null,
+      () => {
+        Overlay.alert({
+          preset: 'spinner',
+          duration: 0,
+          title: t('filesScreen.import.doing'),
+        });
       });
 
-      if (!result?.assets) {
+      const asset = result?.assets?.[0];
+      if (!asset) {
         return;
       }
 
-      const asset = result.assets[0];
-      const type = getFileTypeByMime(asset.type);
-      const uri = asset.uri.replace('file://', '');
       const ctime = Date.now();
 
-      console.log('uri', uri);
-      const info = await transformPhotoFromUri(file.uri, type === FileTypes.Video)
-
-      const res: PhotoImporterResult = {
+      return [{
         name: asset.fileName,
-        uri,
+        uri: asset.uri.replace('file://', ''),
         mime: asset.type,
+        width: asset.width,
+        height: asset.height,
+        duration: Math.round(asset.duration),
         ctime,
         mtime: ctime,
-        ...info,
-      };
-
-      console.prettyLog(res);
-      return [res];
+      }];
     },
   };
 
@@ -127,7 +129,7 @@ export class PhotoImporter extends FileImporter {
       for (const file of files) {
         const type = getFileTypeByMime(file.mime);
         const info = await transformPhotoFromUri(file.uri, type === FileTypes.Video)
-        file = {...file, ...info}
+        file = { ...file, ...info }
       }
 
       return files;

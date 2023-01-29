@@ -40,19 +40,21 @@ export const TransferScreen = observer<StackScreenProps<MoreFeatureNavigatorPara
   (props) => {
     const [url, setUrl] = useState<string | undefined>();
     const [connectState, setConnectState] = useState<ConnectState>(ConnectState.Pending);
-    const { colors, isDark } = useTheme();
+    const { colors } = useTheme();
     const {
       appLockStore: { inFakeEnvironment },
     } = useStores();
 
     useEffect(() => {
       subscribeNetInfo();
+      KeepAwake.activateKeepAwake();
+      WebClient.update(true);
 
       return () => {
         stopHttpServer();
         unsubscribeNetInfo?.();
         unsubscribeNetInfo = null;
-        setConnectState(ConnectState.Pending);
+        KeepAwake.deactivateKeepAwake();
       };
     }, []);
 
@@ -61,8 +63,18 @@ export const TransferScreen = observer<StackScreenProps<MoreFeatureNavigatorPara
 
       unsubscribeNetInfo = NetInfo.addEventListener((state) => {
         if (state.type === NetInfoStateType.wifi) {
-          if (connectState !== ConnectState.Successful) {
-            startHttpServer();
+          if (!HttpServer.isRunning) {
+            // 尝试两次
+            startHttpServer().catch(() => {
+              startHttpServer().catch(() => {
+                Alert.alert(t('transferScreen.connectFail'), undefined, [
+                  {
+                    text: t('common.confirm'),
+                  },
+                ]);
+                props.navigation.goBack();
+              });
+            });
           }
         } else {
           setConnectState(ConnectState.Failed);
@@ -73,29 +85,6 @@ export const TransferScreen = observer<StackScreenProps<MoreFeatureNavigatorPara
         }
       });
     }
-
-    useEffect(() => {
-      KeepAwake.activateKeepAwake();
-      NetInfo.fetch().then((state) => {
-        if (state.type === NetInfoStateType.wifi) {
-          startHttpServer().catch(() => {
-            startHttpServer().catch(() => {
-              Alert.alert(t('transferScreen.connectFail'), undefined, [
-                {
-                  text: t('common.confirm'),
-                },
-              ]);
-              props.navigation.goBack();
-            });
-          });
-        }
-      });
-      WebClient.update(true);
-
-      return () => {
-        KeepAwake.deactivateKeepAwake();
-      };
-    }, []);
 
     useEffect(() => {
       if (connectState === ConnectState.Failed) {
@@ -111,8 +100,6 @@ export const TransferScreen = observer<StackScreenProps<MoreFeatureNavigatorPara
       const origin = `http://${ip}:${port}`;
 
       await HttpServer.start(port, 'http_service', async (request, response) => {
-        console.log("request", request)
-
         if (request.method === 'OPTIONS') {
           response.send(200);
         }
@@ -123,7 +110,6 @@ export const TransferScreen = observer<StackScreenProps<MoreFeatureNavigatorPara
             filePath = join(WebClient.path, 'index.html');
           }
 
-          console.log("filePath", filePath)
           if (await FS.exists(filePath)) {
             response.sendFile(filePath);
             return;

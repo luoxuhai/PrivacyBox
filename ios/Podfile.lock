@@ -46,6 +46,8 @@ PODS:
   - ExpoModulesCore (0.11.8):
     - React-Core
     - ReactCommon/turbomodule/core
+  - ExpoStoreReview (6.0.0):
+    - ExpoModulesCore
   - EXSensors (12.0.1):
     - ExpoModulesCore
   - FBLazyVector (0.69.7)
@@ -543,8 +545,6 @@ PODS:
     - React-Core
   - react-native-get-random-values (1.8.0):
     - React-Core
-  - react-native-image-picker (4.10.3):
-    - React-Core
   - react-native-ios-context-menu (1.15.1):
     - React-Core
   - react-native-mmkv (2.5.1):
@@ -557,6 +557,8 @@ PODS:
   - react-native-override-color-scheme (1.0.3):
     - React-Core
   - react-native-pager-view (6.0.0-rc.2):
+    - React-Core
+  - react-native-photos-picker (1.0.1):
     - React-Core
   - react-native-quick-sqlite (6.1.0):
     - React
@@ -775,6 +777,7 @@ DEPENDENCIES:
   - ExpoKeepAwake (from `../node_modules/expo-keep-awake/ios`)
   - ExpoLinearGradient (from `../node_modules/expo-linear-gradient/ios`)
   - ExpoModulesCore (from `../node_modules/expo-modules-core/ios`)
+  - ExpoStoreReview (from `../node_modules/expo-store-review/ios`)
   - EXSensors (from `../node_modules/expo-sensors/ios`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../node_modules/react-native/React/FBReactNativeSpec`)
@@ -841,13 +844,13 @@ DEPENDENCIES:
   - react-native-cloud-store (from `../node_modules/react-native-cloud-store`)
   - react-native-document-picker (from `../node_modules/react-native-document-picker`)
   - react-native-get-random-values (from `../node_modules/react-native-get-random-values`)
-  - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-ios-context-menu (from `../node_modules/react-native-ios-context-menu`)
   - react-native-mmkv (from `../node_modules/react-native-mmkv`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-orientation-locker (from `../node_modules/react-native-orientation-locker`)
   - react-native-override-color-scheme (from `../node_modules/react-native-override-color-scheme`)
   - react-native-pager-view (from `../node_modules/react-native-pager-view`)
+  - "react-native-photos-picker (from `../node_modules/@react-native-library/photos-picker`)"
   - react-native-quick-sqlite (from `../node_modules/react-native-quick-sqlite`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - "react-native-segmented-control (from `../node_modules/@react-native-segmented-control/segmented-control`)"
@@ -979,6 +982,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-linear-gradient/ios"
   ExpoModulesCore:
     :path: "../node_modules/expo-modules-core/ios"
+  ExpoStoreReview:
+    :path: "../node_modules/expo-store-review/ios"
   EXSensors:
     :path: "../node_modules/expo-sensors/ios"
   FBLazyVector:
@@ -1055,8 +1060,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-document-picker"
   react-native-get-random-values:
     :path: "../node_modules/react-native-get-random-values"
-  react-native-image-picker:
-    :path: "../node_modules/react-native-image-picker"
   react-native-ios-context-menu:
     :path: "../node_modules/react-native-ios-context-menu"
   react-native-mmkv:
@@ -1069,6 +1072,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-override-color-scheme"
   react-native-pager-view:
     :path: "../node_modules/react-native-pager-view"
+  react-native-photos-picker:
+    :path: "../node_modules/@react-native-library/photos-picker"
   react-native-quick-sqlite:
     :path: "../node_modules/react-native-quick-sqlite"
   react-native-safe-area-context:
@@ -1182,6 +1187,7 @@ SPEC CHECKSUMS:
   ExpoKeepAwake: 0e8f18142e71bbf2c7f6aa66ebed249ba1420320
   ExpoLinearGradient: 1a3af07c6dab3c612967a294836df9ae717431df
   ExpoModulesCore: 39ec590ce622289c060183aba57f77b1e73b4e11
+  ExpoStoreReview: ff6d631f2949eb7e4b2d14146ef6af25a16d770d
   EXSensors: c4d17812887f3b8bec1da3c1e501a1d7b02bf19d
   FBLazyVector: 6b7f5692909b4300d50e7359cdefbcd09dd30faa
   FBReactNativeSpec: affcf71d996f6b0c01f68883482588297b9d5e6e
@@ -1253,13 +1259,13 @@ SPEC CHECKSUMS:
   react-native-cloud-store: 25f59dded580ee1f5382cc0e8c1e0548255ac09f
   react-native-document-picker: 958e2bc82e128be69055be261aeac8d872c8d34c
   react-native-get-random-values: a6ea6a8a65dc93e96e24a11105b1a9c8cfe1d72a
-  react-native-image-picker: 60f4246eb5bb7187fc15638a8c1f13abd3820695
   react-native-ios-context-menu: b170594b4448c0cd10c79e13432216bac99de1ac
   react-native-mmkv: 69b9c003f10afdd01addf7c6ee784ce42ee2eff3
   react-native-netinfo: 2517ad504b3d303e90d7a431b0fcaef76d207983
   react-native-orientation-locker: 851f6510d8046ea2f14aa169b1e01fcd309a94ba
   react-native-override-color-scheme: 3badbbee9a4ea2a9c3e5b4a5d9fd9eaba8761870
   react-native-pager-view: c9171e3b9f212fe6a4a529818745d8cd21fe82a0
+  react-native-photos-picker: 9de3d6670bb0201232b82e2240ab28aae09a5db1
   react-native-quick-sqlite: 5500398412d420a201070c6f99004a411df3c60f
   react-native-safe-area-context: 99b24a0c5acd0d5dcac2b1a7f18c49ea317be99a
   react-native-segmented-control: 06607462630512ff8eef652ec560e6235a30cc3e
@@ -1314,6 +1320,6 @@ SPEC CHECKSUMS:
   Yoga: 0b84a956f7393ef1f37f3bb213c516184e4a689d
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 775710fffc4e6c8fe895cd256d2ecd0466b52bcb
+PODFILE CHECKSUM: 914d56b12aefc3c07569b026460eb6ccc7df7733
 
 COCOAPODS: 1.11.2

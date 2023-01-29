@@ -28,9 +28,7 @@ export async function generatePhotoThumbnail({
   }
 
   const thumbnail = joinPhotoThumbnail(id);
-
   const compressedUri = await resizeImage({ uri: sourceUri, width: TARGET_WIDTH });
-
   await moveFile(compressedUri, thumbnail);
 }
 
@@ -43,8 +41,9 @@ export async function resizeImage({
   width: number;
   compress?: number;
 }): Promise<string> {
+  const _uri = encodeURI(uri.startsWith('file://') ? uri : `file://${uri}`);
   const res = await manipulateAsync(
-    uri,
+    _uri,
     [
       {
         resize: {

@@ -10,7 +10,7 @@ import { ListSection, ListCell, Screen, SafeAreaScrollView } from '@/components'
 import { spacing, useTheme, colors } from '@/theme';
 import Config from '@/config';
 import { openLinkInAppBrowser, HapticFeedback, Overlay, Application, DynamicUpdate } from '@/utils';
-import { i18n, SupportedLanguage, translate } from '@/i18n';
+import { i18n, SupportedLanguage, t, translate } from '@/i18n';
 import { SettingStackParamList } from '@/navigators';
 
 export const AboutScreen: FC<StackScreenProps<SettingStackParamList, 'About'>> = observer(
@@ -39,7 +39,7 @@ export const AboutScreen: FC<StackScreenProps<SettingStackParamList, 'About'>> =
         pressedCount.current = 0;
         props.navigation.navigate('Debug');
       }
-    })
+    }, []);
 
     const handleCheckUpdate = useCallback(() => {
       Overlay.alert({
@@ -47,16 +47,23 @@ export const AboutScreen: FC<StackScreenProps<SettingStackParamList, 'About'>> =
         duration: 0,
         title: t('aboutScreen.checkUpdate'),
       });
-      CodePush.sync({
-        installMode: CodePush.InstallMode.IMMEDIATE,
-        mandatoryInstallMode: CodePush.InstallMode.IMMEDIATE,
-      },
-      (status) => {
-        if (status !== CodePush.SyncStatus.CHECKING_FOR_UPDATE) {
-          Overlay.dismissAllAlerts();
-        }
-      })
-    })
+      CodePush.sync(
+        {
+          installMode: CodePush.InstallMode.IMMEDIATE,
+          mandatoryInstallMode: CodePush.InstallMode.IMMEDIATE,
+        },
+        (status) => {
+          if (status === CodePush.SyncStatus.UP_TO_DATE) {
+            Overlay.alert({
+              title: '已是最新版',
+              preset: 'done',
+            });
+          } else if (status !== CodePush.SyncStatus.CHECKING_FOR_UPDATE) {
+            Overlay.dismissAllAlerts();
+          }
+        },
+      );
+    }, []);
 
     return (
       <Screen type="tabView">

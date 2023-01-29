@@ -2510,6 +2510,11 @@
   resolved "https://registry.npmjs.org/@react-native-firebase/remote-config/-/remote-config-16.4.3.tgz#e446867f4d6ff593c6f8c81b678e1902b8e30ebb"
   integrity sha512-19P1iRTu1OzJLkJjMiZaziaUFn0XjqwooHhNLV27Oj3DnF77xOXF6DfeOnuDOh0++Y8GjWy81WvSdxSujLAAtQ==
 
+"@react-native-library/photos-picker@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/@react-native-library/photos-picker/-/photos-picker-1.0.1.tgz#2c3ebc1520c4a95bce332bf3f8d0c5925aed1a82"
+  integrity sha512-v0ul8oYopDdEV4QtlY98+bdNnyfwN68HWj3WTLZCFAIxJTiYDWvdCLrHaFECrdssh2cduiFYgxpZK880+Qp+Tw==
+
 "@react-native-library/webserver@^1.0.3":
   version "1.0.3"
   resolved "https://registry.npmjs.org/@react-native-library/webserver/-/webserver-1.0.3.tgz#2b5137c2550df5acf6abfab0b58006754998b809"
@@ -7043,6 +7048,11 @@ expo-status-bar@~1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/expo-status-bar/-/expo-status-bar-1.4.0.tgz#c0317de2c53878340f4b4f00ff7e4ba14399a7fb"
   integrity sha512-vh98g8qMIjig/2XTBsoAWS6Vo2dIIwDWjB3/GiuZ9Lazpxc9GO/APfJ4dar7MibzIDUKIrjotrcL6rLdPH13Ew==
+
+expo-store-review@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.npmjs.org/expo-store-review/-/expo-store-review-6.0.0.tgz#f3bf8055bbb1186495d590cc6d57e4cace23489a"
+  integrity sha512-Wyj0cXzgVOH0cMnNTFbdKBWGilUeMT/8FZWdhNodM0zNeLvYnP/UykbMUinViv5Q9fYVYbHgFWWXaSiQwakfaQ==
 
 expo@~46.0.3:
   version "46.0.16"
@@ -13198,11 +13208,6 @@ react-native-iap@12.4.9:
   version "12.4.9"
   resolved "https://registry.npmjs.org/react-native-iap/-/react-native-iap-12.4.9.tgz#5dcad3a5256453d2e62fce7b2dde1ecbfab43849"
   integrity sha512-2Qghn3UV4hN5LDWfS5E+vcCJVY0tJeLlo6PJNi/8/89mzEG+areybxZL310PKLT9qm10xtkcUZeO5W7srSZU6g==
-
-react-native-image-picker@^4.10.3:
-  version "4.10.3"
-  resolved "https://registry.npmjs.org/react-native-image-picker/-/react-native-image-picker-4.10.3.tgz#cdc11d9836b4cfa57e658c0700201babf8fdca10"
-  integrity sha512-gLX8J6jCBkUt6jogpSdA7YyaGVLGYywRzMEwBciXshihpFZjc/cRlKymAVlu6Q7HMw0j3vrho6pI8ZGC5O/FGg==
 
 react-native-inappbrowser-reborn@^3.7.0:
   version "3.7.0"

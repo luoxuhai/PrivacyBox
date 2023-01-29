@@ -47,23 +47,24 @@ export function useImportPhotos(queryKey: ReturnType<typeof photoKeys.list>) {
       queryClient.refetchQueries(queryKey);
       queryClient.refetchQueries(albumKeys.detail(albumId));
 
-      if (autoDeleteOriginEnabled) {
-        const localIdentifiers = importedPhotos
-          .map((item) => item.localIdentifier)
-          .filter((item) => item);
+      setTimeout(async () => {
+        if (autoDeleteOriginEnabled) {
+          const localIdentifiers = importedPhotos
+            .map((item) => item.localIdentifier)
+            .filter((item) => item);
 
-        try {
-          global.isPausePresentMask = true;
-          await deleteAssetsAsync(localIdentifiers);
-        } catch {
-        } finally {
-          global.isPausePresentMask = false;
+          try {
+            global.isPausePresentMask = true;
+            await deleteAssetsAsync(localIdentifiers);
+          } catch {
+          } finally {
+            global.isPausePresentMask = false;
+          }
         }
-      }
-
-      if (smartSearchEnabled) {
-        classifyImageTask.start();
-      }
+        if (smartSearchEnabled) {
+          classifyImageTask.start();
+        }
+      }, 500);
     },
   });
 

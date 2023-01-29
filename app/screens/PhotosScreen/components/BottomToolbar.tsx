@@ -61,7 +61,7 @@ function getList(): IToolbarItem[] {
       icon: 'square.and.arrow.down',
     },
     {
-      title: t('photosScreen.moveToAlbum'),
+      title: t('photosScreen.moveToAlbum.title'),
       key: BottomToolbarKeys.Move,
       icon: 'photo.on.rectangle.angled',
     },

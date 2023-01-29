@@ -75,7 +75,6 @@ export const FakeAppLockSettingsScreen = observer(() => {
                 <Switch
                   value={!appLockStore.biometricsEnabledWhenFake}
                   onValueChange={(value) => {
-                    console.log(!value);
                     appLockStore.setBiometricsEnabledWhenFake(!value);
                   }}
                 />

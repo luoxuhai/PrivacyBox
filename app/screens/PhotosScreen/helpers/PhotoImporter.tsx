@@ -1,5 +1,5 @@
 import { getAssetInfoAsync } from 'expo-media-library';
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import { launchCamera, launchImageLibrary } from '@react-native-library/photos-picker';
 import { DocumentPickerOptions } from 'react-native-document-picker';
 
 import { getImageSize, getVideoInfo, Overlay, PermissionManager } from '@/utils';
@@ -22,21 +22,27 @@ export class PhotoImporter extends FileImporter {
       if (!(await PermissionManager.checkPermissions(['ios.permission.PHOTO_LIBRARY']))) {
         return;
       }
-      const result = await launchImageLibrary({
-        mediaType: 'mixed',
-        selectionLimit: 0,
-        includeExtra: true,
-        quality: 1,
-        presentationStyle: 'pageSheet',
-      }, null, () => {
-        //
-      });
+      const result = await launchImageLibrary(
+        {
+          mediaType: 'mixed',
+          selectionLimit: 0,
+          includeExtra: true,
+          quality: 1,
+          presentationStyle: 'pageSheet',
+        },
+        null,
+        () => {
+          Overlay.alert({
+            preset: 'spinner',
+            duration: 0,
+            title: t('filesScreen.import.doing'),
+          });
+        },
+      );
 
-      Overlay.alert({
-        preset: 'spinner',
-        duration: 0,
-        title: t('filesScreen.import.doing'),
-      });
+      if (!result?.assets) {
+        return;
+      }
 
       const results: PhotoImporterResult[] = [];
 
@@ -74,8 +80,13 @@ export class PhotoImporter extends FileImporter {
         cameraType: 'back',
         mediaType: 'mixed',
         presentationStyle: 'fullScreen',
-        saveToPhotos: false,
       });
+
+      if (!result?.assets) {
+        return;
+      }
+
+      console.prettyLog(result.assets)
 
       const ctime = Date.now();
       return result.assets?.map((asset) => ({
@@ -93,8 +104,12 @@ export class PhotoImporter extends FileImporter {
   };
 
   public static document = {
-    async open(options?: DocumentPickerOptions<'ios'>) {
+    async open(options?: DocumentPickerOptions<'ios'>): Promise<PhotoImporterResult[] | void> {
       const files = await FileImporter.document.open(options);
+
+      if (!files) {
+        return;
+      }
 
       Overlay.alert({
         preset: 'spinner',

@@ -2,7 +2,7 @@ import { mkdir, moveFile } from 'react-native-fs';
 
 import { AppDataSource } from '@/database';
 import * as path from '@/lib/path';
-import { generateUUID, LocalPathManager } from '@/utils';
+import { generateUUID, LocalPathManager, reportException } from '@/utils';
 import { getPhotoTypeByMime } from '@/utils/getFileTypeByMime';
 import Photo from '@/database/entities/photo';
 import { PhotoTypes } from '@/database/entities/types';
@@ -90,7 +90,7 @@ export async function addPhotos(params: AddFilesParams) {
       await AppDataSource.manager.insert(Photo, data);
       importedPhotos.push(photo);
     } catch (error) {
-      console.error('[Add File]', error);
+      reportException({ error, message: '添加图片视频出错', level: 'fatal' });
     }
   }
 

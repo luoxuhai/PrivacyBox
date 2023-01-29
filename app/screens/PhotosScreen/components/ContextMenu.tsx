@@ -95,7 +95,7 @@ function getMenuConfig(): MenuConfig {
           },
           {
             actionKey: ContextMenuKeys.Move,
-            actionTitle: translate('photosScreen.moveToAlbum'),
+            actionTitle: translate('photosScreen.moveToAlbum.title'),
             icon: {
               iconType: 'SYSTEM',
               iconValue: 'photo.on.rectangle.angled',

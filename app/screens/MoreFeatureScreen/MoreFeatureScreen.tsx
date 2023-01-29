@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ViewStyle } from 'react-native';
 import { colord } from 'colord';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -65,7 +65,7 @@ export const MoreFeatureScreen = observer<
   }, [])
 
   const handleToScreen = (routeName: keyof MoreFeatureNavigatorParamList, needPremium: boolean) => {
-    if (['ICloudSync', 'HideApplications'].includes(routeName)) {
+    if (['ICloudSync'].includes(routeName)) {
       Overlay.toast({
         title: translate('common.coming'),
         preset: 'error',

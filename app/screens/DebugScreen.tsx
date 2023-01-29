@@ -10,7 +10,7 @@ import { spacing, useTheme } from '@/theme';
 import { AppDataSource } from '@/database';
 import { storage } from '@/utils/storage';
 import { rootStore } from '@/models';
-import { LocalPathManager, DynamicUpdate } from '@/utils';
+import { LocalPathManager } from '@/utils';
 import { ICloud } from '@/services/icloud/icloud';
 import Photo from '@/database/entities/photo';
 import File from '@/database/entities/file';
@@ -70,16 +70,6 @@ export const DebugScreen: FC<StackScreenProps<SettingStackParamList, 'Debug'>> =
               rightIcon={null}
               onPress={() => {
                 rootStore.purchaseStore.clear();
-              }}
-            />
-            <ListCell
-              textStyle={{
-                color: colors.palette.blue,
-              }}
-              text="检测更新"
-              rightIcon={null}
-              onPress={() => {
-                DynamicUpdate.sync(true);
               }}
             />
             <ListCell

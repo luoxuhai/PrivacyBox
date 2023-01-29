@@ -3,3 +3,4 @@ export * from './createFolder';
 export * from './deleteFiles';
 export * from './renameFiles';
 export * from './addFiles';
+export * from './moveFileToAlbum';

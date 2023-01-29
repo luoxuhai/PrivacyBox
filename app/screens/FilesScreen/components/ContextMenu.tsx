@@ -10,6 +10,7 @@ import { translate } from '@/i18n';
 import { FetchFilesResult } from '@/services/local/file';
 import { useRenameFile } from '../helpers/useRenameFile';
 import { useDeleteFile } from '../helpers/useDeleteFile';
+import { useMoveToAlbum } from '../helpers/useMoveToAlbum';
 
 interface ContextMenuProps {
   item: FetchFilesResult;
@@ -17,10 +18,10 @@ interface ContextMenuProps {
 }
 
 export const ContextMenu = observer<ContextMenuProps>((props) => {
-  const isFolder = props.item?.type === FileTypes.Folder;
-  const menuConfig = useMemo<MenuConfig>(() => getMenuConfig(isFolder), [isFolder]);
+  const menuConfig = useMemo<MenuConfig>(() => getMenuConfig(props.item?.type), [props.item?.type]);
   const handleRenameFile = useRenameFile(props.item.parent_id);
   const handleDeleteFile = useDeleteFile(props.item.parent_id);
+  const handleMovePhotos = useMoveToAlbum(props.item.parent_id);
 
   const handlePressMenuItem = useCallback(
     ({ nativeEvent }) => {
@@ -29,7 +30,7 @@ export const ContextMenu = observer<ContextMenuProps>((props) => {
         case ContextMenuKeys.Details:
           SheetManager.show('file-detail-sheet', {
             payload: {
-              item
+              item,
             },
           });
           break;
@@ -49,11 +50,16 @@ export const ContextMenu = observer<ContextMenuProps>((props) => {
           break;
         case ContextMenuKeys.Delete:
           handleDeleteFile({
-            items: [{
-              id: item.id,
-              type: item.type,
-            }]
+            items: [
+              {
+                id: item.id,
+                type: item.type,
+              },
+            ],
           });
+          break;
+        case ContextMenuKeys.MoveToAlbum:
+          handleMovePhotos([item.id]);
           break;
       }
     },
@@ -72,10 +78,13 @@ enum ContextMenuKeys {
   Share = 'share',
   Rename = 'rename',
   SaveToLocal = 'save-to-local',
+  MoveToAlbum = 'move-to-album',
   Delete = 'delete',
 }
 
-function getMenuConfig(isFolder: boolean): MenuConfig {
+function getMenuConfig(type: FileTypes): MenuConfig {
+  const isFolder = type === FileTypes.Folder;
+
   return {
     menuTitle: '',
     menuItems: [
@@ -97,6 +106,15 @@ function getMenuConfig(isFolder: boolean): MenuConfig {
             icon: {
               iconType: 'SYSTEM',
               iconValue: 'pencil',
+            },
+          },
+
+          [FileTypes.Image, FileTypes.Video].includes(type) && {
+            actionKey: ContextMenuKeys.MoveToAlbum,
+            actionTitle: translate('photosScreen.moveToAlbum.title'),
+            icon: {
+              iconType: 'SYSTEM',
+              iconValue: 'photo.on.rectangle.angled',
             },
           },
           !isFolder && {

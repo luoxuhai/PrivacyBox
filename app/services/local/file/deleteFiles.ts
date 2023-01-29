@@ -3,7 +3,7 @@ import { unlink } from 'react-native-fs';
 import { AppDataSource } from '@/database';
 import File from '@/database/entities/file';
 import { FileTypes, Status } from '@/database/entities/types';
-import { LocalPathManager } from '@/utils';
+import { LocalPathManager, reportException } from '@/utils';
 import { join } from '@/lib/path';
 
 export interface DeleteFilesParams {
@@ -49,12 +49,12 @@ export async function deleteFiles(params: DeleteFilesParams) {
   }
 }
 
-async function removeFilesFromDisk(ids: string[]) {
+export async function removeFilesFromDisk(ids: string[]) {
   for (const id of ids) {
     try {
       await unlink(join(LocalPathManager.filePath, id));
     } catch (error) {
-      console.error(error);
+      reportException({ error, message: '删除文件磁盘出错' });
     }
   }
 }

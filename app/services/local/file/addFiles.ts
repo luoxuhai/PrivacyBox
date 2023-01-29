@@ -3,7 +3,7 @@ import { mkdir, moveFile } from 'react-native-fs';
 import { AppDataSource } from '@/database';
 import File from '@/database/entities/file';
 import * as path from '@/lib/path';
-import { generateUUID, LocalPathManager } from '@/utils';
+import { generateUUID, LocalPathManager, reportException } from '@/utils';
 import { getFileTypeByMime } from '@/utils/getFileTypeByMime';
 
 interface FileSource {
@@ -63,17 +63,12 @@ export async function addFiles(params: AddFilesParams) {
       };
       await AppDataSource.manager.insert(File, data);
     } catch (error) {
-      console.error('[Add File]', error);
+      reportException({ error, message: '添加文件出错', level: 'fatal' });
+      throw error;
     }
   }
-
-  return 'result';
 }
 
 function isValidParams(params: AddFilesParams) {
   return params.files.length;
 }
-
-// function getCriteria(params: DeleteFilesParams) {
-//   return params.id ?? params.ids;
-// }

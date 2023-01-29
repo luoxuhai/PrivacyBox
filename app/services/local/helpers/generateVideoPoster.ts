@@ -7,13 +7,11 @@ export async function generateVideoPoster(id: string, uri: string, duration: num
   const poster = joinVideoPoster(id);
 
   const startTime = duration < 1000 ? Math.round(duration / 2) : 1000;
-  const result = await VideoThumbnail.getThumbnail(
-    uri.startsWith('file://') ? uri : `file://${uri}`,
-    {
-      time: startTime,
-      quality: 1,
-    },
-  );
+  const _uri = encodeURI(uri.startsWith('file://') ? uri : `file://${uri}`);
+  const result = await VideoThumbnail.getThumbnail(_uri, {
+    time: startTime,
+    quality: 1,
+  });
 
   await moveFile(result.uri, poster);
 }

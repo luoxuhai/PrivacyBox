@@ -7,6 +7,8 @@ import { FileImporter, IResult } from '@/screens/FilesScreen/helpers/FileImporte
 import { FileTypes, PhotoSubtypes } from '@/database/entities/types';
 import { getFileTypeByMime } from '@/utils/getFileTypeByMime';
 import { t } from '@/i18n';
+import { ImagePickerResult } from 'react-native';
+import { stat } from 'react-native-fs';
 
 export { IResult };
 
@@ -86,20 +88,36 @@ export class PhotoImporter extends FileImporter {
         return;
       }
 
-      console.prettyLog(result.assets)
-
+      const asset = result.assets[0];
+      const type = getFileTypeByMime(asset.type);
+      const uri = asset.uri.replace('file://', '');
       const ctime = Date.now();
-      return result.assets?.map((asset) => ({
+
+      console.log('uri', uri);
+      const { size } = await stat(uri);
+
+      const res: PhotoImporterResult = {
         name: asset.fileName,
-        size: asset.fileSize,
-        uri: asset.uri.replace('file://', ''),
+        size,
+        uri,
         mime: asset.type,
-        width: asset.width,
-        height: asset.height,
-        duration: asset.duration || 0,
         ctime,
         mtime: ctime,
-      }));
+      };
+
+      if (type === FileTypes.Image) {
+        const { width, height } = await getImageSize(uri);
+        res.width = width;
+        res.height = height;
+      } else if (type === FileTypes.Video) {
+        const { width, height, duration } = await getVideoInfo(uri);
+        res.width = width;
+        res.height = height;
+        res.duration = duration;
+      }
+
+      console.prettyLog(res);
+      return [res];
     },
   };
 

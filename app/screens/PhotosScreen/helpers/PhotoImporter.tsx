@@ -94,27 +94,16 @@ export class PhotoImporter extends FileImporter {
       const ctime = Date.now();
 
       console.log('uri', uri);
-      const { size } = await stat(uri);
+      const info = await transformPhotoFromUri(file.uri, type === FileTypes.Video)
 
       const res: PhotoImporterResult = {
         name: asset.fileName,
-        size,
         uri,
         mime: asset.type,
         ctime,
         mtime: ctime,
+        ...info,
       };
-
-      if (type === FileTypes.Image) {
-        const { width, height } = await getImageSize(uri);
-        res.width = width;
-        res.height = height;
-      } else if (type === FileTypes.Video) {
-        const { width, height, duration } = await getVideoInfo(uri);
-        res.width = width;
-        res.height = height;
-        res.duration = duration;
-      }
 
       console.prettyLog(res);
       return [res];
@@ -137,19 +126,8 @@ export class PhotoImporter extends FileImporter {
 
       for (const file of files) {
         const type = getFileTypeByMime(file.mime);
-
-        if (type === FileTypes.Image) {
-          const { width, height } = await getImageSize(file.uri);
-          file.width = width;
-          file.height = height;
-        }
-
-        if (type === FileTypes.Video) {
-          const { width, height, duration } = await getVideoInfo(file.uri);
-          file.width = width;
-          file.height = height;
-          file.duration = duration;
-        }
+        const info = await transformPhotoFromUri(file.uri, type === FileTypes.Video)
+        file = {...file, ...info}
       }
 
       return files;
@@ -173,3 +151,25 @@ const internalSubtypeMap = {
   stream: PhotoSubtypes.Stream,
   timelapse: PhotoSubtypes.Timelapse,
 };
+
+async function transformPhotoFromUri(uri: string, isVideo: boolean, includeSize = flase) {
+  const result = {};
+
+  if (isVideo) {
+    const { width, height, duration } = await getVideoInfo(uri);
+    result.width = width;
+    result.height = height;
+    result.duration = duration;
+  } else {
+    const { width, height } = await getImageSize(uri);
+    result.width = width;
+    result.height = height;
+  }
+
+  if (includeSize) {
+    const { size } = await stat(uri);
+    result.size = size;
+  }
+
+  return result
+}

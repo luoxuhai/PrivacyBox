@@ -130,8 +130,7 @@ export const TransferScreen = observer<StackScreenProps<MoreFeatureNavigatorPara
                 code: 0,
                 data: {
                   list: items.map((item) => {
-                    delete item.extra;
-                    item.cover = item.cover?.replace(LocalPathManager.photoPath, `${origin}/api`);
+                    item.cover = transformRemoteUri(item.cover);
                     return item;
                   }),
                   total: items.length,
@@ -149,6 +148,7 @@ export const TransferScreen = observer<StackScreenProps<MoreFeatureNavigatorPara
               status: Status.Normal,
               is_fake: inFakeEnvironment,
             });
+
             response.send(
               200,
               'application/json',
@@ -156,21 +156,20 @@ export const TransferScreen = observer<StackScreenProps<MoreFeatureNavigatorPara
                 code: 0,
                 data: {
                   list: items.map((item) => {
-                    const sourceUrl = item.uri.replace(LocalPathManager.photoPath, `${origin}/api`);
-                    const thumbnailUrl = (item.thumbnail || item.poster || sourceUrl)?.replace(
-                      LocalPathManager.photoPath,
-                      `${origin}/api`,
-                    );
+                    const availableThumbnail = await getAvailableThumbnail(item.thumbnail, item.poster);
+                    if (availableThumbnail) {
+                      item.thumbnail = availableThumbnail
+                    } else {
+                      item.thumbnail = item.type === PhotoTypes.Photo ? item.uri : ''
+                    }
 
-                    const poster =
-                      item.poster?.replace(LocalPathManager.photoPath, `${origin}/api`) ||
-                      thumbnailUrl;
+                    item.poster = item.thumbnail ? item.poster : ''
 
                     const _item = {
                       ...item,
-                      thumbnail: thumbnailUrl,
-                      source: sourceUrl,
-                      poster,
+                      source: transformRemoteUri(item.uri),
+                      thumbnail: transformRemoteUri(item.thumbnail),
+                      poster: transformRemoteUri(item.poster),
                     };
 
                     delete _item.uri;
@@ -191,36 +190,34 @@ export const TransferScreen = observer<StackScreenProps<MoreFeatureNavigatorPara
             response.send(400);
             return;
           }
-          const tempPath = join(LocalPathManager.tempPath, generateUUID() + extname(file.filename));
-          await FS.moveFile(file.path, tempPath);
 
           try {
-            // await createFiles([
-            //   await transformResult(
-            //     {
-            //       uri: tempPath,
-            //       mime: file?.mimeType,
-            //       name: file?.filename,
-            //     },
-            //     query.album_id,
-            //   ),
-            // ]);
-            response.send(200);
+            const type = getFileTypeByMime(asset.type);
+            const info = await transformPhotoFromUri(file.path, type === FileTypes.Video)
+            const results = await addPhotos({
+              album_id: query.album_id,
+              is_fake: inFakeEnvironment,
+              photos: [
+                {
+                  uri: file.path,
+                  name: file.filename,
+                  mime: file.mimeType,
+                  ...info,
+                }
+              ]
+            })
+
+            if (results.length > 0) {
+              response.send(200);
+            } else {
+              throw ""
+            }
           } catch (error) {
             response.send(500);
           }
-          // 获取缩略图
-        } else if (request.method === 'GET' && request.url.startsWith('/api/thumbnail/')) {
-          response.sendFile(request.url.replace('/api/thumbnail', LocalPathManager.photoPath));
-
           // 下载文件
-        } else if (request.method === 'GET' && request.url.startsWith('/api/source/')) {
-          const uri = decodeURI(request.url.replace('/api/source', LocalPathManager.photoPath));
-          if (!(await FS.exists(uri))) {
-            response.send(404);
-            return;
-          }
-          response.sendFile(uri);
+        } else if (request.method === 'GET' && request.url.startsWith('/api/file/')) {
+          response.sendFile(request.url.replace('/api/file', LocalPathManager.basePath));
         } else {
           response.send(404);
         }
@@ -388,3 +385,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 });
+
+function transformRemoteUri(uri: string) {
+  return uri.replace(LocalPathManager.basePath, `${origin}/api/file`);
+}

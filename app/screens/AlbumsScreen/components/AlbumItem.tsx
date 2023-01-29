@@ -7,7 +7,9 @@ import {
   StyleSheet,
   TextStyle,
   TouchableOpacity,
+  Dimensions
 } from 'react-native';
+
 import { observer } from 'mobx-react-lite';
 import FastImage, { ImageStyle } from 'react-native-fast-image';
 import { MoreVert } from 'iconoir-react-native';
@@ -15,12 +17,14 @@ import { MoreVert } from 'iconoir-react-native';
 import { BlurView } from '@/components';
 import { radius, spacing, typography, useTheme } from '@/theme';
 import { FetchAlbumsResult } from '@/services/local';
+import { MIDDLE_SCREEN_WIDTH } from '../../../constants';
 
 interface AlbumItemProps {
   item: FetchAlbumsResult;
   bottomOperationVisible?: boolean;
   operationStyle?: ViewStyle;
   style: ViewStyle;
+  itemWidth: number;
   onPress: (item: FetchAlbumsResult) => void;
   onOpenEditor?: (item: FetchAlbumsResult) => void;
 }
@@ -28,7 +32,7 @@ interface AlbumItemProps {
 const ImageNoImages = require('@/assets/images/no-images.png');
 
 export const AlbumItem = observer<AlbumItemProps>((props) => {
-  const { bottomOperationVisible = true, item, style, operationStyle } = props;
+  const { bottomOperationVisible = true, item, style, operationStyle, itemWidth } = props;
   const { cover, name, item_count } = item;
   const { isDark, colors } = useTheme();
 
@@ -41,6 +45,7 @@ export const AlbumItem = observer<AlbumItemProps>((props) => {
         $container,
         {
           borderColor: colors.palette.gray6,
+          minWidth: itemWidth
         },
         style,
       ]}
@@ -82,9 +87,10 @@ export const AlbumItem = observer<AlbumItemProps>((props) => {
   );
 });
 
+const windowWidth = Dimensions.get('window').width;
+
 const $container: ViewStyle = {
-  minWidth: 150,
-  height: 200,
+  height: windowWidth >= MIDDLE_SCREEN_WIDTH ? 220 : 200,
   borderRadius: radius[8],
   overflow: 'hidden',
   borderWidth: StyleSheet.hairlineWidth,

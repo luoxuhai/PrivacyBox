@@ -19,6 +19,7 @@ import { appUpdateCheck, useRefreshOnFocus, useSafeAreaDimensions } from '@/util
 import { fetchAlbums } from '@/services/local';
 import { albumKeys, headerSearchBarOptions } from './constants';
 import { useStores } from '@/models';
+import { MIN_SCREEN_WIDTH } from '../../constants';
 
 export const AlbumsScreen: FC<NativeStackScreenProps<AlbumsNavigatorParamList, 'Album'>> = observer(
   (props) => {
@@ -65,11 +66,15 @@ export const AlbumsScreen: FC<NativeStackScreenProps<AlbumsNavigatorParamList, '
 
     useRefreshOnFocus(refetch);
 
+    const itemWidth = safeAreaDimensions.width <= MIN_SCREEN_WIDTH ? 130 : 150;
+    const spacing = safeAreaDimensions.width <= MIN_SCREEN_WIDTH ? 18 : 26;
+
     const renderItem = useCallback(
-      ({ item }) => {
+      ({ item, extraData }) => {
         return (
           <AlbumItem
             item={item}
+            itemWidth={extraData.itemWidth}
             onPress={() => {
               props.navigation.navigate('Photos', {
                 albumId: item.id,
@@ -93,11 +98,14 @@ export const AlbumsScreen: FC<NativeStackScreenProps<AlbumsNavigatorParamList, '
             isLoading={isFetching}
             contentInsetAdjustmentBehavior="automatic"
             estimatedItemSize={150}
-            itemWidth={150}
+            itemWidth={itemWidth}
             width={safeAreaDimensions.width}
             itemWidthFixed={false}
-            spacing={26}
+            spacing={spacing}
             data={albums}
+            extraData={{
+              itemWidth,
+            }}
             renderItem={renderItem}
           />
         </SafeAreaView>

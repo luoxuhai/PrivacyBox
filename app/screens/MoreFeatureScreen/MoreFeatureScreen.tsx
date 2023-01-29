@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { ViewStyle } from 'react-native';
+import { ViewStyle, Dimensions } from 'react-native';
 import { colord } from 'colord';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StackScreenProps } from '@react-navigation/stack';
@@ -14,10 +14,13 @@ import { MoreFeatureNavigatorParamList } from '@/navigators';
 import { FeatureItemView, FeatureItem } from './FeatureItemView';
 import { translate } from '@/i18n';
 import { canUsePremium } from '@/utils/canUsePremium';
+import { MIN_SCREEN_WIDTH } from '../../constants';
 
 function luminance(color: string, l = 0.1) {
   return colord(color).lighten(l).toRgbString();
 }
+
+const windowWidth = Dimensions.get('window').width;
 
 const list: FeatureItem[] = [
   {
@@ -79,6 +82,9 @@ export const MoreFeatureScreen = observer<
     }
   };
 
+  const itemWidth = windowWidth <= MIN_SCREEN_WIDTH ? 150 : 160;
+  const spacing = windowWidth <= MIN_SCREEN_WIDTH ? 14 : 16;
+
   return (
     <Screen>
       <SafeAreaView style={$safeAreaView} edges={['left', 'right']}>
@@ -98,7 +104,7 @@ export const MoreFeatureScreen = observer<
           itemWidth={160}
           width={safeAreaDimensions.width}
           itemWidthFixed={false}
-          spacing={16}
+          spacing={spacing}
         />
       </SafeAreaView>
     </Screen>

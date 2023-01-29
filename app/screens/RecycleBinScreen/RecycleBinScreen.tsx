@@ -9,7 +9,7 @@ import FileViewer from 'react-native-file-viewer';
 
 import { MoreFeatureNavigatorParamList } from '@/navigators';
 import { FlatGrid, ContentStyle, Screen } from '@/components';
-import { useSafeAreaDimensions, useUpdateEffect } from '@/utils';
+import { useSafeAreaDimensions, useUpdateEffect, useRefreshOnFocus } from '@/utils';
 import { recycleBinKeys } from './constants';
 import { fetchDeletedPhotos, FetchPhotosResult } from '@/services/local';
 import { spacing } from '@/theme';
@@ -60,7 +60,7 @@ export const RecycleBinScreen: FC<StackScreenProps<MoreFeatureNavigatorParamList
       }));
     }, [selection]);
 
-    const { data: photos } = useQuery({
+    const { data: photos, refetch } = useQuery({
       queryKey: recycleBinKeys.list({ inFakeEnvironment }),
       queryFn: async ({ queryKey }) => {
         const [_k1, _k2, { filter }] = queryKey;
@@ -71,6 +71,8 @@ export const RecycleBinScreen: FC<StackScreenProps<MoreFeatureNavigatorParamList
       placeholderData: [],
       enabled: true,
     });
+
+    useRefreshOnFocus(refetch);
 
     const renderHeaderRight = useCallback(() => {
       return (

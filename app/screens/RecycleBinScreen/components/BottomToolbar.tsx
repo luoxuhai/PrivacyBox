@@ -18,20 +18,18 @@ export function BottomToolbar(props: BottomToolbarProps) {
   const recoverPhotos = useRecoverPhotos();
 
   const handlePressItem = useCallback(
-    async (key: BottomToolbarKeys) => {
+    (key: BottomToolbarKeys) => {
       const ids = selection.items.map((item) => item.id);
       const isAll = !selection.items.length;
 
       switch (key) {
         case BottomToolbarKeys.Delete:
-          await deletePhotos({ ids, is_all: isAll });
+          deletePhotos({ ids, is_all: isAll }, props.onDone);
           break;
         case BottomToolbarKeys.Recover:
-          await recoverPhotos({ ids, is_all: isAll });
+          recoverPhotos({ ids, is_all: isAll }, props.onDone);
           break;
       }
-
-      props.onDone();
     },
     [selection],
   );

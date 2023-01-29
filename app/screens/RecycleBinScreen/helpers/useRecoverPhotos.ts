@@ -35,6 +35,7 @@ export function useRecoverPhotos() {
 
   async function handlePresentRecoverAlert(
     params: Omit<RecoverDeletedPhotosParams, 'target_id' | 'is_fake'>,
+    onDone: () => void
   ) {
     const albumId = (await SheetManager.show('album-picker-sheet')) as string;
 
@@ -43,6 +44,7 @@ export function useRecoverPhotos() {
         ...params,
         target_id: albumId,
       });
+      onDone()
     }
   }
 

@@ -46,7 +46,7 @@ export function useDeletePhotos() {
     },
   });
 
-  function handlePresentDeleteAlert(params: Pick<DestroyDeletedPhotosParams, 'ids' | 'is_all'>) {
+  function handlePresentDeleteAlert(params: Pick<DestroyDeletedPhotosParams, 'ids' | 'is_all'>, onDone: () => void) {
     Alert.alert(t('wastebasketScreen.deleteTitle'), undefined, [
       {
         text: t('common.cancel'),
@@ -55,8 +55,9 @@ export function useDeletePhotos() {
       {
         text: t('common.confirm'),
         style: 'destructive',
-        onPress() {
-          handleDeletePhotos(params);
+        async onPress() {
+          await handleDeletePhotos(params);
+          onDone();
         },
       },
     ]);

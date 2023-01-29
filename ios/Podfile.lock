@@ -558,7 +558,7 @@ PODS:
     - React-Core
   - react-native-pager-view (6.0.0-rc.2):
     - React-Core
-  - react-native-photos-picker (1.0.4):
+  - react-native-photos-picker (1.0.7):
     - React-Core
   - react-native-quick-sqlite (6.1.0):
     - React
@@ -1265,7 +1265,7 @@ SPEC CHECKSUMS:
   react-native-orientation-locker: 851f6510d8046ea2f14aa169b1e01fcd309a94ba
   react-native-override-color-scheme: 3badbbee9a4ea2a9c3e5b4a5d9fd9eaba8761870
   react-native-pager-view: c9171e3b9f212fe6a4a529818745d8cd21fe82a0
-  react-native-photos-picker: 7e58eedb4e02cdde4033d04b1fb574187a6f1850
+  react-native-photos-picker: cd965118d4274da9923cc6a26da630a924474c55
   react-native-quick-sqlite: 5500398412d420a201070c6f99004a411df3c60f
   react-native-safe-area-context: 99b24a0c5acd0d5dcac2b1a7f18c49ea317be99a
   react-native-segmented-control: 06607462630512ff8eef652ec560e6235a30cc3e

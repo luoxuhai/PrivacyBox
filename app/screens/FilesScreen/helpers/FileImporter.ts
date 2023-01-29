@@ -26,21 +26,29 @@ export interface IResult {
 export class FileImporter {
   public static document = {
     async open(options?: DocumentPickerOptions<'ios'>): Promise<IResult[]> {
-      const result = await DocumentPicker.pick({
-        type: [DocumentPicker.types.images, DocumentPicker.types.video],
-        allowMultiSelection: true,
-        presentationStyle: 'pageSheet',
-        ...options,
-      });
+      try {
+        const result = await DocumentPicker.pick({
+          type: [DocumentPicker.types.images, DocumentPicker.types.video],
+          allowMultiSelection: true,
+          presentationStyle: 'pageSheet',
+          ...options,
+        });
 
-      return result.map((item) => ({
-        name: item.name,
-        uri: decodeURI(item.uri?.replace(/^file:\/\//, '')),
-        size: item.size,
-        mime: item.type,
-        ctime: item.ctime,
-        mtime: item.mtime,
-      }));
+        return result.map((item) => ({
+          name: item.name,
+          uri: decodeURI(item.uri?.replace(/^file:\/\//, '')),
+          size: item.size,
+          mime: item.type,
+          ctime: item.ctime,
+          mtime: item.mtime,
+        }));
+      } catch (error) {
+        if (DocumentPicker.isCancel(error)) {
+          return []
+        } else {
+          throw error;
+        }
+      }
     },
   };
 

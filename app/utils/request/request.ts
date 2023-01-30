@@ -1,6 +1,10 @@
 import axios from 'axios';
 
-const request = axios.create({});
+import Config from '@/config';
+
+const request = axios.create({
+  baseURL: Config.baseURL,
+});
 
 // 请求拦截器
 request.interceptors.request.use(

@@ -7,6 +7,7 @@ interface IBaseConfig {
   groupIdentifier: string;
   iCloudContainerIdentifier: string;
   TXC_FEEDBACK_URL: string;
+  baseURL: string;
   email: string;
   qqGroup: string;
   appId: string;
@@ -52,6 +53,8 @@ const BaseConfig: IBaseConfig = {
   iCloudContainerIdentifier: 'iCloud.net.darkce.privatespace',
 
   TXC_FEEDBACK_URL: 'https://support.qq.com/product/334350',
+
+  baseURL: 'https://ps.fastools.cn',
 
   email: 'darkce97@gmail.com',
   qqGroup: '168380697',

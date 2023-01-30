@@ -1,7 +1,7 @@
 PODS:
   - Base64 (1.1.2)
   - boost (1.76.0)
-  - Burnt (0.8.1):
+  - Burnt (0.9.0):
     - ExpoModulesCore
     - SPAlert
     - SPIndicator
@@ -1143,7 +1143,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
   boost: a7c83b31436843459a1961bfd74b96033dc77234
-  Burnt: effadfb6411430375ca333f9358c7e9e8f10a878
+  Burnt: 2a5f30dd49cb80c02c0c822df7ed60b58ee2860d
   BVLinearGradient: 34a999fda29036898a09c6a6b728b0b4189e1a44
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   CodePush: ef496b6fd053012e985e3d4a0ab9f9dbf2739eac

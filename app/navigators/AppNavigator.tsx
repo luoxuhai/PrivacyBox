@@ -219,7 +219,7 @@ const AppStack = observer(function AppStack() {
   );
 });
 
-interface NavigationProps extends Partial<React.ComponentProps<typeof NavigationContainer>> {}
+interface NavigationProps extends Partial<React.ComponentProps<typeof NavigationContainer>> { }
 
 export const AppNavigator = observer(function AppNavigator(props: NavigationProps) {
   const { colors, isDark } = useTheme();
@@ -240,7 +240,7 @@ export const AppNavigator = observer(function AppNavigator(props: NavigationProp
   );
 
   return (
-    <NavigationContainer ref={navigationRef} theme={theme} {...props}>
+    <NavigationContainer ref={navigationRef} theme={theme} {...props} >
       <AppStack />
     </NavigationContainer>
   );

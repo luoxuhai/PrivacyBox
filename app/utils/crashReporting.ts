@@ -4,11 +4,13 @@ import * as Sentry from '@sentry/react-native';
 import { Application } from './application';
 import { DynamicUpdate, LocalPackage } from './DynamicUpdate';
 
+export const routingInstrumentation = new Sentry.ReactNavigationInstrumentation();
+
 export const initCrashReporting = async () => {
   let updateMetadata: LocalPackage | undefined;
   try {
     updateMetadata = await DynamicUpdate.getUpdateMetadataAsync();
-  } catch {}
+  } catch { }
   const dist = updateMetadata?.label ?? '0';
 
   Sentry.init({
@@ -17,6 +19,11 @@ export const initCrashReporting = async () => {
     release: `${Application.bundleId}@${Application.version}(${Application.buildNumber})+codepush:${dist}`,
     dist,
     tracesSampleRate: Config.sentry.tracesSampleRate,
+    integrations: [
+      new Sentry.ReactNativeTracing({
+        routingInstrumentation,
+      }),
+    ],
   });
 
   // Sentry.setContext('deviceExtra', {});

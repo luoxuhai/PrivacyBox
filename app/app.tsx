@@ -10,12 +10,13 @@ import { initialWindowMetrics, SafeAreaProvider } from 'react-native-safe-area-c
 import { observer } from 'mobx-react-lite';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SheetProvider } from 'react-native-actions-sheet';
+import * as Sentry from '@sentry/react-native';
 
-import { initCrashReporting, useUpdateEffect, lockOrientation, DynamicUpdate } from './utils';
+import { initCrashReporting, useUpdateEffect, lockOrientation, DynamicUpdate, routingInstrumentation } from './utils';
 import { initTask } from './utils/task/initTask';
 import { useInitialRootStore } from './models';
 import { useInitialDataSource } from './database/helpers/useInitDataSource';
-import { AppNavigator, useNavigationPersistence, RootNavigation } from './navigators';
+import { AppNavigator, useNavigationPersistence, RootNavigation, navigationRef } from './navigators';
 import { ErrorBoundary } from './screens/ErrorScreen/ErrorBoundary';
 import { useDataMigrator } from './screens/DataMigratorScreen/useDataMigrator';
 import { storage } from './utils/storage';
@@ -71,10 +72,14 @@ const App = observer(() => {
             <AppNavigator
               {...(__DEV__
                 ? {
-                    initialState: initialNavigationState,
-                    onStateChange: onNavigationStateChange,
-                  }
+                  initialState: initialNavigationState,
+                  onStateChange: onNavigationStateChange,
+                }
                 : {})}
+              onReady={() => {
+                // Register the navigation container with the instrumentation
+                routingInstrumentation.registerNavigationContainer({ current: navigationRef });
+              }}
             />
           </SheetProvider>
         </QueryClientProvider>
@@ -91,4 +96,4 @@ export const queryClient = new QueryClient({
   },
 });
 
-export default App;
+export default Sentry.wrap(App);

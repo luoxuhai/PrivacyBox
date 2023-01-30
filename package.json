@@ -19,9 +19,7 @@
     "adb": "adb reverse tcp:9090 tcp:9090 && adb reverse tcp:3000 tcp:3000 && adb reverse tcp:9001 tcp:9001 && adb reverse tcp:8081 tcp:8081",
     "postinstall": "node ./bin/postInstall",
     "release:ios": "echo 'Not implemented yet: release:ios. Use Xcode. More info: https://reactnative.dev/docs/next/publishing-to-app-store'",
-    "dynamic:ios:dev": "appcenter codepush release-react -a 15186743693-163.com/yin3-si1-kong1-jian1 -d Staging",
     "dynamic:ios": "appcenter codepush release-react -a 15186743693-163.com/yin3-si1-kong1-jian1 -d Production",
-    "bundle": "mkdir build && react-native bundle --dev false --platform ios --entry-file index.js --bundle-output build/main.jsbundle --sourcemap-output build/main.jsbundle.map",
     "clean": "npx react-native-clean-project --remove-iOS-build --remove-iOS-pods",
     "clean-all": "npx react-native clean-project-auto",
     "rename": "react-native-rename"

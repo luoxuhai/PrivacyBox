@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useMemo, useRef, useState } from 'react';
+import React, { FC, useCallback, useMemo, useRef, useState, useEffect } from 'react';
 import { StatusBar } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { StackScreenProps } from '@react-navigation/stack';
@@ -57,6 +57,12 @@ export const PhotoViewerScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'P
         }),
       [photos],
     );
+
+    useEffect(() => {
+      return () => {
+        StatusBar.setHidden(false);
+      }
+    }, [])
 
     useUpdateEffect(() => {
       if (!images.length) {

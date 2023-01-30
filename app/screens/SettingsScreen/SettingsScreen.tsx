@@ -39,14 +39,17 @@ export const SettingScreen: FC<StackScreenProps<SettingStackParamList, 'Settings
       return target.value === AppQueriesSchemes.Disable ? null : translate(target.title);
     }, [settingsStore.urgentSwitchTarget]);
 
+
+    const purchaseBannerVisibled = !appLockStore.inFakeEnvironment;
+
     return (
       <Screen type="tabView">
         <SafeAreaScrollView contentContainerStyle={$contentContainerStyles}>
-          <PurchaseBanner />
+          {purchaseBannerVisibled && <PurchaseBanner />}
           <ListSection
-            style={{
+            style={purchaseBannerVisibled ? {
               marginTop: spacing[8],
-            }}
+            } : {}}
             titleTk="settingsScreen.security"
           >
             <ListCell
@@ -160,12 +163,11 @@ export const SettingScreen: FC<StackScreenProps<SettingStackParamList, 'Settings
 );
 
 function generateFeedbackUrl() {
-  const url = `${Config.TXC_FEEDBACK_URL}?os=${Device.os || '-'}&osVersion=${
-    Device.version || '-'
-  }&clientVersion=${Application.version || '-'}&customInfo=${JSON.stringify({
-    modelName: Device.modelName || '-',
-    // userId: user.current?.id || '-',
-  })}`;
+  const url = `${Config.TXC_FEEDBACK_URL}?os=${Device.os || '-'}&osVersion=${Device.version || '-'
+    }&clientVersion=${Application.version || '-'}&customInfo=${JSON.stringify({
+      modelName: Device.modelName || '-',
+      // userId: user.current?.id || '-',
+    })}`;
   return url;
 }
 

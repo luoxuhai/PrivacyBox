@@ -275,8 +275,8 @@ const zh = {
   },
   urgentSwitchScreen: {
     title: '紧急切换',
-    targetHeader: '跳转到的目标应用',
-    targetTip: '当手机屏幕朝下时会跳转到以下指定应用',
+    targetHeader: '选择应用',
+    targetTip: '当设备触发跳转动作时会跳转到选择的应用',
     actionSectionTitle: '触发动作',
     actionShake: '摇一摇',
     actionFaceDown: '屏幕朝下',

@@ -279,10 +279,9 @@ const en: Translations = {
   },
   urgentSwitchScreen: {
     title: 'Urgent Switch',
-    targetHeader: 'Jump to the target application',
-    targetTip:
-      'When the phone screen faces down, it will jump to the following specified application',
-    actionSectionTitle: 'Trigger action',
+    targetHeader: 'Select App',
+    targetTip: 'When the device triggers the jump action, it will jump to the selected application',
+    actionSectionTitle: 'Trigger Action',
     actionShake: 'Shake',
     actionFaceDown: 'Screen Face Down',
   },

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-RELEASE=""
-DIST="0"
+RELEASE="2.0.2(1)+codepush:v28"
+DIST="v28"
 
 mkdir build
 
@@ -18,13 +18,12 @@ npx react-native bundle \
 
 echo "✅ Successfully created sources maps"
 
-
 echo "Uploading iOS source maps... "
 
-node_modules/@sentry/cli/bin/sentry-cli releases files "${RELEASE}" \
+npx sentry-cli releases files "${RELEASE}" \
     upload-sourcemaps \
     --dist "${DIST}" \
     --strip-prefix "${PWD}/build" \
-    "main.jsbundle" "main.jsbundle.map"
+    main.jsbundle main.jsbundle.map
 
 echo "✅ Successfully uploaded sources maps"

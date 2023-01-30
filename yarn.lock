@@ -2498,13 +2498,6 @@
     opencollective-postinstall "^2.0.1"
     superstruct "^0.6.2"
 
-"@react-native-firebase/perf@16.4.3":
-  version "16.4.3"
-  resolved "https://registry.npmjs.org/@react-native-firebase/perf/-/perf-16.4.3.tgz#4616e2f77f1e9d3dd794de00f6d0ace5c84c6d6f"
-  integrity sha512-zw7aGjv6H10CU9R7tn7Kv91kL/LSUYC++qvccd2vHUbYOOw572C0fm07d6HM4dDuN4Fx5vnjcg/8PztDt5ca7g==
-  dependencies:
-    "@expo/config-plugins" "^5.0.1"
-
 "@react-native-firebase/remote-config@16.4.3":
   version "16.4.3"
   resolved "https://registry.npmjs.org/@react-native-firebase/remote-config/-/remote-config-16.4.3.tgz#e446867f4d6ff593c6f8c81b678e1902b8e30ebb"

@@ -12,7 +12,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SheetProvider } from 'react-native-actions-sheet';
 import * as Sentry from '@sentry/react-native';
 
-import { initCrashReporting, useUpdateEffect, lockOrientation, DynamicUpdate, routingInstrumentation } from './utils';
+import { initCrashReporting, useUpdateEffect, lockOrientation, DynamicUpdate, routingInstrumentation, Application } from './utils';
 import { initTask } from './utils/task/initTask';
 import { useInitialRootStore } from './models';
 import { useInitialDataSource } from './database/helpers/useInitDataSource';
@@ -39,7 +39,9 @@ const App = observer(() => {
     if (!__DEV__) {
       lockOrientation();
       DynamicUpdate.timingSync();
-      initCrashReporting();
+      if (Application.env === 'AppStore') {
+        initCrashReporting();
+      }
     }
   }, []);
 

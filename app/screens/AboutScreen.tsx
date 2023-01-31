@@ -45,7 +45,7 @@ export const AboutScreen: FC<StackScreenProps<SettingStackParamList, 'About'>> =
       Overlay.alert({
         preset: 'spinner',
         duration: 0,
-        title: t('aboutScreen.checkUpdate'),
+        title: t('aboutScreen.checkingUpdate'),
       });
       CodePush.sync(
         {
@@ -74,29 +74,14 @@ export const AboutScreen: FC<StackScreenProps<SettingStackParamList, 'About'>> =
               RightAccessory={`${Application.version}(${Application.buildNumber})-${labelWithoutPrefix}`}
               rightIcon={null}
               onPress={handleOpenDebug}
-              onLongPress={handleCheckUpdate}
             />
             <ListCell
-              tk="aboutScreen.changelog"
-              onPress={() => {
-                openLinkInAppBrowser(
-                  i18n.language === SupportedLanguage.ZH
-                    ? Config.changelog.zh_cn
-                    : Config.changelog.en_us,
-                  {
-                    preferredControlTintColor: colors.palette.primary6,
-                  },
-                );
+              textStyle={{
+                color: colors.palette.primary6,
               }}
-            />
-            <ListCell
-              tk="aboutScreen.review"
-              bottomSeparator={false}
-              onPress={() => {
-                Linking.openURL(
-                  `https://apps.apple.com/app/apple-store/id${Config.appId}?action=write-review`,
-                );
-              }}
+              tk="aboutScreen.checkUpdate"
+              rightIcon={null}
+              onPress={handleCheckUpdate}
             />
           </ListSection>
           <ListSection titleTk="aboutScreen.agreement">

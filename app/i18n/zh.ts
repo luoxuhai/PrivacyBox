@@ -162,7 +162,8 @@ const zh = {
     qqGroup: 'QQ 反馈群',
     emailCopied: '已复制邮箱',
     qqGroupCopied: '已复制 QQ 群号',
-    checkUpdate: "正在检查更新"
+    checkUpdate: "检查更新",
+    checkingUpdate: "正在检查更新",
   },
   debugScreen: {
     title: '调试',

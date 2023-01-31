@@ -149,6 +149,14 @@ export const SettingScreen: FC<StackScreenProps<SettingStackParamList, 'Settings
               }}
             />
             <ListCell
+              tk="aboutScreen.review"
+              onPress={() => {
+                Linking.openURL(
+                  `https://apps.apple.com/app/apple-store/id${Config.appId}?action=write-review`,
+                );
+              }}
+            />
+            <ListCell
               tk="aboutScreen.title"
               bottomSeparator={false}
               onPress={() => {

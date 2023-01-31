@@ -164,7 +164,8 @@ const en: Translations = {
     qqGroup: 'QQ Feedback Group',
     emailCopied: 'Email has been copied',
     qqGroupCopied: 'QQ group number has been copied',
-    checkUpdate: 'Checking for update',
+    checkingUpdate: 'Checking for update',
+    checkUpdate: "Check for New Version",
   },
   debugScreen: {
     title: 'Debug',

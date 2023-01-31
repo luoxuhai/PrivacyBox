@@ -32,7 +32,7 @@ export class DynamicUpdate {
       CodePush.sync({
         installMode: CodePush.InstallMode.ON_NEXT_RESTART,
         mandatoryInstallMode: CodePush.InstallMode.ON_NEXT_SUSPEND,
-        minimumBackgroundDuration: 30,
+        minimumBackgroundDuration: 5,
       }).catch((error) => {
         reportException({
           error,

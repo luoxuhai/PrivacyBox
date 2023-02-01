@@ -336,6 +336,7 @@ const zh = {
     subtitle: '从设备隐藏你指定的 App',
     enabled: '开启隐藏',
     selection: '选择要隐藏的 App',
+    notSupported: "该功能只支持系统为 iOS 16 及以上版本，请升级系统版本"
   },
   applicationPickerScreen: {
     title: '选择需要隐藏的 App',

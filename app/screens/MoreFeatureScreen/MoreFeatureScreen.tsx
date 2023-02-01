@@ -9,10 +9,10 @@ import { requestReview } from 'expo-store-review';
 
 import { FlatGrid, Screen } from '@/components';
 import { colors } from '@/theme';
-import { Overlay, useSafeAreaDimensions } from '@/utils';
+import { Overlay, useSafeAreaDimensions, Device } from '@/utils';
 import { MoreFeatureNavigatorParamList } from '@/navigators';
 import { FeatureItemView, FeatureItem } from './FeatureItemView';
-import { translate } from '@/i18n';
+import { t } from '@/i18n';
 import { canUsePremium } from '@/utils/canUsePremium';
 import { MIN_SCREEN_WIDTH } from '../../constants';
 
@@ -68,6 +68,11 @@ export const MoreFeatureScreen = observer<
   }, []);
 
   const handleToScreen = (routeName: keyof MoreFeatureNavigatorParamList, needPremium: boolean) => {
+    if (routeName === 'HideApplications' && Device.version) {
+      Alert.alert(t('hideApplicationsScreen.notSupported'));
+      return
+    }
+
     if (needPremium && !canUsePremium()) {
       return;
     }

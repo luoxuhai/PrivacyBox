@@ -81,6 +81,7 @@ export const AboutScreen: FC<StackScreenProps<SettingStackParamList, 'About'>> =
               }}
               tk="aboutScreen.checkUpdate"
               rightIcon={null}
+              bottomSeparator={false}
               onPress={handleCheckUpdate}
             />
           </ListSection>

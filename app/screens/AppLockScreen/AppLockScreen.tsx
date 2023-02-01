@@ -40,7 +40,7 @@ export const AppLockScreen: FC<StackScreenProps<AppStackParamList, 'AppLock'>> =
 
     useEffect(() => {
       globalStore.setAppMaskVisible(false);
-    }, [])
+    }, []);
 
     useUpdateEffect(() => {
       if (passcode.length === PASSCODE_LENGTH) {

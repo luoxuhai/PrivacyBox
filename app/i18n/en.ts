@@ -341,6 +341,7 @@ const en: Translations = {
     subtitle: 'Hide the app you specified from the device',
     enabled: 'Open Hidden',
     selection: 'Select App to Hide',
+    notSupported: "This feature only supports iOS 16 and above, please upgrade the system version"
   },
   applicationPickerScreen: {
     title: 'Choose the app that needs to be hidden',

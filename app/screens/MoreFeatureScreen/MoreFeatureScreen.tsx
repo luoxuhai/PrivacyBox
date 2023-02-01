@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { ViewStyle, Dimensions } from 'react-native';
+import { ViewStyle, Dimensions, Alert } from 'react-native';
 import { colord } from 'colord';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StackScreenProps } from '@react-navigation/stack';
@@ -9,7 +9,7 @@ import { requestReview } from 'expo-store-review';
 
 import { FlatGrid, Screen } from '@/components';
 import { colors } from '@/theme';
-import { Overlay, useSafeAreaDimensions, Device } from '@/utils';
+import { useSafeAreaDimensions, Device } from '@/utils';
 import { MoreFeatureNavigatorParamList } from '@/navigators';
 import { FeatureItemView, FeatureItem } from './FeatureItemView';
 import { t } from '@/i18n';
@@ -70,7 +70,7 @@ export const MoreFeatureScreen = observer<
   const handleToScreen = (routeName: keyof MoreFeatureNavigatorParamList, needPremium: boolean) => {
     if (routeName === 'HideApplications' && Number(Device.version?.split('.')?.[0] ?? 0) < 16) {
       Alert.alert(t('hideApplicationsScreen.notSupported'));
-      return
+      return;
     }
 
     if (needPremium && !canUsePremium()) {

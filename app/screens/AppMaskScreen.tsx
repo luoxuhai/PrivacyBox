@@ -7,7 +7,6 @@ import Animated, { FadeIn } from 'react-native-reanimated';
 import { BlurView } from '@/components';
 import { useTheme } from '@/theme';
 import { useStores } from '@/models';
-import { useUpdateEffect } from '@/utils';
 
 export const AppMaskScreen = observer(function AppMaskScreen() {
   const { isDark } = useTheme();

@@ -3,12 +3,20 @@ import FamilyControls
 import Foundation
 import React
 
-@available(iOS 15.0, *)
 @objc(RNManagedSettings)
 class RNManagedSettings: NSObject {
-  let store = ManagedSettingsStore()
+  var store: AnyObject?
   let decoder = JSONDecoder()
   
+  override init() {
+    if #available(iOS 15.0, *) {
+      self.store = ManagedSettingsStore()
+    } else {
+      self.store = nil
+    }
+  }
+  
+  @available(iOS 15.0, *)
   @objc(setBlockedApplications:withRejecter:)
   func setBlockedApplications(resolve: RCTPromiseResolveBlock,reject: RCTPromiseRejectBlock) -> Void {
       if let object = UserDefaults.standard.object(forKey: SelectedAppTokensKey) as? Data {
@@ -17,7 +25,7 @@ class RNManagedSettings: NSObject {
           for token in appTokens {
             applications.insert(Application(token: token))
           }
-          self.store.application.blockedApplications = applications
+          (self.store as! ManagedSettingsStore).application.blockedApplications = applications
         }
         resolve("ok");
       }
@@ -25,17 +33,20 @@ class RNManagedSettings: NSObject {
       reject("error", nil, nil)
     }
   
+  @available(iOS 15.0, *)
   @objc(clearBlockedApplications:withRejecter:)
   func clearBlockedApplications(resolve: RCTPromiseResolveBlock,reject: RCTPromiseRejectBlock) -> Void {
-      self.store.application.blockedApplications?.removeAll()
+    (self.store as! ManagedSettingsStore).application.blockedApplications?.removeAll()
       resolve("ok");
     }
   
+  @available(iOS 15.0, *)
   @objc(getBlockedApplicationsCount:withRejecter:)
     func getBlockedApplicationsCount(resolve:@escaping RCTPromiseResolveBlock,reject:@escaping RCTPromiseRejectBlock) -> Void {
-      resolve(self.store.application.blockedApplications?.count ?? 0);
+      resolve((self.store as! ManagedSettingsStore).application.blockedApplications?.count ?? 0);
     }
   
+  @available(iOS 15.0, *)
   @objc(getAuthorizationStatus:withRejecter:)
     func getAuthorizationStatus(resolve:@escaping RCTPromiseResolveBlock,reject:@escaping RCTPromiseRejectBlock) -> Void {
       let authorizationStatus = AuthorizationCenter.shared.authorizationStatus

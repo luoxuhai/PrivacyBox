@@ -25,12 +25,6 @@ export const initCrashReporting = async () => {
       }),
     ],
   });
-
-  // Sentry.setContext('deviceExtra', {});
-
-  Sentry.setContext('appExtra', {
-    dynamicUpdateLabel: updateMetadata?.label,
-  });
 };
 
 type ErrorType = 'fatal' | 'error' | 'warning';

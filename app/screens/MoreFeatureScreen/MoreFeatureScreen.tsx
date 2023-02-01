@@ -68,7 +68,7 @@ export const MoreFeatureScreen = observer<
   }, []);
 
   const handleToScreen = (routeName: keyof MoreFeatureNavigatorParamList, needPremium: boolean) => {
-    if (routeName === 'HideApplications' && Device.version) {
+    if (routeName === 'HideApplications' && Number(Device.version?.split('.')?.[0] ?? 0) < 16) {
       Alert.alert(t('hideApplicationsScreen.notSupported'));
       return
     }

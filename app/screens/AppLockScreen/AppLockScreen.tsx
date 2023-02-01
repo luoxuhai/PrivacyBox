@@ -1,4 +1,4 @@
-import React, { FC, useRef, useState } from 'react';
+import React, { FC, useRef, useState, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import { ViewStyle } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
@@ -19,7 +19,7 @@ export const AppLockScreen: FC<StackScreenProps<AppStackParamList, 'AppLock'>> =
     const [passcodeError, setPasscodeError] = useState(false);
     const disabled = useRef(false);
 
-    const { appLockStore } = useStores();
+    const { appLockStore, globalStore } = useStores();
 
     const $safeAreaViewStyles: ViewStyle[] = [
       $safeAreaView,
@@ -37,6 +37,10 @@ export const AppLockScreen: FC<StackScreenProps<AppStackParamList, 'AppLock'>> =
         disabled.current = false;
       }, 200);
     }
+
+    useEffect(() => {
+      globalStore.setAppMaskVisible(false);
+    }, [])
 
     useUpdateEffect(() => {
       if (passcode.length === PASSCODE_LENGTH) {

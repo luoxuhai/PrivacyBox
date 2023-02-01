@@ -11,14 +11,8 @@ import { useUpdateEffect } from '@/utils';
 
 export const AppMaskScreen = observer(function AppMaskScreen() {
   const { isDark } = useTheme();
-  const { appStateStore, appLockStore, globalStore } = useStores();
+  const { globalStore } = useStores();
   const blurType = isDark ? 'thickMaterialDark' : 'materialLight';
-
-  useUpdateEffect(() => {
-    if (appStateStore.inForeground || appLockStore.isLocked) {
-      globalStore.setAppMaskVisible(false);
-    }
-  }, [appStateStore.inForeground, appLockStore.isLocked]);
 
   if (!globalStore.appMaskVisible) {
     return null;

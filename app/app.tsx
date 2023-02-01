@@ -78,6 +78,8 @@ const App = observer(() => {
       !global.isPausePresentMask
     ) {
       rootStore.globalStore.setAppMaskVisible(true);
+    } else {
+      rootStore.globalStore.setAppMaskVisible(false);
     }
   }, [rootStore.appStateStore.inForeground]);
 

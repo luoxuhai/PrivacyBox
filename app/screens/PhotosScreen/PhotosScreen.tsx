@@ -178,7 +178,7 @@ export const PhotosScreen: FC<StackScreenProps<AppStackParamList, 'Photos'>> = o
     <QueryKeyContextProvider value={queryKey}>
       <SelectionContextProvider value={selection}>
         <Screen>
-          <SafeAreaView style={$safeAreaView} edges={['left', 'right', 'bottom']}>
+          <SafeAreaView style={$safeAreaView} edges={['left', 'right']}>
             <FlatGrid
               contentContainerStyle={$contentContainerStyle}
               contentInsetAdjustmentBehavior="automatic"

@@ -7,8 +7,6 @@ import { CommonActions } from '@react-navigation/native';
 import { FullWindowOverlay } from 'react-native-screens';
 
 import { AppStackParamList } from '@/navigators';
-import { Screen } from '@/components';
-import { useTheme } from '@/theme';
 import { useUpdateEffect } from '@/utils';
 import { PASSCODE_LENGTH } from './constants';
 import { useStores } from '@/models';
@@ -16,7 +14,6 @@ import { AppLockView } from './AppLockView';
 
 export const AppLockScreen: FC<StackScreenProps<AppStackParamList, 'AppLock'>> = observer(
   (props) => {
-    const { colors } = useTheme();
     const { portrait } = useDeviceOrientation();
     const [passcode, setPasscode] = useState('');
     const [passcodeError, setPasscodeError] = useState(false);

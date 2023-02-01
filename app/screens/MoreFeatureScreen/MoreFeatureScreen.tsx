@@ -23,20 +23,20 @@ function luminance(color: string, l = 0.1) {
 const windowWidth = Dimensions.get('window').width;
 
 const list: FeatureItem[] = [
-  {
-    title: 'icloudScreen.title',
-    subtitle: 'icloudScreen.subtitle',
-    icon: 'arrow.clockwise.icloud.fill',
-    color: luminance(colors.light.palette.blue),
-    needPremium: true,
-    routeName: 'ICloudSync',
-  },
+  // {
+  //   title: 'icloudScreen.title',
+  //   subtitle: 'icloudScreen.subtitle',
+  //   icon: 'arrow.clockwise.icloud.fill',
+  //   color: luminance(colors.light.palette.blue),
+  //   needPremium: true,
+  //   routeName: 'ICloudSync',
+  // },
   {
     title: 'transferScreen.title',
     subtitle: 'transferScreen.subtitle',
     icon: 'wifi.circle.fill',
     color: luminance(colors.light.palette.orange),
-    needPremium: !__DEV__,
+    needPremium: true,
     routeName: 'Transfer',
   },
   {
@@ -63,23 +63,16 @@ export const MoreFeatureScreen = observer<
 
   useEffect(() => {
     setTimeout(() => {
-      requestReview?.()
+      requestReview?.();
     }, 500);
-  }, [])
+  }, []);
 
   const handleToScreen = (routeName: keyof MoreFeatureNavigatorParamList, needPremium: boolean) => {
-    if (['ICloudSync'].includes(routeName)) {
-      Overlay.toast({
-        title: translate('common.coming'),
-        preset: 'error',
-      });
-    } else {
-      if (needPremium && !canUsePremium()) {
-        return;
-      }
-
-      props.navigation.navigate(routeName);
+    if (needPremium && !canUsePremium()) {
+      return;
     }
+
+    props.navigation.navigate(routeName);
   };
 
   const itemWidth = windowWidth <= MIN_SCREEN_WIDTH ? 150 : 160;
@@ -101,7 +94,7 @@ export const MoreFeatureScreen = observer<
           )}
           estimatedItemSize={100}
           contentInsetAdjustmentBehavior="automatic"
-          itemWidth={160}
+          itemWidth={itemWidth}
           width={safeAreaDimensions.width}
           itemWidthFixed={false}
           spacing={spacing}

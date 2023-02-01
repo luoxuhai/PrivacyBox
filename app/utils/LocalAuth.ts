@@ -22,12 +22,23 @@ export class LocalAuth {
     return isEmulatorSync() ? null : this._biometricType;
   }
 
-  static async auth() {
+  static async auth(
+    options?: LocalAuthentication.LocalAuthenticationOptions,
+  ): Promise<LocalAuthentication.LocalAuthenticationResult | null> {
     if (!PermissionManager.checkPermissions(['ios.permission.FACE_ID'])) {
       return null;
     }
 
-    return LocalAuthentication.authenticateAsync();
+    try {
+      global.isPausePresentMask = true;
+      const result = await LocalAuthentication.authenticateAsync(options);
+      global.isPausePresentMask = false;
+      return result;
+    } catch {
+      global.isPausePresentMask = false;
+    }
+
+    return null;
   }
 }
 

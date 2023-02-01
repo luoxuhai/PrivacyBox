@@ -18,7 +18,6 @@ import {
   PhotosScreen,
   FakeAppHomeScreen,
   PurchaseScreen,
-  AppMaskScreen,
   ChangeLockPasscodeScreen,
   ChangeLockPasscodeScreenParams,
   PhotosNavigatorParams,
@@ -49,7 +48,6 @@ import { translate } from '@/i18n';
 export type AppStackParamList = {
   AppLock: undefined;
   ChangeLockPasscode: ChangeLockPasscodeScreenParams;
-  AppMask: undefined;
   FakeAppHome: undefined;
   Content: NavigatorScreenParams<ContentTabParamList>;
   Purchase: typeof PurchaseScreen;
@@ -114,18 +112,6 @@ const AppStack = observer(function AppStack() {
           options={{
             animation: 'fade_from_bottom',
             animationDuration: 200,
-          }}
-        />
-
-        <Stack.Screen
-          name="AppMask"
-          component={AppMaskScreen}
-          options={{
-            animation: 'fade',
-            gestureEnabled: false,
-            contentStyle: {
-              backgroundColor: 'transparent',
-            },
           }}
         />
       </Stack.Group>
@@ -219,7 +205,7 @@ const AppStack = observer(function AppStack() {
   );
 });
 
-interface NavigationProps extends Partial<React.ComponentProps<typeof NavigationContainer>> { }
+interface NavigationProps extends Partial<React.ComponentProps<typeof NavigationContainer>> {}
 
 export const AppNavigator = observer(function AppNavigator(props: NavigationProps) {
   const { colors, isDark } = useTheme();
@@ -240,7 +226,7 @@ export const AppNavigator = observer(function AppNavigator(props: NavigationProp
   );
 
   return (
-    <NavigationContainer ref={navigationRef} theme={theme} {...props} >
+    <NavigationContainer ref={navigationRef} theme={theme} {...props}>
       <AppStack />
     </NavigationContainer>
   );

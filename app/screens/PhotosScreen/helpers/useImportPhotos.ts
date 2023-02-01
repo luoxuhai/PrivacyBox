@@ -62,8 +62,8 @@ export function useImportPhotos(queryKey: ReturnType<typeof photoKeys.list>) {
           try {
             global.isPausePresentMask = true;
             await deleteAssetsAsync(localIdentifiers);
+            global.isPausePresentMask = false;
           } catch {
-          } finally {
             global.isPausePresentMask = false;
           }
         }

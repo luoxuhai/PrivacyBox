@@ -75,7 +75,6 @@ export const BiometricsButton: FC<BiometricsButtonProps> = observer((props) => {
 
   async function requestAuth() {
     try {
-      global.isPausePresentMask = true;
       const result = await auth({
         promptMessage: translate('appLockScreen.unlock'),
       });
@@ -85,8 +84,6 @@ export const BiometricsButton: FC<BiometricsButtonProps> = observer((props) => {
       }
     } catch (error) {
       props.onFail();
-    } finally {
-      global.isPausePresentMask = false;
     }
   }
 

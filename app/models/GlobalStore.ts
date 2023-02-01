@@ -5,6 +5,7 @@ export const GlobalStoreModel = types
   .props({
     bottomTabVisible: types.optional(types.boolean, true),
     migrationFailedUris: types.optional(types.frozen<string[]>([]), []),
+    appMaskVisible: types.optional(types.boolean, false),
   })
   .actions((self) => ({
     setBottomTabVisible(bottomTabVisible: boolean) {
@@ -13,6 +14,10 @@ export const GlobalStoreModel = types
 
     setMigrationFailed(uris: string[]) {
       self.migrationFailedUris = uris;
+    },
+
+    setAppMaskVisible(visible: boolean) {
+      self.appMaskVisible = visible;
     },
   }));
 

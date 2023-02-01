@@ -12,15 +12,28 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SheetProvider } from 'react-native-actions-sheet';
 import * as Sentry from '@sentry/react-native';
 
-import { initCrashReporting, useUpdateEffect, lockOrientation, DynamicUpdate, routingInstrumentation, Application } from './utils';
+import {
+  initCrashReporting,
+  useUpdateEffect,
+  lockOrientation,
+  DynamicUpdate,
+  routingInstrumentation,
+  Application,
+} from './utils';
 import { initTask } from './utils/task/initTask';
 import { useInitialRootStore } from './models';
 import { useInitialDataSource } from './database/helpers/useInitDataSource';
-import { AppNavigator, useNavigationPersistence, RootNavigation, navigationRef } from './navigators';
+import {
+  AppNavigator,
+  useNavigationPersistence,
+  RootNavigation,
+  navigationRef,
+} from './navigators';
 import { ErrorBoundary } from './screens/ErrorScreen/ErrorBoundary';
 import { useDataMigrator } from './screens/DataMigratorScreen/useDataMigrator';
 import { storage } from './utils/storage';
 import Config from './config';
+import { AppMaskScreen } from './screens';
 
 export const NAVIGATION_PERSISTENCE_KEY = 'NAVIGATION_STATE';
 
@@ -59,8 +72,12 @@ const App = observer(() => {
   }, [rootStore.appLockStore.isLocked]);
 
   useUpdateEffect(() => {
-    if (!rootStore.appStateStore.inForeground && !rootStore.appLockStore.isLocked) {
-      RootNavigation.navigate('AppMask');
+    if (
+      !rootStore.appStateStore.inForeground &&
+      !rootStore.appLockStore.isLocked &&
+      !global.isPausePresentMask
+    ) {
+      rootStore.globalStore.setAppMaskVisible(true);
     }
   }, [rootStore.appStateStore.inForeground]);
 
@@ -74,15 +91,16 @@ const App = observer(() => {
             <AppNavigator
               {...(__DEV__
                 ? {
-                  initialState: initialNavigationState,
-                  onStateChange: onNavigationStateChange,
-                }
+                    initialState: initialNavigationState,
+                    onStateChange: onNavigationStateChange,
+                  }
                 : {})}
               onReady={() => {
                 // Register the navigation container with the instrumentation
                 routingInstrumentation.registerNavigationContainer({ current: navigationRef });
               }}
             />
+            <AppMaskScreen />
           </SheetProvider>
         </QueryClientProvider>
       </ErrorBoundary>

@@ -2,17 +2,11 @@ import Config from '@/config';
 import * as Sentry from '@sentry/react-native';
 
 import { Application } from './application';
-import { DynamicUpdate, LocalPackage } from './DynamicUpdate';
+import { dist } from '../../app.json';
 
 export const routingInstrumentation = new Sentry.ReactNavigationInstrumentation();
 
-export const initCrashReporting = async () => {
-  let updateMetadata: LocalPackage | undefined;
-  try {
-    updateMetadata = await DynamicUpdate.getUpdateMetadataAsync();
-  } catch { }
-  const dist = updateMetadata?.label ?? '0';
-
+export const initCrashReporting = () => {
   Sentry.init({
     debug: __DEV__,
     dsn: Config.sentry.dsn,

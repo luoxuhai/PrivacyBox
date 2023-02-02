@@ -4,6 +4,8 @@ import {
   TemporaryDirectoryPath,
   DocumentDirectoryPath,
   pathForGroupSync,
+  exists,
+  mkdir,
 } from 'react-native-fs';
 
 import { APP_BASE_DIR } from '@/constants';
@@ -48,9 +50,9 @@ export class LocalPathManager {
     return `${this.basePath}/assets`;
   }
 
-  async static createDirIfNotExists(path: string) {
-    if (!await exists(path)) {
-      await FS.mkdir(path, {
+  static async createDirIfNotExists(path: string) {
+    if (!(await exists(path))) {
+      await mkdir(path, {
         NSURLIsExcludedFromBackupKey: true,
       });
     }

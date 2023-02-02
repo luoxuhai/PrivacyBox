@@ -7,7 +7,6 @@ export const Device = {
   isPad: (Platform as PlatformIOSStatic).isPad,
   version: String(Platform.Version),
   modelName: DeviceInfo.getModel(),
-  totalMemory: DeviceInfo.getTotalMemorySync(),
   isEmulator: DeviceInfo.isEmulatorSync(),
   getUsedMemory: async () => DeviceInfo.getUsedMemory(),
   getTotalMemory: async () => DeviceInfo.getTotalMemory(),

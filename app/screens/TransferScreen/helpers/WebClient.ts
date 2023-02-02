@@ -11,7 +11,7 @@ const WEB_CLIENT_URL = {
   us: `https://private-space-storage-us.oss-us-west-1.aliyuncs.com/web/${HOME_DIR}.zip`,
 };
 const TEMP_SAVE_PATH = join(LocalPathManager.tempPath, generateUUID());
-const SAVE_PATH = join(LocalPathManager.staticPath, HOME_DIR);
+const SAVE_PATH = join(LocalPathManager.assetPath, HOME_DIR);
 const FILE_NAME = `${HOME_DIR}.zip`;
 
 function getWebsiteUrl() {
@@ -40,7 +40,9 @@ export default class WebClient {
         cacheable: true,
       }).promise;
 
-      await unzip(join(TEMP_SAVE_PATH, FILE_NAME), LocalPathManager.staticPath, 'UTF-8');
+      await createDirIfNotExists(LocalPathManager.assetPath)
+      await unzip(join(TEMP_SAVE_PATH, FILE_NAME), LocalPathManager.assetPath, 'UTF-8');
+      await unlink(TEMP_SAVE_PATH);
     } catch (error) {
       reportException({ error, message: '下载网页出错' });
     }

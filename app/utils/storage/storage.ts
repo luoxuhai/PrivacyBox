@@ -4,7 +4,7 @@ import { LocalPathManager } from '@/utils/LocalPathManager';
 
 export const mmkv = new MMKV({
   id: 'default',
-  path: `${LocalPathManager.basePath}/storage`,
+  path: LocalPathManager.storagePath,
 });
 
 export function set(key: string, value: boolean | string | number | Uint8Array | object) {

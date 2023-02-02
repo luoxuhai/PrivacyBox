@@ -22,6 +22,10 @@ export class LocalPathManager {
     return `${this.basePath}/db`;
   }
 
+  static get storagePath() {
+    return `${this.basePath}/storage`;
+  }
+
   // 图片/视频目录
   static get photoPath() {
     return `${this.basePath}/photos`;
@@ -40,7 +44,15 @@ export class LocalPathManager {
     return `${this.basePath}/logs`;
   }
 
-  static get staticPath() {
+  static get assetPath() {
     return `${this.basePath}/assets`;
+  }
+
+  async static createDirIfNotExists(path: string) {
+    if (!await exists(path)) {
+      await FS.mkdir(path, {
+        NSURLIsExcludedFromBackupKey: true,
+      });
+    }
   }
 }

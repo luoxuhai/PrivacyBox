@@ -1,4 +1,4 @@
-const appId = '1597534147';
+import { appId } from '../../app.json';
 
 interface IBaseConfig {
   catchErrors: 'always' | 'dev' | 'prod' | 'never';

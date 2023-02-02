@@ -5,7 +5,6 @@ import './utils/consoleExtension';
 import './utils/sheets';
 
 import React, { useEffect } from 'react';
-import { initBasePath } from './utils/initBasePath';
 import { initialWindowMetrics, SafeAreaProvider } from 'react-native-safe-area-context';
 import { observer } from 'mobx-react-lite';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -45,7 +44,6 @@ const App = observer(() => {
   } = useNavigationPersistence(storage, NAVIGATION_PERSISTENCE_KEY);
 
   useEffect(() => {
-    initBasePath();
     initTask();
 
     // 线上环境

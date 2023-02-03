@@ -8,6 +8,7 @@ import {
   PlatformColor,
   View,
 } from 'react-native';
+import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 
 import FastImageProgress from '@/components/ImageProgress/FastImageProgress';
 import { useUpdateEffect } from '@/utils';
@@ -32,6 +33,7 @@ export interface ImageViewProps
   onLongPress?: () => void;
   onDoublePress?: () => void;
   onZoomScaleChange?: (scale: number) => void;
+  onClose: ({ opacity, moveEnd }: { opacity: number; moveEnd: boolean }) => void;
 }
 
 // onPressIn 事件值
@@ -123,6 +125,20 @@ function ImageView(props: ImageViewProps): JSX.Element {
     [handleDoublePress, loaded],
   );
 
+  const gesture = Gesture.Pan()
+    .maxPointers(1)
+    .runOnJS(true)
+    .onChange((e) => {
+      console.log(e.translationX, e.translationY);
+      // console.prettyLog(e.translationX);
+      const o = e.translationY < 0 ? 1 : e.translationY / 800;
+      props.onClose({ opacity: o, moveEnd: false });
+    })
+    .onEnd((e) => {
+      const o = e.translationY < 0 ? 1 : e.translationY / 800;
+      props.onClose({ opacity: o, moveEnd: true });
+    });
+
   return (
     <View style={styles.container}>
       <ScrollView
@@ -149,35 +165,37 @@ function ImageView(props: ImageViewProps): JSX.Element {
           });
         }}
       >
-        <Pressable
-          delayLongPress={mergedProps.delayLongPress}
-          onPressIn={(event) => {
-            pressInEvent = event.nativeEvent;
-          }}
-          onPressOut={handlePressOut}
-          onLongPress={() => loaded && props.onLongPress?.()}
-        >
-          <FastImageProgress
-            style={styles.image}
-            source={{
-              uri: props.source.poster || props.source.uri,
+        <GestureDetector gesture={gesture}>
+          <Pressable
+            delayLongPress={mergedProps.delayLongPress}
+            onPressIn={(event) => {
+              pressInEvent = event.nativeEvent;
             }}
-            resizeMode="contain"
-            threshold={30}
-            onLoadStart={() => {
-              setLoadStatus(LoadStatus.Loading);
-            }}
-            onLoad={(e) => {
-              setImageDimension(e.nativeEvent);
-              setLoadStatus(LoadStatus.Succeeded);
-            }}
-            onError={() => {
-              setLoadStatus(LoadStatus.Failed);
-            }}
-            renderIndicator={renderIndicator}
-            renderError={renderError}
-          />
-        </Pressable>
+            onPressOut={handlePressOut}
+            onLongPress={() => loaded && props.onLongPress?.()}
+          >
+            <FastImageProgress
+              style={styles.image}
+              source={{
+                uri: props.source.poster || props.source.uri,
+              }}
+              resizeMode="contain"
+              threshold={30}
+              onLoadStart={() => {
+                setLoadStatus(LoadStatus.Loading);
+              }}
+              onLoad={(e) => {
+                setImageDimension(e.nativeEvent);
+                setLoadStatus(LoadStatus.Succeeded);
+              }}
+              onError={() => {
+                setLoadStatus(LoadStatus.Failed);
+              }}
+              renderIndicator={renderIndicator}
+              renderError={renderError}
+            />
+          </Pressable>
+        </GestureDetector>
       </ScrollView>
       {props.renderExtraElements?.(loadStatus)}
     </View>

@@ -5,6 +5,7 @@ import './utils/consoleExtension';
 import './utils/sheets';
 
 import React, { useEffect } from 'react';
+import { InteractionManager } from 'react-native';
 import { initialWindowMetrics, SafeAreaProvider } from 'react-native-safe-area-context';
 import { observer } from 'mobx-react-lite';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -14,7 +15,6 @@ import * as Sentry from '@sentry/react-native';
 import {
   initCrashReporting,
   useUpdateEffect,
-  lockOrientation,
   DynamicUpdate,
   routingInstrumentation,
   Application,
@@ -44,16 +44,17 @@ const App = observer(() => {
   } = useNavigationPersistence(storage, NAVIGATION_PERSISTENCE_KEY);
 
   useEffect(() => {
-    initTask();
+    InteractionManager.runAfterInteractions(() => {
+      initTask();
 
-    // 线上环境
-    if (!__DEV__) {
-      lockOrientation();
-      DynamicUpdate.timingSync();
-      if (Application.env === 'AppStore') {
-        initCrashReporting();
+      // 线上环境
+      if (!__DEV__) {
+        DynamicUpdate.timingSync();
+        if (Application.env === 'AppStore') {
+          initCrashReporting();
+        }
       }
-    }
+    });
   }, []);
 
   const { rehydrated, rootStore } = useInitialRootStore();

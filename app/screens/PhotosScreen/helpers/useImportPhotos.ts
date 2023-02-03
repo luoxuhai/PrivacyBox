@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteAssetsAsync } from 'expo-media-library';
+import { InteractionManager } from 'react-native';
 
 import { Overlay } from '@/utils';
 import { t } from '@/i18n';
@@ -67,10 +68,13 @@ export function useImportPhotos(queryKey: ReturnType<typeof photoKeys.list>) {
             global.isPausePresentMask = false;
           }
         }
-        if (smartSearchEnabled) {
-          classifyImageTask.start();
-        }
-      }, 500);
+
+        InteractionManager.runAfterInteractions(() => {
+          if (smartSearchEnabled) {
+            classifyImageTask.start();
+          }
+        });
+      }, 400);
     },
   });
 

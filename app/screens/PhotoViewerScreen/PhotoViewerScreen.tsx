@@ -3,7 +3,7 @@ import { StatusBar } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { StackScreenProps } from '@react-navigation/stack';
 import { useQuery } from '@tanstack/react-query';
-import { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
 import { AlbumsNavigatorParamList } from '@/navigators';
 import { ImageBrowser, ImageBrowserInstance, ImageSource, LoadStatus, Screen } from '@/components';
@@ -61,8 +61,8 @@ export const PhotoViewerScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'P
     useEffect(() => {
       return () => {
         StatusBar.setHidden(false);
-      }
-    }, [])
+      };
+    }, []);
 
     useUpdateEffect(() => {
       if (!images.length) {
@@ -121,40 +121,59 @@ export const PhotoViewerScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'P
       );
     }, []);
 
+    const opacity = useSharedValue(1);
+
+    const $animatedStyle = useAnimatedStyle(() => ({
+      opacity: opacity.value,
+    }));
+
     return (
       <QueryKeyContextProvider value={queryKey}>
-        <Screen>
-          <Header
-            visible={toolbarVisible}
-            name={currentItem?.name}
-            ctime={currentItem?.created_date}
-            onBack={props.navigation.goBack}
-          />
-          <ImageBrowser
-            style={{
-              backgroundColor:
-                !toolbarVisible || isDark ? colors.palette.black : colors.palette.white,
-            }}
-            ref={imageBrowserRef}
-            images={images}
-            initialIndex={initialIndex}
-            renderExtraElements={renderExtraElements}
-            keyExtractor={(item) => item.id}
-            onPress={handleVisibleToolbar}
-            onLongPress={handleLongPress}
-            onPageChanged={setCurrentIdx}
-            onScrollBeginDrag={() => {
-              iconPlayOpacity.value = 0;
-            }}
-            onScrollEndDrag={(event) => {
-              iconPlayOpacity.value = 1;
-              if (event.nativeEvent.zoomScale > 1) {
-                StatusBar.setHidden(true, 'fade');
-              }
-            }}
-          />
-          <BottomToolbar visible={toolbarVisible} disabled={false} item={currentItem} />
-        </Screen>
+        <Animated.View style={[$animatedStyle, { flex: 1 }]}>
+          <Screen>
+            <Header
+              visible={toolbarVisible}
+              name={currentItem?.name}
+              ctime={currentItem?.created_date}
+              onBack={props.navigation.goBack}
+            />
+            <ImageBrowser
+              style={{
+                backgroundColor:
+                  !toolbarVisible || isDark ? colors.palette.black : colors.palette.white,
+              }}
+              ref={imageBrowserRef}
+              images={images}
+              initialIndex={initialIndex}
+              renderExtraElements={renderExtraElements}
+              keyExtractor={(item) => item.id}
+              onPress={handleVisibleToolbar}
+              onLongPress={handleLongPress}
+              onPageChanged={setCurrentIdx}
+              onScrollBeginDrag={() => {
+                iconPlayOpacity.value = 0;
+              }}
+              onScrollEndDrag={(event) => {
+                iconPlayOpacity.value = 1;
+                if (event.nativeEvent.zoomScale > 1) {
+                  StatusBar.setHidden(true, 'fade');
+                }
+              }}
+              onClose={(v) => {
+                if (v.moveEnd) {
+                  if (v.opacity <= 0.4) {
+                    props.navigation.goBack();
+                  } else {
+                    opacity.value = 1;
+                  }
+                } else {
+                  opacity.value = v.opacity;
+                }
+              }}
+            />
+            <BottomToolbar visible={toolbarVisible} disabled={false} item={currentItem} />
+          </Screen>
+        </Animated.View>
       </QueryKeyContextProvider>
     );
   });

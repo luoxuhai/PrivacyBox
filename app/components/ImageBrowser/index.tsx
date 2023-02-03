@@ -15,6 +15,7 @@ export type ImageBrowserProps = {
     loadStatus: LoadStatus;
   }) => JSX.Element | JSX.Element[] | null;
   onPageChanged?: (index: number) => void;
+  onClose: ({ opacity, moveEnd }: { opacity: number; moveEnd: boolean }) => void;
 } & Pick<LazyPagerViewProps<ImageSource>, 'buffer' | 'keyExtractor' | 'maxRenderWindow' | 'style'> &
   Pick<
     ImageViewProps,
@@ -70,6 +71,7 @@ export const ImageBrowser = forwardRef<ImageBrowserInstance, ImageBrowserProps>(
             onZoomScaleChange={props.onZoomScaleChange}
             onScrollEndDrag={props.onScrollEndDrag}
             onScrollBeginDrag={props.onScrollBeginDrag}
+            onClose={props.onClose}
           />
         )}
         onPageSelected={(e) => {

@@ -170,9 +170,13 @@ const AppStack = observer(function AppStack() {
         name="PhotoViewer"
         options={{
           headerShown: false,
+          presentation: 'transparentModal',
           animation: 'fade_from_bottom',
           animationDuration: 200,
           gestureEnabled: false,
+          contentStyle: {
+            backgroundColor: 'transparent',
+          },
         }}
         component={PhotoViewerScreen}
       />
@@ -181,6 +185,7 @@ const AppStack = observer(function AppStack() {
         name="VideoPlayer"
         options={{
           headerShown: false,
+          presentation: 'fullScreenModal',
           animation: 'fade',
         }}
         component={VideoPlayerScreen}

@@ -111,7 +111,11 @@ function observeShake(rootStore: RootStore) {
       rootStore.settingsStore.urgentSwitchActions.includes(UrgentSwitchActions.Shake) &&
       rootStore.settingsStore.urgentSwitchTarget !== AppQueriesSchemes.Disable
     ) {
-      await Linking.openURL(rootStore.settingsStore.urgentSwitchTarget);
+      try {
+        await Linking.openURL(rootStore.settingsStore.urgentSwitchTarget);
+      } catch {
+        global.isPauseBiometrics = true;
+      }
       rootStore.appLockStore.setIsLocked(true);
     }
   });
@@ -132,7 +136,11 @@ function observeDeviceMotion(rootStore: RootStore) {
         rootStore.settingsStore.urgentSwitchActions.includes(UrgentSwitchActions.FaceDown) &&
         rootStore.settingsStore.urgentSwitchTarget !== AppQueriesSchemes.Disable
       ) {
-        await Linking.openURL(rootStore.settingsStore.urgentSwitchTarget);
+        try {
+          await Linking.openURL(rootStore.settingsStore.urgentSwitchTarget);
+        } catch {
+          global.isPauseBiometrics = true;
+        }
         rootStore.appLockStore.setIsLocked(true);
       }
     }

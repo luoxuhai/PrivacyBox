@@ -79,6 +79,7 @@ const App = observer(() => {
       rootStore.globalStore.setAppMaskVisible(true);
     } else {
       rootStore.globalStore.setAppMaskVisible(false);
+      global.isPauseBiometrics = false;
     }
   }, [rootStore.appStateStore.inForeground]);
 

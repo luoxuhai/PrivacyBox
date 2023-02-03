@@ -43,6 +43,7 @@ export const BiometricsButton: FC<BiometricsButtonProps> = observer((props) => {
   // 自动触发识别
   useUpdateEffect(() => {
     if (
+      !global.isPauseBiometrics &&
       appLockStore.passcode &&
       appLockStore.isLocked &&
       usedBiometricType &&

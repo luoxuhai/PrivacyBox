@@ -253,6 +253,11 @@ const en: Translations = {
       album: 'Album',
       file: 'file',
     },
+    clear: {
+      title: 'Clean Cache',
+      success: 'Cleaned',
+      fail: 'Failed to Clean Cache',
+    },
   },
   thirdPartyApp: {
     browser: 'Browser',

@@ -162,8 +162,8 @@ const zh = {
     qqGroup: 'QQ 反馈群',
     emailCopied: '已复制邮箱',
     qqGroupCopied: '已复制 QQ 群号',
-    checkUpdate: "检查更新",
-    checkingUpdate: "正在检查更新",
+    checkUpdate: '检查更新',
+    checkingUpdate: '正在检查更新',
   },
   debugScreen: {
     title: '调试',
@@ -249,6 +249,11 @@ const zh = {
       album: '相册',
       file: '文件',
     },
+    clear: {
+      title: '清理缓存',
+      success: '已清理',
+      fail: '清理缓存失败',
+    },
   },
   thirdPartyApp: {
     browser: '浏览器',
@@ -273,6 +278,8 @@ const zh = {
     clock: '时钟',
     housekeeper: '安全管家',
     todo: '待办',
+    weather: '天气',
+    news: '新闻',
   },
   urgentSwitchScreen: {
     title: '紧急切换',
@@ -336,7 +343,7 @@ const zh = {
     subtitle: '从设备隐藏你指定的 App',
     enabled: '开启隐藏',
     selection: '选择要隐藏的 App',
-    notSupported: "该功能只支持 iOS 16 及以上版本，请升级系统版本"
+    notSupported: '该功能只支持 iOS 16 及以上版本，请升级系统版本',
   },
   applicationPickerScreen: {
     title: '选择需要隐藏的 App',

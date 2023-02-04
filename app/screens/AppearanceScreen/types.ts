@@ -5,4 +5,6 @@ export enum AppIcons {
   Todo = 'todo',
   Housekeeper = 'housekeeper',
   PasswordBox = 'password_box',
+  Weather = 'weather',
+  News = 'news',
 }

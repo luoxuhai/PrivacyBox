@@ -51,6 +51,8 @@ target 'PrivacyBox' do
   pod 'Firebase', :modular_headers => true
   pod 'FirebaseCore', :modular_headers => true
   pod 'GoogleUtilities', :modular_headers => true
+  
+  pod 'SPConfetti'
 
   target 'PrivacyBoxTests' do
     inherit! :complete

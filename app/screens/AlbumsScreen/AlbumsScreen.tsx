@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useEffect, useRef } from 'react';
-import { ViewStyle } from 'react-native';
+import { ViewStyle, InteractionManager } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -33,7 +33,9 @@ export const AlbumsScreen: FC<NativeStackScreenProps<AlbumsNavigatorParamList, '
 
     useEffect(() => {
       setTimeout(() => {
-        appUpdateCheck();
+        InteractionManager.runAfterInteractions(() => {
+          appUpdateCheck();
+        });
       }, 3000);
     }, []);
 

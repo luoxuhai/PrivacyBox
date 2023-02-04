@@ -5,11 +5,19 @@ import { observer } from 'mobx-react-lite';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { StackScreenProps } from '@react-navigation/stack';
 import CodePush from 'react-native-code-push';
+import * as MailComposer from 'expo-mail-composer';
 
 import { ListSection, ListCell, Screen, SafeAreaScrollView } from '@/components';
 import { spacing, useTheme, colors } from '@/theme';
 import Config from '@/config';
-import { openLinkInAppBrowser, HapticFeedback, Overlay, Application, DynamicUpdate } from '@/utils';
+import {
+  openLinkInAppBrowser,
+  HapticFeedback,
+  Overlay,
+  Application,
+  DynamicUpdate,
+  Device,
+} from '@/utils';
 import { i18n, SupportedLanguage, t, translate } from '@/i18n';
 import { SettingStackParamList } from '@/navigators';
 
@@ -146,15 +154,30 @@ function openQQGroup() {
   });
 }
 
-export function openDeveloperEmail() {
-  Linking.openURL(`mailto:${Config.email}`).catch(() => {
-    Clipboard.setString(Config.email);
-    Overlay.toast({
-      title: translate('aboutScreen.emailCopied'),
-      preset: 'done',
-      haptic: HapticFeedback.enabled ? 'success' : 'none',
+export async function openDeveloperEmail() {
+  try {
+    await MailComposer.composeAsync({
+      recipients: [Config.email],
+      subject: '隐私盒子反馈',
+      body: `
+
+
+             Device: ${Device.modelName}
+             iOS Version: ${Device.version}
+             App Version: ${Application.version}
+             Local Version: ${Config.dist}
+      `,
     });
-  });
+  } catch (error) {
+    Linking.openURL(`mailto:${Config.email}`).catch(() => {
+      Clipboard.setString(Config.email);
+      Overlay.toast({
+        title: translate('aboutScreen.emailCopied'),
+        preset: 'done',
+        haptic: HapticFeedback.enabled ? 'success' : 'none',
+      });
+    });
+  }
 }
 
 const $contentContainer: ViewStyle = {

@@ -24,6 +24,18 @@
 		3520FF1A2956943300E618A6 /* PrivacyBox-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 3520FF192956943300E618A6 /* PrivacyBox-Bridging-Header.h */; };
 		3565406429569A1B0032D06E /* RNManagedSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3565406329569A1B0032D06E /* RNManagedSettings.swift */; };
 		3565406629569A290032D06E /* RNManagedSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 3565406529569A290032D06E /* RNManagedSettings.m */; };
+		35745D87298E347200208D03 /* news120x120.png in Resources */ = {isa = PBXBuildFile; fileRef = 35745D82298E347200208D03 /* news120x120.png */; };
+		35745D88298E347200208D03 /* news128x128.png in Resources */ = {isa = PBXBuildFile; fileRef = 35745D83298E347200208D03 /* news128x128.png */; };
+		35745D89298E347200208D03 /* news180x180.png in Resources */ = {isa = PBXBuildFile; fileRef = 35745D84298E347200208D03 /* news180x180.png */; };
+		35745D8A298E347200208D03 /* news152x152.png in Resources */ = {isa = PBXBuildFile; fileRef = 35745D85298E347200208D03 /* news152x152.png */; };
+		35745D8B298E347200208D03 /* news167x167.png in Resources */ = {isa = PBXBuildFile; fileRef = 35745D86298E347200208D03 /* news167x167.png */; };
+		35745D91298E34AB00208D03 /* weather152x152.png in Resources */ = {isa = PBXBuildFile; fileRef = 35745D8C298E34AA00208D03 /* weather152x152.png */; };
+		35745D92298E34AB00208D03 /* weather120x120.png in Resources */ = {isa = PBXBuildFile; fileRef = 35745D8D298E34AA00208D03 /* weather120x120.png */; };
+		35745D93298E34AB00208D03 /* weather180x180.png in Resources */ = {isa = PBXBuildFile; fileRef = 35745D8E298E34AA00208D03 /* weather180x180.png */; };
+		35745D94298E34AB00208D03 /* weather167x167.png in Resources */ = {isa = PBXBuildFile; fileRef = 35745D8F298E34AA00208D03 /* weather167x167.png */; };
+		35745D95298E34AB00208D03 /* weather128x128.png in Resources */ = {isa = PBXBuildFile; fileRef = 35745D90298E34AA00208D03 /* weather128x128.png */; };
+		35745D98298E3CA600208D03 /* RNConfetti.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35745D97298E3CA600208D03 /* RNConfetti.swift */; };
+		35745D9A298E3CDE00208D03 /* RNConfetti.m in Sources */ = {isa = PBXBuildFile; fileRef = 35745D99298E3CDE00208D03 /* RNConfetti.m */; };
 		35861F4D2970484F00ABB9D1 /* password_box120x120.png in Resources */ = {isa = PBXBuildFile; fileRef = 35861F2F2970484B00ABB9D1 /* password_box120x120.png */; };
 		35861F4E2970484F00ABB9D1 /* calculator152x152.png in Resources */ = {isa = PBXBuildFile; fileRef = 35861F302970484B00ABB9D1 /* calculator152x152.png */; };
 		35861F502970484F00ABB9D1 /* todo167x167.png in Resources */ = {isa = PBXBuildFile; fileRef = 35861F322970484C00ABB9D1 /* todo167x167.png */; };
@@ -100,6 +112,18 @@
 		3520FF192956943300E618A6 /* PrivacyBox-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "PrivacyBox-Bridging-Header.h"; path = "PrivacyBox/PrivacyBox-Bridging-Header.h"; sourceTree = "<group>"; };
 		3565406329569A1B0032D06E /* RNManagedSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNManagedSettings.swift; sourceTree = "<group>"; };
 		3565406529569A290032D06E /* RNManagedSettings.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNManagedSettings.m; sourceTree = "<group>"; };
+		35745D82298E347200208D03 /* news120x120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = news120x120.png; sourceTree = "<group>"; };
+		35745D83298E347200208D03 /* news128x128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = news128x128.png; sourceTree = "<group>"; };
+		35745D84298E347200208D03 /* news180x180.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = news180x180.png; sourceTree = "<group>"; };
+		35745D85298E347200208D03 /* news152x152.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = news152x152.png; sourceTree = "<group>"; };
+		35745D86298E347200208D03 /* news167x167.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = news167x167.png; sourceTree = "<group>"; };
+		35745D8C298E34AA00208D03 /* weather152x152.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weather152x152.png; sourceTree = "<group>"; };
+		35745D8D298E34AA00208D03 /* weather120x120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weather120x120.png; sourceTree = "<group>"; };
+		35745D8E298E34AA00208D03 /* weather180x180.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weather180x180.png; sourceTree = "<group>"; };
+		35745D8F298E34AA00208D03 /* weather167x167.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weather167x167.png; sourceTree = "<group>"; };
+		35745D90298E34AA00208D03 /* weather128x128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weather128x128.png; sourceTree = "<group>"; };
+		35745D97298E3CA600208D03 /* RNConfetti.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNConfetti.swift; sourceTree = "<group>"; };
+		35745D99298E3CDE00208D03 /* RNConfetti.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNConfetti.m; sourceTree = "<group>"; };
 		35861F2F2970484B00ABB9D1 /* password_box120x120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = password_box120x120.png; sourceTree = "<group>"; };
 		35861F302970484B00ABB9D1 /* calculator152x152.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calculator152x152.png; sourceTree = "<group>"; };
 		35861F322970484C00ABB9D1 /* todo167x167.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = todo167x167.png; sourceTree = "<group>"; };
@@ -210,6 +234,7 @@
 		3520FF042955FD7200E618A6 /* ReactNativeModules */ = {
 			isa = PBXGroup;
 			children = (
+				35745D96298E3C9600208D03 /* RNConfetti */,
 				35654062295699E50032D06E /* RNManagedSettings */,
 				3520FF092955FD7200E618A6 /* RNFamilyActivityPicker */,
 			);
@@ -237,9 +262,28 @@
 			path = RNManagedSettings;
 			sourceTree = "<group>";
 		};
+		35745D96298E3C9600208D03 /* RNConfetti */ = {
+			isa = PBXGroup;
+			children = (
+				35745D97298E3CA600208D03 /* RNConfetti.swift */,
+				35745D99298E3CDE00208D03 /* RNConfetti.m */,
+			);
+			path = RNConfetti;
+			sourceTree = "<group>";
+		};
 		35861F2E297047F500ABB9D1 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				35745D8D298E34AA00208D03 /* weather120x120.png */,
+				35745D90298E34AA00208D03 /* weather128x128.png */,
+				35745D8C298E34AA00208D03 /* weather152x152.png */,
+				35745D8F298E34AA00208D03 /* weather167x167.png */,
+				35745D8E298E34AA00208D03 /* weather180x180.png */,
+				35745D82298E347200208D03 /* news120x120.png */,
+				35745D83298E347200208D03 /* news128x128.png */,
+				35745D85298E347200208D03 /* news152x152.png */,
+				35745D86298E347200208D03 /* news167x167.png */,
+				35745D84298E347200208D03 /* news180x180.png */,
 				35861F492970484F00ABB9D1 /* calculator120x120.png */,
 				35861F3E2970484D00ABB9D1 /* calculator128x128.png */,
 				35861F302970484B00ABB9D1 /* calculator152x152.png */,
@@ -448,13 +492,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				35861F4E2970484F00ABB9D1 /* calculator152x152.png in Resources */,
+				35745D94298E34AB00208D03 /* weather167x167.png in Resources */,
 				35861F602970484F00ABB9D1 /* password_box167x167.png in Resources */,
 				35861F542970484F00ABB9D1 /* clock128x128.png in Resources */,
+				35745D87298E347200208D03 /* news120x120.png in Resources */,
 				35861F562970484F00ABB9D1 /* calculator180x180.png in Resources */,
 				35106825291FD2C000E8F0D7 /* InfoPlist.strings in Resources */,
+				35745D91298E34AB00208D03 /* weather152x152.png in Resources */,
 				35861F5F2970484F00ABB9D1 /* clock167x167.png in Resources */,
 				351068352932017600E8F0D7 /* LaunchScreen.storyboard in Resources */,
 				35861F5B2970484F00ABB9D1 /* housekeeper152x152.png in Resources */,
+				35745D89298E347200208D03 /* news180x180.png in Resources */,
+				35745D92298E34AB00208D03 /* weather120x120.png in Resources */,
 				35861F622970484F00ABB9D1 /* todo128x128.png in Resources */,
 				35861F5A2970484F00ABB9D1 /* clock180x180.png in Resources */,
 				35861F672970484F00ABB9D1 /* calculator120x120.png in Resources */,
@@ -465,17 +514,22 @@
 				35861F532970484F00ABB9D1 /* todo152x152.png in Resources */,
 				35861F4D2970484F00ABB9D1 /* password_box120x120.png in Resources */,
 				35861F552970484F00ABB9D1 /* clock152x152.png in Resources */,
+				35745D95298E34AB00208D03 /* weather128x128.png in Resources */,
 				35861F582970484F00ABB9D1 /* housekeeper167x167.png in Resources */,
+				35745D8A298E347200208D03 /* news152x152.png in Resources */,
 				35861F5C2970484F00ABB9D1 /* calculator128x128.png in Resources */,
 				35861F6A2970484F00ABB9D1 /* password_box152x152.png in Resources */,
 				35861F592970484F00ABB9D1 /* housekeeper180x180.png in Resources */,
 				35861F522970484F00ABB9D1 /* todo120x120.png in Resources */,
+				35745D88298E347200208D03 /* news128x128.png in Resources */,
 				35861F5D2970484F00ABB9D1 /* housekeeper120x120.png in Resources */,
+				35745D93298E34AB00208D03 /* weather180x180.png in Resources */,
 				35861F612970484F00ABB9D1 /* calculator167x167.png in Resources */,
 				35861F662970484F00ABB9D1 /* password_box128x128.png in Resources */,
 				35861F642970484F00ABB9D1 /* todo180x180.png in Resources */,
 				35A62201291898BC0059A53D /* GoogleService-Info.plist in Resources */,
 				35861F692970484F00ABB9D1 /* password_box180x180.png in Resources */,
+				35745D8B298E347200208D03 /* news167x167.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -662,11 +716,13 @@
 				3520FF152955FD7300E618A6 /* RNFamilyActivityPickerProxy.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				3520FF122955FD7300E618A6 /* RNFamilyActivityPicker.swift in Sources */,
+				35745D9A298E3CDE00208D03 /* RNConfetti.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				3520FF112955FD7300E618A6 /* AuthorizationCenterAsync.swift in Sources */,
 				400EB2C1E1807E6CBC68B7AB /* ExpoModulesProvider.swift in Sources */,
 				3520FF162955FD7300E618A6 /* RNFamilyActivityPickerManager.m in Sources */,
 				3565406429569A1B0032D06E /* RNManagedSettings.swift in Sources */,
+				35745D98298E3CA600208D03 /* RNConfetti.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

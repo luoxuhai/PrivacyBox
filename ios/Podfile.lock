@@ -43,6 +43,8 @@ PODS:
     - ExpoModulesCore
   - ExpoLinearGradient (11.4.0):
     - ExpoModulesCore
+  - ExpoMailComposer (12.0.0):
+    - ExpoModulesCore
   - ExpoModulesCore (0.11.8):
     - React-Core
     - ReactCommon/turbomodule/core
@@ -548,7 +550,7 @@ PODS:
     - React
     - React-callinvoker
     - React-Core
-  - react-native-safe-area-context (4.4.1):
+  - react-native-safe-area-context (4.5.0):
     - RCT-Folly
     - RCTRequired
     - RCTTypeSafety
@@ -637,7 +639,7 @@ PODS:
     - React-perflogger (= 0.69.7)
   - rn-kit-sqlite (6.0.3):
     - React-Core
-  - RNBootSplash (4.4.0):
+  - RNBootSplash (4.4.2):
     - React-Core
   - RNCClipboard (1.11.1):
     - React-Core
@@ -664,11 +666,11 @@ PODS:
     - RNFBApp
   - RNFileViewer (2.1.5):
     - React-Core
-  - RNFlashList (1.4.0):
+  - RNFlashList (1.4.1):
     - React-Core
   - RNFS (2.20.0):
     - React-Core
-  - RNGestureHandler (2.8.0):
+  - RNGestureHandler (2.9.0):
     - React-Core
   - RNIap (12.4.9):
     - React-Core
@@ -678,7 +680,7 @@ PODS:
     - React-Core
   - RNPermissions (3.6.1):
     - React-Core
-  - RNReanimated (2.13.0):
+  - RNReanimated (2.14.4):
     - DoubleConversion
     - FBLazyVector
     - FBReactNativeSpec
@@ -705,7 +707,7 @@ PODS:
     - React-RCTText
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNScreens (3.18.2):
+  - RNScreens (3.19.0):
     - React-Core
     - React-RCTImage
   - RNSentry (4.13.0):
@@ -731,6 +733,7 @@ PODS:
   - Sentry/HybridSDK (7.31.5)
   - SocketRocket (0.6.0)
   - SPAlert (4.2.0)
+  - SPConfetti (1.4.0)
   - SPIndicator (1.6.4)
   - SSZipArchive (2.2.3)
   - Yoga (1.14.0)
@@ -756,6 +759,7 @@ DEPENDENCIES:
   - ExpoImageManipulator (from `../node_modules/expo-image-manipulator/ios`)
   - ExpoKeepAwake (from `../node_modules/expo-keep-awake/ios`)
   - ExpoLinearGradient (from `../node_modules/expo-linear-gradient/ios`)
+  - ExpoMailComposer (from `../node_modules/expo-mail-composer/ios`)
   - ExpoModulesCore (from `../node_modules/expo-modules-core/ios`)
   - ExpoStoreReview (from `../node_modules/expo-store-review/ios`)
   - EXSensors (from `../node_modules/expo-sensors/ios`)
@@ -874,6 +878,7 @@ DEPENDENCIES:
   - RNShare (from `../node_modules/react-native-share`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - RNZipArchive (from `../node_modules/react-native-zip-archive`)
+  - SPConfetti
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -916,6 +921,7 @@ SPEC REPOS:
     - Sentry
     - SocketRocket
     - SPAlert
+    - SPConfetti
     - SPIndicator
     - SSZipArchive
     - YogaKit
@@ -957,6 +963,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-keep-awake/ios"
   ExpoLinearGradient:
     :path: "../node_modules/expo-linear-gradient/ios"
+  ExpoMailComposer:
+    :path: "../node_modules/expo-mail-composer/ios"
   ExpoModulesCore:
     :path: "../node_modules/expo-modules-core/ios"
   ExpoStoreReview:
@@ -1161,6 +1169,7 @@ SPEC CHECKSUMS:
   ExpoImageManipulator: 5f3c1ab8dd81de11491b5051bb925abc91fe57e4
   ExpoKeepAwake: 0e8f18142e71bbf2c7f6aa66ebed249ba1420320
   ExpoLinearGradient: 1a3af07c6dab3c612967a294836df9ae717431df
+  ExpoMailComposer: 5bd9a732104eb1721a5aa4744903673787d1410c
   ExpoModulesCore: 39ec590ce622289c060183aba57f77b1e73b4e11
   ExpoStoreReview: ff6d631f2949eb7e4b2d14146ef6af25a16d770d
   EXSensors: c4d17812887f3b8bec1da3c1e501a1d7b02bf19d
@@ -1240,7 +1249,7 @@ SPEC CHECKSUMS:
   react-native-pager-view: c9171e3b9f212fe6a4a529818745d8cd21fe82a0
   react-native-photos-picker: cd965118d4274da9923cc6a26da630a924474c55
   react-native-quick-sqlite: 5500398412d420a201070c6f99004a411df3c60f
-  react-native-safe-area-context: 99b24a0c5acd0d5dcac2b1a7f18c49ea317be99a
+  react-native-safe-area-context: 39c2d8be3328df5d437ac1700f4f3a4f75716acc
   react-native-segmented-control: 06607462630512ff8eef652ec560e6235a30cc3e
   react-native-sfsymbols: bd3a0d3eab185e80b571bae60753dcf5a0d57967
   react-native-shake: 67d43d6af4abfc299400b17fea7d2ec0754c72ac
@@ -1259,7 +1268,7 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: 65cd2782a57e1d59a68aa5d504edf94278578e41
   ReactCommon: 1e783348b9aa73ae68236271df972ba898560a95
   rn-kit-sqlite: 5ca1f7f50c623a9039f827fa0b76aa62f259a42e
-  RNBootSplash: 8ecffd190fae05291b671ea2280c5238f15499a9
+  RNBootSplash: b2014890e22f0b4895ed07ff4aebd52b63ade449
   RNCClipboard: 2834e1c4af68697089cdd455ee4a4cdd198fa7dd
   RNCMaskedView: bc0170f389056201c82a55e242e5d90070e18e5a
   RNDeviceInfo: 4701f0bf2a06b34654745053db0ce4cb0c53ada7
@@ -1269,15 +1278,15 @@ SPEC CHECKSUMS:
   RNFBApp: 90153cce9b119f4546a4e5fb1427bca963448dc5
   RNFBRemoteConfig: 3bc1ece331a73a5f222901e7b44e4dc31f368d93
   RNFileViewer: ce7ca3ac370e18554d35d6355cffd7c30437c592
-  RNFlashList: 399bf6a0db68f594ad2c86aaff3ea39564f39f8a
+  RNFlashList: 8ec7f7454721145fe84566bb9e88bcf58981c9fe
   RNFS: 4ac0f0ea233904cb798630b3c077808c06931688
-  RNGestureHandler: 62232ba8f562f7dea5ba1b3383494eb5bf97a4d3
+  RNGestureHandler: 071d7a9ad81e8b83fe7663b303d132406a7d8f39
   RNIap: 8b26060630f5051294128b8b044009839828122c
   RNInAppBrowser: e36d6935517101ccba0e875bac8ad7b0cb655364
   RNLocalize: 0df7970cfc60389f00eb62fd7c097dc75af3fb4f
   RNPermissions: dcdb7b99796bbeda6975a6e79ad519c41b251b1c
-  RNReanimated: f0d66bda3d074c43c72a18f4fd4f4c26687bc1fd
-  RNScreens: 34cc502acf1b916c582c60003dc3089fa01dc66d
+  RNReanimated: ba021107f1dd90cb04c35c5d639392d5da27d065
+  RNScreens: ea4cd3a853063cda19a4e3c28d2e52180c80f4eb
   RNSentry: acebe4104a6f5915ae871eb59dc73f13dcc92ef7
   RNShare: 48b3113cd089a2be8ff0515c3ae7a46a4db8a76b
   RNSVG: 38ca962c970dbce1ca38991a5aebf26d163f9efb
@@ -1287,11 +1296,12 @@ SPEC CHECKSUMS:
   Sentry: 4c9babff9034785067c896fd580b1f7de44da020
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
   SPAlert: 735da1f16a887e294719217572ce1f936d8c8782
+  SPConfetti: 4ba720ff652d960f59c3e4eadee2c0c3ef6ce9a4
   SPIndicator: 93e0a4fb23de51294ac48e874c0f081a5e293e4f
   SSZipArchive: 62d4947b08730e4cda640473b0066d209ff033c9
   Yoga: 0b84a956f7393ef1f37f3bb213c516184e4a689d
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 914d56b12aefc3c07569b026460eb6ccc7df7733
+PODFILE CHECKSUM: fd3b7eddf3279fd7151cff44c2a8249471887a2f
 
 COCOAPODS: 1.11.2

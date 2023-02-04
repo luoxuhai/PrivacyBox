@@ -7,6 +7,8 @@ import AppIconHousekeeper from '@/assets/icons/app-icon/housekeeper.svg';
 import AppIconPasswordBox from '@/assets/icons/app-icon/password_box.svg';
 import AppIconTodo from '@/assets/icons/app-icon/todo.svg';
 import AppIconClock from '@/assets/icons/app-icon/clock.svg';
+import AppIconNews from '@/assets/icons/app-icon/news.svg';
+import AppIconWeather from '@/assets/icons/app-icon/weather.svg';
 
 import { AppIcons } from '@/screens/AppearanceScreen/types';
 
@@ -75,6 +77,8 @@ export const iconSvgRegistry = {
   [AppIcons.Housekeeper]: AppIconHousekeeper,
   [AppIcons.PasswordBox]: AppIconPasswordBox,
   [AppIcons.Todo]: AppIconTodo,
+  [AppIcons.News]: AppIconNews,
+  [AppIcons.Weather]: AppIconWeather,
 };
 
 const $imageStyle: ImageStyle = {

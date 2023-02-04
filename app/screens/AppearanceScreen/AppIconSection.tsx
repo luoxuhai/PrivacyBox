@@ -19,7 +19,6 @@ import { TextKeyPath } from '@/i18n';
 import { appIconOptions } from './constants';
 import { HapticFeedback, Overlay } from '@/utils';
 import { AppIcons } from './types';
-import { RootNavigation } from '@/navigators';
 import { canUsePremium } from '@/utils/canUsePremium';
 
 const APP_ICON_ITEM_SIZE = 58;

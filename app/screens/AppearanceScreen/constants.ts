@@ -35,4 +35,14 @@ export const appIconOptions: {
     name: AppIcons.Todo,
     needsBuy: true,
   },
+  {
+    title: 'appIconName.weather',
+    name: AppIcons.Weather,
+    needsBuy: true,
+  },
+  {
+    title: 'appIconName.news',
+    name: AppIcons.News,
+    needsBuy: true,
+  },
 ];

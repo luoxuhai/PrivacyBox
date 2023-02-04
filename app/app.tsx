@@ -49,7 +49,7 @@ const App = observer(() => {
 
       // 线上环境
       if (!__DEV__) {
-        DynamicUpdate.timingSync();
+        DynamicUpdate.sync();
         if (Application.env === 'AppStore') {
           initCrashReporting();
         }
@@ -81,6 +81,8 @@ const App = observer(() => {
       rootStore.globalStore.setAppMaskVisible(false);
       global.isPauseBiometrics = false;
     }
+
+    InteractionManager.runAfterInteractions(DynamicUpdate.sync);
   }, [rootStore.appStateStore.inForeground]);
 
   if (!isReay) return null;

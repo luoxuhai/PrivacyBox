@@ -15,6 +15,7 @@ import Config from '@/config';
 import { purchaseKeys } from './constants';
 import { Overlay } from '@/utils';
 import { translate } from '@/i18n';
+import * as Confetti from '@/lib/Confetti';
 
 export const PurchaseScreen: FC<StackScreenProps<SettingStackParamList, 'Purchase'>> = observer(
   (props) => {
@@ -36,6 +37,7 @@ export const PurchaseScreen: FC<StackScreenProps<SettingStackParamList, 'Purchas
       return () => {
         Overlay.dismissAllAlerts();
         InAppPurchase.shared.destroy();
+        Confetti.stop();
       };
     }, []);
 
@@ -50,9 +52,13 @@ export const PurchaseScreen: FC<StackScreenProps<SettingStackParamList, 'Purchas
     });
 
     function handleBackDelay() {
+      Confetti.start({
+        duration: 1,
+        animation: 'fullWidthToDown',
+      });
       setTimeout(() => {
         props.navigation.goBack();
-      }, 2000);
+      }, 3000);
     }
 
     // 恢复购买

@@ -7,21 +7,22 @@ import Share from 'react-native-share';
 
 import { SettingStackParamList } from '@/navigators';
 import { Screen, SafeAreaScrollView, ListSection, ListCell, Switch } from '@/components';
-import { spacing } from '@/theme';
+import { spacing, useTheme } from '@/theme';
 import { t, TextKeyPath } from '@/i18n';
 import { BottomTabs } from '@/models/SettingsStore';
 import { useStores } from '@/models';
 import { classifyImageTask } from '@/utils/task/classifyImageTask';
 import { canUsePremium } from '@/utils/canUsePremium';
 import { useMutation } from '@tanstack/react-query';
-import { Overlay, showActionSheet } from '@/utils';
+import { LocalPathManager, Overlay, showActionSheet } from '@/utils';
 import { clearOldData } from '../DataMigratorScreen/helpers/clearOldData';
 import { exportPhotos } from '../PhotosScreen/helpers/exportPhotos';
 import { fetchAllPhotoUris } from './helpers/fetchAllPhotoUris';
 import { fetchAllFileUris } from './helpers/fetchAllFileUris';
-import { exists, readdir } from 'react-native-fs';
+import { exists, readdir, readDir, unlink } from 'react-native-fs';
 import { SOURCE_PATH } from '../DataMigratorScreen/constants';
 import { join } from '@/lib/path';
+import { recycleBinClearerTask } from '@/utils/task/recycleBinClearer';
 
 export const AdvancedSettingsScreen: FC<
   StackScreenProps<SettingStackParamList, 'AdvancedSettings'>
@@ -73,6 +74,7 @@ export const AdvancedSettingsScreen: FC<
         </ListSection>
         <BottomTabVisibleSection />
         <DataExportSection />
+        <CacheClearSection />
       </SafeAreaScrollView>
     </Screen>
   );
@@ -115,6 +117,8 @@ const BottomTabVisibleSection = observer(() => {
 });
 
 const DataExportSection = observer(() => {
+  const { globalStore } = useStores();
+
   const { mutateAsync: handleExport } = useMutation({
     async mutationFn() {
       const uris: string[] = [];
@@ -186,12 +190,63 @@ const DataExportSection = observer(() => {
 
   return (
     <ListSection titleTk="advancedSettingsScreen.dataExport">
-      <ListCell tk="advancedSettingsScreen.exceptionDataExport" onPress={() => handleExport()} />
+      <ListCell
+        visible={!!globalStore.migrationFailedUris?.length}
+        tk="advancedSettingsScreen.exceptionDataExport"
+        onPress={() => handleExport()}
+      />
       <ListCell tk="advancedSettingsScreen.allPhotoExport" onPress={() => handleSelectDest()} />
       <ListCell
         tk="advancedSettingsScreen.allFileExport"
         bottomSeparator={false}
         onPress={async () => handleExportToFile(await fetchAllFileUris())}
+      />
+    </ListSection>
+  );
+});
+
+const CacheClearSection = observer(() => {
+  const { colors } = useTheme();
+
+  const { mutateAsync: handleClearCache } = useMutation({
+    async mutationFn() {
+      await clearOldData();
+      await recycleBinClearerTask.start();
+
+      if (await exists(LocalPathManager.tempPath)) {
+        const dirs = await readDir(LocalPathManager.tempPath);
+        for (const dir of dirs) {
+          if (dir.isFile()) {
+            await unlink(dir.path);
+          }
+        }
+      }
+    },
+    onSuccess() {
+      Overlay.toast({
+        preset: 'done',
+        title: t('advancedSettingsScreen.clear.success'),
+      });
+    },
+    onError(error) {
+      Overlay.toast({
+        preset: 'error',
+        title: t('advancedSettingsScreen.clear.fail'),
+        message: error?.message || '',
+      });
+    },
+  });
+
+  return (
+    <ListSection>
+      <ListCell
+        textStyle={{
+          color: colors.palette.primary6,
+        }}
+        tk="advancedSettingsScreen.clear.title"
+        rightIcon={null}
+        bottomSeparator={false}
+        onPress={() => handleClearCache()}
       />
     </ListSection>
   );

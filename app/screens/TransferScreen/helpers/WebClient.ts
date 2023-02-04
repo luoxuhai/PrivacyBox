@@ -1,5 +1,5 @@
 import { unzip } from 'react-native-zip-archive';
-import { downloadFile, exists, mkdir } from 'react-native-fs';
+import { downloadFile, exists, mkdir, unlink } from 'react-native-fs';
 
 import { reportException, generateUUID, LocalPathManager } from '@/utils';
 import { join } from '@/lib/path';
@@ -40,7 +40,7 @@ export default class WebClient {
         cacheable: true,
       }).promise;
 
-      await createDirIfNotExists(LocalPathManager.assetPath)
+      await LocalPathManager.createDirIfNotExists(LocalPathManager.assetPath);
       await unzip(join(TEMP_SAVE_PATH, FILE_NAME), LocalPathManager.assetPath, 'UTF-8');
       await unlink(TEMP_SAVE_PATH);
     } catch (error) {

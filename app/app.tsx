@@ -33,6 +33,7 @@ import { useDataMigrator } from './screens/DataMigratorScreen/useDataMigrator';
 import { storage } from './utils/storage';
 import Config from './config';
 import { AppMaskScreen } from './screens';
+import WebClient from './screens/TransferScreen/helpers/WebClient';
 
 export const NAVIGATION_PERSISTENCE_KEY = 'NAVIGATION_STATE';
 
@@ -45,15 +46,16 @@ const App = observer(() => {
 
   useEffect(() => {
     InteractionManager.runAfterInteractions(() => {
-      initTask();
+      if (Application.env === 'AppStore') {
+        initCrashReporting();
+      }
 
-      // 线上环境
       if (!__DEV__) {
         DynamicUpdate.sync();
-        if (Application.env === 'AppStore') {
-          initCrashReporting();
-        }
       }
+
+      initTask();
+      WebClient.update(true);
     });
   }, []);
 

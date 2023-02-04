@@ -4,7 +4,7 @@ import SPConfetti
 class RNConfetti: NSObject {
   @objc(start:)
   func start(options:NSDictionary) -> Void {
-    var particles: [SPConfettiParticle] = [.arc, .star, .heart, .triangle]
+    let particles: [SPConfettiParticle] = [.arc, .star, .heart, .triangle]
     var animation: SPConfettiAnimation
     let duration = options["duration"] as! TimeInterval
     

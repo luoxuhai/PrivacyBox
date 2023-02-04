@@ -26,3 +26,7 @@
 | `1.2`            | Equivalent to `>=1.2.0 <1.3.0`                                                         |
 | `~1.2.3`         | Equivalent to `>=1.2.3 <1.3.0`                                                         |
 | `^1.2.3`         | Equivalent to `>=1.2.3 <2.0.0`
+
+## 运行 XCTest
+
+<https://firebase.google.com/docs/test-lab/ios/run-xctest?hl=zh&authuser=0#workspace>

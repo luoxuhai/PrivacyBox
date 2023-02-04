@@ -1,4 +1,5 @@
-import React, { forwardRef, useImperativeHandle, useRef, useState } from 'react';
+/* eslint-disable react/display-name */
+import React, { forwardRef, memo, useCallback, useImperativeHandle, useRef, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { LazyPagerView, LazyPagerViewProps } from 'react-native-pager-view';
 
@@ -15,7 +16,6 @@ export type ImageBrowserProps = {
     loadStatus: LoadStatus;
   }) => JSX.Element | JSX.Element[] | null;
   onPageChanged?: (index: number) => void;
-  onClose: ({ opacity, moveEnd }: { opacity: number; moveEnd: boolean }) => void;
 } & Pick<LazyPagerViewProps<ImageSource>, 'buffer' | 'keyExtractor' | 'maxRenderWindow' | 'style'> &
   Pick<
     ImageViewProps,
@@ -32,8 +32,8 @@ export interface ImageBrowserInstance {
   setScrollEnabled: (scrollEnabled: boolean) => void;
 }
 
-export const ImageBrowser = forwardRef<ImageBrowserInstance, ImageBrowserProps>(
-  function ImageBrowser(props, ref) {
+export const ImageBrowser = memo(
+  forwardRef<ImageBrowserInstance, ImageBrowserProps>(function ImageBrowser(props, ref) {
     const pagerViewRef = useRef<LazyPagerView<ImageSource>>(null);
     const [currentIndex, setCurrentIndex] = useState<number>(props.initialIndex);
 
@@ -50,17 +50,9 @@ export const ImageBrowser = forwardRef<ImageBrowserInstance, ImageBrowserProps>(
       },
     }));
 
-    return (
-      <LazyPagerView
-        style={[styles.pageView, props.style]}
-        ref={pagerViewRef}
-        buffer={4}
-        pageMargin={20}
-        overdrag
-        initialPage={props.initialIndex}
-        data={props.images}
-        keyExtractor={props.keyExtractor ?? ((item) => item.id)}
-        renderItem={({ item, index }) => (
+    const renderItem = useCallback(
+      ({ item, index }) => {
+        return (
           <ImageView
             source={item}
             inViewport={index === currentIndex}
@@ -71,9 +63,25 @@ export const ImageBrowser = forwardRef<ImageBrowserInstance, ImageBrowserProps>(
             onZoomScaleChange={props.onZoomScaleChange}
             onScrollEndDrag={props.onScrollEndDrag}
             onScrollBeginDrag={props.onScrollBeginDrag}
-            onClose={props.onClose}
           />
-        )}
+        );
+      },
+      [props, currentIndex],
+    );
+
+    const keyExtractor = useCallback((item: ImageSource) => item.id, []);
+
+    return (
+      <LazyPagerView
+        style={[styles.pageView, props.style]}
+        ref={pagerViewRef}
+        buffer={4}
+        pageMargin={20}
+        overdrag
+        initialPage={props.initialIndex}
+        data={props.images}
+        keyExtractor={props.keyExtractor ?? keyExtractor}
+        renderItem={renderItem}
         onPageSelected={(e) => {
           const index = e.nativeEvent.position;
           setCurrentIndex(index);
@@ -81,7 +89,7 @@ export const ImageBrowser = forwardRef<ImageBrowserInstance, ImageBrowserProps>(
         }}
       />
     );
-  },
+  }),
 );
 
 const styles = StyleSheet.create({

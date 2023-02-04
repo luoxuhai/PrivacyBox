@@ -121,59 +121,44 @@ export const PhotoViewerScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'P
       );
     }, []);
 
-    const opacity = useSharedValue(1);
+    const onScrollBeginDrag = useCallback(() => {
+      iconPlayOpacity.value = 0;
+    }, []);
 
-    const $animatedStyle = useAnimatedStyle(() => ({
-      opacity: opacity.value,
-    }));
+    const onScrollEndDrag = useCallback((event: any) => {
+      iconPlayOpacity.value = 1;
+      if (event.nativeEvent.zoomScale > 1) {
+        StatusBar.setHidden(true, 'fade');
+      }
+    }, []);
 
     return (
       <QueryKeyContextProvider value={queryKey}>
-        <Animated.View style={[$animatedStyle, { flex: 1 }]}>
-          <Screen>
-            <Header
-              visible={toolbarVisible}
-              name={currentItem?.name}
-              ctime={currentItem?.created_date}
-              onBack={props.navigation.goBack}
-            />
-            <ImageBrowser
-              style={{
-                backgroundColor:
-                  !toolbarVisible || isDark ? colors.palette.black : colors.palette.white,
-              }}
-              ref={imageBrowserRef}
-              images={images}
-              initialIndex={initialIndex}
-              renderExtraElements={renderExtraElements}
-              keyExtractor={(item) => item.id}
-              onPress={handleVisibleToolbar}
-              onLongPress={handleLongPress}
-              onPageChanged={setCurrentIdx}
-              onScrollBeginDrag={() => {
-                iconPlayOpacity.value = 0;
-              }}
-              onScrollEndDrag={(event) => {
-                iconPlayOpacity.value = 1;
-                if (event.nativeEvent.zoomScale > 1) {
-                  StatusBar.setHidden(true, 'fade');
-                }
-              }}
-              onClose={(v) => {
-                if (v.moveEnd) {
-                  if (v.opacity <= 0.4) {
-                    props.navigation.goBack();
-                  } else {
-                    opacity.value = 1;
-                  }
-                } else {
-                  opacity.value = v.opacity;
-                }
-              }}
-            />
-            <BottomToolbar visible={toolbarVisible} disabled={false} item={currentItem} />
-          </Screen>
-        </Animated.View>
+        <Screen>
+          <Header
+            visible={toolbarVisible}
+            name={currentItem?.name}
+            ctime={currentItem?.created_date}
+            onBack={props.navigation.goBack}
+          />
+          <ImageBrowser
+            style={{
+              backgroundColor:
+                !toolbarVisible || isDark ? colors.palette.black : colors.palette.white,
+            }}
+            ref={imageBrowserRef}
+            images={images}
+            initialIndex={initialIndex}
+            renderExtraElements={renderExtraElements}
+            keyExtractor={(item) => item.id}
+            onPress={handleVisibleToolbar}
+            onLongPress={handleLongPress}
+            onPageChanged={setCurrentIdx}
+            onScrollBeginDrag={onScrollBeginDrag}
+            onScrollEndDrag={onScrollEndDrag}
+          />
+          <BottomToolbar visible={toolbarVisible} disabled={false} item={currentItem} />
+        </Screen>
       </QueryKeyContextProvider>
     );
   });

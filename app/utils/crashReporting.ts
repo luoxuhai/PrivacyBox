@@ -2,6 +2,7 @@ import Config from '@/config';
 import * as Sentry from '@sentry/react-native';
 
 import { Application } from './application';
+import { Device } from './device';
 
 export const routingInstrumentation = new Sentry.ReactNavigationInstrumentation();
 
@@ -18,6 +19,7 @@ export const initCrashReporting = () => {
       }),
     ],
   });
+  Sentry.setTag('detailed_device', Device.modelName);
 };
 
 type ErrorType = 'fatal' | 'error' | 'warning';

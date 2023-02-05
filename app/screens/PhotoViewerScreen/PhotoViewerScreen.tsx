@@ -141,6 +141,8 @@ export const PhotoViewerScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'P
       }
     }, []);
 
+    const keyExtractor = useCallback((item) => item.id, []);
+
     return (
       <QueryKeyContextProvider value={queryKey}>
         <Screen>
@@ -159,14 +161,22 @@ export const PhotoViewerScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'P
             images={images}
             initialIndex={initialIndex}
             renderExtraElements={renderExtraElements}
-            keyExtractor={(item) => item.id}
+            keyExtractor={keyExtractor}
             onPress={handleVisibleToolbar}
             onLongPress={handleLongPress}
             onPageChanged={setCurrentIdx}
             onScrollBeginDrag={onScrollBeginDrag}
             onScrollEndDrag={onScrollEndDrag}
           />
-          <BottomToolbar visible={toolbarVisible} disabled={false} item={currentItem} />
+          <BottomToolbar
+            visible={toolbarVisible}
+            disabled={false}
+            item={currentItem}
+            onDelete={() => {
+              const pageIndex = currentIdx === images.length - 1 ? currentIdx - 1 : currentIdx;
+              imageBrowserRef.current.setPage(pageIndex, false);
+            }}
+          />
         </Screen>
       </QueryKeyContextProvider>
     );

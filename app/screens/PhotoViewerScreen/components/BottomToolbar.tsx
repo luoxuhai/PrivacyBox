@@ -15,6 +15,7 @@ interface BottomToolbarProps {
   visible: boolean;
   disabled: boolean;
   item: FetchPhotosResult;
+  onDelete: () => void;
 }
 
 export const BottomToolbar = observer((props: BottomToolbarProps) => {
@@ -32,7 +33,7 @@ export const BottomToolbar = observer((props: BottomToolbarProps) => {
           sharePhotos({ uris });
           break;
         case BottomToolbarKeys.Delete:
-          handleDeletePhotos({ ids });
+          handleDeletePhotos({ ids }, props.onDelete);
           break;
         case BottomToolbarKeys.Details:
           SheetManager.show('photo-detail-sheet', {

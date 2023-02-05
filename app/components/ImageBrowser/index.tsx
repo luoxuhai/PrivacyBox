@@ -2,6 +2,7 @@
 import React, { forwardRef, memo, useCallback, useImperativeHandle, useRef, useState } from 'react';
 import { ViewStyle } from 'react-native';
 import { LazyPagerView, LazyPagerViewProps } from 'react-native-pager-view';
+import isEqual from 'react-fast-compare';
 
 import ImageView, { ImageViewProps } from './ImageView';
 import { ImageSource, LoadStatus } from './type.d';
@@ -66,10 +67,26 @@ export const ImageBrowser = memo(
           />
         );
       },
-      [props, currentIndex],
+      [
+        props.renderExtraElements,
+        props.onPress,
+        props.onDoublePress,
+        props.onLongPress,
+        props.onZoomScaleChange,
+        props.onScrollEndDrag,
+        props.onScrollBeginDrag,
+        currentIndex,
+      ],
     );
 
-    const keyExtractor = useCallback((item: ImageSource) => item.id, []);
+    const onPageSelected = useCallback(
+      (e: any) => {
+        const index = e.nativeEvent.position;
+        setCurrentIndex(index);
+        props.onPageChanged?.(index);
+      },
+      [props.onPageChanged],
+    );
 
     return (
       <LazyPagerView
@@ -80,16 +97,13 @@ export const ImageBrowser = memo(
         overdrag
         initialPage={props.initialIndex}
         data={props.images}
-        keyExtractor={props.keyExtractor ?? keyExtractor}
+        keyExtractor={props.keyExtractor}
         renderItem={renderItem}
-        onPageSelected={(e) => {
-          const index = e.nativeEvent.position;
-          setCurrentIndex(index);
-          props.onPageChanged?.(index);
-        }}
+        onPageSelected={onPageSelected}
       />
     );
   }),
+  isEqual,
 );
 
 const $pageView: ViewStyle = {

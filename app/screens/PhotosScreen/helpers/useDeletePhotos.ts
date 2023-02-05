@@ -55,7 +55,7 @@ export function useDeletePhotos() {
     },
   });
 
-  function handlePresentDeleteAlert(params: DeletePhotosParams) {
+  function handlePresentDeleteAlert(params: DeletePhotosParams, onSuccess?: () => void) {
     const count = params.ids.length;
     Alert.alert(
       t('photosScreen.delete.title', {
@@ -72,8 +72,9 @@ export function useDeletePhotos() {
         {
           text: t('common.confirm'),
           style: 'destructive',
-          onPress() {
-            handleDeletePhotos(params);
+          async onPress() {
+            await handleDeletePhotos(params);
+            onSuccess?.();
           },
         },
       ],

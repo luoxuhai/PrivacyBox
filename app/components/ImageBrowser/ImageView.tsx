@@ -7,6 +7,7 @@ import {
   Text,
   PlatformColor,
   View,
+  ViewStyle,
 } from 'react-native';
 
 import FastImageProgress from '@/components/ImageProgress/FastImageProgress';
@@ -180,6 +181,7 @@ function ImageView(props: ImageViewProps): JSX.Element {
         </Pressable>
       </ScrollView>
       {props.renderExtraElements?.(loadStatus)}
+      <View style={$rightBar} />
     </View>
   );
 }
@@ -212,3 +214,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
+
+const $rightBar: ViewStyle = {
+  position: 'absolute',
+  width: "8%",
+  right: 0,
+  top: 0,
+  bottom: 0,
+};

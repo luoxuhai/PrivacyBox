@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 import React, { forwardRef, memo, useCallback, useImperativeHandle, useRef, useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { ViewStyle } from 'react-native';
 import { LazyPagerView, LazyPagerViewProps } from 'react-native-pager-view';
 
 import ImageView, { ImageViewProps } from './ImageView';
@@ -73,7 +73,7 @@ export const ImageBrowser = memo(
 
     return (
       <LazyPagerView
-        style={[styles.pageView, props.style]}
+        style={[$pageView, props.style]}
         ref={pagerViewRef}
         buffer={4}
         pageMargin={20}
@@ -92,8 +92,6 @@ export const ImageBrowser = memo(
   }),
 );
 
-const styles = StyleSheet.create({
-  pageView: {
-    flex: 1,
-  },
-});
+const $pageView: ViewStyle = {
+  flex: 1,
+};

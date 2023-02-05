@@ -1,8 +1,8 @@
 import { translate } from '@/i18n';
 import * as LocalAuthentication from 'expo-local-authentication';
 import { useEffect, useMemo, useState } from 'react';
-import { isEmulatorSync } from 'react-native-device-info';
 import { PermissionManager } from './PermissionManager';
+import { Device } from './device';
 
 enum BiometricType {
   FINGERPRINT = LocalAuthentication.AuthenticationType.FINGERPRINT,
@@ -19,13 +19,16 @@ export class LocalAuth {
         (await LocalAuthentication.supportedAuthenticationTypesAsync()) as unknown as BiometricType[];
     }
 
-    return isEmulatorSync() ? null : this._biometricType;
+    return Device.isEmulator ? null : this._biometricType;
   }
 
   static async auth(
     options?: LocalAuthentication.LocalAuthenticationOptions,
   ): Promise<LocalAuthentication.LocalAuthenticationResult | null> {
-    if (!PermissionManager.checkPermissions(['ios.permission.FACE_ID'])) {
+    if (
+      this._biometricType?.includes(BiometricType.FACIAL_RECOGNITION) &&
+      !PermissionManager.checkPermissions(['ios.permission.FACE_ID'])
+    ) {
       return null;
     }
 

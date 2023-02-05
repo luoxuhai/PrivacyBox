@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, ViewStyle, useWindowDimensions, Modal } from 'react-native';
+import { ViewStyle, Modal } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import {
   ContextMenuButton,

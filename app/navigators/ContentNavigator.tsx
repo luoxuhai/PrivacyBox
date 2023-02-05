@@ -3,7 +3,6 @@ import { BottomTabScreenProps, createBottomTabNavigator } from '@react-navigatio
 import { CompositeScreenProps } from '@react-navigation/native';
 import { TextStyle } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useDeviceOrientation } from '@react-native-community/hooks';
 import { observer } from 'mobx-react-lite';
 
 import { BlurView, BottomTabIcon } from '@/components';
@@ -16,6 +15,7 @@ import { MoreFeatureNavigator } from './MoreFeatureNavigator';
 import { FilesNavigator } from './FilesNavigator';
 import { useStores } from '@/models';
 import { BottomTabs } from '@/models/SettingsStore';
+import { Device } from '@/utils';
 
 export type ContentTabParamList = {
   Album: undefined;
@@ -39,7 +39,6 @@ const Tab = createBottomTabNavigator<ContentTabParamList>();
 export const ContentNavigator = observer(function ContentNavigator() {
   const { bottom } = useSafeAreaInsets();
   const { colors, isDark } = useTheme();
-  const { portrait } = useDeviceOrientation();
   const {
     settingsStore: { visibleBottomTabs },
     appLockStore,
@@ -47,14 +46,18 @@ export const ContentNavigator = observer(function ContentNavigator() {
   } = useStores();
   const bottomTabDarkle = appLockStore.inFakeEnvironment && appLockStore.bottomTabDarkleWhenFake;
 
+  const height = Device.isPad ? bottom + 54 : bottom + 52;
+  const paddingTop = Device.isPad ? 0 : 14;
+  const marginTop = Device.isPad ? 0 : spacing[3];
+
   return (
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
         tabBarHideOnKeyboard: true,
         tabBarStyle: {
-          height: bottom + 48,
-          paddingTop: spacing[4],
+          height,
+          paddingTop,
           borderTopColor: colors.transparent,
           position: 'absolute',
           display: bottomTabVisible ? 'flex' : 'none',
@@ -64,7 +67,7 @@ export const ContentNavigator = observer(function ContentNavigator() {
         tabBarLabelStyle: [
           $tabBarLabel,
           {
-            marginTop: portrait ? spacing[3] : 0,
+            marginTop,
           },
         ],
         tabBarBackground: () =>

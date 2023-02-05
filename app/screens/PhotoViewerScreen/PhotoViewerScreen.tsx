@@ -3,7 +3,7 @@ import { StatusBar } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { StackScreenProps } from '@react-navigation/stack';
 import { useQuery } from '@tanstack/react-query';
-import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+import { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
 import { AlbumsNavigatorParamList } from '@/navigators';
 import { ImageBrowser, ImageBrowserInstance, ImageSource, LoadStatus, Screen } from '@/components';
@@ -58,10 +58,15 @@ export const PhotoViewerScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'P
       [photos],
     );
 
+    const isTransitionStart = useRef(false);
     useEffect(() => {
-      return () => {
-        StatusBar.setHidden(false);
-      };
+      props.navigation.addListener('transitionStart', () => {
+        isTransitionStart.current = true;
+      });
+
+      props.navigation.addListener('beforeRemove', () => {
+        StatusBar.setHidden(false, 'none');
+      });
     }, []);
 
     useUpdateEffect(() => {
@@ -84,11 +89,14 @@ export const PhotoViewerScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'P
     }, []);
 
     const handleVisibleToolbar = useCallback(() => {
+      if (isTransitionStart.current) {
+        return;
+      }
       setToolbarVisible((visible) => {
-        StatusBar.setHidden(visible, 'fade');
+        StatusBar.setHidden(visible, 'none');
         return !visible;
       });
-    }, [toolbarVisible]);
+    }, []);
 
     const renderExtraElements = useCallback(
       ({ index, loadStatus }) => {
@@ -128,7 +136,8 @@ export const PhotoViewerScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'P
     const onScrollEndDrag = useCallback((event: any) => {
       iconPlayOpacity.value = 1;
       if (event.nativeEvent.zoomScale > 1) {
-        StatusBar.setHidden(true, 'fade');
+        setToolbarVisible(false);
+        StatusBar.setHidden(true, 'none');
       }
     }, []);
 

@@ -111,7 +111,7 @@ const AppStack = observer(function AppStack() {
           component={ChangeLockPasscodeScreen}
           options={{
             animation: 'fade_from_bottom',
-            animationDuration: 200,
+            animationDuration: 250,
           }}
         />
       </Stack.Group>
@@ -173,8 +173,6 @@ const AppStack = observer(function AppStack() {
           animation: 'fade_from_bottom',
           animationDuration: 250,
           gestureEnabled: true,
-          fullScreenGestureEnabled: true,
-          gestureDirection: 'vertical',
         }}
         component={PhotoViewerScreen}
       />

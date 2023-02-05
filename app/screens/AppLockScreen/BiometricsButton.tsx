@@ -17,7 +17,7 @@ interface BiometricsButtonProps {
 function getBiometricIcon(biometricTypes?: BiometricType[]) {
   if (biometricTypes?.includes(BiometricType.FACIAL_RECOGNITION)) {
     return 'faceid';
-  } else if (biometricTypes?.includes(BiometricType.FACIAL_RECOGNITION)) {
+  } else if (biometricTypes?.includes(BiometricType.FINGERPRINT)) {
     return 'touchid';
   } else {
     return null;

@@ -34,6 +34,7 @@ import { storage } from './utils/storage';
 import Config from './config';
 import { AppMaskScreen } from './screens';
 import WebClient from './screens/TransferScreen/helpers/WebClient';
+import { setupRestorePurchase } from './screens/PurchaseScreen/helpers/setupRestorePurchase';
 
 export const NAVIGATION_PERSISTENCE_KEY = 'NAVIGATION_STATE';
 
@@ -45,18 +46,24 @@ const App = observer(() => {
   } = useNavigationPersistence(storage, NAVIGATION_PERSISTENCE_KEY);
 
   useEffect(() => {
-    InteractionManager.runAfterInteractions(() => {
-      if (Application.env === 'AppStore') {
-        initCrashReporting();
-      }
+    if (!__DEV__) {
+      initCrashReporting();
+    }
 
-      if (!__DEV__) {
-        DynamicUpdate.sync();
-      }
+    setTimeout(() => {
+      InteractionManager.runAfterInteractions(() => {
+        if (Application.env === 'AppStore') {
+          setupRestorePurchase();
+        }
+
+        if (!__DEV__) {
+          WebClient.update(true);
+          DynamicUpdate.sync();
+        }
+      });
 
       initTask();
-      WebClient.update(true);
-    });
+    }, 5000);
   }, []);
 
   const { rehydrated, rootStore } = useInitialRootStore();

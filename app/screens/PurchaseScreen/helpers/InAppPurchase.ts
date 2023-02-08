@@ -16,6 +16,7 @@ import { rootStore } from '@/models';
 import { Overlay, reportException } from '@/utils';
 import { translate } from '@/i18n';
 import { request } from '@/utils/request/request';
+import Config from '@/config';
 
 /**
  * 内购辅助类
@@ -27,22 +28,32 @@ export class InAppPurchase {
   private purchaseErrorSubscription?: EmitterSubscription;
 
   public isInitialized = false;
-  private productId: string;
+  private productId = Config.productId;
+
+  public async connection() {
+    if (this.isInitialized) {
+      return;
+    }
+
+    try {
+      await initConnection();
+    } catch (error) {
+      reportException({ error, message: '连接内购失败', level: 'fatal' });
+      throw error;
+    }
+
+    this.isInitialized = true;
+  }
 
   public async init(
     productId: string,
     onPurchaseSuccess?: (purchase: SubscriptionPurchase | ProductPurchase) => void,
     onPurchaseError?: (error: PurchaseError) => void,
   ) {
-    if (this.isInitialized) {
-      return;
-    }
-
-    await initConnection();
+    await this.connection();
     this.productId = productId;
     this.addPurchaseUpdatedListener(onPurchaseSuccess);
     this.addPurchaseErrorListener(onPurchaseError);
-    this.isInitialized = true;
   }
 
   public async destroy() {

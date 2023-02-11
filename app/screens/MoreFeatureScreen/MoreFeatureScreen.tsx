@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { ViewStyle, Dimensions, Alert } from 'react-native';
+import { ViewStyle, Dimensions, Alert, InteractionManager } from 'react-native';
 import { colord } from 'colord';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StackScreenProps } from '@react-navigation/stack';
@@ -9,7 +9,7 @@ import { requestReview } from 'expo-store-review';
 
 import { FlatGrid, Screen } from '@/components';
 import { colors } from '@/theme';
-import { useSafeAreaDimensions, Device } from '@/utils';
+import { useSafeAreaDimensions, Device, Application } from '@/utils';
 import { MoreFeatureNavigatorParamList } from '@/navigators';
 import { FeatureItemView, FeatureItem } from './FeatureItemView';
 import { t } from '@/i18n';
@@ -62,9 +62,11 @@ export const MoreFeatureScreen = observer<
   const safeAreaDimensions = useSafeAreaDimensions();
 
   useEffect(() => {
-    setTimeout(() => {
-      requestReview?.();
-    }, 500);
+    if (Application.env === 'AppStore') {
+      setTimeout(() => {
+        InteractionManager.runAfterInteractions(requestReview);
+      }, 500);
+    }
   }, []);
 
   const handleToScreen = (routeName: keyof MoreFeatureNavigatorParamList, needPremium: boolean) => {

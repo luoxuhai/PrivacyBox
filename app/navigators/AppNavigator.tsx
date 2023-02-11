@@ -26,6 +26,9 @@ import {
   PhotoViewerScreenParams,
   VideoPlayerScreenParams,
   TransferScreen,
+  ExifScreen,
+  MosaicScreen,
+  ExifScreenParams,
 } from '@/screens';
 import { ContentNavigator, ContentTabParamList } from './ContentNavigator';
 import { navigationRef } from './navigationUtilities';
@@ -48,7 +51,6 @@ import { translate } from '@/i18n';
 export type AppStackParamList = {
   AppLock: undefined;
   ChangeLockPasscode: ChangeLockPasscodeScreenParams;
-  FakeAppHome: undefined;
   Content: NavigatorScreenParams<ContentTabParamList>;
   Purchase: typeof PurchaseScreen;
   Photos: PhotosNavigatorParams;
@@ -57,6 +59,9 @@ export type AppStackParamList = {
   Transfer: undefined;
   DataMigrator: undefined;
   HideApplications: undefined;
+  FakeAppHome: undefined;
+  Exif: ExifScreenParams;
+  Mosaic: ExifScreenParams;
 };
 
 export type AppStackScreenProps<T extends keyof AppStackParamList> = StackScreenProps<
@@ -124,6 +129,8 @@ const AppStack = observer(function AppStack() {
           headerLargeTitle: true,
         }}
       />
+      <Stack.Screen name="Exif" component={ExifScreen} />
+      <Stack.Screen name="Mosaic" component={MosaicScreen} />
 
       <Stack.Group
         screenOptions={{

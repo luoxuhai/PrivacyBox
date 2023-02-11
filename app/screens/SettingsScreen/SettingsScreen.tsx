@@ -39,7 +39,6 @@ export const SettingScreen: FC<StackScreenProps<SettingStackParamList, 'Settings
       return target.value === AppQueriesSchemes.Disable ? null : translate(target.title);
     }, [settingsStore.urgentSwitchTarget]);
 
-
     const purchaseBannerVisibled = !appLockStore.inFakeEnvironment;
 
     return (
@@ -47,9 +46,13 @@ export const SettingScreen: FC<StackScreenProps<SettingStackParamList, 'Settings
         <SafeAreaScrollView contentContainerStyle={$contentContainerStyles}>
           {purchaseBannerVisibled && <PurchaseBanner />}
           <ListSection
-            style={purchaseBannerVisibled ? {
-              marginTop: spacing[8],
-            } : {}}
+            style={
+              purchaseBannerVisibled
+                ? {
+                    marginTop: spacing[8],
+                  }
+                : {}
+            }
             titleTk="settingsScreen.security"
           >
             <ListCell
@@ -74,6 +77,7 @@ export const SettingScreen: FC<StackScreenProps<SettingStackParamList, 'Settings
               RightAccessory={translate(
                 settingsStore.fakeHomeEnabled ? 'common.enabled' : 'common.disabled',
               )}
+              visible={Application.env !== 'TestFlight'}
               onPress={() => {
                 navigation.navigate('FakeAppHomeSettings');
               }}
@@ -171,11 +175,12 @@ export const SettingScreen: FC<StackScreenProps<SettingStackParamList, 'Settings
 );
 
 function generateFeedbackUrl() {
-  const url = `${Config.TXC_FEEDBACK_URL}?os=${Device.os || '-'}&osVersion=${Device.version || '-'
-    }&clientVersion=${Application.version || '-'}&customInfo=${JSON.stringify({
-      modelName: Device.modelName || '-',
-      // userId: user.current?.id || '-',
-    })}`;
+  const url = `${Config.TXC_FEEDBACK_URL}?os=${Device.os || '-'}&osVersion=${
+    Device.version || '-'
+  }&clientVersion=${Application.version || '-'}&customInfo=${JSON.stringify({
+    modelName: Device.modelName || '-',
+    // userId: user.current?.id || '-',
+  })}`;
   return url;
 }
 

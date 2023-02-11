@@ -291,9 +291,16 @@ const zh = {
   },
   fakeAppHomeScreen: {
     removeInfo: '去除图片隐私信息',
+    exif: '查看图片隐私信息',
     faceMosaic: '人像打码',
-    textMosaic: '文本打码',
-    QRCodeMosaic: '二维码/条形码打码',
+    highlightMosaic: '二维码打码',
+    textMosaic: '文字打码',
+  },
+  exifScreen: {
+    import: '导入图片',
+    save: '保存图片',
+    exif: '图片隐私信息',
+    removeExtra: '已去除图片隐私信息',
   },
   fakeAppHomeSettingsScreen: {
     title: '伪装首页',

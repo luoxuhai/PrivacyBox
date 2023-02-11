@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* PrivacyBoxTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* PrivacyBoxTests.m */; };
-		0DF6C361ACB1578591DC791C /* libPods-PrivacyBox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE06CDF100B9AA0FF7D820A3 /* libPods-PrivacyBox.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		16C01B27CE26B59E20CB0DEC /* Pods_PrivacyBox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EFE91A74685C1F313DC0A14 /* Pods_PrivacyBox.framework */; };
 		2215ACBC1E62C44583DB69A9 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5AFED2E09CC2E86D1338C0F /* ExpoModulesProvider.swift */; };
 		35106825291FD2C000E8F0D7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 35106827291FD2C000E8F0D7 /* InfoPlist.strings */; };
 		3510682B29208F6200E8F0D7 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3510682A29208F6200E8F0D7 /* StoreKit.framework */; };
@@ -36,6 +36,8 @@
 		35745D95298E34AB00208D03 /* weather128x128.png in Resources */ = {isa = PBXBuildFile; fileRef = 35745D90298E34AA00208D03 /* weather128x128.png */; };
 		35745D98298E3CA600208D03 /* RNConfetti.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35745D97298E3CA600208D03 /* RNConfetti.swift */; };
 		35745D9A298E3CDE00208D03 /* RNConfetti.m in Sources */ = {isa = PBXBuildFile; fileRef = 35745D99298E3CDE00208D03 /* RNConfetti.m */; };
+		35745DB32997209300208D03 /* RNImagePixellate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35745DB22997209300208D03 /* RNImagePixellate.swift */; };
+		35745DB52997209F00208D03 /* RNImagePixellate.m in Sources */ = {isa = PBXBuildFile; fileRef = 35745DB42997209F00208D03 /* RNImagePixellate.m */; };
 		35861F4D2970484F00ABB9D1 /* password_box120x120.png in Resources */ = {isa = PBXBuildFile; fileRef = 35861F2F2970484B00ABB9D1 /* password_box120x120.png */; };
 		35861F4E2970484F00ABB9D1 /* calculator152x152.png in Resources */ = {isa = PBXBuildFile; fileRef = 35861F302970484B00ABB9D1 /* calculator152x152.png */; };
 		35861F502970484F00ABB9D1 /* todo167x167.png in Resources */ = {isa = PBXBuildFile; fileRef = 35861F322970484C00ABB9D1 /* todo167x167.png */; };
@@ -63,7 +65,7 @@
 		35861F6A2970484F00ABB9D1 /* password_box152x152.png in Resources */ = {isa = PBXBuildFile; fileRef = 35861F4C2970484F00ABB9D1 /* password_box152x152.png */; };
 		35A62201291898BC0059A53D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 35A62200291898BB0059A53D /* GoogleService-Info.plist */; };
 		400EB2C1E1807E6CBC68B7AB /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951E59D51E504BC9C5F46169 /* ExpoModulesProvider.swift */; };
-		61C8591E7ADE002B28890453 /* libPods-PrivacyBox-PrivacyBoxTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B25F8635391834428A9A919A /* libPods-PrivacyBox-PrivacyBoxTests.a */; };
+		DF8C049601DF1C0537CBA6D7 /* Pods_PrivacyBox_PrivacyBoxTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B7EF47178BFB66A3D0B8657 /* Pods_PrivacyBox_PrivacyBoxTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +100,7 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = PrivacyBox/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = PrivacyBox/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = PrivacyBox/main.m; sourceTree = "<group>"; };
+		1EFE91A74685C1F313DC0A14 /* Pods_PrivacyBox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrivacyBox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		35106826291FD2C000E8F0D7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		35106828291FD2C400E8F0D7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		3510682929208F4400E8F0D7 /* PrivacyBox.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = PrivacyBox.entitlements; path = PrivacyBox/PrivacyBox.entitlements; sourceTree = "<group>"; };
@@ -124,6 +127,8 @@
 		35745D90298E34AA00208D03 /* weather128x128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weather128x128.png; sourceTree = "<group>"; };
 		35745D97298E3CA600208D03 /* RNConfetti.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNConfetti.swift; sourceTree = "<group>"; };
 		35745D99298E3CDE00208D03 /* RNConfetti.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNConfetti.m; sourceTree = "<group>"; };
+		35745DB22997209300208D03 /* RNImagePixellate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNImagePixellate.swift; sourceTree = "<group>"; };
+		35745DB42997209F00208D03 /* RNImagePixellate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNImagePixellate.m; sourceTree = "<group>"; };
 		35861F2F2970484B00ABB9D1 /* password_box120x120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = password_box120x120.png; sourceTree = "<group>"; };
 		35861F302970484B00ABB9D1 /* calculator152x152.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calculator152x152.png; sourceTree = "<group>"; };
 		35861F322970484C00ABB9D1 /* todo167x167.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = todo167x167.png; sourceTree = "<group>"; };
@@ -153,10 +158,9 @@
 		3B4392A12AC88292D35C810B /* Pods-PrivacyBox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrivacyBox.debug.xcconfig"; path = "Target Support Files/Pods-PrivacyBox/Pods-PrivacyBox.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-PrivacyBox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrivacyBox.release.xcconfig"; path = "Target Support Files/Pods-PrivacyBox/Pods-PrivacyBox.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-PrivacyBox-PrivacyBoxTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrivacyBox-PrivacyBoxTests.debug.xcconfig"; path = "Target Support Files/Pods-PrivacyBox-PrivacyBoxTests/Pods-PrivacyBox-PrivacyBoxTests.debug.xcconfig"; sourceTree = "<group>"; };
+		6B7EF47178BFB66A3D0B8657 /* Pods_PrivacyBox_PrivacyBoxTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrivacyBox_PrivacyBoxTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-PrivacyBox-PrivacyBoxTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrivacyBox-PrivacyBoxTests.release.xcconfig"; path = "Target Support Files/Pods-PrivacyBox-PrivacyBoxTests/Pods-PrivacyBox-PrivacyBoxTests.release.xcconfig"; sourceTree = "<group>"; };
 		951E59D51E504BC9C5F46169 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-PrivacyBox/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
-		B25F8635391834428A9A919A /* libPods-PrivacyBox-PrivacyBoxTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PrivacyBox-PrivacyBoxTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		CE06CDF100B9AA0FF7D820A3 /* libPods-PrivacyBox.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PrivacyBox.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5AFED2E09CC2E86D1338C0F /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-PrivacyBox-PrivacyBoxTests/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -166,7 +170,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				61C8591E7ADE002B28890453 /* libPods-PrivacyBox-PrivacyBoxTests.a in Frameworks */,
+				DF8C049601DF1C0537CBA6D7 /* Pods_PrivacyBox_PrivacyBoxTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -174,8 +178,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0DF6C361ACB1578591DC791C /* libPods-PrivacyBox.a in Frameworks */,
 				3510682B29208F6200E8F0D7 /* StoreKit.framework in Frameworks */,
+				16C01B27CE26B59E20CB0DEC /* Pods_PrivacyBox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,8 +229,8 @@
 				3510682E2920932500E8F0D7 /* hermes.xcframework */,
 				3510682A29208F6200E8F0D7 /* StoreKit.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				CE06CDF100B9AA0FF7D820A3 /* libPods-PrivacyBox.a */,
-				B25F8635391834428A9A919A /* libPods-PrivacyBox-PrivacyBoxTests.a */,
+				1EFE91A74685C1F313DC0A14 /* Pods_PrivacyBox.framework */,
+				6B7EF47178BFB66A3D0B8657 /* Pods_PrivacyBox_PrivacyBoxTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -234,6 +238,7 @@
 		3520FF042955FD7200E618A6 /* ReactNativeModules */ = {
 			isa = PBXGroup;
 			children = (
+				35745DB12997207B00208D03 /* RNImagePixellate */,
 				35745D96298E3C9600208D03 /* RNConfetti */,
 				35654062295699E50032D06E /* RNManagedSettings */,
 				3520FF092955FD7200E618A6 /* RNFamilyActivityPicker */,
@@ -269,6 +274,15 @@
 				35745D99298E3CDE00208D03 /* RNConfetti.m */,
 			);
 			path = RNConfetti;
+			sourceTree = "<group>";
+		};
+		35745DB12997207B00208D03 /* RNImagePixellate */ = {
+			isa = PBXGroup;
+			children = (
+				35745DB22997209300208D03 /* RNImagePixellate.swift */,
+				35745DB42997209F00208D03 /* RNImagePixellate.m */,
+			);
+			path = RNImagePixellate;
 			sourceTree = "<group>";
 		};
 		35861F2E297047F500ABB9D1 /* Images */ = {
@@ -712,10 +726,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35745DB52997209F00208D03 /* RNImagePixellate.m in Sources */,
 				3565406629569A290032D06E /* RNManagedSettings.m in Sources */,
 				3520FF152955FD7300E618A6 /* RNFamilyActivityPickerProxy.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				3520FF122955FD7300E618A6 /* RNFamilyActivityPicker.swift in Sources */,
+				35745DB32997209300208D03 /* RNImagePixellate.swift in Sources */,
 				35745D9A298E3CDE00208D03 /* RNConfetti.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				3520FF112955FD7300E618A6 /* AuthorizationCenterAsync.swift in Sources */,
@@ -830,7 +846,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODEPUSH_KEY = 0mNXfKaZaV_TuVT76UDX5g1qHJO2ewQX8l36J;
 				CODE_SIGN_ENTITLEMENTS = PrivacyBox/PrivacyBox.entitlements;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 2;
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = MH9G89WBAL;
@@ -847,7 +863,7 @@
 					"$(SDKROOT)/System/iOSSupport/usr/lib/swift",
 					"$(inherited)",
 				);
-				MARKETING_VERSION = 2.3.0;
+				MARKETING_VERSION = 2.4.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -877,7 +893,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODEPUSH_KEY = "LsOfPzALBphX8m4PTjB72z1nvBX7CURq-Pj6f";
 				CODE_SIGN_ENTITLEMENTS = PrivacyBox/PrivacyBox.entitlements;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 2;
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = MH9G89WBAL;
@@ -893,7 +909,7 @@
 					"$(SDKROOT)/System/iOSSupport/usr/lib/swift",
 					"$(inherited)",
 				);
-				MARKETING_VERSION = 2.3.0;
+				MARKETING_VERSION = 2.4.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

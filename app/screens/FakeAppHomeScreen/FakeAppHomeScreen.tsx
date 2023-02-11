@@ -1,8 +1,14 @@
-import React, { FC, useEffect, useMemo } from 'react';
+import React, { FC, useCallback, useEffect, useMemo } from 'react';
 import { observer } from 'mobx-react-lite';
 import { ViewStyle, TouchableOpacity, View, TextStyle, EmitterSubscription } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
-import { TextAlt, QrCode, MediaImage, PeopleRounded } from 'iconoir-react-native';
+import {
+  PeopleRounded,
+  InfoEmpty,
+  MediaImageList,
+  ScanQrCode,
+  TextAlt,
+} from 'iconoir-react-native';
 import { FlashList, ContentStyle } from '@shopify/flash-list';
 import { colord } from 'colord';
 import { GestureDetector, Gesture, Directions } from 'react-native-gesture-handler';
@@ -13,8 +19,9 @@ import { Screen, Text } from '@/components';
 import { radius, spacing, useTheme } from '@/theme';
 import { translate } from '@/i18n';
 import { useStores } from '@/models';
-import { HapticFeedback, Overlay } from '@/utils';
+import { HapticFeedback } from '@/utils';
 import { FakeHomeUnlockActions } from '@/models/SettingsStore';
+import { FakePageKeys } from './constants';
 
 function luminance(color: string, l = 0.1) {
   return colord(color).lighten(l).toRgbString();
@@ -22,8 +29,8 @@ function luminance(color: string, l = 0.1) {
 
 const iconProps = {
   color: '#FFF',
-  width: 30,
-  height: 30,
+  width: 28,
+  height: 28,
 };
 
 export const FakeAppHomeScreen: FC<StackScreenProps<AppStackParamList, 'FakeAppHome'>> = observer(
@@ -47,35 +54,57 @@ export const FakeAppHomeScreen: FC<StackScreenProps<AppStackParamList, 'FakeAppH
     const list = useMemo(
       () => [
         {
-          title: translate('fakeAppHomeScreen.removeInfo'),
-          icon: <MediaImage {...iconProps} />,
-          color: luminance(colors.palette.orange),
-          name: '',
+          key: FakePageKeys.ExifViewer,
+          title: translate('fakeAppHomeScreen.exif'),
+          icon: <InfoEmpty {...iconProps} />,
+          color: luminance(colors.palette.pink),
         },
         {
+          key: FakePageKeys.ExifEditor,
+          title: translate('fakeAppHomeScreen.removeInfo'),
+          icon: <MediaImageList {...iconProps} />,
+          color: luminance(colors.palette.orange),
+        },
+        {
+          key: FakePageKeys.Face,
           title: translate('fakeAppHomeScreen.faceMosaic'),
           icon: <PeopleRounded {...iconProps} />,
           color: luminance(colors.palette.green),
         },
         {
-          title: translate('fakeAppHomeScreen.textMosaic'),
-          icon: <TextAlt {...iconProps} />,
+          key: FakePageKeys.QRCode,
+          title: translate('fakeAppHomeScreen.highlightMosaic'),
+          icon: <ScanQrCode {...iconProps} />,
           color: luminance(colors.palette.indigo),
         },
         {
-          title: translate('fakeAppHomeScreen.QRCodeMosaic'),
-          icon: <QrCode {...iconProps} />,
-          color: luminance(colors.palette.pink),
+          key: FakePageKeys.Text,
+          title: translate('fakeAppHomeScreen.textMosaic'),
+          icon: <TextAlt {...iconProps} />,
+          color: luminance(colors.palette.purple),
         },
       ],
       [colors.palette],
     );
 
-    function handleNavigate() {
-      Overlay.toast({
-        title: translate('common.coming'),
-        preset: 'error',
-      });
+    function handleNavigate(item: CardItemProps) {
+      switch (item.key) {
+        case FakePageKeys.ExifViewer:
+        case FakePageKeys.ExifEditor:
+          props.navigation.navigate('Exif', {
+            title: item.title,
+            key: item.key,
+          });
+          break;
+        case FakePageKeys.Face:
+        case FakePageKeys.QRCode:
+        case FakePageKeys.Text:
+          props.navigation.navigate('Mosaic', {
+            title: item.title,
+            key: item.key,
+          });
+          break;
+      }
     }
 
     function openAppLock() {
@@ -96,6 +125,10 @@ export const FakeAppHomeScreen: FC<StackScreenProps<AppStackParamList, 'FakeAppH
       [settingsStore.fakeHomeUnlockActions],
     );
 
+    const renderItem = useCallback(({ item }) => {
+      return <CardItem {...item} onPress={() => handleNavigate(item)} />;
+    }, []);
+
     return (
       <Screen
         style={{
@@ -110,7 +143,7 @@ export const FakeAppHomeScreen: FC<StackScreenProps<AppStackParamList, 'FakeAppH
             scrollEnabled={pullRefreshEnabled}
             contentContainerStyle={$list}
             data={list}
-            renderItem={({ item }) => <CardItem {...item} onPress={handleNavigate} />}
+            renderItem={renderItem}
             numColumns={2}
             estimatedItemSize={100}
             contentInsetAdjustmentBehavior="automatic"
@@ -129,6 +162,7 @@ interface CardItemProps {
   title: string;
   icon: JSX.Element;
   color: string;
+  key: FakePageKeys;
   onPress(): void;
 }
 

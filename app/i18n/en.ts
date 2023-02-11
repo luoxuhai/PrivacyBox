@@ -165,7 +165,7 @@ const en: Translations = {
     emailCopied: 'Email has been copied',
     qqGroupCopied: 'QQ group number has been copied',
     checkingUpdate: 'Checking for update',
-    checkUpdate: "Check for New Version",
+    checkUpdate: 'Check for New Version',
   },
   debugScreen: {
     title: 'Debug',
@@ -282,6 +282,8 @@ const en: Translations = {
     clock: 'Clock',
     housekeeper: 'Security Housekeeper',
     todo: 'TO-DO',
+    weather: 'Weather',
+    news: 'News',
   },
   urgentSwitchScreen: {
     title: 'Urgent Switch',
@@ -292,10 +294,17 @@ const en: Translations = {
     actionFaceDown: 'Screen Face Down',
   },
   fakeAppHomeScreen: {
-    removeInfo: 'Remove Image Privacy Information',
-    faceMosaic: 'Portrait Coding',
-    textMosaic: 'Text Coding',
-    QRCodeMosaic: 'QR Code/Barcode Coding',
+    removeInfo: 'Remove Image Privacy Info',
+    faceMosaic: 'Face Mosaic',
+    exif: 'View Image Privacy Info',
+    highlightMosaic: 'QR Code Mosaic',
+    textMosaic: 'Text Mosaic',
+  },
+  exifScreen: {
+    import: 'Import',
+    save: 'Save',
+    exif: 'Image Privacy Info',
+    removeExtra: 'Image privacy info has been removed',
   },
   fakeAppHomeSettingsScreen: {
     title: 'Fake Home Page',
@@ -346,7 +355,7 @@ const en: Translations = {
     subtitle: 'Hide the app you specified from the device',
     enabled: 'Open Hidden',
     selection: 'Select App to Hide',
-    notSupported: "This feature only supports iOS 16 and above, please upgrade the system version"
+    notSupported: 'This feature only supports iOS 16 and above, please upgrade the system version',
   },
   applicationPickerScreen: {
     title: 'Choose the app that needs to be hidden',

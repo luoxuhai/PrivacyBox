@@ -5,6 +5,7 @@ import { ViewStyle, View } from 'react-native';
 import { Text, SettingsIcon } from '@/components';
 import { spacing, typography, useTheme } from '@/theme';
 import { TextKeyPath } from '@/i18n';
+import { Application } from '@/utils';
 
 export const FeatureList = observer(() => {
   const { colors } = useTheme();
@@ -33,11 +34,12 @@ const list: { title: TextKeyPath; icon: string }[] = [
   //   title: 'purchaseScreen.features.icloud',
   //   icon: 'arrow.clockwise.icloud.fill',
   // },
+
   {
     title: 'purchaseScreen.features.hideApp',
     icon: 'eye.slash.fill',
   },
-  {
+  Application.env !== 'TestFlight' && {
     title: 'purchaseScreen.features.fakeHome',
     icon: 'shield.righthalf.filled',
   },
@@ -65,7 +67,7 @@ const list: { title: TextKeyPath; icon: string }[] = [
     title: 'purchaseScreen.features.more',
     icon: 'ellipsis.circle.fill',
   },
-];
+].filter((item) => item);
 
 const $featureListItem: ViewStyle = {
   flexDirection: 'row',

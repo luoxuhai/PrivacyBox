@@ -50,11 +50,6 @@ target 'PrivacyBox' do
   pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse"
   pod 'Permission-MediaLibrary', :path => "#{permissions_path}/MediaLibrary"
   pod 'Permission-Motion', :path => "#{permissions_path}/Motion"
-
-  # Firebase
-  #pod 'Firebase', :modular_headers => true
-  #pod 'FirebaseCore', :modular_headers => true
-  #pod 'GoogleUtilities', :modular_headers => true
   
   pod 'SPConfetti'
 

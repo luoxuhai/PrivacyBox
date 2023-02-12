@@ -438,7 +438,8 @@ const en: Translations = {
     alert: {
       title: 'New Version Found (V{{version}})',
       ok: 'Update',
-      cancel: 'Cancel',
+      next: 'Next',
+      ignore: 'Ignore',
     },
   },
 };

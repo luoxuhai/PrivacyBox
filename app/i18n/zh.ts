@@ -432,7 +432,8 @@ const zh = {
     alert: {
       title: '发现新版本(V{{version}})',
       ok: '更新',
-      cancel: '取消',
+      next: '下一次',
+      ignore: '忽略',
     },
   },
 };

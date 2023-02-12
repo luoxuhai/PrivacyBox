@@ -314,10 +314,11 @@ const zh = {
     title: '更多功能',
   },
   icloudScreen: {
-    title: 'iCloud 同步',
+    title: 'iCloud 备份',
     subtitle: '多设备同步',
-    autoSyncEnabled: '开启自动同步',
-    onlyWifi: '仅在Wi-Fi下同步',
+    autoSyncEnabled: '开启自动备份',
+    onlyWifi: '仅在 Wi-Fi 下备份',
+    clearBackup: '清空备份',
   },
   wastebasketScreen: {
     title: '回收站',

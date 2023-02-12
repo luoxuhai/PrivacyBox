@@ -7,7 +7,7 @@ import {
   HideApplicationsScreen,
   ApplicationPickerScreen,
   RecycleBinScreen,
-  ICloudSyncScreen,
+  ICloudBackupSettingsScreen,
   RecycleBinSettingsScreen,
 } from '@/screens';
 import { useTheme } from '@/theme';
@@ -19,7 +19,7 @@ export type MoreFeatureNavigatorParamList = {
   HideApplications: undefined;
   ApplicationPicker: undefined;
   RecycleBin: undefined;
-  ICloudSync: undefined;
+  ICloudBackupSettings: undefined;
   Transfer: undefined;
   RecycleBinSettings: undefined;
 } & AppStackParamList;
@@ -72,11 +72,11 @@ export const MoreFeatureNavigator = observer(() => {
         />
 
         <Stack.Screen
-          name="ICloudSync"
+          name="ICloudBackupSettings"
           options={{
             title: translate('icloudScreen.title'),
           }}
-          component={ICloudSyncScreen}
+          component={ICloudBackupSettingsScreen}
         />
 
         <Stack.Screen

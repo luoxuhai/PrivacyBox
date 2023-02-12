@@ -9,7 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 import { AlbumsNavigatorParamList } from '@/navigators';
 import { Screen, FlatGrid } from '@/components';
 import { AlbumItem } from './components/AlbumItem';
-import { HeaderCreateButton } from './components/HeaderCreateButton';
+import { HeaderRightButton } from './components/HeaderCreateButton';
 import {
   PhotoSearchPanel,
   PhotoSearchPanelInstance,
@@ -41,7 +41,7 @@ export const AlbumsScreen: FC<NativeStackScreenProps<AlbumsNavigatorParamList, '
 
     useEffect(() => {
       props.navigation.setOptions({
-        headerRight: HeaderCreateButton,
+        headerRight: HeaderRightButton,
         headerSearchBarOptions: {
           ...headerSearchBarOptions,
           onChangeText: (event) => searchPanelRef.current?.search(event.nativeEvent.text),

@@ -1,12 +1,13 @@
 import React from 'react';
 import { View, ViewStyle } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { observer } from 'mobx-react-lite';
 
 import { BOTTOM_TABS_HEIGHT } from '@/constants';
 import { BackButton } from './BackButton';
+import { BackupButton } from './BackupButton';
 import { HeaderPhotoDetail } from './HeaderPhotoDetail';
 import { useTheme } from '@/theme';
-import { observer } from 'mobx-react-lite';
 
 interface HeaderProps {
   visible: boolean;
@@ -33,11 +34,7 @@ export const Header = observer((props: HeaderProps) => {
     >
       <BackButton onPress={props.onBack} />
       <HeaderPhotoDetail name={props.name} ctime={props.ctime} />
-      <View
-        style={{
-          width: 22,
-        }}
-      />
+      <BackupButton />
     </View>
   );
 });

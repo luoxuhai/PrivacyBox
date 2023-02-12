@@ -8,7 +8,7 @@ import { ListCell, ListSection, SafeAreaScrollView, Screen, Switch } from '@/com
 import { spacing, useTheme } from '@/theme';
 import { useStores } from '@/models';
 
-export const ICloudSyncScreen: FC<StackScreenProps<MoreFeatureNavigatorParamList, 'ICloudSync'>> =
+export const ICloudBackupScreen: FC<StackScreenProps<MoreFeatureNavigatorParamList, 'ICloudBackup'>> =
   observer(() => {
     const { colors } = useTheme();
     const { settingsStore } = useStores();
@@ -22,7 +22,7 @@ export const ICloudSyncScreen: FC<StackScreenProps<MoreFeatureNavigatorParamList
               rightIcon={null}
               RightAccessory={
                 <Switch
-                  value={settingsStore.iCloudSyncEnabled}
+                  value={settingsStore.iCloudAutoBackupEnabled}
                   onValueChange={settingsStore.setICloudSyncEnabled}
                 />
               }
@@ -32,10 +32,19 @@ export const ICloudSyncScreen: FC<StackScreenProps<MoreFeatureNavigatorParamList
               rightIcon={null}
               RightAccessory={
                 <Switch
-                  value={settingsStore.iCloudSyncOnlyWifi}
+                  value={settingsStore.iCloudBackupOnlyWifi}
                   onValueChange={settingsStore.setICloudSyncOnlyWifi}
                 />
               }
+            />
+          </ListSection>
+          <ListSection>
+            <ListCell
+              textStyle={{
+                color: colors.palette.primary6,
+              }}
+              tk="icloudScreen.clearBackup"
+              rightIcon={null}
             />
           </ListSection>
         </SafeAreaScrollView>

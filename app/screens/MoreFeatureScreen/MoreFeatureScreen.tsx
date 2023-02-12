@@ -23,14 +23,14 @@ function luminance(color: string, l = 0.1) {
 const windowWidth = Dimensions.get('window').width;
 
 const list: FeatureItem[] = [
-  // {
-  //   title: 'icloudScreen.title',
-  //   subtitle: 'icloudScreen.subtitle',
-  //   icon: 'arrow.clockwise.icloud.fill',
-  //   color: luminance(colors.light.palette.blue),
-  //   needPremium: true,
-  //   routeName: 'ICloudSync',
-  // },
+  {
+    title: 'icloudScreen.title',
+    subtitle: 'icloudScreen.subtitle',
+    icon: 'arrow.clockwise.icloud.fill',
+    color: luminance(colors.light.palette.blue),
+    needPremium: true,
+    routeName: 'ICloudBackupSettings',
+  },
   {
     title: 'transferScreen.title',
     subtitle: 'transferScreen.subtitle',
@@ -70,16 +70,17 @@ export const MoreFeatureScreen = observer<
   }, []);
 
   const handleToScreen = (routeName: keyof MoreFeatureNavigatorParamList, needPremium: boolean) => {
-    if (routeName === 'HideApplications' && Number(Device.version?.split('.')?.[0] ?? 0) < 16) {
-      Alert.alert(t('hideApplicationsScreen.notSupported'));
-      return;
-    }
-
-    if (needPremium && !canUsePremium()) {
-      return;
-    }
-
     props.navigation.navigate(routeName);
+    // if (routeName === 'HideApplications' && Number(Device.version?.split('.')?.[0] ?? 0) < 16) {
+    //   Alert.alert(t('hideApplicationsScreen.notSupported'));
+    //   return;
+    // }
+
+    // if (needPremium && !canUsePremium()) {
+    //   return;
+    // }
+
+    // props.navigation.navigate(routeName);
   };
 
   const itemWidth = windowWidth <= MIN_SCREEN_WIDTH ? 150 : 160;

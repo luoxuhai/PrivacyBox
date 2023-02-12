@@ -29,6 +29,7 @@ import {
   ExifScreen,
   MosaicScreen,
   ExifScreenParams,
+  ICloudBackupScreen,
 } from '@/screens';
 import { ContentNavigator, ContentTabParamList } from './ContentNavigator';
 import { navigationRef } from './navigationUtilities';
@@ -62,6 +63,7 @@ export type AppStackParamList = {
   FakeAppHome: undefined;
   Exif: ExifScreenParams;
   Mosaic: ExifScreenParams;
+  ICloudBackup: undefined;
 };
 
 export type AppStackScreenProps<T extends keyof AppStackParamList> = StackScreenProps<
@@ -207,6 +209,13 @@ const AppStack = observer(function AppStack() {
           title: translate('hideApplicationsScreen.title'),
         }}
         component={HideApplicationsScreen}
+      />
+      <Stack.Screen
+        name="ICloudBackup"
+        options={{
+          title: translate('icloudScreen.title'),
+        }}
+        component={ICloudBackupScreen}
       />
     </Stack.Navigator>
   );

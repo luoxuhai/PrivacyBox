@@ -54,10 +54,10 @@ export const SettingsStoreModel = types
     selectedAppCount: types.optional(types.number, 0),
     /** 隐藏App启动 */
     blockedAppsEnabled: types.optional(types.boolean, false),
-    /** iCloud 同步 */
-    iCloudSyncEnabled: types.optional(types.boolean, false),
-    /** 仅在Wifi 下同步 */
-    iCloudSyncOnlyWifi: types.optional(types.boolean, true),
+    /** iCloud 自动备份 */
+    iCloudAutoBackupEnabled: types.optional(types.boolean, false),
+    /** 仅在Wifi 下备份 */
+    iCloudBackupOnlyWifi: types.optional(types.boolean, true),
   })
   .views((self) => ({})) // eslint-disable-line @typescript-eslint/no-unused-vars
   .actions((self) => ({
@@ -146,12 +146,12 @@ export const SettingsStoreModel = types
       self.blockedAppsEnabled = blockedAppsEnabled;
     },
 
-    setICloudSyncEnabled(iCloudSyncEnabled: boolean) {
-      self.iCloudSyncEnabled = iCloudSyncEnabled;
+    setICloudSyncEnabled(value: boolean) {
+      self.iCloudAutoBackupEnabled = value;
     },
 
-    setICloudSyncOnlyWifi(iCloudSyncOnlyWifi: boolean) {
-      self.iCloudSyncOnlyWifi = iCloudSyncOnlyWifi;
+    setICloudSyncOnlyWifi(value: boolean) {
+      self.iCloudBackupOnlyWifi = value;
     },
   }));
 

@@ -5,20 +5,13 @@ import './utils/consoleExtension';
 import './utils/sheets';
 
 import React, { useEffect } from 'react';
-import { InteractionManager } from 'react-native';
 import { initialWindowMetrics, SafeAreaProvider } from 'react-native-safe-area-context';
 import { observer } from 'mobx-react-lite';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SheetProvider } from 'react-native-actions-sheet';
 import * as Sentry from '@sentry/react-native';
 
-import {
-  initCrashReporting,
-  useUpdateEffect,
-  DynamicUpdate,
-  routingInstrumentation,
-  Application,
-} from './utils';
+import { useUpdateEffect, DynamicUpdate, routingInstrumentation, Application } from './utils';
 import { initTask } from './utils/task/initTask';
 import { useInitialRootStore } from './models';
 import { useInitialDataSource } from './database/helpers/useInitDataSource';
@@ -34,7 +27,7 @@ import { storage } from './utils/storage';
 import Config from './config';
 import { AppMaskScreen } from './screens';
 import WebClient from './screens/TransferScreen/helpers/WebClient';
-import { setupRestorePurchase } from './screens/PurchaseScreen/helpers/setupRestorePurchase';
+import { setupInAppPurchase } from './screens/PurchaseScreen/helpers/setupInAppPurchase';
 
 export const NAVIGATION_PERSISTENCE_KEY = 'NAVIGATION_STATE';
 
@@ -46,21 +39,15 @@ const App = observer(() => {
   } = useNavigationPersistence(storage, NAVIGATION_PERSISTENCE_KEY);
 
   useEffect(() => {
-    if (!__DEV__) {
-      initCrashReporting();
+    if (Application.env === 'AppStore') {
+      setupInAppPurchase();
     }
 
     setTimeout(() => {
-      InteractionManager.runAfterInteractions(() => {
-        if (Application.env === 'AppStore') {
-          setupRestorePurchase();
-        }
-
-        if (!__DEV__) {
-          WebClient.update(true);
-          DynamicUpdate.sync();
-        }
-      });
+      if (!__DEV__) {
+        DynamicUpdate.sync();
+        WebClient.update(true);
+      }
 
       initTask();
     }, 5000);

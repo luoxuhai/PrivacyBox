@@ -40,8 +40,8 @@ export async function setupRootStore(rootStore: RootStore) {
     // 读取持久化配置
     persist(THEME_STATE_STORAGE_KEY, themeStore);
     persist(PURCHASE_STATE_STORAGE_KEY, purchaseStore);
-    const settings = persist(SETTINGS_STATE_STORAGE_KEY, settingsStore);
-    const appLock = persist(APP_LOCK_STATE_STORAGE_KEY, appLockStore, {
+    persist(SETTINGS_STATE_STORAGE_KEY, settingsStore);
+    persist(APP_LOCK_STATE_STORAGE_KEY, appLockStore, {
       whitelist: [
         'passcode',
         'autolockTimeout',

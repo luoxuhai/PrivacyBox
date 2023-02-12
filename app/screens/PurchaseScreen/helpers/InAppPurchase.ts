@@ -99,14 +99,22 @@ export class InAppPurchase {
    * @returns
    */
   public async restorePurchase() {
-    const result = (await getAvailablePurchases()).some(
+    const result = (await getAvailablePurchases()).find(
       (purchase) => purchase.productId === this.productId,
     );
-    return result;
+
+    const isPurchased = !!result;
+    if (isPurchased) {
+      this.setPurchasedState(true, result.transactionReceipt);
+    } else {
+      this.setPurchasedState(false);
+    }
+
+    return isPurchased;
   }
 
-  public setPurchasedState(isPurchased: boolean) {
-    rootStore.purchaseStore.setIsPurchased(isPurchased);
+  public setPurchasedState(isPurchased: boolean, receipt?: string) {
+    rootStore.purchaseStore.setIsPurchased(isPurchased, receipt);
   }
 
   public getPurchasedState() {
@@ -125,7 +133,7 @@ export class InAppPurchase {
 
           try {
             await finishTransaction({ purchase, isConsumable: false });
-            this.setPurchasedState(true);
+            this.setPurchasedState(true, purchase.transactionReceipt);
             Overlay.alert({ preset: 'done', title: translate('purchaseScreen.purchaseSuccess') });
             handler?.(purchase);
             request.post('/api/v1/purchase/notification', { app: '隐私盒子', price: 12 * 0.85 });

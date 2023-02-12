@@ -18,7 +18,7 @@ class ClassifyImageTask extends PhotoTask {
       const untreatedImages = images.filter((item) => item.uri && !item.labels);
       this.progress = images.length - untreatedImages.length;
 
-      untreatedImages.forEach(async (image, index) => {
+      for (const [index, image] of untreatedImages.entries()) {
         if (this.status !== 'STARTED' || !image.uri) {
           return;
         }
@@ -38,7 +38,7 @@ class ClassifyImageTask extends PhotoTask {
         } catch (error) {
           this.sendEvent('error', error);
         }
-      });
+      }
     } catch (error) {
       this.sendEvent('error', error);
     }

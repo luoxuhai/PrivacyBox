@@ -79,6 +79,7 @@ const App = observer(() => {
     }
   }, [rootStore.appLockStore.isLocked]);
 
+  // 前台
   useUpdateEffect(() => {
     if (
       !rootStore.appStateStore.inForeground &&
@@ -90,9 +91,14 @@ const App = observer(() => {
       rootStore.globalStore.setAppMaskVisible(false);
       global.isPauseBiometrics = false;
     }
-
-    InteractionManager.runAfterInteractions(DynamicUpdate.sync);
   }, [rootStore.appStateStore.inForeground]);
+
+  // 热更新
+  useUpdateEffect(() => {
+    if (rootStore.appStateStore.state === 'inactive') {
+      DynamicUpdate.sync();
+    }
+  }, [rootStore.appStateStore.state]);
 
   if (!isReay) return null;
 

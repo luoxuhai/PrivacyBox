@@ -1,4 +1,4 @@
-import { EmitterSubscription } from 'react-native';
+import { NativeModules, NativeEventEmitter, EmitterSubscription } from 'react-native';
 import {
   purchaseUpdatedListener,
   requestPurchase,
@@ -11,12 +11,18 @@ import {
   ProductPurchase,
   purchaseErrorListener,
   PurchaseError,
+  getPromotedProductIOS,
+  buyPromotedProductIOS,
+  PROMOTED_PRODUCT,
 } from 'react-native-iap';
 import { rootStore } from '@/models';
 import { Overlay, reportException } from '@/utils';
 import { translate } from '@/i18n';
 import { request } from '@/utils/request/request';
 import Config from '@/config';
+
+const { RNIapIos } = NativeModules;
+const RNIapEmitter = new NativeEventEmitter(RNIapIos);
 
 /**
  * 内购辅助类
@@ -94,10 +100,6 @@ export class InAppPurchase {
     }
   }
 
-  /**
-   * 购买成功
-   * @returns
-   */
   public async restorePurchase() {
     const result = (await getAvailablePurchases()).find(
       (purchase) => purchase.productId === this.productId,
@@ -119,6 +121,25 @@ export class InAppPurchase {
 
   public getPurchasedState() {
     return rootStore.purchaseStore.isPurchased;
+  }
+
+  /**
+   * 初始化推广产品
+   */
+  public initPromotedProduct() {
+    RNIapEmitter.addListener(PROMOTED_PRODUCT, async () => {
+      const product = await getPromotedProductIOS();
+      if (product.productId === this.productId) {
+        this.addPurchaseUpdatedListener();
+        this.addPurchaseErrorListener();
+
+        try {
+          await buyPromotedProductIOS();
+        } catch (error) {
+          console.warn(error);
+        }
+      }
+    });
   }
 
   private addPurchaseUpdatedListener(

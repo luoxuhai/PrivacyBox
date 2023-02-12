@@ -13,12 +13,12 @@ export async function appUpdateCheck(): PVoid {
 
   if (!res?.data?.results?.[0]) return;
 
-  const { version: latestVersion, releaseNotes } = res.data.results[0];
+  const { version: latestVersion } = res.data.results[0];
   const localVersion = Application.version;
   const ignoreVersion = storage.get(IGNORE_VERSION_KEY, 'string');
   // 存在最新版
   if (compareVersion(latestVersion, localVersion ?? '') === 1 && latestVersion !== ignoreVersion) {
-    Alert.alert(t('appUpdate.alert.title', { version: latestVersion }), releaseNotes, [
+    Alert.alert(t('appUpdate.alert.title', { version: latestVersion }), '', [
       {
         text: t('appUpdate.alert.ok'),
         style: 'default',
@@ -27,8 +27,12 @@ export async function appUpdateCheck(): PVoid {
         },
       },
       {
-        text: t('appUpdate.alert.cancel'),
-        style: 'cancel',
+        text: t('appUpdate.alert.next'),
+        style: 'default',
+      },
+      {
+        text: t('appUpdate.alert.ignore'),
+        style: 'default',
         onPress: () => {
           storage.set(IGNORE_VERSION_KEY, latestVersion);
         },

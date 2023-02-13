@@ -39,14 +39,14 @@ const list: FeatureItem[] = [
     needPremium: true,
     routeName: 'Transfer',
   },
-  {
-    title: 'hideApplicationsScreen.title',
-    subtitle: 'hideApplicationsScreen.subtitle',
-    icon: 'eye.slash.fill',
-    color: luminance(colors.light.palette.purple),
-    needPremium: true,
-    routeName: 'HideApplications',
-  },
+  // {
+  //   title: 'hideApplicationsScreen.title',
+  //   subtitle: 'hideApplicationsScreen.subtitle',
+  //   icon: 'eye.slash.fill',
+  //   color: luminance(colors.light.palette.purple),
+  //   needPremium: true,
+  //   routeName: 'HideApplications',
+  // },
   {
     title: 'wastebasketScreen.title',
     icon: 'basket.fill',
@@ -70,10 +70,10 @@ export const MoreFeatureScreen = observer<
   }, []);
 
   const handleToScreen = (routeName: keyof MoreFeatureNavigatorParamList, needPremium: boolean) => {
-    if (routeName === 'HideApplications' && Number(Device.version?.split('.')?.[0] ?? 0) < 16) {
-      Alert.alert(t('hideApplicationsScreen.notSupported'));
-      return;
-    }
+    // if (routeName === 'HideApplications' && Number(Device.version?.split('.')?.[0] ?? 0) < 16) {
+    //   Alert.alert(t('hideApplicationsScreen.notSupported'));
+    //   return;
+    // }
 
     if (needPremium && !canUsePremium()) {
       return;

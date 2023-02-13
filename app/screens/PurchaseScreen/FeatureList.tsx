@@ -35,10 +35,10 @@ const list: { title: TextKeyPath; icon: string }[] = [
   //   icon: 'arrow.clockwise.icloud.fill',
   // },
 
-  {
-    title: 'purchaseScreen.features.hideApp',
-    icon: 'eye.slash.fill',
-  },
+  // {
+  //   title: 'purchaseScreen.features.hideApp',
+  //   icon: 'eye.slash.fill',
+  // },
   Application.env !== 'TestFlight' && {
     title: 'purchaseScreen.features.fakeHome',
     icon: 'shield.righthalf.filled',

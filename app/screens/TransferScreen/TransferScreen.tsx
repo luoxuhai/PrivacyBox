@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Share, Alert, TouchableOpacity } from 'react-na
 import { observer } from 'mobx-react-lite';
 import QRCode from 'react-native-qrcode-svg';
 import * as KeepAwake from 'expo-keep-awake';
+import debounce from 'lodash/debounce';
 import FS from 'react-native-fs';
 import NetInfo, { NetInfoStateType, NetInfoSubscription } from '@react-native-community/netinfo';
 import { HttpServer } from '@react-native-library/webserver';
@@ -64,29 +65,38 @@ export const TransferScreen = observer<StackScreenProps<MoreFeatureNavigatorPara
     function subscribeNetInfo() {
       if (unsubscribeNetInfo) return;
 
-      unsubscribeNetInfo = NetInfo.addEventListener((state) => {
-        if (state.type === NetInfoStateType.wifi) {
-          if (!HttpServer.isRunning) {
-            // 尝试两次
-            startHttpServer().catch(() => {
-              startHttpServer().catch(() => {
-                Alert.alert(t('transferScreen.connectFail'), undefined, [
-                  {
-                    text: t('common.confirm'),
-                  },
-                ]);
-                props.navigation.goBack();
+      unsubscribeNetInfo = NetInfo.addEventListener(
+        debounce(
+          (state) => {
+            if (state.type === NetInfoStateType.wifi) {
+              if (!HttpServer.isRunning) {
+                // 尝试两次
+                startHttpServer().catch(() => {
+                  startHttpServer().catch(() => {
+                    Alert.alert(t('transferScreen.connectFail'), undefined, [
+                      {
+                        text: t('common.confirm'),
+                      },
+                    ]);
+                    props.navigation.goBack();
+                  });
+                });
+              }
+            } else {
+              setConnectState(ConnectState.Failed);
+              Overlay.toast({
+                preset: 'error',
+                title: t('transferScreen.wifiTip'),
               });
-            });
-          }
-        } else {
-          setConnectState(ConnectState.Failed);
-          Overlay.toast({
-            preset: 'error',
-            title: t('transferScreen.wifiTip'),
-          });
-        }
-      });
+            }
+          },
+          500,
+          {
+            leading: true,
+            trailing: false,
+          },
+        ),
+      );
     }
 
     useEffect(() => {

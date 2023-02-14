@@ -58,18 +58,23 @@ export class InAppPurchase {
   ) {
     await this.connection();
     this.productId = productId;
+    this.removeAllListener();
     this.addPurchaseUpdatedListener(onPurchaseSuccess);
     this.addPurchaseErrorListener(onPurchaseError);
   }
 
   public async destroy() {
+    this.removeAllListener();
+    const end = await endConnection();
+    this.isInitialized = false;
+    return end;
+  }
+
+  public removeAllListener() {
     this.purchaseUpdateSubscription?.remove();
     this.purchaseErrorSubscription?.remove();
     this.purchaseUpdateSubscription = null;
     this.purchaseErrorSubscription = null;
-    const end = await endConnection();
-    this.isInitialized = false;
-    return end;
   }
 
   /**
@@ -105,8 +110,8 @@ export class InAppPurchase {
       (purchase) => purchase.productId === this.productId,
     );
 
-    const isPurchased = !!result;
-    if (isPurchased) {
+    const isPurchased = !!result.transactionReceipt;
+    if (result.transactionReceipt) {
       this.setPurchasedState(true, result.transactionReceipt);
     } else {
       this.setPurchasedState(false);
@@ -130,6 +135,7 @@ export class InAppPurchase {
     RNIapEmitter.addListener(PROMOTED_PRODUCT, async () => {
       const product = await getPromotedProductIOS();
       if (product.productId === this.productId) {
+        this.removeAllListener();
         this.addPurchaseUpdatedListener();
         this.addPurchaseErrorListener();
 

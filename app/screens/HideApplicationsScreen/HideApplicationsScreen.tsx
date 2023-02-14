@@ -1,15 +1,13 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { StackScreenProps } from '@react-navigation/stack';
-import { TextStyle } from 'react-native';
+import { Alert, TextStyle } from 'react-native';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 
 import { MoreFeatureNavigatorParamList } from '@/navigators';
 import { ListCell, ListSection, SafeAreaScrollView, Screen, Switch, Text } from '@/components';
 import { spacing, useTheme } from '@/theme';
-import { clearBlockedApplications, isApproved } from '@/lib/ScreenTime';
-import { useFocusEffect } from '@react-navigation/native';
-import { alertPermissionBlocked } from '@/utils';
+import { clearBlockedApplications, isApproved, requestAuthorization } from '@/lib/ScreenTime';
 import { useStores } from '@/models';
 import { t } from '@/i18n';
 
@@ -25,21 +23,50 @@ export const HideApplicationsScreen: FC<
     if (!settingsStore.blockedAppsEnabled) {
       clearBlockedApplications();
     }
-  }, []);
 
-  useFocusEffect(() => {
-    isApproved().then((v) => {
+    isApproved().then(async (v) => {
       setApproved(v);
       if (!v) {
-        settingsStore.setBlockedAppsEnabled(false);
-        alertPermissionBlocked(
-          t('permissionManager.blocked', {
-            permissions: t('permissionManager.screenTime'),
-          }),
-        );
+        alertPermission();
       }
     });
-  });
+  }, []);
+
+  async function alertPermission() {
+    settingsStore.setBlockedAppsEnabled(false);
+
+    try {
+      await requestAuthorization();
+      setApproved(true);
+    } catch {
+      setApproved(false);
+      Alert.alert(t('hideApplicationsScreen.permission'), '', [
+        {
+          text: t('common.ok'),
+          style: 'default',
+        },
+      ]);
+    }
+  }
+
+  const handleValueChange = useCallback(
+    (value: boolean) => {
+      if (approved) {
+        settingsStore.setBlockedAppsEnabled(value);
+      } else {
+        alertPermission();
+      }
+    },
+    [approved, alertPermission],
+  );
+
+  const handleApplicationPicker = useCallback(() => {
+    if (approved) {
+      props.navigation.navigate('ApplicationPicker');
+    } else {
+      alertPermission();
+    }
+  }, [approved, alertPermission]);
 
   return (
     <Screen type="tabView">
@@ -56,23 +83,16 @@ export const HideApplicationsScreen: FC<
             tk="hideApplicationsScreen.enabled"
             rightIcon={null}
             RightAccessory={
-              <Switch
-                disabled={!approved}
-                value={settingsStore.blockedAppsEnabled}
-                onValueChange={settingsStore.setBlockedAppsEnabled}
-              />
+              <Switch value={settingsStore.blockedAppsEnabled} onValueChange={handleValueChange} />
             }
           />
           <ListCell
             tk="hideApplicationsScreen.selection"
-            disabled={!approved}
             bottomSeparator={false}
             RightAccessory={
               <Text text={`${settingsStore.selectedAppCount} 个`} color={colors.secondaryLabel} />
             }
-            onPress={() => {
-              props.navigation.navigate('ApplicationPicker');
-            }}
+            onPress={handleApplicationPicker}
           />
         </ListSection>
       </SafeAreaScrollView>

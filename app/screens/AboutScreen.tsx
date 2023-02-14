@@ -66,8 +66,11 @@ export const AboutScreen: FC<StackScreenProps<SettingStackParamList, 'About'>> =
               title: '已是最新版',
               preset: 'done',
             });
-          } else if (status !== CodePush.SyncStatus.CHECKING_FOR_UPDATE) {
-            Overlay.dismissAllAlerts();
+          } else if (status === CodePush.SyncStatus.INSTALLING_UPDATE) {
+            setTimeout(() => {
+              Overlay.dismissAllAlerts();
+              CodePush.restartApp();
+            }, 500);
           }
         },
       );

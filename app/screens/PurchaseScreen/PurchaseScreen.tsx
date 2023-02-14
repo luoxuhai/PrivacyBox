@@ -33,8 +33,10 @@ export const PurchaseScreen: FC<StackScreenProps<SettingStackParamList, 'Purchas
           />
         ),
       });
+      global.isPausePresentMask = true;
 
       return () => {
+        global.isPausePresentMask = false;
         Overlay.dismissAllAlerts();
         InAppPurchase.shared.destroy();
         Confetti.stop();

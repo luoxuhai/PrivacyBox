@@ -351,6 +351,7 @@ const zh = {
     enabled: '开启隐藏',
     selection: '选择要隐藏的 App',
     notSupported: '该功能只支持 iOS 16 及以上版本，请升级系统版本',
+    permission: '请授予屏幕使用时间访问限制，才能正常使用该功能',
   },
   applicationPickerScreen: {
     title: '选择需要隐藏的 App',
@@ -423,7 +424,6 @@ const zh = {
     photoLibrary: '相册',
     mediaLibrary: '媒体库',
     motion: '运动',
-    screenTime: '屏幕使用时间访问限制',
     unavailable: '{{permission}}功能不可用',
     blocked: '请前往设置授予{{permissions}}权限，才能正常使用该功能',
     openSettings: '打开设置',

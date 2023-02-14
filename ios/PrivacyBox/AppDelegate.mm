@@ -4,7 +4,7 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import "ExpoModulesCore-Swift.h"
-// #import "PrivacyBox-Swift.h"
+#import "PrivacyBox-Swift.h"
 
 #import <React/RCTAppSetupUtils.h>
 
@@ -68,7 +68,7 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
   
   [RNBootSplash initWithStoryboard:@"LaunchScreen" rootView:rootView];
   
-  // [AuthorizationCenterAsync requestAuthorizationWithCompletionHandler:^(NSError * _Nullable) {}];
+  [AuthorizationCenterAsync requestAuthorizationWithCompletionHandler:^(NSError * _Nullable) {}];
   
 #if !DEBUG
   // Firebase https://rnfirebase.io/#3-ios-setup

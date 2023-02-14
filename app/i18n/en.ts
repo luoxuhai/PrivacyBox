@@ -356,6 +356,7 @@ const en: Translations = {
     enabled: 'Open Hidden',
     selection: 'Select App to Hide',
     notSupported: 'This feature only supports iOS 16 and above, please upgrade the system version',
+    permission: 'Please grant Screen Time access restrictions to use this function normally',
   },
   applicationPickerScreen: {
     title: 'Choose the app that needs to be hidden',
@@ -428,7 +429,6 @@ const en: Translations = {
     photoLibrary: 'Photo Library',
     mediaLibrary: 'Media Library',
     motion: 'Motion',
-    screenTime: 'Screen Time Access Restrictions',
     unavailable: '{{permission}} unavailable',
     blocked:
       'Please go to settings to grant {{permissions}} permission to use this function normally',

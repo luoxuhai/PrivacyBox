@@ -90,7 +90,7 @@ export const TransferScreen = observer<StackScreenProps<MoreFeatureNavigatorPara
               });
             }
           },
-          500,
+          1000,
           {
             leading: true,
             trailing: false,

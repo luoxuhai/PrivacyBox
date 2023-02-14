@@ -191,7 +191,7 @@ const DataExportSection = observer(() => {
   return (
     <ListSection titleTk="advancedSettingsScreen.dataExport">
       <ListCell
-        visible={!!globalStore.migrationFailedUris?.length}
+        // visible={!!globalStore.migrationFailedUris?.length}
         tk="advancedSettingsScreen.exceptionDataExport"
         onPress={() => handleExport()}
       />
@@ -210,7 +210,7 @@ const CacheClearSection = observer(() => {
 
   const { mutateAsync: handleClearCache } = useMutation({
     async mutationFn() {
-      await clearOldData();
+      // await clearOldData();
       await recycleBinClearerTask.start();
 
       if (await exists(LocalPathManager.tempPath)) {

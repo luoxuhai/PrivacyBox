@@ -117,17 +117,22 @@ const BottomTabVisibleSection = observer(() => {
 });
 
 const DataExportSection = observer(() => {
-  const { globalStore } = useStores();
-
   const { mutateAsync: handleExport } = useMutation({
     async mutationFn() {
+      Overlay.alert({ preset: 'spinner', duration: 0 });
       const uris: string[] = [];
-      const dirs = await readdir(SOURCE_PATH);
+      const dirs = await readdir(LocalPathManager.photoPath);
       for (const dir of dirs) {
         try {
-          const subDirs = await readdir(join(SOURCE_PATH, dir));
-          const sourceName = subDirs.filter((item) => item !== 'poster.jpg')?.[0];
-          const sourceUri = join(SOURCE_PATH, dir, sourceName);
+          const subDirs = await readdir(join(LocalPathManager.photoPath, dir));
+          const sourceName = subDirs.filter(
+            (item) => !['thumbnail.jpg', 'poster.jpg'].includes(item),
+          )?.[0];
+          if (!sourceName) {
+            continue;
+          }
+
+          const sourceUri = join(LocalPathManager.photoPath, dir, sourceName);
 
           if (await exists(sourceUri)) {
             uris.push(sourceUri);
@@ -135,7 +140,10 @@ const DataExportSection = observer(() => {
         } catch {}
       }
 
-      return await handleExportToFile(uris);
+      return await Share.open({
+        urls: uris,
+      });
+      // return await handleExportToFile(uris);
     },
     onSuccess(data) {
       if (data?.success) {
@@ -150,6 +158,9 @@ const DataExportSection = observer(() => {
         title: t('photosScreen.export.fail'),
         message: error?.message || '',
       });
+    },
+    onSettled() {
+      Overlay.dismissAllAlerts();
     },
   });
 

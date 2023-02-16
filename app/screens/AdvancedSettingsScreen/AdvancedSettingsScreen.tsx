@@ -1,31 +1,37 @@
-import React, { FC } from 'react';
-import { observer } from 'mobx-react-lite';
-import { ViewStyle } from 'react-native';
-import { StackScreenProps } from '@react-navigation/stack';
-import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
-import Share from 'react-native-share';
+import React, { FC } from "react";
+import { observer } from "mobx-react-lite";
+import { ViewStyle } from "react-native";
+import { StackScreenProps } from "@react-navigation/stack";
+import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
+import Share from "react-native-share";
 
-import { SettingStackParamList } from '@/navigators';
-import { Screen, SafeAreaScrollView, ListSection, ListCell, Switch } from '@/components';
-import { spacing, useTheme } from '@/theme';
-import { t, TextKeyPath } from '@/i18n';
-import { BottomTabs } from '@/models/SettingsStore';
-import { useStores } from '@/models';
-import { classifyImageTask } from '@/utils/task/classifyImageTask';
-import { canUsePremium } from '@/utils/canUsePremium';
-import { useMutation } from '@tanstack/react-query';
-import { LocalPathManager, Overlay, showActionSheet } from '@/utils';
-import { clearOldData } from '../DataMigratorScreen/helpers/clearOldData';
-import { exportPhotos } from '../PhotosScreen/helpers/exportPhotos';
-import { fetchAllPhotoUris } from './helpers/fetchAllPhotoUris';
-import { fetchAllFileUris } from './helpers/fetchAllFileUris';
-import { exists, readdir, readDir, unlink } from 'react-native-fs';
-import { SOURCE_PATH } from '../DataMigratorScreen/constants';
-import { join } from '@/lib/path';
-import { recycleBinClearerTask } from '@/utils/task/recycleBinClearer';
+import { SettingStackParamList } from "@/navigators";
+import {
+  Screen,
+  SafeAreaScrollView,
+  ListSection,
+  ListCell,
+  Switch,
+} from "@/components";
+import { spacing, useTheme } from "@/theme";
+import { t, TextKeyPath } from "@/i18n";
+import { BottomTabs } from "@/models/SettingsStore";
+import { useStores } from "@/models";
+import { classifyImageTask } from "@/utils/task/classifyImageTask";
+import { canUsePremium } from "@/utils/canUsePremium";
+import { useMutation } from "@tanstack/react-query";
+import { LocalPathManager, Overlay, showActionSheet } from "@/utils";
+import { clearOldData } from "../DataMigratorScreen/helpers/clearOldData";
+import { exportPhotos } from "../PhotosScreen/helpers/exportPhotos";
+import { fetchAllPhotoUris } from "./helpers/fetchAllPhotoUris";
+import { fetchAllFileUris } from "./helpers/fetchAllFileUris";
+import { exists, readdir, readDir, unlink } from "react-native-fs";
+import { SOURCE_PATH } from "../DataMigratorScreen/constants";
+import { join } from "@/lib/path";
+import { recycleBinClearerTask } from "@/utils/task/recycleBinClearer";
 
 export const AdvancedSettingsScreen: FC<
-  StackScreenProps<SettingStackParamList, 'AdvancedSettings'>
+  StackScreenProps<SettingStackParamList, "AdvancedSettings">
 > = observer(function AdvancedSettingsScreen() {
   const bottomTabBarHeight = useBottomTabBarHeight();
   const { settingsStore } = useStores();
@@ -44,7 +50,10 @@ export const AdvancedSettingsScreen: FC<
   return (
     <Screen type="tabView">
       <SafeAreaScrollView
-        contentContainerStyle={[$contentContainer, { paddingBottom: bottomTabBarHeight }]}
+        contentContainerStyle={[
+          $contentContainer,
+          { paddingBottom: bottomTabBarHeight },
+        ]}
       >
         <ListSection descriptionTk="advancedSettingsScreen.importImageAfterDeleteTip">
           <ListCell
@@ -88,7 +97,8 @@ const BottomTabVisibleSection = observer(() => {
       {list.map((item, idx) => {
         const bottomSeparator = idx < list.length - 1;
         const checked = settingsStore.visibleBottomTabs.includes(item.value);
-        const disabled = checked && settingsStore.visibleBottomTabs.length === 1;
+        const disabled =
+          checked && settingsStore.visibleBottomTabs.length === 1;
 
         return (
           <ListCell
@@ -119,14 +129,14 @@ const BottomTabVisibleSection = observer(() => {
 const DataExportSection = observer(() => {
   const { mutateAsync: handleExport } = useMutation({
     async mutationFn() {
-      Overlay.alert({ preset: 'spinner', duration: 0 });
+      Overlay.alert({ preset: "spinner", duration: 0 });
       const uris: string[] = [];
       const dirs = await readdir(LocalPathManager.photoPath);
       for (const dir of dirs) {
         try {
           const subDirs = await readdir(join(LocalPathManager.photoPath, dir));
           const sourceName = subDirs.filter(
-            (item) => !['thumbnail.jpg', 'poster.jpg'].includes(item),
+            (item) => !["thumbnail.jpg", "poster.jpg"].includes(item)
           )?.[0];
           if (!sourceName) {
             continue;
@@ -140,10 +150,34 @@ const DataExportSection = observer(() => {
         } catch {}
       }
 
-      return await Share.open({
-        urls: uris,
-      });
-      // return await handleExportToFile(uris);
+      let photos = [];
+      for (const uri of uris) {
+        const { ext, base: filename, dir } = parse(uri);
+        const mimeType = mime.getType(ext.replace(".", ""));
+        const type = getPhotoTypeByMime(mimeType);
+
+        try {
+          const info = (await transformPhotoFromUri(
+            uri,
+            type === PhotoTypes.Video,
+            true
+          )) as IResult;
+
+          const photo = {
+            uri,
+            name: filename,
+            mime: mimeType,
+            ...info,
+          };
+
+          await addPhotos({
+            album_id: query.album_id,
+            is_fake: false,
+            photos: [photo],
+          });
+          unlink(dir);
+        } catch (error) {}
+      }
     },
     onSuccess(data) {
       if (data?.success) {
@@ -154,9 +188,9 @@ const DataExportSection = observer(() => {
     },
     onError(error) {
       Overlay.toast({
-        preset: 'error',
-        title: t('photosScreen.export.fail'),
-        message: error?.message || '',
+        preset: "error",
+        title: t("photosScreen.export.fail"),
+        message: error?.message || "",
       });
     },
     onSettled() {
@@ -178,11 +212,11 @@ const DataExportSection = observer(() => {
   function handleSelectDest() {
     showActionSheet(
       {
-        title: t('advancedSettingsScreen.dest.title'),
+        title: t("advancedSettingsScreen.dest.title"),
         options: [
-          t('advancedSettingsScreen.dest.album'),
-          t('advancedSettingsScreen.dest.file'),
-          t('common.cancel'),
+          t("advancedSettingsScreen.dest.album"),
+          t("advancedSettingsScreen.dest.file"),
+          t("common.cancel"),
         ],
         cancelButtonIndex: 2,
       },
@@ -195,7 +229,7 @@ const DataExportSection = observer(() => {
           case 1:
             handleExportToFile(urls);
         }
-      },
+      }
     );
   }
 
@@ -206,7 +240,10 @@ const DataExportSection = observer(() => {
         tk="advancedSettingsScreen.exceptionDataExport"
         onPress={() => handleExport()}
       />
-      <ListCell tk="advancedSettingsScreen.allPhotoExport" onPress={() => handleSelectDest()} />
+      <ListCell
+        tk="advancedSettingsScreen.allPhotoExport"
+        onPress={() => handleSelectDest()}
+      />
       <ListCell
         tk="advancedSettingsScreen.allFileExport"
         bottomSeparator={false}
@@ -221,8 +258,23 @@ const CacheClearSection = observer(() => {
 
   const { mutateAsync: handleClearCache } = useMutation({
     async mutationFn() {
-      // await clearOldData();
-      await recycleBinClearerTask.start();
+      clearOldData();
+      recycleBinClearerTask.start();
+
+      const dirs = await readdir(LocalPathManager.photoPath);
+      for (const dir of dirs) {
+        try {
+          const exists = await AppDataSource.manager.exists(Photo, {
+            where: {
+              id: dir,
+            },
+          });
+
+          if (!exists) {
+            await unlink(join(LocalPathManager.photoPath, dir));
+          }
+        } catch {}
+      }
 
       if (await exists(LocalPathManager.tempPath)) {
         const dirs = await readDir(LocalPathManager.tempPath);
@@ -235,15 +287,15 @@ const CacheClearSection = observer(() => {
     },
     onSuccess() {
       Overlay.toast({
-        preset: 'done',
-        title: t('advancedSettingsScreen.clear.success'),
+        preset: "done",
+        title: t("advancedSettingsScreen.clear.success"),
       });
     },
     onError(error) {
       Overlay.toast({
-        preset: 'error',
-        title: t('advancedSettingsScreen.clear.fail'),
-        message: error?.message || '',
+        preset: "error",
+        title: t("advancedSettingsScreen.clear.fail"),
+        message: error?.message || "",
       });
     },
   });
@@ -257,7 +309,11 @@ const CacheClearSection = observer(() => {
         tk="advancedSettingsScreen.clear.title"
         rightIcon={null}
         bottomSeparator={false}
-        onPress={() => handleClearCache()}
+        onPress={() => {
+          Alert.alert('','', [{
+            onPress: handleClearCache
+          }])
+        }}
       />
     </ListSection>
   );
@@ -265,15 +321,15 @@ const CacheClearSection = observer(() => {
 
 const list: { title: TextKeyPath; value: BottomTabs }[] = [
   {
-    title: 'contentNavigator.filesTab',
+    title: "contentNavigator.filesTab",
     value: BottomTabs.Files,
   },
   {
-    title: 'contentNavigator.albumTab',
+    title: "contentNavigator.albumTab",
     value: BottomTabs.Album,
   },
   {
-    title: 'contentNavigator.moreTab',
+    title: "contentNavigator.moreTab",
     value: BottomTabs.More,
   },
 ];

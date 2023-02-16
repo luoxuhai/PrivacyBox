@@ -1,5 +1,5 @@
 import { Not } from 'typeorm';
-import { exists } from 'react-native-fs';
+import { stat } from 'react-native-fs';
 
 import { AppDataSource } from '@/database';
 import Photo from '@/database/entities/photo';
@@ -21,9 +21,11 @@ export async function fetchAllPhotoUris() {
   const uris: string[] = [];
   for (const photo of photos) {
     const uri = joinPhotoUri(photo);
-    if (await exists(uri)) {
-      uris.push(uri);
-    }
+    try {
+      if ((await stat(uri)).size > 0) {
+        uris.push(uri);
+      }
+    } catch {}
   }
 
   return uris;

@@ -110,9 +110,9 @@ export class InAppPurchase {
       (purchase) => purchase.productId === this.productId,
     );
 
-    const isPurchased = !!result.transactionReceipt;
-    if (result.transactionReceipt) {
-      this.setPurchasedState(true, result.transactionReceipt);
+    const isPurchased = !!result?.transactionReceipt;
+    if (result?.transactionReceipt) {
+      this.setPurchasedState(true, result?.transactionReceipt);
     } else {
       this.setPurchasedState(false);
     }

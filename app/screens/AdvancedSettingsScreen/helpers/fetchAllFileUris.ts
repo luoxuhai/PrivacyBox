@@ -1,5 +1,5 @@
 import { Not } from 'typeorm';
-import { exists } from 'react-native-fs';
+import { stat } from 'react-native-fs';
 
 import { AppDataSource } from '@/database';
 import File from '@/database/entities/file';
@@ -21,9 +21,12 @@ export async function fetchAllFileUris() {
   const uris: string[] = [];
   for (const file of files) {
     const uri = joinFileUri(file);
-    if (await exists(uri)) {
-      uris.push(uri);
-    }
+
+    try {
+      if ((await stat(uri)).size > 0) {
+        uris.push(uri);
+      }
+    } catch {}
   }
 
   return uris;

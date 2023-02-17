@@ -3,7 +3,6 @@ import { observer } from 'mobx-react-lite';
 import { ViewStyle } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { useDeviceOrientation } from '@react-native-community/hooks';
-import { CommonActions } from '@react-navigation/native';
 import { FullWindowOverlay } from 'react-native-screens';
 
 import { AppStackParamList } from '@/navigators';
@@ -77,11 +76,9 @@ export const AppLockScreen: FC<StackScreenProps<AppStackParamList, 'AppLock'>> =
 
       if (props.navigation.canGoBack()) {
         if (inFake) {
-          props.navigation.dispatch(() => {
-            return CommonActions.reset({
-              index: 1,
-              routes: [{ name: 'Album' }],
-            });
+          props.navigation.navigate('Content', {
+            screen: 'Album',
+            initial: true,
           });
 
           props.navigation.popToTop();

@@ -280,6 +280,7 @@ const zh = {
     todo: '待办',
     weather: '天气',
     news: '新闻',
+    old: '旧版本',
   },
   urgentSwitchScreen: {
     title: '紧急切换',
@@ -288,6 +289,8 @@ const zh = {
     actionSectionTitle: '触发动作',
     actionShake: '摇一摇',
     actionFaceDown: '屏幕朝下',
+    uninstall: '未安装该应用',
+    openFail: '无法打开该应用',
   },
   fakeAppHomeScreen: {
     removeInfo: '去除图片隐私信息',

@@ -16,6 +16,19 @@
 	<dict>
 		<key>CFBundleAlternateIcons</key>
 		<dict>
+            <key>old</key>
+            <dict>
+                <key>CFBundleIconFiles</key>
+                <array>
+                    <string>old120x120</string>
+                    <string>old167x167</string>
+                    <string>old128x128</string>
+                    <string>old152x152</string>
+                    <string>old180x180</string>
+                </array>
+                <key>UIPrerenderedIcon</key>
+                <false/>
+            </dict>
             <key>news</key>
             <dict>
                 <key>CFBundleIconFiles</key>

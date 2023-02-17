@@ -7,4 +7,5 @@ export enum AppIcons {
   PasswordBox = 'password_box',
   Weather = 'weather',
   News = 'news',
+  Old = 'old',
 }

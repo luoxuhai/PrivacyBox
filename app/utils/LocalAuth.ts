@@ -34,7 +34,10 @@ export class LocalAuth {
 
     try {
       global.isPausePresentMask = true;
-      const result = await LocalAuthentication.authenticateAsync(options);
+      const result = await LocalAuthentication.authenticateAsync({
+        ...options,
+        disableDeviceFallback: true,
+      });
       global.isPausePresentMask = false;
       return result;
     } catch {

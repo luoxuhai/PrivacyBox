@@ -7,17 +7,17 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { radius, useTheme, Colors } from '@/theme';
 import { translate } from '@/i18n';
-import { PhotoImportTypes } from '../constants';
+import { PhotoImportTypes, photoKeys } from '../constants';
 import { IResult, PhotoImporter } from '../helpers/PhotoImporter';
 import { useImportPhotos } from '../helpers/useImportPhotos';
-import { QueryKey } from '@tanstack/react-query';
 
 const ICON_PROPS = {
   size: 30,
   color: '#FFF',
 };
 
-interface PhotoImporterSheetProps extends SheetProps<{ queryKey?: QueryKey }> {}
+interface PhotoImporterSheetProps
+  extends SheetProps<{ queryKey?: ReturnType<typeof photoKeys.list> }> {}
 
 export const PhotoImporterSheet = observer<PhotoImporterSheetProps>((props) => {
   const { queryKey } = props.payload;
@@ -29,7 +29,7 @@ export const PhotoImporterSheet = observer<PhotoImporterSheetProps>((props) => {
   const list = useMemo(() => getFileImportList(colors), [colors]);
 
   async function handleImport(type: any) {
-    let photos: IResult[] | void;
+    let photos: IResult[];
     switch (type) {
       case PhotoImportTypes.Photos:
         photos = await PhotoImporter.album.open();
@@ -42,11 +42,10 @@ export const PhotoImporterSheet = observer<PhotoImporterSheetProps>((props) => {
         break;
     }
 
-    if (photos) {
+    if (photos.length) {
       handleImportPhotos(photos);
+      actionSheetRef.current.hide();
     }
-
-    actionSheetRef.current.hide();
   }
 
   return (

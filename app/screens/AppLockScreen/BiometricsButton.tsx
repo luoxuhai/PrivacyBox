@@ -59,7 +59,7 @@ export const BiometricsButton: FC<BiometricsButtonProps> = observer((props) => {
         }
         unlockAttempts.current.count++;
         requestAuth();
-      }, 600);
+      }, 500);
     }
   }, [
     appLockStore.autoTriggerBiometrics,

@@ -7,7 +7,7 @@ PODS:
     - SPIndicator
   - BVLinearGradient (2.6.2):
     - React-Core
-  - CodePush (7.0.5):
+  - CodePush (7.1.0):
     - Base64 (~> 1.1)
     - JWT (~> 3.0.0-beta.12)
     - React-Core
@@ -107,6 +107,7 @@ PODS:
     - GCDWebServer/Core (= 3.5.4)
   - GCDWebServer/Core (3.5.4)
   - glog (0.3.5)
+  - GoogleAds-IMA-iOS-SDK (3.18.4)
   - GoogleAppMeasurement/WithoutAdIdSupport (10.5.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
     - GoogleUtilities/MethodSwizzler (~> 7.8)
@@ -447,10 +448,14 @@ PODS:
     - React
   - react-native-shake (5.1.1):
     - React
-  - react-native-video (6.0.0-alpha.4):
+  - react-native-version-check (3.4.7):
     - React-Core
-    - react-native-video/Video (= 6.0.0-alpha.4)
-  - react-native-video/Video (6.0.0-alpha.4):
+  - react-native-video (6.0.0-alpha.5):
+    - React-Core
+    - react-native-video/Video (= 6.0.0-alpha.5)
+  - react-native-video/Video (6.0.0-alpha.5):
+    - GoogleAds-IMA-iOS-SDK (~> 3.18.1)
+    - GoogleAds-IMA-tvOS-SDK (~> 4.2)
     - PromisesSwift
     - React-Core
   - react-native-webserver (1.0.3):
@@ -592,15 +597,15 @@ PODS:
     - React-RCTText
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNScreens (3.19.0):
+  - RNScreens (3.20.0):
     - React-Core
     - React-RCTImage
-  - RNSentry (4.13.0):
+  - RNSentry (4.15.0):
     - React-Core
     - Sentry/HybridSDK (= 7.31.5)
-  - RNShare (8.1.0):
+  - RNShare (8.2.0):
     - React-Core
-  - RNSVG (13.5.0):
+  - RNSVG (13.8.0):
     - React-Core
   - RNZipArchive (6.0.9):
     - React-Core
@@ -695,6 +700,7 @@ DEPENDENCIES:
   - "react-native-segmented-control (from `../node_modules/@react-native-segmented-control/segmented-control`)"
   - react-native-sfsymbols (from `../node_modules/react-native-sfsymbols`)
   - react-native-shake (from `../node_modules/react-native-shake`)
+  - react-native-version-check (from `../node_modules/react-native-version-check`)
   - react-native-video (from `../node_modules/react-native-video`)
   - "react-native-webserver (from `../node_modules/@react-native-library/webserver`)"
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
@@ -749,6 +755,7 @@ SPEC REPOS:
     - FirebaseRemoteConfig
     - fmt
     - GCDWebServer
+    - GoogleAds-IMA-iOS-SDK
     - GoogleAppMeasurement
     - GoogleUtilities
     - JWT
@@ -909,6 +916,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-sfsymbols"
   react-native-shake:
     :path: "../node_modules/react-native-shake"
+  react-native-version-check:
+    :path: "../node_modules/react-native-version-check"
   react-native-video:
     :path: "../node_modules/react-native-video"
   react-native-webserver:
@@ -993,7 +1002,7 @@ SPEC CHECKSUMS:
   boost: a7c83b31436843459a1961bfd74b96033dc77234
   Burnt: 2a5f30dd49cb80c02c0c822df7ed60b58ee2860d
   BVLinearGradient: 34a999fda29036898a09c6a6b728b0b4189e1a44
-  CodePush: ef496b6fd053012e985e3d4a0ab9f9dbf2739eac
+  CodePush: dce1b253fde81078249ea9cd4b948e4ac7b761a9
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   EXApplication: e418d737a036e788510f2c4ad6c10a7d54d18586
   EXConstants: 7c44785d41d8e959d527d23d29444277a4d1ee73
@@ -1026,6 +1035,7 @@ SPEC CHECKSUMS:
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
   glog: 3d02b25ca00c2d456734d0bcff864cbc62f6ae1a
+  GoogleAds-IMA-iOS-SDK: b01284e3bf3d64ba948de6692ffda531452c3713
   GoogleAppMeasurement: 40c70a7d89013f0eca72006c4b9732163ea4cdae
   GoogleUtilities: c2bdc4cf2ce786c4d2e6b3bcfd599a25ca78f06f
   hermes-engine: 51aaceb1f6dc1aed44b8bbf866f52ec146c00a89
@@ -1081,7 +1091,8 @@ SPEC CHECKSUMS:
   react-native-segmented-control: 06607462630512ff8eef652ec560e6235a30cc3e
   react-native-sfsymbols: bd3a0d3eab185e80b571bae60753dcf5a0d57967
   react-native-shake: 67d43d6af4abfc299400b17fea7d2ec0754c72ac
-  react-native-video: b2a6434fa0cc7a5381985ca2af8f8c570f110743
+  react-native-version-check: 6cd36aad4e30b8e3216747e3b4ddeb09e0647af8
+  react-native-video: a38e0a394fd8884fef4a48d866f1ed9a930f8385
   react-native-webserver: de46b00b6c637085e4c96bb9f84c7a771c066a6c
   React-perflogger: 8e832d4e21fdfa613033c76d58d7e617341e804b
   React-RCTActionSheet: 9ca778182a9523991bff6381045885b6e808bb73
@@ -1114,10 +1125,10 @@ SPEC CHECKSUMS:
   RNLocalize: 0df7970cfc60389f00eb62fd7c097dc75af3fb4f
   RNPermissions: dcdb7b99796bbeda6975a6e79ad519c41b251b1c
   RNReanimated: ba021107f1dd90cb04c35c5d639392d5da27d065
-  RNScreens: ea4cd3a853063cda19a4e3c28d2e52180c80f4eb
-  RNSentry: acebe4104a6f5915ae871eb59dc73f13dcc92ef7
-  RNShare: 48b3113cd089a2be8ff0515c3ae7a46a4db8a76b
-  RNSVG: 38ca962c970dbce1ca38991a5aebf26d163f9efb
+  RNScreens: 218801c16a2782546d30bd2026bb625c0302d70f
+  RNSentry: 50f8b7147d1d0973a56635e524b192ec80e53195
+  RNShare: b089c33619bbfb0a32bc4069c858b9274e694187
+  RNSVG: c1e76b81c76cdcd34b4e1188852892dc280eb902
   RNZipArchive: 68a0c6db4b1c103f846f1559622050df254a3ade
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SDWebImageWebPCoder: 908b83b6adda48effe7667cd2b7f78c897e5111d
@@ -1128,6 +1139,6 @@ SPEC CHECKSUMS:
   SSZipArchive: 62d4947b08730e4cda640473b0066d209ff033c9
   Yoga: 0b84a956f7393ef1f37f3bb213c516184e4a689d
 
-PODFILE CHECKSUM: c6aa6656636f6f2ac872a06213e83c33857a6dce
+PODFILE CHECKSUM: 9bcfc561378630f3d241c4f31a0857617184fc4f
 
 COCOAPODS: 1.11.2

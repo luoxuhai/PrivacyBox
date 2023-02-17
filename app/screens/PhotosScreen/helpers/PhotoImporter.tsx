@@ -19,9 +19,9 @@ export interface PhotoImporterResult extends IResult {
 
 export class PhotoImporter extends FileImporter {
   public static album = {
-    async open(): Promise<PhotoImporterResult[] | void> {
+    async open(): Promise<PhotoImporterResult[]> {
       if (!(await PermissionManager.checkPermissions(['ios.permission.PHOTO_LIBRARY']))) {
-        return;
+        return [];
       }
       const result = await launchImageLibrary(
         {
@@ -40,7 +40,7 @@ export class PhotoImporter extends FileImporter {
       );
 
       if (!result?.assets) {
-        return;
+        return [];
       }
 
       const results: PhotoImporterResult[] = [];
@@ -70,9 +70,9 @@ export class PhotoImporter extends FileImporter {
   };
 
   public static camera = {
-    async open(): Promise<PhotoImporterResult[] | void> {
+    async open(): Promise<PhotoImporterResult[]> {
       if (!(await PermissionManager.checkPermissions(['ios.permission.CAMERA']))) {
-        return;
+        return [];
       }
 
       const result = await launchCamera(
@@ -93,7 +93,7 @@ export class PhotoImporter extends FileImporter {
 
       const asset = result?.assets?.[0];
       if (!asset) {
-        return;
+        return [];
       }
 
       const ctime = Date.now();
@@ -115,11 +115,11 @@ export class PhotoImporter extends FileImporter {
   };
 
   public static document = {
-    async open(options?: DocumentPickerOptions<'ios'>): Promise<PhotoImporterResult[] | void> {
+    async open(options?: DocumentPickerOptions<'ios'>): Promise<PhotoImporterResult[]> {
       const files = await FileImporter.document.open(options);
 
       if (!files?.length) {
-        return;
+        return [];
       }
 
       Overlay.alert({

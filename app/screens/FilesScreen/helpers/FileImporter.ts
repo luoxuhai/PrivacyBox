@@ -53,14 +53,14 @@ export class FileImporter {
   };
 
   public static documentCamera = {
-    async open(): Promise<IResult[] | void> {
+    async open(): Promise<IResult[]> {
       if (!(await PermissionManager.checkPermissions(['ios.permission.CAMERA']))) {
-        return;
+        return [];
       }
 
       if (!(await DocumentCamera.isSupported())) {
         Alert.alert(translate('filesScreen.import.nonsupport'));
-        return;
+        return [];
       }
 
       const result = await DocumentCamera.open({

@@ -9,6 +9,7 @@ import AppIconTodo from '@/assets/icons/app-icon/todo.svg';
 import AppIconClock from '@/assets/icons/app-icon/clock.svg';
 import AppIconNews from '@/assets/icons/app-icon/news.svg';
 import AppIconWeather from '@/assets/icons/app-icon/weather.svg';
+import AppIconOld from '@/assets/icons/app-icon/old.svg';
 
 import { AppIcons } from '@/screens/AppearanceScreen/types';
 
@@ -79,6 +80,7 @@ export const iconSvgRegistry = {
   [AppIcons.Todo]: AppIconTodo,
   [AppIcons.News]: AppIconNews,
   [AppIcons.Weather]: AppIconWeather,
+  [AppIcons.Old]: AppIconOld,
 };
 
 const $imageStyle: ImageStyle = {

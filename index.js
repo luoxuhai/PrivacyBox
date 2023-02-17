@@ -3,6 +3,7 @@ import './app/utils/initGlobalValues';
 import React from 'react';
 import { AppRegistry } from 'react-native';
 
+import './app/utils/disableFontScaling';
 import App from './app/app.tsx';
 import { initBasePath } from './app/utils/initBasePath';
 import { lockOrientation } from './app/utils/lockOrientation';

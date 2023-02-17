@@ -280,10 +280,11 @@ const en: Translations = {
     calculator: 'Calculator',
     passwordBox: 'Password Box',
     clock: 'Clock',
-    housekeeper: 'Security Housekeeper',
+    housekeeper: 'Security',
     todo: 'TO-DO',
     weather: 'Weather',
     news: 'News',
+    old: 'Old Version',
   },
   urgentSwitchScreen: {
     title: 'Urgent Switch',
@@ -292,6 +293,8 @@ const en: Translations = {
     actionSectionTitle: 'Trigger Action',
     actionShake: 'Shake',
     actionFaceDown: 'Screen Face Down',
+    uninstall: 'The app is not installed',
+    openFail: 'Unable to open the app',
   },
   fakeAppHomeScreen: {
     removeInfo: 'Remove Image Privacy Info',

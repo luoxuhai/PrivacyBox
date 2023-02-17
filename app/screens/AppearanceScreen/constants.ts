@@ -45,4 +45,9 @@ export const appIconOptions: {
     name: AppIcons.News,
     needsBuy: true,
   },
+  {
+    title: 'appIconName.old',
+    name: AppIcons.Old,
+    needsBuy: true,
+  },
 ];

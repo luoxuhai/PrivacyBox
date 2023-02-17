@@ -125,6 +125,7 @@ export const SettingScreen: FC<StackScreenProps<SettingStackParamList, 'Settings
           <ListSection titleTk="settingsScreen.help">
             <ListCell
               tk="settingsScreen.FAQ"
+              visible={!appLockStore.inFakeEnvironment}
               onPress={() => {
                 openLinkInAppBrowser(`${Config.TXC_FEEDBACK_URL}/faqs-more`, {
                   preferredControlTintColor,
@@ -133,6 +134,7 @@ export const SettingScreen: FC<StackScreenProps<SettingStackParamList, 'Settings
             />
             <ListCell
               tk="settingsScreen.feedback"
+              visible={!appLockStore.inFakeEnvironment}
               onPress={() => {
                 openLinkInAppBrowser(generateFeedbackUrl(), {
                   preferredControlTintColor,

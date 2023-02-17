@@ -112,7 +112,10 @@ function observeShake(rootStore: RootStore) {
       rootStore.settingsStore.urgentSwitchTarget !== AppQueriesSchemes.Disable
     ) {
       try {
-        await Linking.openURL(rootStore.settingsStore.urgentSwitchTarget);
+        const url = rootStore.settingsStore.urgentSwitchTarget;
+        if (await Linking.canOpenURL(url)) {
+          await Linking.openURL(url);
+        }
       } catch {
         global.isPauseBiometrics = true;
       }
@@ -137,7 +140,10 @@ function observeDeviceMotion(rootStore: RootStore) {
         rootStore.settingsStore.urgentSwitchTarget !== AppQueriesSchemes.Disable
       ) {
         try {
-          await Linking.openURL(rootStore.settingsStore.urgentSwitchTarget);
+          const url = rootStore.settingsStore.urgentSwitchTarget;
+          if (await Linking.canOpenURL(url)) {
+            await Linking.openURL(url);
+          }
         } catch {
           global.isPauseBiometrics = true;
         }

@@ -139,7 +139,9 @@ export const ChangeLockPasscodeScreen: FC<
 
   const handleChangePasscode = useCallback(() => {
     if (isFake) {
+      const existsFakePasscode = !!appLockStore.fakePasscode;
       appLockStore.setFakePasscode(passcode);
+      appLockStore.setFakePasscodeEnabled(!existsFakePasscode);
     } else {
       appLockStore.setPasscode(passcode);
     }

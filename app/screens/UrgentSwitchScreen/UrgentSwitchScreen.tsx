@@ -1,6 +1,6 @@
 import React, { FC, useMemo } from 'react';
 import { observer } from 'mobx-react-lite';
-import { ViewStyle } from 'react-native';
+import { Alert, Linking, ViewStyle } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { Check as IconCheck } from 'iconoir-react-native';
 
@@ -11,7 +11,7 @@ import { ICON_CHECK_SIZE } from '@/constants';
 import { getUrgentOptions } from './utils';
 import { useStores } from '@/models';
 import { UrgentSwitchActions } from '@/models/SettingsStore';
-import { TextKeyPath } from '@/i18n';
+import { t, TextKeyPath } from '@/i18n';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { HapticFeedback } from '@/utils';
 import { AppQueriesSchemes } from './type';
@@ -25,13 +25,24 @@ export const UrgentSwitchScreen: FC<StackScreenProps<SettingStackParamList, 'Urg
 
     const options = useMemo(() => getUrgentOptions(colors), [colors]);
 
-    function handleSelectTarget(value: AppQueriesSchemes) {
+    async function handleSelectTarget(value: AppQueriesSchemes) {
       if (!canUsePremium()) {
         return;
       }
 
-      settingsStore.setUrgentSwitchTarget(value);
       HapticFeedback.selection();
+
+      try {
+        const res = await Linking.canOpenURL(value);
+        if (!res) {
+          Alert.alert(t('urgentSwitchScreen.uninstall'));
+          return;
+        }
+
+        settingsStore.setUrgentSwitchTarget(value);
+      } catch (error) {
+        Alert.alert(t('urgentSwitchScreen.openFail'));
+      }
     }
     return (
       <Screen type="tabView">

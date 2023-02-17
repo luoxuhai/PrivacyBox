@@ -6,6 +6,7 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { StackScreenProps } from '@react-navigation/stack';
 import CodePush from 'react-native-code-push';
 import * as MailComposer from 'expo-mail-composer';
+import VersionCheck from 'react-native-version-check';
 
 import { ListSection, ListCell, Screen, SafeAreaScrollView } from '@/components';
 import { spacing, useTheme, colors } from '@/theme';
@@ -49,31 +50,37 @@ export const AboutScreen: FC<StackScreenProps<SettingStackParamList, 'About'>> =
       }
     }, []);
 
-    const handleCheckUpdate = useCallback(() => {
+    const handleCheckUpdate = useCallback(async () => {
       Overlay.alert({
         preset: 'spinner',
         duration: 0,
         title: t('aboutScreen.checkingUpdate'),
       });
-      CodePush.sync(
-        {
-          installMode: CodePush.InstallMode.IMMEDIATE,
-          mandatoryInstallMode: CodePush.InstallMode.IMMEDIATE,
-        },
-        (status) => {
-          if (status === CodePush.SyncStatus.UP_TO_DATE) {
-            Overlay.alert({
-              title: '已是最新版',
-              preset: 'done',
-            });
-          } else if (status === CodePush.SyncStatus.UPDATE_INSTALLED) {
-            Overlay.dismissAllAlerts();
-            setTimeout(() => {
-              CodePush.restartApp();
-            }, 500);
-          }
-        },
-      );
+
+      const { isNeeded } = await VersionCheck.needUpdate();
+      if (isNeeded) {
+        Linking.openURL(Config.appStoreUrl.urlSchema);
+      } else {
+        CodePush.sync(
+          {
+            installMode: CodePush.InstallMode.IMMEDIATE,
+            mandatoryInstallMode: CodePush.InstallMode.IMMEDIATE,
+          },
+          (status) => {
+            if (status === CodePush.SyncStatus.UP_TO_DATE) {
+              Overlay.alert({
+                title: '已是最新版',
+                preset: 'done',
+              });
+            } else if (status === CodePush.SyncStatus.UPDATE_INSTALLED) {
+              Overlay.dismissAllAlerts();
+              setTimeout(() => {
+                CodePush.restartApp();
+              }, 500);
+            }
+          },
+        );
+      }
     }, []);
 
     return (

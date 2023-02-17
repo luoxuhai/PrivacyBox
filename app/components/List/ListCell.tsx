@@ -171,7 +171,7 @@ function LeftIconWrapper({ children }: { children: React.ReactNode }) {
 
 const ExtraText = observer(({ text }: { text: string }) => {
   const { colors } = useTheme();
-  return <Text style={[typography.subhead, { color: colors.secondaryLabel }]}>{text}</Text>;
+  return <Text style={[typography.callout, { color: colors.secondaryLabel }]}>{text}</Text>;
 });
 
 const $container: ViewStyle = {

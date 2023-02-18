@@ -44,7 +44,7 @@ export const ContextMenu = observer<ContextMenuProps>((props) => {
           break;
         case ContextMenuKeys.SaveToLocal:
           RNShare.open({
-            url: item.uri,
+            url: encodeURI(item.uri),
             saveToFiles: true,
           });
           break;

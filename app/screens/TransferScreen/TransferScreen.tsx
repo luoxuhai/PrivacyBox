@@ -249,7 +249,7 @@ export const TransferScreen = observer<StackScreenProps<MoreFeatureNavigatorPara
           }
           // 下载文件
         } else if (request.method === 'GET' && request.url.startsWith('/api/file/')) {
-          response.sendFile(request.url.replace('/api/file', LocalPathManager.basePath));
+          response.sendFile(decodeURI(request.url.replace('/api/file', LocalPathManager.basePath)));
         } else {
           response.send(404);
         }
@@ -419,5 +419,5 @@ const styles = StyleSheet.create({
 });
 
 function transformRemoteUri(origin: string, uri: string) {
-  return uri?.replace(LocalPathManager.basePath, `${origin}/api/file`);
+  return encodeURI(uri?.replace(LocalPathManager.basePath, `${origin}/api/file`));
 }

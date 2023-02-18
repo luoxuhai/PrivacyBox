@@ -1,19 +1,18 @@
-import React, { FC, useCallback, useRef } from 'react';
+import React, { FC, useCallback, useMemo, useRef } from 'react';
 import { observer } from 'mobx-react-lite';
-import { StackScreenProps } from '@react-navigation/stack';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { AppStackParamList } from '@/navigators';
 import { Screen, VideoPlayer, VideoPlayerRef } from '@/components';
 import { FetchPhotosResult } from '@/services/local';
 import { t } from '@/i18n';
-import { useBlurEffect } from '@/utils';
 
 export interface VideoPlayerScreenParams {
   item: FetchPhotosResult;
 }
 
-export const VideoPlayerScreen: FC<StackScreenProps<AppStackParamList, 'VideoPlayer'>> = observer(
-  (props) => {
+export const VideoPlayerScreen: FC<NativeStackScreenProps<AppStackParamList, 'VideoPlayer'>> =
+  observer((props) => {
     const { item } = props.route.params;
     const ref = useRef<VideoPlayerRef>();
 
@@ -28,12 +27,19 @@ export const VideoPlayerScreen: FC<StackScreenProps<AppStackParamList, 'VideoPla
       });
     }, []);
 
+    const source = useMemo(
+      () => ({
+        uri: encodeURI(item.uri),
+      }),
+      [item.uri],
+    );
+
     return (
       <Screen statusBarStyle="light">
         <VideoPlayer
           ref={ref}
           title={item.name}
-          source={{ uri: item.uri }}
+          source={source}
           airplayTip={t('videoPlayerScreen.airplayTip')}
           autoPausedTip={t('videoPlayerScreen.autoPausedTip')}
           controlsVisible
@@ -44,5 +50,4 @@ export const VideoPlayerScreen: FC<StackScreenProps<AppStackParamList, 'VideoPla
         />
       </Screen>
     );
-  },
-);
+  });

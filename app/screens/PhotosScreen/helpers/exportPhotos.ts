@@ -13,8 +13,8 @@ export async function exportPhotos(uris: string[]) {
   const failedUris: string[] = [];
   for (const uri of uris) {
     try {
-      await saveToLibraryAsync(uri);
-    } catch {
+      await saveToLibraryAsync(encodeURI(uri));
+    } catch (error) {
       failedUris.push(uri);
     }
   }

@@ -116,7 +116,7 @@ export const DataExportSection = observer(() => {
     }
 
     return Share.open({
-      urls,
+      urls: urls.map((uri) => encodeURI(uri)),
       saveToFiles: true,
     });
   }

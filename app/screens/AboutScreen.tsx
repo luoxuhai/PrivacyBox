@@ -69,14 +69,23 @@ export const AboutScreen: FC<StackScreenProps<SettingStackParamList, 'About'>> =
           (status) => {
             if (status === CodePush.SyncStatus.UP_TO_DATE) {
               Overlay.alert({
-                title: '已是最新版',
                 preset: 'done',
               });
-            } else if (status === CodePush.SyncStatus.UPDATE_INSTALLED) {
+            } else if (
+              [
+                CodePush.SyncStatus.UPDATE_INSTALLED,
+                CodePush.SyncStatus.AWAITING_USER_ACTION,
+                CodePush.SyncStatus.INSTALLING_UPDATE,
+              ].includes(status)
+            ) {
               Overlay.dismissAllAlerts();
               setTimeout(() => {
                 CodePush.restartApp();
               }, 500);
+            } else if (status === CodePush.SyncStatus.UNKNOWN_ERROR) {
+              Overlay.alert({
+                preset: 'error',
+              });
             }
           },
         );

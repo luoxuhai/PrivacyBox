@@ -20,6 +20,7 @@ import { appearanceToMode, ThemeStore } from '../ThemeStore';
 import { persist } from './persist';
 import { UrgentSwitchActions } from '../SettingsStore';
 import { AppQueriesSchemes } from '@/screens/UrgentSwitchScreen/type';
+import debounce from 'lodash/debounce';
 
 // 主题
 const THEME_STATE_STORAGE_KEY = 'theme-v1';
@@ -101,28 +102,41 @@ function observeAppStateChange(store: AppStateStore) {
   });
 }
 
+const wait = 500;
+
 /**
  * 监听设备摇动
  */
 function observeShake(rootStore: RootStore) {
-  Shake.addListener(async () => {
-    if (
-      !rootStore.appLockStore.isLocked &&
-      rootStore.settingsStore.urgentSwitchActions.includes(UrgentSwitchActions.Shake) &&
-      rootStore.settingsStore.urgentSwitchTarget !== AppQueriesSchemes.Disable
-    ) {
-      try {
-        const url = rootStore.settingsStore.urgentSwitchTarget;
-        if (await Linking.canOpenURL(url)) {
-          await Linking.openURL(url);
+  Shake.addListener(
+    debounce(
+      async () => {
+        if (
+          !rootStore.appLockStore.isLocked &&
+          rootStore.settingsStore.urgentSwitchActions.includes(UrgentSwitchActions.Shake) &&
+          rootStore.settingsStore.urgentSwitchTarget !== AppQueriesSchemes.Disable
+        ) {
+          try {
+            const url = rootStore.settingsStore.urgentSwitchTarget;
+            if (await Linking.canOpenURL(url)) {
+              await Linking.openURL(url);
+            }
+          } catch {
+            global.isPauseBiometrics = true;
+          }
+          rootStore.appLockStore.setIsLocked(true);
         }
-      } catch {
-        global.isPauseBiometrics = true;
-      }
-      rootStore.appLockStore.setIsLocked(true);
-    }
-  });
+      },
+      wait,
+      {
+        leading: true,
+        trailing: false,
+      },
+    ),
+  );
 }
+
+let openURLPending = false;
 
 /**
  * 监听屏幕朝下
@@ -133,7 +147,7 @@ function observeDeviceMotion(rootStore: RootStore) {
   DeviceMotion.addListener(async (v) => {
     const x = (180 / Math.PI) * v.rotation.gamma;
     const y = (180 / Math.PI) * v.rotation.beta;
-    if (Math.abs(x) >= 165 && Math.abs(y) <= 20) {
+    if (Math.abs(x) >= 165 && Math.abs(y) <= 20 && !openURLPending) {
       if (
         !rootStore.appLockStore.isLocked &&
         rootStore.settingsStore.urgentSwitchActions.includes(UrgentSwitchActions.FaceDown) &&
@@ -142,10 +156,14 @@ function observeDeviceMotion(rootStore: RootStore) {
         try {
           const url = rootStore.settingsStore.urgentSwitchTarget;
           if (await Linking.canOpenURL(url)) {
+            openURLPending = true;
             await Linking.openURL(url);
           }
         } catch {
           global.isPauseBiometrics = true;
+        } finally {
+          console.log('finally');
+          openURLPending = false;
         }
         rootStore.appLockStore.setIsLocked(true);
       }

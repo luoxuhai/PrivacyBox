@@ -37,6 +37,11 @@ const en: Translations = {
     reset: 'Try Again',
     feedback: 'Feedback',
   },
+  dbSeeds: {
+    picture: 'Pictures 🏞️',
+    video: 'Videos 📀',
+    folder: 'Default folder 🗂️',
+  },
   dataMigratorScreen: {
     title: 'Old Version Data Migration',
     success: 'Migration Succeeded',

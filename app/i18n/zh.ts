@@ -35,6 +35,11 @@ const zh = {
     reset: '重启',
     feedback: '反馈',
   },
+  dbSeeds: {
+    picture: '照片 🏞️',
+    video: '视频 📀',
+    folder: '默认文件夹 🗂️',
+  },
   dataMigratorScreen: {
     title: '旧版本数据迁移',
     success: '迁移成功',

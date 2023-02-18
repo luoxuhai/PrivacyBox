@@ -5,17 +5,18 @@ import Photo from './entities/photo';
 import { storage } from '@/utils/storage';
 import { generateUUID } from '@/utils/uuid';
 import { FileTypes, PhotoTypes } from './entities/types';
+import { t } from '@/i18n';
 
 const photoSeeds: Photo[] = [
   {
     id: generateUUID(),
-    name: '图片 🏞️',
+    name: t('dbSeeds.picture'),
     type: PhotoTypes.Folder,
     parent_id: null,
   },
   {
     id: generateUUID(),
-    name: '视频 📀',
+    name: t('dbSeeds.video'),
     type: PhotoTypes.Folder,
     parent_id: null,
   },
@@ -24,7 +25,7 @@ const photoSeeds: Photo[] = [
 const fileSeeds: File[] = [
   {
     id: generateUUID(),
-    name: '默认文件夹 🗂️',
+    name: t('dbSeeds.folder'),
     is_fake: false,
     parent_id: null,
     type: FileTypes.Folder,

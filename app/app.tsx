@@ -11,7 +11,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SheetProvider } from 'react-native-actions-sheet';
 import * as Sentry from '@sentry/react-native';
 
-import { useUpdateEffect, routingInstrumentation, Application } from './utils';
+import { useUpdateEffect, routingInstrumentation } from './utils';
 import { initTask } from './utils/task/initTask';
 import { useInitialRootStore } from './models';
 import { useInitialDataSource } from './database/helpers/useInitDataSource';
@@ -27,7 +27,6 @@ import { storage } from './utils/storage';
 import Config from './config';
 import { AppMaskScreen } from './screens';
 import WebClient from './screens/TransferScreen/helpers/WebClient';
-import { setupInAppPurchase } from './screens/PurchaseScreen/helpers/setupInAppPurchase';
 
 export const NAVIGATION_PERSISTENCE_KEY = 'NAVIGATION_STATE';
 
@@ -39,10 +38,6 @@ const App = observer(() => {
   } = useNavigationPersistence(storage, NAVIGATION_PERSISTENCE_KEY);
 
   useEffect(() => {
-    if (Application.env === 'AppStore') {
-      setupInAppPurchase();
-    }
-
     setTimeout(() => {
       if (!__DEV__) {
         WebClient.update(true);

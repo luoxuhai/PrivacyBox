@@ -1,0 +1,12 @@
+{
+  "cSpell.words": [
+    "autolock",
+    "Pressable",
+    "typeorm"
+  ],
+  "files.associations": {
+    "regex": "cpp",
+    "*.ipp": "cpp",
+    "string": "cpp"
+  }
+}

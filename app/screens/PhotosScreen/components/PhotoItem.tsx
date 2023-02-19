@@ -9,11 +9,17 @@ import { PhotoThumbnail } from '@/components';
 interface PhotoItemProps {
   item: FetchPhotosResult;
   onPress?: (item: FetchPhotosResult) => void;
+  onLongPress?: () => void;
 }
 
 export function PhotoItem(props: PhotoItemProps) {
   return (
-    <Pressable style={$container} onPress={() => props.onPress?.(props.item)}>
+    <Pressable
+      style={$container}
+      delayLongPress={200}
+      onPress={() => props.onPress?.(props.item)}
+      onLongPress={props.onLongPress}
+    >
       <PhotoThumbnail item={props.item} />
       <ExtraInfo item={props.item} />
     </Pressable>

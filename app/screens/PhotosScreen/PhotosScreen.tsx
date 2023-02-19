@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ViewStyle } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { StackScreenProps } from '@react-navigation/stack';
@@ -128,6 +128,10 @@ export const PhotosScreen: FC<StackScreenProps<AppStackParamList, 'Photos'>> = o
 
   const handlePressItem = useCallback(
     (item: FetchPhotosResult) => {
+      if (isMenuWillShow.current) {
+        return;
+      }
+
       // 选择项目
       if (selection.enabled) {
         setSelection((prevValue) => {
@@ -156,6 +160,16 @@ export const PhotosScreen: FC<StackScreenProps<AppStackParamList, 'Photos'>> = o
     [selection, queryKey],
   );
 
+  const isMenuWillShow = useRef(false);
+
+  const onMenuWillShow = useCallback(() => {
+    isMenuWillShow.current = true;
+  }, []);
+
+  const onMenuDidHide = useCallback(() => {
+    isMenuWillShow.current = false;
+  }, []);
+
   const renderItem = useCallback(
     ({ item, extraData }: { item: FetchPhotosResult; extraData: ListExtraData }) => {
       const { selection } = extraData;
@@ -164,14 +178,14 @@ export const PhotosScreen: FC<StackScreenProps<AppStackParamList, 'Photos'>> = o
 
       return (
         <>
-          <ContextMenu item={item} disabled={selection.enabled}>
-            <PhotoItem item={item} onPress={handlePressItem} />
+          <ContextMenu item={item} disabled={selection.enabled} onMenuDidHide={onMenuDidHide}>
+            <PhotoItem item={item} onPress={handlePressItem} onLongPress={onMenuWillShow} />
           </ContextMenu>
           <SelectedMask visible={isSelected} />
         </>
       );
     },
-    [handlePressItem],
+    [handlePressItem, onMenuWillShow, onMenuDidHide],
   );
 
   return (

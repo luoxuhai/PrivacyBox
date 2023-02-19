@@ -14,6 +14,8 @@ interface ContextMenuProps {
   item: FetchPhotosResult;
   disabled?: boolean;
   children?: ReactElement | ReactElement[];
+  onMenuWillShow?(): void;
+  onMenuDidHide?(): void;
 }
 
 export const ContextMenu = observer<ContextMenuProps>((props) => {
@@ -55,6 +57,7 @@ export const ContextMenu = observer<ContextMenuProps>((props) => {
       menuConfig={menuConfig}
       isContextMenuEnabled={!props.disabled}
       onPressMenuItem={handlePressMenuItem}
+      onMenuDidHide={props.onMenuDidHide}
     >
       {props.children}
     </ContextMenuView>

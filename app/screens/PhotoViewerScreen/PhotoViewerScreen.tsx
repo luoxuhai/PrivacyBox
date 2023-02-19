@@ -61,6 +61,7 @@ export const PhotoViewerScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'P
     const isTransitionStart = useRef(false);
     useEffect(() => {
       props.navigation.addListener('transitionStart', () => {
+        imageBrowserRef.current.onBack();
         isTransitionStart.current = true;
       });
 
@@ -150,7 +151,12 @@ export const PhotoViewerScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'P
             visible={toolbarVisible}
             name={currentItem?.name}
             ctime={currentItem?.created_date}
-            onBack={props.navigation.goBack}
+            onBack={() => {
+              imageBrowserRef.current.onBack();
+              setTimeout(() => {
+                props.navigation.goBack();
+              });
+            }}
           />
           <ImageBrowser
             style={{

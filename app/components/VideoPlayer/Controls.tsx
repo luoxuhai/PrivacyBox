@@ -64,6 +64,7 @@ export default function Controls(props: ControlsProps) {
   const pressTimer = useRef<NodeJS.Timeout>();
 
   useEffect(() => {
+    OrientationLocker.lockToPortrait();
     OrientationLocker.getOrientation((value) => {
       switch (value) {
         case OrientationType['LANDSCAPE-LEFT']:

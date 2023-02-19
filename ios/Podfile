@@ -6,17 +6,15 @@ require File.join(File.dirname(`cd #{pod_folder} && node --print "require.resolv
 
 platform :ios, '14.0'
 install! 'cocoapods', :deterministic_uuids => false
-use_frameworks! :linkage => :static
 
 # 避免使用 IDFA
 $RNFirebaseAnalyticsWithoutAdIdSupport = true
-# Use Static Frameworks
-$RNFirebaseAsStaticFramework = true
 # 使用嵌入式 SQLite
 $QUICK_SQLITE_USE_PHONE_VERSION = 1
 
 target 'PrivacyBox' do
   use_expo_modules!
+  use_modular_headers!
 
   post_integrate do |installer|
     begin
@@ -34,7 +32,7 @@ target 'PrivacyBox' do
     :path => config[:reactNativePath],
     # to disable hermes on iOS, change `true` to `flags[:hermes_enabled]` and then install pods
     :hermes_enabled => true,
-    :fabric_enabled => false,
+    :fabric_enabled => true,
     # :flipper_configuration => FlipperConfiguration.enabled(["Debug"], { 'Flipper' => '0.157.0' }),
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
@@ -51,21 +49,9 @@ target 'PrivacyBox' do
   pod 'Permission-MediaLibrary', :path => "#{permissions_path}/MediaLibrary"
   pod 'Permission-Motion', :path => "#{permissions_path}/Motion"
   
-  pod 'SPConfetti'
+  pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec', :modular_headers => false
 
-  pre_install do |installer|
-    Pod::Installer::Xcode::TargetValidator.send(:define_method, :verify_no_static_framework_transitive_dependencies) {}
-     
-    installer.pod_targets.each do |pod|
-       if pod.name.start_with?('RNFB') || 
-          pod.name.start_with?('Permission-') ||
-          pod.name.eql?('RNPermissions')
-         def pod.build_type;
-           Pod::BuildType.static_library
-         end
-       end
-     end
-   end
+  pod 'SPConfetti'
 
   target 'PrivacyBoxTests' do
     inherit! :complete
@@ -73,7 +59,11 @@ target 'PrivacyBox' do
   end
 
   post_install do |installer|
-    react_native_post_install(installer)
+    react_native_post_install(installer,
+        # Set `mac_catalyst_enabled` to `true` in order to apply patches
+        # necessary for Mac Catalyst builds
+        :mac_catalyst_enabled => false
+      )
     __apply_Xcode_12_5_M1_post_install_workaround(installer)
     File.delete("./.xcode.env.local") if File.exist?("./.xcode.env.local")
   end

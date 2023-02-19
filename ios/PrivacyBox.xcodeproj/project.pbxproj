@@ -11,7 +11,6 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		16C01B27CE26B59E20CB0DEC /* Pods_PrivacyBox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EFE91A74685C1F313DC0A14 /* Pods_PrivacyBox.framework */; };
 		2215ACBC1E62C44583DB69A9 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5AFED2E09CC2E86D1338C0F /* ExpoModulesProvider.swift */; };
 		35106825291FD2C000E8F0D7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 35106827291FD2C000E8F0D7 /* InfoPlist.strings */; };
 		3510682B29208F6200E8F0D7 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3510682A29208F6200E8F0D7 /* StoreKit.framework */; };
@@ -63,7 +62,8 @@
 		35861F6A2970484F00ABB9D1 /* password_box152x152.png in Resources */ = {isa = PBXBuildFile; fileRef = 35861F4C2970484F00ABB9D1 /* password_box152x152.png */; };
 		35A62201291898BC0059A53D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 35A62200291898BB0059A53D /* GoogleService-Info.plist */; };
 		400EB2C1E1807E6CBC68B7AB /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951E59D51E504BC9C5F46169 /* ExpoModulesProvider.swift */; };
-		DF8C049601DF1C0537CBA6D7 /* Pods_PrivacyBox_PrivacyBoxTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B7EF47178BFB66A3D0B8657 /* Pods_PrivacyBox_PrivacyBoxTests.framework */; };
+		850E30E481ED16412690D107 /* libPods-PrivacyBox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 20B192D0710B082D92A16178 /* libPods-PrivacyBox.a */; };
+		C7859DE9DD4B2FF444D84F1C /* libPods-PrivacyBox-PrivacyBoxTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2ECC5F792B11D6B337EC4F3C /* libPods-PrivacyBox-PrivacyBoxTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,7 +98,8 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = PrivacyBox/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = PrivacyBox/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = PrivacyBox/main.m; sourceTree = "<group>"; };
-		1EFE91A74685C1F313DC0A14 /* Pods_PrivacyBox.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrivacyBox.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		20B192D0710B082D92A16178 /* libPods-PrivacyBox.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PrivacyBox.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2ECC5F792B11D6B337EC4F3C /* libPods-PrivacyBox-PrivacyBoxTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PrivacyBox-PrivacyBoxTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		35106826291FD2C000E8F0D7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		35106828291FD2C400E8F0D7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		3510682929208F4400E8F0D7 /* PrivacyBox.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = PrivacyBox.entitlements; path = PrivacyBox/PrivacyBox.entitlements; sourceTree = "<group>"; };
@@ -154,7 +155,6 @@
 		3B4392A12AC88292D35C810B /* Pods-PrivacyBox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrivacyBox.debug.xcconfig"; path = "Target Support Files/Pods-PrivacyBox/Pods-PrivacyBox.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-PrivacyBox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrivacyBox.release.xcconfig"; path = "Target Support Files/Pods-PrivacyBox/Pods-PrivacyBox.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-PrivacyBox-PrivacyBoxTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrivacyBox-PrivacyBoxTests.debug.xcconfig"; path = "Target Support Files/Pods-PrivacyBox-PrivacyBoxTests/Pods-PrivacyBox-PrivacyBoxTests.debug.xcconfig"; sourceTree = "<group>"; };
-		6B7EF47178BFB66A3D0B8657 /* Pods_PrivacyBox_PrivacyBoxTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PrivacyBox_PrivacyBoxTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-PrivacyBox-PrivacyBoxTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrivacyBox-PrivacyBoxTests.release.xcconfig"; path = "Target Support Files/Pods-PrivacyBox-PrivacyBoxTests/Pods-PrivacyBox-PrivacyBoxTests.release.xcconfig"; sourceTree = "<group>"; };
 		951E59D51E504BC9C5F46169 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-PrivacyBox/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		D5AFED2E09CC2E86D1338C0F /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-PrivacyBox-PrivacyBoxTests/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
@@ -166,7 +166,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF8C049601DF1C0537CBA6D7 /* Pods_PrivacyBox_PrivacyBoxTests.framework in Frameworks */,
+				C7859DE9DD4B2FF444D84F1C /* libPods-PrivacyBox-PrivacyBoxTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -175,7 +175,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3510682B29208F6200E8F0D7 /* StoreKit.framework in Frameworks */,
-				16C01B27CE26B59E20CB0DEC /* Pods_PrivacyBox.framework in Frameworks */,
+				850E30E481ED16412690D107 /* libPods-PrivacyBox.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,8 +224,8 @@
 				3510682E2920932500E8F0D7 /* hermes.xcframework */,
 				3510682A29208F6200E8F0D7 /* StoreKit.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				1EFE91A74685C1F313DC0A14 /* Pods_PrivacyBox.framework */,
-				6B7EF47178BFB66A3D0B8657 /* Pods_PrivacyBox_PrivacyBoxTests.framework */,
+				20B192D0710B082D92A16178 /* libPods-PrivacyBox.a */,
+				2ECC5F792B11D6B337EC4F3C /* libPods-PrivacyBox-PrivacyBoxTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

@@ -31,12 +31,14 @@ export type ImageBrowserProps = {
 export interface ImageBrowserInstance {
   setPage: (index: number, animation?: boolean) => void;
   setScrollEnabled: (scrollEnabled: boolean) => void;
+  onBack: () => void;
 }
 
 export const ImageBrowser = memo(
   forwardRef<ImageBrowserInstance, ImageBrowserProps>(function ImageBrowser(props, ref) {
     const pagerViewRef = useRef<LazyPagerView<ImageSource>>(null);
     const [currentIndex, setCurrentIndex] = useState<number>(props.initialIndex);
+    const [back, setBack] = useState(false);
 
     useImperativeHandle(ref, () => ({
       setPage(index: number, animation = true) {
@@ -48,6 +50,9 @@ export const ImageBrowser = memo(
       },
       setScrollEnabled(scrollEnabled: boolean) {
         pagerViewRef.current?.setScrollEnabled(scrollEnabled);
+      },
+      onBack() {
+        setBack(true);
       },
     }));
 
@@ -87,6 +92,10 @@ export const ImageBrowser = memo(
       },
       [props.onPageChanged],
     );
+
+    if (back) {
+      return null;
+    }
 
     return (
       <LazyPagerView

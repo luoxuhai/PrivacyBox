@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-RELEASE="2.0.2(1)+codepush:v28"
-DIST="v28"
+RELEASE="2.6.0(2)+codepush:v48"
+DIST="v48"
 
 mkdir build
 
@@ -20,7 +20,7 @@ echo "✅ Successfully created sources maps"
 
 echo "Uploading iOS source maps... "
 
-npx sentry-cli releases files "${RELEASE}" \
+node_modules/@sentry/cli/bin/sentry-cli releases files "${RELEASE}" \
     upload-sourcemaps \
     --dist "${DIST}" \
     --strip-prefix "${PWD}/build" \

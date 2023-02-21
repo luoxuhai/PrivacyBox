@@ -16,18 +16,12 @@
 		35106825291FD2C000E8F0D7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 35106827291FD2C000E8F0D7 /* InfoPlist.strings */; };
 		3510682B29208F6200E8F0D7 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3510682A29208F6200E8F0D7 /* StoreKit.framework */; };
 		351068352932017600E8F0D7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 351068342932017500E8F0D7 /* LaunchScreen.storyboard */; };
-		3520FF122955FD7300E618A6 /* RNFamilyActivityPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3520FF0A2955FD7200E618A6 /* RNFamilyActivityPicker.swift */; };
-		3520FF142955FD7300E618A6 /* Defines.h in Headers */ = {isa = PBXBuildFile; fileRef = 3520FF0C2955FD7200E618A6 /* Defines.h */; };
-		3520FF152955FD7300E618A6 /* RNFamilyActivityPickerProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3520FF0D2955FD7200E618A6 /* RNFamilyActivityPickerProxy.swift */; };
-		3520FF162955FD7300E618A6 /* RNFamilyActivityPickerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3520FF0E2955FD7200E618A6 /* RNFamilyActivityPickerManager.m */; };
 		3520FF1A2956943300E618A6 /* PrivacyBox-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 3520FF192956943300E618A6 /* PrivacyBox-Bridging-Header.h */; };
 		3563454E299FD34200742442 /* old180x180.png in Resources */ = {isa = PBXBuildFile; fileRef = 35634549299FD34200742442 /* old180x180.png */; };
 		3563454F299FD34200742442 /* old167x167.png in Resources */ = {isa = PBXBuildFile; fileRef = 3563454A299FD34200742442 /* old167x167.png */; };
 		35634550299FD34200742442 /* old120x120.png in Resources */ = {isa = PBXBuildFile; fileRef = 3563454B299FD34200742442 /* old120x120.png */; };
 		35634551299FD34200742442 /* old152x152.png in Resources */ = {isa = PBXBuildFile; fileRef = 3563454C299FD34200742442 /* old152x152.png */; };
 		35634552299FD34200742442 /* old128x128.png in Resources */ = {isa = PBXBuildFile; fileRef = 3563454D299FD34200742442 /* old128x128.png */; };
-		3565406429569A1B0032D06E /* RNManagedSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3565406329569A1B0032D06E /* RNManagedSettings.swift */; };
-		3565406629569A290032D06E /* RNManagedSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 3565406529569A290032D06E /* RNManagedSettings.m */; };
 		35745D87298E347200208D03 /* news120x120.png in Resources */ = {isa = PBXBuildFile; fileRef = 35745D82298E347200208D03 /* news120x120.png */; };
 		35745D88298E347200208D03 /* news128x128.png in Resources */ = {isa = PBXBuildFile; fileRef = 35745D83298E347200208D03 /* news128x128.png */; };
 		35745D89298E347200208D03 /* news180x180.png in Resources */ = {isa = PBXBuildFile; fileRef = 35745D84298E347200208D03 /* news180x180.png */; };
@@ -111,18 +105,12 @@
 		3510682A29208F6200E8F0D7 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		3510682E2920932500E8F0D7 /* hermes.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = hermes.xcframework; path = "Pods/hermes-engine/destroot/Library/Frameworks/universal/hermes.xcframework"; sourceTree = "<group>"; };
 		351068342932017500E8F0D7 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = PrivacyBox/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		3520FF0A2955FD7200E618A6 /* RNFamilyActivityPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNFamilyActivityPicker.swift; sourceTree = "<group>"; };
-		3520FF0C2955FD7200E618A6 /* Defines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Defines.h; sourceTree = "<group>"; };
-		3520FF0D2955FD7200E618A6 /* RNFamilyActivityPickerProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNFamilyActivityPickerProxy.swift; sourceTree = "<group>"; };
-		3520FF0E2955FD7200E618A6 /* RNFamilyActivityPickerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNFamilyActivityPickerManager.m; sourceTree = "<group>"; };
 		3520FF192956943300E618A6 /* PrivacyBox-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "PrivacyBox-Bridging-Header.h"; path = "PrivacyBox/PrivacyBox-Bridging-Header.h"; sourceTree = "<group>"; };
 		35634549299FD34200742442 /* old180x180.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = old180x180.png; sourceTree = "<group>"; };
 		3563454A299FD34200742442 /* old167x167.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = old167x167.png; sourceTree = "<group>"; };
 		3563454B299FD34200742442 /* old120x120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = old120x120.png; sourceTree = "<group>"; };
 		3563454C299FD34200742442 /* old152x152.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = old152x152.png; sourceTree = "<group>"; };
 		3563454D299FD34200742442 /* old128x128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = old128x128.png; sourceTree = "<group>"; };
-		3565406329569A1B0032D06E /* RNManagedSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNManagedSettings.swift; sourceTree = "<group>"; };
-		3565406529569A290032D06E /* RNManagedSettings.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNManagedSettings.m; sourceTree = "<group>"; };
 		35745D82298E347200208D03 /* news120x120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = news120x120.png; sourceTree = "<group>"; };
 		35745D83298E347200208D03 /* news128x128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = news128x128.png; sourceTree = "<group>"; };
 		35745D84298E347200208D03 /* news180x180.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = news180x180.png; sourceTree = "<group>"; };
@@ -247,31 +235,9 @@
 			children = (
 				35745DB12997207B00208D03 /* RNImagePixellate */,
 				35745D96298E3C9600208D03 /* RNConfetti */,
-				35654062295699E50032D06E /* RNManagedSettings */,
-				3520FF092955FD7200E618A6 /* RNFamilyActivityPicker */,
 			);
 			name = ReactNativeModules;
 			path = PrivacyBox/ReactNativeModules;
-			sourceTree = "<group>";
-		};
-		3520FF092955FD7200E618A6 /* RNFamilyActivityPicker */ = {
-			isa = PBXGroup;
-			children = (
-				3520FF0A2955FD7200E618A6 /* RNFamilyActivityPicker.swift */,
-				3520FF0D2955FD7200E618A6 /* RNFamilyActivityPickerProxy.swift */,
-				3520FF0E2955FD7200E618A6 /* RNFamilyActivityPickerManager.m */,
-				3520FF0C2955FD7200E618A6 /* Defines.h */,
-			);
-			path = RNFamilyActivityPicker;
-			sourceTree = "<group>";
-		};
-		35654062295699E50032D06E /* RNManagedSettings */ = {
-			isa = PBXGroup;
-			children = (
-				3565406329569A1B0032D06E /* RNManagedSettings.swift */,
-				3565406529569A290032D06E /* RNManagedSettings.m */,
-			);
-			path = RNManagedSettings;
 			sourceTree = "<group>";
 		};
 		35745D96298E3C9600208D03 /* RNConfetti */ = {
@@ -414,7 +380,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3520FF142955FD7300E618A6 /* Defines.h in Headers */,
 				3520FF1A2956943300E618A6 /* PrivacyBox-Bridging-Header.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -744,16 +709,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				35745DB52997209F00208D03 /* RNImagePixellate.m in Sources */,
-				3565406629569A290032D06E /* RNManagedSettings.m in Sources */,
-				3520FF152955FD7300E618A6 /* RNFamilyActivityPickerProxy.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
-				3520FF122955FD7300E618A6 /* RNFamilyActivityPicker.swift in Sources */,
 				35745DB32997209300208D03 /* RNImagePixellate.swift in Sources */,
 				35745D9A298E3CDE00208D03 /* RNConfetti.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				400EB2C1E1807E6CBC68B7AB /* ExpoModulesProvider.swift in Sources */,
-				3520FF162955FD7300E618A6 /* RNFamilyActivityPickerManager.m in Sources */,
-				3565406429569A1B0032D06E /* RNManagedSettings.swift in Sources */,
 				35745D98298E3CA600208D03 /* RNConfetti.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -862,7 +822,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODEPUSH_KEY = 0mNXfKaZaV_TuVT76UDX5g1qHJO2ewQX8l36J;
 				CODE_SIGN_ENTITLEMENTS = PrivacyBox/PrivacyBox.entitlements;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = MH9G89WBAL;
@@ -879,7 +839,7 @@
 					"$(SDKROOT)/System/iOSSupport/usr/lib/swift",
 					"$(inherited)",
 				);
-				MARKETING_VERSION = 2.6.1;
+				MARKETING_VERSION = 2.7.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -909,7 +869,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODEPUSH_KEY = "LsOfPzALBphX8m4PTjB72z1nvBX7CURq-Pj6f";
 				CODE_SIGN_ENTITLEMENTS = PrivacyBox/PrivacyBox.entitlements;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = MH9G89WBAL;
@@ -925,7 +885,7 @@
 					"$(SDKROOT)/System/iOSSupport/usr/lib/swift",
 					"$(inherited)",
 				);
-				MARKETING_VERSION = 2.6.1;
+				MARKETING_VERSION = 2.7.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

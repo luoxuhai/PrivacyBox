@@ -1,6 +1,5 @@
 import { AppQueriesSchemes } from '@/screens/UrgentSwitchScreen/type';
 import { Instance, SnapshotIn, SnapshotOut, types } from 'mobx-state-tree';
-import { clearBlockedApplications, setBlockedApplications } from '@/lib/ScreenTime';
 import { isUndefined } from 'lodash';
 
 export enum FakeHomeUnlockActions {
@@ -124,26 +123,6 @@ export const SettingsStoreModel = types
 
     removeVisibleBottomTabs(tab: BottomTabs) {
       self.visibleBottomTabs.remove(tab);
-    },
-
-    setSelectedAppCount(selectedAppCount: number) {
-      self.selectedAppCount = selectedAppCount;
-      if (self.blockedAppsEnabled) {
-        setBlockedApplications();
-      }
-
-      if (selectedAppCount === 0) {
-        clearBlockedApplications();
-      }
-    },
-
-    setBlockedAppsEnabled(blockedAppsEnabled: boolean) {
-      if (blockedAppsEnabled) {
-        setBlockedApplications();
-      } else {
-        clearBlockedApplications();
-      }
-      self.blockedAppsEnabled = blockedAppsEnabled;
     },
 
     setICloudSyncEnabled(iCloudSyncEnabled: boolean) {

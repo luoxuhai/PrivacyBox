@@ -4,8 +4,6 @@ import { observer } from 'mobx-react-lite';
 
 import {
   MoreFeatureScreen,
-  HideApplicationsScreen,
-  ApplicationPickerScreen,
   RecycleBinScreen,
   ICloudSyncScreen,
   RecycleBinSettingsScreen,
@@ -48,14 +46,6 @@ export const MoreFeatureNavigator = observer(() => {
         component={MoreFeatureScreen}
       />
 
-      <Stack.Screen
-        name="ApplicationPicker"
-        options={{
-          title: translate('applicationPickerScreen.title'),
-          presentation: 'modal',
-        }}
-        component={ApplicationPickerScreen}
-      />
       <Stack.Group
         screenOptions={{
           headerLargeStyle: {
@@ -63,14 +53,6 @@ export const MoreFeatureNavigator = observer(() => {
           },
         }}
       >
-        <Stack.Screen
-          name="HideApplications"
-          options={{
-            title: translate('hideApplicationsScreen.title'),
-          }}
-          component={HideApplicationsScreen}
-        />
-
         <Stack.Screen
           name="ICloudSync"
           options={{

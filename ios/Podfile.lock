@@ -107,7 +107,6 @@ PODS:
     - GCDWebServer/Core (= 3.5.4)
   - GCDWebServer/Core (3.5.4)
   - glog (0.3.5)
-  - GoogleAds-IMA-iOS-SDK (3.18.4)
   - GoogleAppMeasurement/WithoutAdIdSupport (10.5.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
     - GoogleUtilities/MethodSwizzler (~> 7.8)
@@ -450,12 +449,10 @@ PODS:
     - React
   - react-native-version-check (3.4.7):
     - React-Core
-  - react-native-video (6.0.0-alpha.5):
+  - react-native-video (6.0.0-alpha.4):
     - React-Core
-    - react-native-video/Video (= 6.0.0-alpha.5)
-  - react-native-video/Video (6.0.0-alpha.5):
-    - GoogleAds-IMA-iOS-SDK (~> 3.18.1)
-    - GoogleAds-IMA-tvOS-SDK (~> 4.2)
+    - react-native-video/Video (= 6.0.0-alpha.4)
+  - react-native-video/Video (6.0.0-alpha.4):
     - PromisesSwift
     - React-Core
   - react-native-webserver (1.0.3):
@@ -755,7 +752,6 @@ SPEC REPOS:
     - FirebaseRemoteConfig
     - fmt
     - GCDWebServer
-    - GoogleAds-IMA-iOS-SDK
     - GoogleAppMeasurement
     - GoogleUtilities
     - JWT
@@ -1035,7 +1031,6 @@ SPEC CHECKSUMS:
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
   glog: 3d02b25ca00c2d456734d0bcff864cbc62f6ae1a
-  GoogleAds-IMA-iOS-SDK: b01284e3bf3d64ba948de6692ffda531452c3713
   GoogleAppMeasurement: 40c70a7d89013f0eca72006c4b9732163ea4cdae
   GoogleUtilities: c2bdc4cf2ce786c4d2e6b3bcfd599a25ca78f06f
   hermes-engine: 51aaceb1f6dc1aed44b8bbf866f52ec146c00a89
@@ -1092,7 +1087,7 @@ SPEC CHECKSUMS:
   react-native-sfsymbols: bd3a0d3eab185e80b571bae60753dcf5a0d57967
   react-native-shake: 67d43d6af4abfc299400b17fea7d2ec0754c72ac
   react-native-version-check: 6cd36aad4e30b8e3216747e3b4ddeb09e0647af8
-  react-native-video: a38e0a394fd8884fef4a48d866f1ed9a930f8385
+  react-native-video: b2a6434fa0cc7a5381985ca2af8f8c570f110743
   react-native-webserver: de46b00b6c637085e4c96bb9f84c7a771c066a6c
   React-perflogger: 8e832d4e21fdfa613033c76d58d7e617341e804b
   React-RCTActionSheet: 9ca778182a9523991bff6381045885b6e808bb73

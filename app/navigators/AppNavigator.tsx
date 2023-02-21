@@ -14,7 +14,6 @@ import { useStores } from '@/models';
 import {
   AppLockScreen,
   DataMigratorScreen,
-  HideApplicationsScreen,
   PhotosScreen,
   FakeAppHomeScreen,
   PurchaseScreen,
@@ -199,14 +198,6 @@ const AppStack = observer(function AppStack() {
           title: translate('transferScreen.title'),
         }}
         component={TransferScreen}
-      />
-
-      <Stack.Screen
-        name="HideApplications"
-        options={{
-          title: translate('hideApplicationsScreen.title'),
-        }}
-        component={HideApplicationsScreen}
       />
     </Stack.Navigator>
   );

@@ -13447,10 +13447,10 @@ react-native-version-check@^3.4.7:
     lodash.pick "^4.4.0"
     semver "^6.1.1"
 
-react-native-video@6.0.0-alpha.5:
-  version "6.0.0-alpha.5"
-  resolved "https://registry.npmjs.org/react-native-video/-/react-native-video-6.0.0-alpha.5.tgz#f6b6eebb698a03b46d42105f4b3fe08eb468ae46"
-  integrity sha512-EiqCkhcMEW5GdSg0WSsV6m29eZYjZ9zp7W+Lc2QlWmzItZr08JfMcvKOeL3fp/y0D2eQRAkzP5qI0GC4NBvhKg==
+react-native-video@6.0.0-alpha.4:
+  version "6.0.0-alpha.4"
+  resolved "https://registry.npmjs.org/react-native-video/-/react-native-video-6.0.0-alpha.4.tgz#1e22862a096c767e931883ac2f9d59698b1c1f5c"
+  integrity sha512-SgxXpSjGNEPJHNzpXULROk1SqcUFlB5UJfh5bRGvp3q1Lz7OuCc2L2DX52l+FKsg77KhTDLAvMkytUGuGlLg1g==
   dependencies:
     deprecated-react-native-prop-types "^2.2.0"
     keymirror "^0.1.1"

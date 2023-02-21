@@ -20,8 +20,6 @@ export * from './FakeAppHomeScreen/MosaicScreen';
 export * from './SettingsScreen/FakeAppHomeSettingsScreen';
 export * from './PhotosScreen/PhotosScreen';
 export * from './DataMigratorScreen/DataMigratorScreen';
-export * from './HideApplicationsScreen/HideApplicationsScreen';
-export * from './HideApplicationsScreen/ApplicationPickerScreen';
 export * from './FilesScreen/FilesScreen';
 export * from './TransferScreen/TransferScreen';
 export * from './ICloudSyncScreen/ICloudSyncScreen';

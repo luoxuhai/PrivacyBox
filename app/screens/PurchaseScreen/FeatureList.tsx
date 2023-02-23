@@ -35,7 +35,7 @@ const list: { title: TextKeyPath; icon: string }[] = [
   //   icon: 'arrow.clockwise.icloud.fill',
   // },
 
-  Application.env !== 'TestFlight' && {
+  {
     title: 'purchaseScreen.features.fakeHome',
     icon: 'shield.righthalf.filled',
   },

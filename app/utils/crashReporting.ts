@@ -1,7 +1,6 @@
 import Config from '@/config';
 import * as Sentry from '@sentry/react-native';
 
-import { Application } from './application';
 import { Device } from './device';
 
 export const routingInstrumentation = new Sentry.ReactNavigationInstrumentation();
@@ -10,8 +9,6 @@ export const initCrashReporting = () => {
   Sentry.init({
     debug: __DEV__,
     dsn: Config.sentry.dsn,
-    release: `${Application.bundleId}@${Application.version}(${Application.buildNumber})+codepush:${Config.dist}`,
-    dist: Config.dist,
     tracesSampleRate: Config.sentry.tracesSampleRate,
     integrations: [
       new Sentry.ReactNativeTracing({

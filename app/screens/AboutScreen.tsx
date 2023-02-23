@@ -1,39 +1,24 @@
-import React, { FC, useEffect, useRef, useState, useCallback } from 'react';
+import React, { FC, useRef, useCallback } from 'react';
 import { Linking, ViewStyle } from 'react-native';
 import Clipboard from '@react-native-clipboard/clipboard';
 import { observer } from 'mobx-react-lite';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { StackScreenProps } from '@react-navigation/stack';
-import CodePush from 'react-native-code-push';
 import * as MailComposer from 'expo-mail-composer';
 import VersionCheck from 'react-native-version-check';
 
 import { ListSection, ListCell, Screen, SafeAreaScrollView } from '@/components';
 import { spacing, useTheme, colors } from '@/theme';
 import Config from '@/config';
-import {
-  openLinkInAppBrowser,
-  HapticFeedback,
-  Overlay,
-  Application,
-  DynamicUpdate,
-  Device,
-} from '@/utils';
+import { openLinkInAppBrowser, HapticFeedback, Overlay, Application, Device } from '@/utils';
 import { i18n, SupportedLanguage, t, translate } from '@/i18n';
 import { SettingStackParamList } from '@/navigators';
 
 export const AboutScreen: FC<StackScreenProps<SettingStackParamList, 'About'>> = observer(
   (props) => {
     const { colors } = useTheme();
-    const [labelWithoutPrefix, setLabelWithoutPrefix] = useState<string>();
     const pressedCount = useRef<number>(0);
     const bottomTabBarHeight = useBottomTabBarHeight();
-
-    useEffect(() => {
-      DynamicUpdate.getUpdateMetadataAsync().then((res) => {
-        setLabelWithoutPrefix(res?.label?.replace('v', '') || '0');
-      });
-    }, []);
 
     const $contentContainerStyles = [
       $contentContainer,
@@ -61,34 +46,9 @@ export const AboutScreen: FC<StackScreenProps<SettingStackParamList, 'About'>> =
       if (isNeeded) {
         Linking.openURL(Config.appStoreUrl.urlSchema);
       } else {
-        CodePush.sync(
-          {
-            installMode: CodePush.InstallMode.IMMEDIATE,
-            mandatoryInstallMode: CodePush.InstallMode.IMMEDIATE,
-          },
-          (status) => {
-            if (status === CodePush.SyncStatus.UP_TO_DATE) {
-              Overlay.alert({
-                preset: 'done',
-              });
-            } else if (
-              [
-                CodePush.SyncStatus.UPDATE_INSTALLED,
-                CodePush.SyncStatus.AWAITING_USER_ACTION,
-                CodePush.SyncStatus.INSTALLING_UPDATE,
-              ].includes(status)
-            ) {
-              Overlay.dismissAllAlerts();
-              setTimeout(() => {
-                CodePush.restartApp();
-              }, 500);
-            } else if (status === CodePush.SyncStatus.UNKNOWN_ERROR) {
-              Overlay.alert({
-                preset: 'error',
-              });
-            }
-          },
-        );
+        Overlay.alert({
+          preset: 'done',
+        });
       }
     }, []);
 
@@ -98,7 +58,7 @@ export const AboutScreen: FC<StackScreenProps<SettingStackParamList, 'About'>> =
           <ListSection>
             <ListCell
               tk="aboutScreen.version"
-              RightAccessory={`${Application.version}(${Application.buildNumber})-${labelWithoutPrefix}`}
+              RightAccessory={`${Application.version}(${Application.buildNumber})`}
               rightIcon={null}
               onPress={handleOpenDebug}
             />

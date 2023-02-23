@@ -77,7 +77,7 @@ export const SettingScreen: FC<StackScreenProps<SettingStackParamList, 'Settings
               RightAccessory={translate(
                 settingsStore.fakeHomeEnabled ? 'common.enabled' : 'common.disabled',
               )}
-              visible={Application.env !== 'TestFlight'}
+              visible={!appLockStore.inFakeEnvironment}
               onPress={() => {
                 navigation.navigate('FakeAppHomeSettings');
               }}

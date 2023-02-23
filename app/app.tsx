@@ -11,7 +11,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SheetProvider } from 'react-native-actions-sheet';
 import * as Sentry from '@sentry/react-native';
 
-import { useUpdateEffect, DynamicUpdate, routingInstrumentation, Application } from './utils';
+import { useUpdateEffect, routingInstrumentation, Application } from './utils';
 import { initTask } from './utils/task/initTask';
 import { useInitialRootStore } from './models';
 import { useInitialDataSource } from './database/helpers/useInitDataSource';
@@ -45,7 +45,6 @@ const App = observer(() => {
 
     setTimeout(() => {
       if (!__DEV__) {
-        DynamicUpdate.sync();
         WebClient.update(true);
       }
 
@@ -79,13 +78,6 @@ const App = observer(() => {
       global.isPauseBiometrics = false;
     }
   }, [rootStore.appStateStore.inForeground]);
-
-  // 热更新
-  useUpdateEffect(() => {
-    if (rootStore.appStateStore.state === 'inactive') {
-      DynamicUpdate.sync();
-    }
-  }, [rootStore.appStateStore.state]);
 
   if (!isReay) return null;
 

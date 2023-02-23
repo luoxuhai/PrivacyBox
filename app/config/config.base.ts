@@ -1,4 +1,4 @@
-import { appId, dist } from '../../app.json';
+import { appId } from '../../app.json';
 
 interface IBaseConfig {
   catchErrors: 'always' | 'dev' | 'prod' | 'never';
@@ -11,7 +11,6 @@ interface IBaseConfig {
   email: string;
   qqGroup: string;
   appId: string;
-  dist: string;
   appStoreUrl: {
     cn: string;
     global: string;
@@ -61,7 +60,6 @@ const BaseConfig: IBaseConfig = {
   qqGroup: '168380697',
 
   appId,
-  dist,
   appStoreUrl: {
     cn: `https://apps.apple.com/cn/app/id${appId}`,
     global: `https://apps.apple.com/app/id${appId}`,

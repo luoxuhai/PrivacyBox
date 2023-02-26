@@ -15,6 +15,7 @@ import { useMoveToAlbum } from '../helpers/useMoveToAlbum';
 interface ContextMenuProps {
   item: FetchFilesResult;
   children: ReactElement;
+  onMenuDidHide?: () => void;
 }
 
 export const ContextMenu = observer<ContextMenuProps>((props) => {
@@ -67,7 +68,11 @@ export const ContextMenu = observer<ContextMenuProps>((props) => {
   );
 
   return (
-    <ContextMenuView menuConfig={menuConfig} onPressMenuItem={handlePressMenuItem}>
+    <ContextMenuView
+      menuConfig={menuConfig}
+      onPressMenuItem={handlePressMenuItem}
+      onMenuDidHide={props.onMenuDidHide}
+    >
       {props.children}
     </ContextMenuView>
   );

@@ -12,6 +12,7 @@ import { formatDate } from '@/utils';
 interface AlbumItemProps {
   item: FetchFilesResult;
   onOpen: (item: any) => void;
+  onLongPress: () => void;
 }
 
 export const FileItem = observer<AlbumItemProps>((props) => {
@@ -26,7 +27,9 @@ export const FileItem = observer<AlbumItemProps>((props) => {
         },
       ]}
       activeOpacity={0.7}
+      delayLongPress={200}
       onPress={props.onOpen}
+      onLongPress={props.onLongPress}
     >
       <FileThumbnail item={props.item} width="90%" height={90} />
       <Text

@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-RELEASE="2.6.0(2)+codepush:v48"
-DIST="v48"
+RELEASE="net.darkce.privatespace@2.7.0+2"
 
 mkdir build
 
@@ -22,7 +21,6 @@ echo "Uploading iOS source maps... "
 
 node_modules/@sentry/cli/bin/sentry-cli releases files "${RELEASE}" \
     upload-sourcemaps \
-    --dist "${DIST}" \
     --strip-prefix "${PWD}/build" \
     main.jsbundle main.jsbundle.map
 

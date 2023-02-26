@@ -1,7 +1,7 @@
-import React, { FC, useCallback, useEffect, useMemo } from 'react';
+import React, { FC, useCallback, useEffect, useMemo, useRef } from 'react';
 import { ViewStyle, useWindowDimensions } from 'react-native';
 import { observer } from 'mobx-react-lite';
-import { StackScreenProps } from '@react-navigation/stack';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useQuery } from '@tanstack/react-query';
@@ -28,7 +28,7 @@ export interface FilesNavigatorParams {
   title?: string;
 }
 
-export const FilesScreen: FC<StackScreenProps<FilesNavigatorParamList, 'Files'>> = observer(
+export const FilesScreen: FC<NativeStackScreenProps<FilesNavigatorParamList, 'Files'>> = observer(
   (props) => {
     const {
       appLockStore: { inFakeEnvironment },
@@ -37,6 +37,7 @@ export const FilesScreen: FC<StackScreenProps<FilesNavigatorParamList, 'Files'>>
     const safeAreaDimensions = useSafeAreaDimensions();
     const windowDimensions = useWindowDimensions();
     const { title, parentId = null } = props.route.params ?? {};
+    const isMenuWillShow = useRef(false);
 
     useEffect(() => {
       props.navigation.setOptions({
@@ -86,15 +87,27 @@ export const FilesScreen: FC<StackScreenProps<FilesNavigatorParamList, 'Files'>>
       [props.navigation.dispatch],
     );
 
+    const onMenuWillShow = useCallback(() => {
+      isMenuWillShow.current = true;
+    }, []);
+
+    const onMenuDidHide = useCallback(() => {
+      isMenuWillShow.current = false;
+    }, []);
+
     const renderItem = useCallback(
       ({ item }: { item: FetchFilesResult }) => {
         return (
-          <ContextMenu item={item}>
-            <FileItem item={item} onOpen={() => handleOpenFile(item)} />
+          <ContextMenu item={item} onMenuDidHide={onMenuDidHide}>
+            <FileItem
+              item={item}
+              onOpen={() => handleOpenFile(item)}
+              onLongPress={onMenuWillShow}
+            />
           </ContextMenu>
         );
       },
-      [handleOpenFile, handlePushFolder],
+      [handleOpenFile, handlePushFolder, onMenuWillShow, onMenuDidHide],
     );
 
     const space = useMemo(

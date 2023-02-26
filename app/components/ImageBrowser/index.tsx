@@ -31,7 +31,7 @@ export type ImageBrowserProps = {
 export interface ImageBrowserInstance {
   setPage: (index: number, animation?: boolean) => void;
   setScrollEnabled: (scrollEnabled: boolean) => void;
-  onBack: () => void;
+  onBack: (value: boolean) => void;
 }
 
 export const ImageBrowser = memo(
@@ -51,8 +51,8 @@ export const ImageBrowser = memo(
       setScrollEnabled(scrollEnabled: boolean) {
         pagerViewRef.current?.setScrollEnabled(scrollEnabled);
       },
-      onBack() {
-        setBack(true);
+      onBack(value: boolean) {
+        setBack(value);
       },
     }));
 

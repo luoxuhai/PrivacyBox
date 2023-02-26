@@ -60,11 +60,6 @@ export const PhotoViewerScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'P
 
     const isTransitionStart = useRef(false);
     useEffect(() => {
-      props.navigation.addListener('transitionStart', () => {
-        imageBrowserRef.current.onBack();
-        isTransitionStart.current = true;
-      });
-
       props.navigation.addListener('beforeRemove', () => {
         StatusBar.setHidden(false, 'none');
       });
@@ -152,7 +147,7 @@ export const PhotoViewerScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'P
             name={currentItem?.name}
             ctime={currentItem?.created_date}
             onBack={() => {
-              imageBrowserRef.current.onBack();
+              imageBrowserRef.current.onBack(true);
               setTimeout(() => {
                 props.navigation.goBack();
               });

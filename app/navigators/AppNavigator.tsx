@@ -178,7 +178,7 @@ const AppStack = observer(function AppStack() {
           headerShown: false,
           animation: 'fade_from_bottom',
           animationDuration: 250,
-          gestureEnabled: true,
+          gestureEnabled: false,
         }}
         component={PhotoViewerScreen}
       />

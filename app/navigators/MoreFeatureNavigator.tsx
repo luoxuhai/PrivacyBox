@@ -2,12 +2,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { observer } from 'mobx-react-lite';
 
-import {
-  MoreFeatureScreen,
-  RecycleBinScreen,
-  ICloudSyncScreen,
-  RecycleBinSettingsScreen,
-} from '@/screens';
+import { MoreFeatureScreen, RecycleBinScreen, RecycleBinSettingsScreen } from '@/screens';
 import { useTheme } from '@/theme';
 import { translate } from '@/i18n';
 import { AppStackParamList } from './AppNavigator';
@@ -17,7 +12,6 @@ export type MoreFeatureNavigatorParamList = {
   HideApplications: undefined;
   ApplicationPicker: undefined;
   RecycleBin: undefined;
-  ICloudSync: undefined;
   Transfer: undefined;
   RecycleBinSettings: undefined;
 } & AppStackParamList;
@@ -53,14 +47,6 @@ export const MoreFeatureNavigator = observer(() => {
           },
         }}
       >
-        <Stack.Screen
-          name="ICloudSync"
-          options={{
-            title: translate('icloudScreen.title'),
-          }}
-          component={ICloudSyncScreen}
-        />
-
         <Stack.Screen
           name="RecycleBin"
           options={{

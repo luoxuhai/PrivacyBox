@@ -2,12 +2,19 @@ import { getAssetInfoAsync } from 'expo-media-library';
 import { launchCamera, launchImageLibrary } from '@react-native-library/photos-picker';
 import { DocumentPickerOptions } from 'react-native-document-picker';
 
-import { getImageSize, getVideoInfo, Overlay, PermissionManager } from '@/utils';
+import {
+  alertPermissionBlocked,
+  getImageSize,
+  getVideoInfo,
+  Overlay,
+  PermissionManager,
+} from '@/utils';
 import { FileImporter, IResult } from '@/screens/FilesScreen/helpers/FileImporter';
 import { FileTypes, PhotoSubtypes } from '@/database/entities/types';
 import { getFileTypeByMime } from '@/utils/getFileTypeByMime';
 import { t } from '@/i18n';
 import { stat } from 'react-native-fs';
+import { rootStore } from '@/models';
 
 export { IResult };
 
@@ -23,13 +30,27 @@ export class PhotoImporter extends FileImporter {
       if (!(await PermissionManager.checkPermissions(['ios.permission.PHOTO_LIBRARY']))) {
         return [];
       }
+
       const result = await launchImageLibrary(
         {
           mediaType: 'mixed',
           selectionLimit: 0,
           presentationStyle: 'pageSheet',
+          representationMode: rootStore.settingsStore.assetRepresentationMode,
         },
-        null,
+        ({ errorCode }) => {
+          Overlay.toast({
+            preset: 'error',
+            title: t('filesScreen.import.fail'),
+            message: t('permissionManager.noPermission'),
+          });
+          if (errorCode === 'permission') {
+            alertPermissionBlocked(
+              t('permissionManager.allPhotos.title'),
+              t('permissionManager.allPhotos.message'),
+            );
+          }
+        },
         () => {
           Overlay.alert({
             preset: 'spinner',

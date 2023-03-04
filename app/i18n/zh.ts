@@ -259,6 +259,24 @@ const zh = {
       success: '已清理',
       fail: '清理缓存失败',
     },
+    assetRepresentationMode: {
+      title: '图片/视频导入模式',
+      description: '会影响导入图片/视频的速度和兼容性，建议使用默认模式',
+      menu: {
+        auto: {
+          title: '默认',
+          description: '使用最佳格式',
+        },
+        compatible: {
+          title: '兼容模式',
+          description: '兼容性更好，但导入速度较慢',
+        },
+        current: {
+          title: '原格式',
+          description: '导入速度快，但可能无法在非iPhone设备上使用',
+        },
+      },
+    },
   },
   thirdPartyApp: {
     browser: '浏览器',
@@ -435,6 +453,11 @@ const zh = {
     unavailable: '{{permission}}功能不可用',
     blocked: '请前往设置授予{{permissions}}权限，才能正常使用该功能',
     openSettings: '打开设置',
+    allPhotos: {
+      title: '访问所有照片',
+      message: '请授予访问所有照片权限，才能正常使用该功能',
+    },
+    noPermission: '无访问权限',
   },
   appUpdate: {
     alert: {

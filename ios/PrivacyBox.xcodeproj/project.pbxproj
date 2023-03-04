@@ -822,7 +822,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODEPUSH_KEY = 0mNXfKaZaV_TuVT76UDX5g1qHJO2ewQX8l36J;
 				CODE_SIGN_ENTITLEMENTS = PrivacyBox/PrivacyBox.entitlements;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = MH9G89WBAL;
@@ -839,7 +839,7 @@
 					"$(SDKROOT)/System/iOSSupport/usr/lib/swift",
 					"$(inherited)",
 				);
-				MARKETING_VERSION = 2.7.1;
+				MARKETING_VERSION = 2.8.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -869,7 +869,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODEPUSH_KEY = "LsOfPzALBphX8m4PTjB72z1nvBX7CURq-Pj6f";
 				CODE_SIGN_ENTITLEMENTS = PrivacyBox/PrivacyBox.entitlements;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = MH9G89WBAL;
@@ -885,7 +885,7 @@
 					"$(SDKROOT)/System/iOSSupport/usr/lib/swift",
 					"$(inherited)",
 				);
-				MARKETING_VERSION = 2.7.1;
+				MARKETING_VERSION = 2.8.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

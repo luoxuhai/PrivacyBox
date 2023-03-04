@@ -1,6 +1,7 @@
 import { AppQueriesSchemes } from '@/screens/UrgentSwitchScreen/type';
 import { Instance, SnapshotIn, SnapshotOut, types } from 'mobx-state-tree';
 import { isUndefined } from 'lodash';
+import { AssetRepresentationMode } from '@/screens/AdvancedSettingsScreen/components/AssetRepresentationMode';
 
 export enum FakeHomeUnlockActions {
   PullRefresh = 'pull_refresh',
@@ -49,14 +50,16 @@ export const SettingsStoreModel = types
       types.array(types.enumeration<BottomTabs>('BottomTabs', Object.values(BottomTabs))),
       [BottomTabs.Album, BottomTabs.Files, BottomTabs.More],
     ),
-    /** 选中的App数量 */
-    selectedAppCount: types.optional(types.number, 0),
     /** 隐藏App启动 */
     blockedAppsEnabled: types.optional(types.boolean, false),
-    /** iCloud 同步 */
-    iCloudSyncEnabled: types.optional(types.boolean, false),
-    /** 仅在Wifi 下同步 */
-    iCloudSyncOnlyWifi: types.optional(types.boolean, true),
+    /** 导入模式 */
+    assetRepresentationMode: types.optional(
+      types.enumeration<AssetRepresentationMode>(
+        'AssetRepresentationMode',
+        Object.values(AssetRepresentationMode),
+      ),
+      AssetRepresentationMode.Auto,
+    ),
   })
   .views((self) => ({})) // eslint-disable-line @typescript-eslint/no-unused-vars
   .actions((self) => ({
@@ -125,12 +128,8 @@ export const SettingsStoreModel = types
       self.visibleBottomTabs.remove(tab);
     },
 
-    setICloudSyncEnabled(iCloudSyncEnabled: boolean) {
-      self.iCloudSyncEnabled = iCloudSyncEnabled;
-    },
-
-    setICloudSyncOnlyWifi(iCloudSyncOnlyWifi: boolean) {
-      self.iCloudSyncOnlyWifi = iCloudSyncOnlyWifi;
+    setAssetRepresentationMode(mode: AssetRepresentationMode) {
+      self.assetRepresentationMode = mode;
     },
   }));
 

@@ -70,8 +70,8 @@ export class PermissionManager {
   }
 }
 
-export function alertPermissionBlocked(title: string) {
-  Alert.alert(title, undefined, [
+export function alertPermissionBlocked(title: string, message?: string) {
+  Alert.alert(title, message, [
     {
       text: t('common.cancel'),
       style: 'cancel',

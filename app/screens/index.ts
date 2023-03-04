@@ -22,7 +22,6 @@ export * from './PhotosScreen/PhotosScreen';
 export * from './DataMigratorScreen/DataMigratorScreen';
 export * from './FilesScreen/FilesScreen';
 export * from './TransferScreen/TransferScreen';
-export * from './ICloudSyncScreen/ICloudSyncScreen';
 export * from './RecycleBinScreen/RecycleBinScreen';
 export * from './PhotoViewerScreen/PhotoViewerScreen';
 export * from './PhotoViewerScreen/VideoPlayerScreen';

@@ -2728,10 +2728,10 @@
   resolved "https://registry.npmjs.org/@react-native-firebase/remote-config/-/remote-config-16.4.3.tgz#e446867f4d6ff593c6f8c81b678e1902b8e30ebb"
   integrity sha512-19P1iRTu1OzJLkJjMiZaziaUFn0XjqwooHhNLV27Oj3DnF77xOXF6DfeOnuDOh0++Y8GjWy81WvSdxSujLAAtQ==
 
-"@react-native-library/photos-picker@^1.0.7":
-  version "1.0.7"
-  resolved "https://registry.npmjs.org/@react-native-library/photos-picker/-/photos-picker-1.0.7.tgz#946713a7bf5f7d34e2f9370373eaf07031d248a0"
-  integrity sha512-ljUZVAVe9wNUtoM53v5jxPc+gK/FFrna1M9CuYCyFbq4So8KPElBD6+JZ3YbAHvR+qW7fvpBUL1d0xqV4gzq4A==
+"@react-native-library/photos-picker@1.1.0":
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/@react-native-library/photos-picker/-/photos-picker-1.1.0.tgz#674fb40101cc987285ad82eeb848b1162779ee9f"
+  integrity sha512-ORi+WtRCduys8OrGmqKEEtb664KXGvGaz46+ylPgMHl9twdOK4dEzifFUhPPyEZIgTF5nwwnk81Pqmid/6/3Bw==
 
 "@react-native-library/webserver@^1.0.3":
   version "1.0.3"

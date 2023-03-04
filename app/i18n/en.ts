@@ -263,6 +263,26 @@ const en: Translations = {
       success: 'Cleaned',
       fail: 'Failed to Clean Cache',
     },
+    assetRepresentationMode: {
+      title: 'Picture/Video Import Mode',
+      description:
+        'It will affect the speed and compatibility of imported pictures/videos, it is recommended to use the default mode',
+      menu: {
+        auto: {
+          title: 'Default',
+          description: 'Use the best format',
+        },
+        compatible: {
+          title: 'Compatibility',
+          description: 'Compatibility is better, but the import speed is slower',
+        },
+        current: {
+          title: 'Original',
+          description:
+            'The import speed is fast, but it may not be available on non-iPhone devices',
+        },
+      },
+    },
   },
   thirdPartyApp: {
     browser: 'Browser',
@@ -441,6 +461,12 @@ const en: Translations = {
     blocked:
       'Please go to settings to grant {{permissions}} permission to use this function normally',
     openSettings: 'Open Settings',
+    allPhotos: {
+      title: 'Visit all photos',
+      message:
+        'Please grant permission to access all photos in order to use this function normally',
+    },
+    noPermission: 'No access permission',
   },
   appUpdate: {
     alert: {

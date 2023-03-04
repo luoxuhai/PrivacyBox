@@ -14,6 +14,7 @@ import { classifyImageTask } from '@/utils/task/classifyImageTask';
 import { canUsePremium } from '@/utils/canUsePremium';
 import { CacheClearSection } from './components/CacheClearSection';
 import { DataExportSection } from './components/DataExportSection';
+import { AssetRepresentationModeSection } from './components/AssetRepresentationMode';
 
 export const AdvancedSettingsScreen: FC<
   StackScreenProps<SettingStackParamList, 'AdvancedSettings'>
@@ -53,6 +54,8 @@ export const AdvancedSettingsScreen: FC<
             }
           />
         </ListSection>
+        <AssetRepresentationModeSection />
+
         <ListSection descriptionTk="advancedSettingsScreen.smartSearchTip">
           <ListCell
             tk="advancedSettingsScreen.smartSearch"

@@ -39,16 +39,26 @@ export class PhotoImporter extends FileImporter {
           representationMode: rootStore.settingsStore.assetRepresentationMode,
         },
         ({ errorCode }) => {
-          Overlay.toast({
-            preset: 'error',
-            title: t('filesScreen.import.fail'),
-            message: t('permissionManager.noPermission'),
-          });
+          // 取消选择
+          if (!errorCode) {
+            return;
+          }
+
           if (errorCode === 'permission') {
+            Overlay.toast({
+              preset: 'error',
+              title: t('filesScreen.import.fail'),
+              message: t('permissionManager.noPermission'),
+            });
             alertPermissionBlocked(
               t('permissionManager.allPhotos.title'),
               t('permissionManager.allPhotos.message'),
             );
+          } else {
+            Overlay.toast({
+              preset: 'error',
+              title: t('filesScreen.import.fail'),
+            });
           }
         },
         () => {

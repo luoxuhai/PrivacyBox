@@ -63,7 +63,7 @@ const zh = {
       title: '新建相册',
       message: '请输入相册名称',
       placeholder: '相册名称（255个字符内）',
-      success: '',
+      success: '已创建相册',
       fail: '创建相册失败',
       sameName: '相册名称不能相同',
     },

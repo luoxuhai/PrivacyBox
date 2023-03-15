@@ -8,7 +8,7 @@ import { storage } from './storage';
 const IGNORE_VERSION_KEY = 'IGNORE_VERSION';
 
 export async function appUpdateCheck(): PVoid {
-  const { isNeeded, latestVersion } = await VersionCheck.needUpdate();
+  const { isNeeded = false, latestVersion } = (await VersionCheck.needUpdate()) ?? {};
   const ignoreVersion = storage.get(IGNORE_VERSION_KEY, 'string');
 
   if (!isNeeded || latestVersion === ignoreVersion) return;

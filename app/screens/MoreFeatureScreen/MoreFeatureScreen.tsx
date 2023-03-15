@@ -1,18 +1,16 @@
-import React, { useEffect } from 'react';
-import { ViewStyle, Dimensions, Alert, InteractionManager } from 'react-native';
+import React from 'react';
+import { ViewStyle, Dimensions } from 'react-native';
 import { colord } from 'colord';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StackScreenProps } from '@react-navigation/stack';
 import { observer } from 'mobx-react-lite';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
-import { requestReview } from 'expo-store-review';
 
 import { FlatGrid, Screen } from '@/components';
 import { colors } from '@/theme';
-import { useSafeAreaDimensions, Device, Application } from '@/utils';
+import { useSafeAreaDimensions } from '@/utils';
 import { MoreFeatureNavigatorParamList } from '@/navigators';
 import { FeatureItemView, FeatureItem } from './FeatureItemView';
-import { t } from '@/i18n';
 import { canUsePremium } from '@/utils/canUsePremium';
 import { MIN_SCREEN_WIDTH } from '../../constants';
 
@@ -52,14 +50,6 @@ export const MoreFeatureScreen = observer<
 >((props) => {
   const bottomTabBarHeight = useBottomTabBarHeight();
   const safeAreaDimensions = useSafeAreaDimensions();
-
-  useEffect(() => {
-    if (Application.env === 'AppStore') {
-      setTimeout(() => {
-        InteractionManager.runAfterInteractions(requestReview);
-      }, 500);
-    }
-  }, []);
 
   const handleToScreen = (routeName: keyof MoreFeatureNavigatorParamList, needPremium: boolean) => {
     if (needPremium && !canUsePremium()) {

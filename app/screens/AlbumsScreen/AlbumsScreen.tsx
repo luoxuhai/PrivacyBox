@@ -15,11 +15,12 @@ import {
   PhotoSearchPanelInstance,
 } from './components/PhotoSearchPanel/PhotoSearchPanel';
 import { useAlbumEditor } from './helpers/useAlbumEditor';
-import { appUpdateCheck, useRefreshOnFocus, useSafeAreaDimensions } from '@/utils';
+import { Application, appUpdateCheck, useRefreshOnFocus, useSafeAreaDimensions } from '@/utils';
 import { fetchAlbums } from '@/services/local';
 import { albumKeys, headerSearchBarOptions } from './constants';
 import { useStores } from '@/models';
 import { MIN_SCREEN_WIDTH } from '../../constants';
+import { requestReview } from 'expo-store-review';
 
 export const AlbumsScreen: FC<NativeStackScreenProps<AlbumsNavigatorParamList, 'Album'>> = observer(
   (props) => {
@@ -37,6 +38,12 @@ export const AlbumsScreen: FC<NativeStackScreenProps<AlbumsNavigatorParamList, '
           appUpdateCheck();
         });
       }, 3000);
+
+      if (Application.env === 'AppStore') {
+        setTimeout(() => {
+          InteractionManager.runAfterInteractions(requestReview);
+        }, 1000);
+      }
     }, []);
 
     useEffect(() => {

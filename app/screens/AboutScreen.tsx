@@ -42,7 +42,7 @@ export const AboutScreen: FC<StackScreenProps<SettingStackParamList, 'About'>> =
         title: t('aboutScreen.checkingUpdate'),
       });
 
-      const { isNeeded } = await VersionCheck.needUpdate();
+      const { isNeeded = false } = (await VersionCheck.needUpdate()) ?? {};
       if (isNeeded) {
         Linking.openURL(Config.appStoreUrl.urlSchema);
       } else {

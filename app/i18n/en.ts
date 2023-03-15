@@ -65,7 +65,7 @@ const en: Translations = {
       title: 'New Album',
       message: 'Please enter the album name',
       placeholder: 'Album name (within 20 characters)',
-      success: '',
+      success: 'Created successfully',
       fail: 'Failed to create album',
       sameName: 'Album names cannot be the same',
     },

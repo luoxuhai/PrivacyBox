@@ -181,7 +181,7 @@ function generateFeedbackUrl() {
     Device.version || '-'
   }&clientVersion=${Application.version || '-'}&customInfo=${JSON.stringify({
     modelName: Device.modelName || '-',
-    // userId: user.current?.id || '-',
+    userId: Device.uniqueId || '-',
   })}`;
   return url;
 }

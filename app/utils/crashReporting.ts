@@ -10,13 +10,15 @@ export const initCrashReporting = () => {
     debug: __DEV__,
     dsn: Config.sentry.dsn,
     tracesSampleRate: Config.sentry.tracesSampleRate,
+    maxBreadcrumbs: false,
     integrations: [
       new Sentry.ReactNativeTracing({
         routingInstrumentation,
       }),
     ],
   });
-  Sentry.setTag('detailed_device', Device.modelName);
+  Sentry.setUser({ id: Device.uniqueId });
+  Sentry.setTag('device_name', Device.modelName);
 };
 
 type ErrorType = 'fatal' | 'error' | 'warning';

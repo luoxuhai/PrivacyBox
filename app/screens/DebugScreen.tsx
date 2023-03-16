@@ -10,7 +10,7 @@ import { spacing, useTheme } from '@/theme';
 import { AppDataSource } from '@/database';
 import { storage } from '@/utils/storage';
 import { rootStore } from '@/models';
-import { LocalPathManager } from '@/utils';
+import { LocalPathManager, Device } from '@/utils';
 import { ICloud } from '@/services/icloud/icloud';
 import Photo from '@/database/entities/photo';
 import File from '@/database/entities/file';
@@ -72,7 +72,7 @@ export const DebugScreen: FC<StackScreenProps<SettingStackParamList, 'Debug'>> =
                 rootStore.purchaseStore.clear();
               }}
             />
-            <ListCell
+            {/* <ListCell
               textStyle={{
                 color: colors.palette.blue,
               }}
@@ -99,11 +99,15 @@ export const DebugScreen: FC<StackScreenProps<SettingStackParamList, 'Debug'>> =
                   Clipboard.setString('[]');
                 }
               }}
-            />
+            /> */}
           </ListSection>
           <ListSection>
             <ListCell style={{ padding: spacing[5] }}>
               <View>
+                <Text style={$text} selectable>
+                  uniqueId:
+                  {Device.uniqueId}
+                </Text>
                 <Text style={$text} selectable>
                   basePath:
                   {LocalPathManager.basePath}

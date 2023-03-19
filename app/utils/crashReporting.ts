@@ -10,7 +10,7 @@ export const initCrashReporting = () => {
     debug: __DEV__,
     dsn: Config.sentry.dsn,
     tracesSampleRate: Config.sentry.tracesSampleRate,
-    maxBreadcrumbs: false,
+    maxBreadcrumbs: 20,
     integrations: [
       new Sentry.ReactNativeTracing({
         routingInstrumentation,

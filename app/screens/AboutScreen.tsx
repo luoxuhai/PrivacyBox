@@ -82,11 +82,6 @@ export const AboutScreen: FC<StackScreenProps<SettingStackParamList, 'About'>> =
           </ListSection>
           <ListSection titleTk="aboutScreen.connect">
             <ListCell
-              tk="aboutScreen.qqGroup"
-              RightAccessory={Config.qqGroup}
-              onPress={openQQGroup}
-            />
-            <ListCell
               tk="aboutScreen.email"
               bottomSeparator={false}
               RightAccessory={Config.email}
@@ -117,22 +112,6 @@ export function openPrivacyPolicy(modalEnabled = false) {
   );
 }
 
-/**
- * 打开 QQ 群
- */
-function openQQGroup() {
-  Linking.openURL(
-    `mqq://card/show_pslcard?src_type=internal&version=1&uin=${Config.qqGroup}&key=d6758f2f4dee2c7e73a455f674a888651b0c05e24904f7001cbad20f7f859f82&card_type=group&source=external`,
-  ).catch(() => {
-    Clipboard.setString(Config.qqGroup);
-    Overlay.toast({
-      title: translate('aboutScreen.qqGroupCopied'),
-      preset: 'done',
-      haptic: HapticFeedback.enabled ? 'success' : 'none',
-    });
-  });
-}
-
 export async function openDeveloperEmail() {
   try {
     await MailComposer.composeAsync({
@@ -144,7 +123,7 @@ export async function openDeveloperEmail() {
              Device: ${Device.modelName}
              iOS Version: ${Device.version}
              App Version: ${Application.version}
-             Local Version: ${Config.dist}
+             User Id: ${Device.uniqueId}
       `,
     });
   } catch (error) {

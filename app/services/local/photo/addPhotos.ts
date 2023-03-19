@@ -1,4 +1,5 @@
-import { mkdir, moveFile, stat } from 'react-native-fs';
+import { mkdir, moveFile } from 'react-native-fs';
+import mime from 'mime';
 
 import { AppDataSource } from '@/database';
 import * as path from '@/lib/path';
@@ -9,6 +10,7 @@ import { PhotoTypes } from '@/database/entities/types';
 import { PhotoImporterResult } from '@/screens/PhotosScreen/helpers/PhotoImporter';
 import { generatePhotoThumbnail } from '../helpers/generatePhotoThumbnail';
 import { generateVideoPoster } from '../helpers/generateVideoPoster';
+import { extname } from '@/lib/path';
 
 type PhotoSource = PhotoImporterResult;
 
@@ -32,7 +34,22 @@ export async function addPhotos(params: AddFilesParams) {
 
   for (const photo of params.photos) {
     try {
-      const { name, mime, width, height, duration } = photo;
+      const { name, width, height, duration } = photo;
+      if (!name) {
+        continue;
+      }
+
+      let mimeType = photo.mime;
+      if (!mimeType) {
+        const ext = extname(name);
+        const _mimeType = mime.getType(ext);
+        if (ext && _mimeType.startsWith('image/')) {
+          mimeType = _mimeType;
+        } else {
+          continue;
+        }
+      }
+
       // 文件主键
       const id = generateUUID();
 
@@ -45,7 +62,7 @@ export async function addPhotos(params: AddFilesParams) {
       await moveFile(photo.uri, uri);
 
       // 文件类型
-      const type = getPhotoTypeByMime(mime);
+      const type = getPhotoTypeByMime(mimeType);
       // 视频需要先获取封面
       if (type === PhotoTypes.Video) {
         await generateVideoPoster(id, uri, duration);
@@ -60,7 +77,7 @@ export async function addPhotos(params: AddFilesParams) {
         parent_id: album_id,
         name,
         size: photo.size,
-        mime: photo.mime,
+        mime: mimeType,
         is_fake,
         type,
         metadata: {

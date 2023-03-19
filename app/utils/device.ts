@@ -8,7 +8,7 @@ export const Device = {
   version: String(Platform.Version),
   modelName: DeviceInfo.getModel(),
   isEmulator: DeviceInfo.isEmulatorSync(),
-  uniqueId: DeviceInfo.getUniqueId(),
+  uniqueId: DeviceInfo.getUniqueIdSync(),
   getUsedMemory: async () => DeviceInfo.getUsedMemory(),
   getTotalMemory: async () => DeviceInfo.getTotalMemory(),
   getFreeDiskStorage: async () => DeviceInfo.getFreeDiskStorage(),

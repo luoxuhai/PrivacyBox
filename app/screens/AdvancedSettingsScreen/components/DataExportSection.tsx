@@ -3,7 +3,7 @@ import { observer } from 'mobx-react-lite';
 import Share from 'react-native-share';
 import mime from 'mime';
 import { useMutation } from '@tanstack/react-query';
-import { exists, readdir, stat, unlink } from 'react-native-fs';
+import {  readdir, stat, unlink } from 'react-native-fs';
 
 import { ListSection, ListCell } from '@/components';
 import { t } from '@/i18n';
@@ -18,7 +18,6 @@ import { addPhotos, createAlbum } from '@/services/local';
 import { PhotoTypes } from '@/database/entities/types';
 import { AppDataSource } from '@/database';
 import Photo from '@/database/entities/photo';
-import { SFSymbol } from 'react-native-sfsymbols';
 
 export const DataExportSection = observer(() => {
   const { mutateAsync: handleExport } = useMutation({

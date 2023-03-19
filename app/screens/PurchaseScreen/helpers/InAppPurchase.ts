@@ -18,7 +18,6 @@ import {
 import { rootStore } from '@/models';
 import { Overlay, reportException } from '@/utils';
 import { translate } from '@/i18n';
-import { request } from '@/utils/request/request';
 import Config from '@/config';
 
 const { RNIapIos } = NativeModules;
@@ -163,7 +162,6 @@ export class InAppPurchase {
             this.setPurchasedState(true, purchase.transactionReceipt);
             Overlay.alert({ preset: 'done', title: translate('purchaseScreen.purchaseSuccess') });
             handler?.(purchase);
-            request.post('/api/v1/purchase/notification', { app: '隐私盒子', price: 12 * 0.85 });
           } catch (error) {
             this.purchaseErrorHandler(error);
           }

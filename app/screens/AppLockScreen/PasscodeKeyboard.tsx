@@ -8,7 +8,7 @@ import { Text } from '@/components';
 import { typography, useTheme } from '@/theme';
 import { HapticFeedback } from '@/utils';
 
-export const KEY_SIZE = 68;
+export const KEY_SIZE = 78;
 const KEY_MIN_PADDING = 10;
 const pressKeySize = KEY_SIZE + KEY_MIN_PADDING * 2;
 
@@ -130,5 +130,5 @@ const $pressKey: ViewStyle = {
 };
 
 const $pressKeyText: TextStyle = {
-  ...typography.title1,
+  ...typography.title2,
 };

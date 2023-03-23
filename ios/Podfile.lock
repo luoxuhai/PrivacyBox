@@ -759,7 +759,7 @@ PODS:
     - React-Core
   - react-native-cloud-store (0.9.1):
     - React-Core
-  - react-native-document-picker (8.1.3):
+  - react-native-document-picker (8.2.0):
     - React-Core
   - react-native-get-random-values (1.8.0):
     - React-Core
@@ -1452,7 +1452,7 @@ SPEC CHECKSUMS:
   react-native-blur: 50c9feabacbc5f49b61337ebc32192c6be7ec3c3
   react-native-classify-image: df9b0de27a0533aaf734a403ccf6acc5af96e9b4
   react-native-cloud-store: 25f59dded580ee1f5382cc0e8c1e0548255ac09f
-  react-native-document-picker: 958e2bc82e128be69055be261aeac8d872c8d34c
+  react-native-document-picker: 495c444c0c773c6e83a5d91165890ecb1c0a399a
   react-native-get-random-values: a6ea6a8a65dc93e96e24a11105b1a9c8cfe1d72a
   react-native-ios-context-menu: b170594b4448c0cd10c79e13432216bac99de1ac
   react-native-mmkv: 69b9c003f10afdd01addf7c6ee784ce42ee2eff3

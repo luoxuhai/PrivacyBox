@@ -94,7 +94,7 @@ const $header: ViewStyle = {
 };
 
 const $headerText: TextStyle = {
-  ...typography.title3,
+  ...typography.title2,
   fontWeight: '500',
   marginBottom: spacing[9],
 };

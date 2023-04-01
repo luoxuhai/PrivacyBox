@@ -1,10 +1,10 @@
 import React, { FC, useMemo, useRef } from 'react';
 import { observer } from 'mobx-react-lite';
-import { ViewStyle, TouchableOpacity } from 'react-native';
+import { ViewStyle, TouchableOpacity, Alert } from 'react-native';
 import { SFSymbol } from 'react-native-sfsymbols';
 
 import { useTheme } from '@/theme';
-import { useLocalAuth, BiometricType, useUpdateEffect } from '@/utils';
+import { useLocalAuth, BiometricType, useUpdateEffect, Overlay, reportException } from '@/utils';
 import { KEY_SIZE } from './PasscodeKeyboard';
 import { translate } from '@/i18n';
 import { useStores } from '@/models';
@@ -80,11 +80,21 @@ export const BiometricsButton: FC<BiometricsButtonProps> = observer((props) => {
         promptMessage: translate('appLockScreen.unlock'),
       });
 
-      if (result?.success) {
+      if (!result) {
+        return;
+      }
+
+      if (result.success) {
         setTimeout(props.onSuccess, 300);
+      } else {
+        Alert.alert(
+          translate('appLockScreen.biometricsAuthFailed'),
+          (result as any).warning || (result as any).error,
+        );
       }
     } catch (error) {
       props.onFail();
+      reportException({ error });
     }
   }
 

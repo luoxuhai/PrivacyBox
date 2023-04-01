@@ -225,5 +225,14 @@
       }
     }
   },
-  "packageManager": "yarn@1.22.1"
+  "reactNativePermissionsIOS": [
+    "Camera",
+    "LocationWhenInUse",
+    "FaceID",
+    "PhotoLibrary",
+    "PhotoLibraryAddOnly",
+    "Microphone",
+    "MediaLibrary",
+    "Motion"
+  ]
 }

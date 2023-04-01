@@ -26,8 +26,8 @@ export class LocalAuth {
     options?: LocalAuthentication.LocalAuthenticationOptions,
   ): Promise<LocalAuthentication.LocalAuthenticationResult | null> {
     if (
-      this._biometricType?.includes(BiometricType.FACIAL_RECOGNITION) &&
-      !PermissionManager.checkPermissions(['ios.permission.FACE_ID'])
+      LocalAuth._biometricType?.includes(BiometricType.FACIAL_RECOGNITION) &&
+      !(await PermissionManager.checkPermissions(['ios.permission.FACE_ID']))
     ) {
       return null;
     }

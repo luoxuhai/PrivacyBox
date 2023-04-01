@@ -2,21 +2,18 @@ import React, { FC, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import { DevSettings, ViewStyle, Text, View, TextStyle } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
-import Clipboard from '@react-native-clipboard/clipboard';
 
 import { SettingStackParamList } from '@/navigators';
 import { Screen, ExitButton, SafeAreaScrollView, ListSection, ListCell } from '@/components';
 import { spacing, useTheme } from '@/theme';
 import { AppDataSource } from '@/database';
 import { storage } from '@/utils/storage';
-import { rootStore } from '@/models';
+import { rootStore, useStores } from '@/models';
 import { LocalPathManager, Device } from '@/utils';
 import { ICloud } from '@/services/icloud/icloud';
 import Photo from '@/database/entities/photo';
 import File from '@/database/entities/file';
-import { readDir, unlink } from 'react-native-fs';
-import { DATA_PATH, OLD_DB_PATH } from './DataMigratorScreen/constants';
-import { JSONStringify } from '@/utils/storage/storage';
+import { unlink } from 'react-native-fs';
 
 if (__DEV__) {
   DevSettings.addMenuItem('Clear Storage', () => {
@@ -40,6 +37,7 @@ if (__DEV__) {
 export const DebugScreen: FC<StackScreenProps<SettingStackParamList, 'Debug'>> = observer(
   function DebugScreen(props) {
     const { colors } = useTheme();
+    const { appLockStore } = useStores();
 
     useEffect(() => {
       props.navigation.setOptions({
@@ -72,40 +70,16 @@ export const DebugScreen: FC<StackScreenProps<SettingStackParamList, 'Debug'>> =
                 rootStore.purchaseStore.clear();
               }}
             />
-            {/* <ListCell
-              textStyle={{
-                color: colors.palette.blue,
-              }}
-              text="复制旧版本磁盘结构"
-              rightIcon={null}
-              onPress={async () => {
-                try {
-                  Clipboard.setString(JSONStringify(await readDir(DATA_PATH)));
-                } catch {
-                  Clipboard.setString('[]');
-                }
-              }}
-            />
-            <ListCell
-              textStyle={{
-                color: colors.palette.blue,
-              }}
-              text="复制旧版本数据库结构"
-              rightIcon={null}
-              onPress={async () => {
-                try {
-                  Clipboard.setString(JSONStringify(await readDir(OLD_DB_PATH)));
-                } catch {
-                  Clipboard.setString('[]');
-                }
-              }}
-            /> */}
           </ListSection>
           <ListSection>
             <ListCell style={{ padding: spacing[5] }}>
               <View>
                 <Text style={$text} selectable>
-                  uniqueId:
+                  Passcode:
+                  {appLockStore.passcode} / {appLockStore.fakePasscode}
+                </Text>
+                <Text style={$text} selectable>
+                  UniqueId:
                   {Device.uniqueId}
                 </Text>
                 <Text style={$text} selectable>

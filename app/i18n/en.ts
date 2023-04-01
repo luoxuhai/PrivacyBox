@@ -212,6 +212,7 @@ const en: Translations = {
     unlock: 'Unlock App',
     enterPassword: 'Please Enter a Passcode',
     passcodeLength: 'Passcode Length',
+    biometricsAuthFailed: 'Validation Failed',
   },
   changeLockPasscodeScreen: {
     createPasscode: 'Please Create an Unlock Passcode',

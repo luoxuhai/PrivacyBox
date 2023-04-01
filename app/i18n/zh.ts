@@ -210,6 +210,7 @@ const zh = {
     unlock: '解锁 App',
     enterPassword: '请输入密码',
     passcodeLength: '密码长度',
+    biometricsAuthFailed: '验证失败',
   },
   changeLockPasscodeScreen: {
     createPasscode: '请创建解锁密码',

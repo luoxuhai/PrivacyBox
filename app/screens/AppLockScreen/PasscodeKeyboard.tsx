@@ -130,5 +130,5 @@ const $pressKey: ViewStyle = {
 };
 
 const $pressKeyText: TextStyle = {
-  ...typography.title2,
+  ...typography.title1,
 };

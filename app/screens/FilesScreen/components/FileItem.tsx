@@ -15,50 +15,55 @@ interface AlbumItemProps {
   onLongPress: () => void;
 }
 
-export const FileItem = observer<AlbumItemProps>((props) => {
-  const { colors } = useTheme();
+export const FileItem = observer<AlbumItemProps>(
+  (props, ref) => {
+    const { colors } = useTheme();
 
-  return (
-    <TouchableOpacity
-      style={[
-        $container,
-        {
-          backgroundColor: colors.background,
-        },
-      ]}
-      activeOpacity={0.7}
-      delayLongPress={200}
-      onPress={props.onOpen}
-      onLongPress={props.onLongPress}
-    >
-      <FileThumbnail item={props.item} width="90%" height={90} />
-      <Text
+    return (
+      <TouchableOpacity
         style={[
-          $name,
+          $container,
           {
-            color: colors.label,
+            backgroundColor: colors.background,
           },
         ]}
-        ellipsizeMode="middle"
-        numberOfLines={2}
+        activeOpacity={0.7}
+        delayLongPress={200}
+        onPress={props.onOpen}
+        onLongPress={props.onLongPress}
       >
-        {props.item.name}
-      </Text>
-      <Text
-        style={[
-          $time,
-          {
-            color: colors.secondaryLabel,
-          },
-        ]}
-      >
-        {props.item.type === FileTypes.Folder
-          ? `${props.item.item_count ?? 0} ${translate('filesScreen.items')}`
-          : formatDate(props.item.created_date)}
-      </Text>
-    </TouchableOpacity>
-  );
-});
+        <FileThumbnail ref={ref} item={props.item} width="90%" height={90} />
+        <Text
+          style={[
+            $name,
+            {
+              color: colors.label,
+            },
+          ]}
+          ellipsizeMode="middle"
+          numberOfLines={2}
+        >
+          {props.item.name}
+        </Text>
+        <Text
+          style={[
+            $time,
+            {
+              color: colors.secondaryLabel,
+            },
+          ]}
+        >
+          {props.item.type === FileTypes.Folder
+            ? `${props.item.item_count ?? 0} ${translate('filesScreen.items')}`
+            : formatDate(props.item.created_date)}
+        </Text>
+      </TouchableOpacity>
+    );
+  },
+  {
+    forwardRef: true,
+  },
+);
 
 const $container: ViewStyle = {
   flexDirection: 'column',

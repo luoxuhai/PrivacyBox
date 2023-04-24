@@ -98,13 +98,12 @@ export const FilesScreen: FC<NativeStackScreenProps<FilesNavigatorParamList, 'Fi
     const renderItem = useCallback(
       ({ item }: { item: FetchFilesResult }) => {
         return (
-          <ContextMenu item={item} onMenuDidHide={onMenuDidHide}>
-            <FileItem
-              item={item}
-              onOpen={() => handleOpenFile(item)}
-              onLongPress={onMenuWillShow}
-            />
-          </ContextMenu>
+          <FileItemWrapper
+            item={item}
+            onOpen={() => handleOpenFile(item)}
+            onLongPress={onMenuWillShow}
+            onMenuDidHide={onMenuDidHide}
+          />
         );
       },
       [handleOpenFile, handlePushFolder, onMenuWillShow, onMenuDidHide],
@@ -149,3 +148,21 @@ const $safeAreaView: ViewStyle = {
 const $flatGrid: ViewStyle = {
   paddingTop: spacing[4],
 };
+
+interface FileItemWrapperProps {
+  item: FetchFilesResult;
+  onOpen: (item: any) => void;
+  onLongPress: () => void;
+  onMenuDidHide: () => void;
+}
+
+function FileItemWrapper(props: FileItemWrapperProps) {
+  const { item, onOpen, onLongPress, onMenuDidHide } = props;
+  const viewRef = useRef();
+
+  return (
+    <ContextMenu ref={viewRef} item={item} onMenuDidHide={onMenuDidHide}>
+      <FileItem ref={viewRef} item={item} onOpen={() => onOpen(item)} onLongPress={onLongPress} />
+    </ContextMenu>
+  );
+}

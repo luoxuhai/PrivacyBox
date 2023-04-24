@@ -1,5 +1,5 @@
-import React, { ReactElement, useCallback, useMemo } from 'react';
-import { Share } from 'react-native';
+import React, { ReactElement, useCallback, useMemo, ForwardedRef, useEffect, useRef } from 'react';
+import { Share, findNodeHandle } from 'react-native';
 import RNShare from 'react-native-share';
 import { observer } from 'mobx-react-lite';
 import { ContextMenuView, MenuConfig } from 'react-native-ios-context-menu';
@@ -18,65 +18,77 @@ interface ContextMenuProps {
   onMenuDidHide?: () => void;
 }
 
-export const ContextMenu = observer<ContextMenuProps>((props) => {
-  const menuConfig = useMemo<MenuConfig>(() => getMenuConfig(props.item?.type), [props.item?.type]);
-  const handleRenameFile = useRenameFile(props.item.parent_id);
-  const handleDeleteFile = useDeleteFile(props.item.parent_id);
-  const handleMovePhotos = useMoveToAlbum(props.item.parent_id);
+export const ContextMenu = observer<ContextMenuProps, ForwardedRef<any>>(
+  (props, ref) => {
+    const { item, children } = props;
+    const menuConfig = useMemo<MenuConfig>(() => getMenuConfig(item?.type), [item?.type]);
+    const handleRenameFile = useRenameFile(item.parent_id);
+    const handleDeleteFile = useDeleteFile(item.parent_id);
+    const handleMovePhotos = useMoveToAlbum(item.parent_id);
+    const [targetViewNode, setTargetViewNode] = React.useState(null);
 
-  const handlePressMenuItem = useCallback(
-    ({ nativeEvent }) => {
-      const { item } = props;
-      switch (nativeEvent.actionKey) {
-        case ContextMenuKeys.Details:
-          SheetManager.show('file-detail-sheet', {
-            payload: {
-              item,
-            },
-          });
-          break;
-        case ContextMenuKeys.Rename:
-          handleRenameFile(item);
-          break;
-        case ContextMenuKeys.Share:
-          Share.share({
-            url: item.uri,
-          });
-          break;
-        case ContextMenuKeys.SaveToLocal:
-          RNShare.open({
-            url: encodeURI(item.uri),
-            saveToFiles: true,
-          });
-          break;
-        case ContextMenuKeys.Delete:
-          handleDeleteFile({
-            items: [
-              {
-                id: item.id,
-                type: item.type,
+    useEffect(() => {
+      setTargetViewNode(findNodeHandle(ref?.current));
+    }, []);
+
+    const handlePressMenuItem = useCallback(
+      ({ nativeEvent }) => {
+        const { item } = props;
+        switch (nativeEvent.actionKey) {
+          case ContextMenuKeys.Details:
+            SheetManager.show('file-detail-sheet', {
+              payload: {
+                item,
               },
-            ],
-          });
-          break;
-        case ContextMenuKeys.MoveToAlbum:
-          handleMovePhotos([item.id]);
-          break;
-      }
-    },
-    [props.item],
-  );
+            });
+            break;
+          case ContextMenuKeys.Rename:
+            handleRenameFile(item);
+            break;
+          case ContextMenuKeys.Share:
+            Share.share({
+              url: item.uri,
+            });
+            break;
+          case ContextMenuKeys.SaveToLocal:
+            RNShare.open({
+              url: encodeURI(item.uri),
+              saveToFiles: true,
+            });
+            break;
+          case ContextMenuKeys.Delete:
+            handleDeleteFile({
+              items: [
+                {
+                  id: item.id,
+                  type: item.type,
+                },
+              ],
+            });
+            break;
+          case ContextMenuKeys.MoveToAlbum:
+            handleMovePhotos([item.id]);
+            break;
+        }
+      },
+      [item],
+    );
 
-  return (
-    <ContextMenuView
-      menuConfig={menuConfig}
-      onPressMenuItem={handlePressMenuItem}
-      onMenuDidHide={props.onMenuDidHide}
-    >
-      {props.children}
-    </ContextMenuView>
-  );
-});
+    return (
+      <ContextMenuView
+        menuConfig={menuConfig}
+        previewConfig={{
+          targetViewNode,
+        }}
+        onPressMenuItem={handlePressMenuItem}
+        onMenuDidHide={props.onMenuDidHide}
+      >
+        {children}
+      </ContextMenuView>
+    );
+  },
+  { forwardRef: true },
+);
 
 enum ContextMenuKeys {
   Details = 'details',

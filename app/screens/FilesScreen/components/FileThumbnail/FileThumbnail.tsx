@@ -14,26 +14,29 @@ interface FileThumbnailProps {
   height?: number | string;
 }
 
-export const FileThumbnail = observer<FileThumbnailProps>((props) => {
-  const { name, mime, type } = props.item;
-  const isFolder = type === FileTypes.Folder;
+export const FileThumbnail = observer<FileThumbnailProps, any>(
+  (props, ref) => {
+    const { name, mime, type } = props.item;
+    const isFolder = type === FileTypes.Folder;
 
-  const CoverComponent = useMemo(
-    () => getCoverComponent(isFolder, mime, name),
-    [name, mime, isFolder],
-  );
+    const CoverComponent = useMemo(
+      () => getCoverComponent(isFolder, mime, name),
+      [name, mime, isFolder],
+    );
 
-  const size: ViewStyle = {
-    width: props.width ?? props.height ?? DEFAULT_SIZE,
-    height: props.height ?? props.width ?? DEFAULT_SIZE,
-  };
+    const size: ViewStyle = {
+      width: props.width ?? props.height ?? DEFAULT_SIZE,
+      height: props.height ?? props.width ?? DEFAULT_SIZE,
+    };
 
-  return (
-    <View style={[props.style, $container, size]}>
-      <CoverComponent {...size} />
-    </View>
-  );
-});
+    return (
+      <View style={[props.style, $container, size]} ref={ref}>
+        <CoverComponent {...size} />
+      </View>
+    );
+  },
+  { forwardRef: true },
+);
 
 const $container: ViewStyle = {
   justifyContent: 'center',

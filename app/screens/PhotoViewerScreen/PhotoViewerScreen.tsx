@@ -146,12 +146,7 @@ export const PhotoViewerScreen: FC<StackScreenProps<AlbumsNavigatorParamList, 'P
             visible={toolbarVisible}
             name={currentItem?.name}
             ctime={currentItem?.created_date}
-            onBack={() => {
-              imageBrowserRef.current.onBack(true);
-              setTimeout(() => {
-                props.navigation.goBack();
-              });
-            }}
+            onBack={props.navigation.goBack}
           />
           <ImageBrowser
             style={{

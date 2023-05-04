@@ -86,7 +86,7 @@ export const BiometricsButton: FC<BiometricsButtonProps> = observer((props) => {
 
       if (result.success) {
         setTimeout(props.onSuccess, 300);
-      } else {
+      } else if ((result as any)?.error !== 'user_cancel') {
         Alert.alert(
           translate('appLockScreen.biometricsAuthFailed'),
           (result as any).warning || (result as any).error,

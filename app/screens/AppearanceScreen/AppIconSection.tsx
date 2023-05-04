@@ -17,7 +17,7 @@ import { ListSection, ListCell, ImageIcon, Text, ImageIconTypes } from '@/compon
 import { radius, spacing, typography, useTheme } from '@/theme';
 import { TextKeyPath } from '@/i18n';
 import { appIconOptions } from './constants';
-import { HapticFeedback, Overlay } from '@/utils';
+import { Application, HapticFeedback, Overlay } from '@/utils';
 import { AppIcons } from './types';
 import { canUsePremium } from '@/utils/canUsePremium';
 
@@ -53,6 +53,11 @@ export const AppIconSection = observer(() => {
     }
   }, []);
 
+  const filteredAppIconOptions =
+    Application.env === 'AppStore'
+      ? appIconOptions
+      : appIconOptions.filter((appIcon) => appIcon.env === 'all');
+
   return (
     <ListSection
       titleTk="appearanceScreen.appIcon.title"
@@ -65,7 +70,7 @@ export const AppIconSection = observer(() => {
           setLayout(e.nativeEvent.layout);
         }}
       >
-        {appIconOptions.map((option) => {
+        {filteredAppIconOptions.map((option) => {
           return (
             <AppIconOption
               key={option.title}
@@ -146,6 +151,7 @@ const AppIconOption = observer<AppIconOptionProps>((props) => {
       <Text
         style={$appIconName}
         tk={props.title}
+        numberOfLines={1}
         color={checked ? colors.palette.primary6 : colors.label}
       />
     </TouchableOpacity>
@@ -171,6 +177,8 @@ const $appIconWrapper: ViewStyle = {
 };
 
 const $appIconName: TextStyle = {
+  width: APP_ICON_ITEM_SIZE,
+  textAlign: 'center',
   ...typography.caption1,
   marginTop: spacing[3],
 };

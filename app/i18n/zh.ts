@@ -304,7 +304,7 @@ const zh = {
     todo: '待办',
     weather: '天气',
     news: '新闻',
-    old: '旧版本',
+    old: '拟物化',
   },
   urgentSwitchScreen: {
     title: '紧急切换',

@@ -310,7 +310,7 @@ const en: Translations = {
     todo: 'TO-DO',
     weather: 'Weather',
     news: 'News',
-    old: 'Old Version',
+    old: 'Skeuomorphism',
   },
   urgentSwitchScreen: {
     title: 'Urgent Switch',

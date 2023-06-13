@@ -22,4 +22,6 @@ export enum AppQueriesSchemes {
   Twitter = 'twitter://',
   Instagram = 'instagram://',
   Kwai = 'kwai://',
+  /** 小红书 */
+  RED = 'xhsdiscover://',
 }

@@ -26,11 +26,16 @@ export const UrgentSwitchScreen: FC<StackScreenProps<SettingStackParamList, 'Urg
     const options = useMemo(() => getUrgentOptions(colors), [colors]);
 
     async function handleSelectTarget(value: AppQueriesSchemes) {
-      if (!canUsePremium()) {
+      HapticFeedback.selection();
+
+      if (value === AppQueriesSchemes.Disable) {
+        handleClose();
         return;
       }
 
-      HapticFeedback.selection();
+      if (!canUsePremium()) {
+        return;
+      }
 
       try {
         const res = await Linking.canOpenURL(value);
@@ -44,6 +49,11 @@ export const UrgentSwitchScreen: FC<StackScreenProps<SettingStackParamList, 'Urg
         Alert.alert(t('urgentSwitchScreen.openFail'));
       }
     }
+
+    function handleClose() {
+      settingsStore.setUrgentSwitchTarget(AppQueriesSchemes.Disable);
+    }
+
     return (
       <Screen type="tabView">
         <ScrollSafeAreaView

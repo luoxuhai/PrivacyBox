@@ -294,6 +294,7 @@ const zh = {
     facebook: '脸书',
     twitter: '推特',
     instagram: 'Instagram',
+    red: "小红书"
   },
   appIconName: {
     default: '默认',

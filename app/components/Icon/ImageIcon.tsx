@@ -69,6 +69,7 @@ export const iconRegistry = {
   TikTok: require('@/assets/icons/app-icon/TikTok.png'),
   Twitter: require('@/assets/icons/app-icon/Twitter.png'),
   WeChat: require('@/assets/icons/app-icon/WeChat.png'),
+  RED: require('@/assets/icons/app-icon/RED.jpeg'),
 };
 
 export const iconSvgRegistry = {

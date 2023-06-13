@@ -16,45 +16,45 @@
 	<dict>
 		<key>CFBundleAlternateIcons</key>
 		<dict>
-            <key>old</key>
-            <dict>
-                <key>CFBundleIconFiles</key>
-                <array>
-                    <string>old120x120</string>
-                    <string>old167x167</string>
-                    <string>old128x128</string>
-                    <string>old152x152</string>
-                    <string>old180x180</string>
-                </array>
-                <key>UIPrerenderedIcon</key>
-                <false/>
-            </dict>
-            <key>news</key>
-            <dict>
-                <key>CFBundleIconFiles</key>
-                <array>
-                    <string>news120x120</string>
-                    <string>news167x167</string>
-                    <string>news128x128</string>
-                    <string>news152x152</string>
-                    <string>news180x180</string>
-                </array>
-                <key>UIPrerenderedIcon</key>
-                <false/>
-            </dict>
-            <key>weather</key>
-            <dict>
-                <key>CFBundleIconFiles</key>
-                <array>
-                    <string>weather120x120</string>
-                    <string>weather167x167</string>
-                    <string>weather128x128</string>
-                    <string>weather152x152</string>
-                    <string>weather180x180</string>
-                </array>
-                <key>UIPrerenderedIcon</key>
-                <false/>
-            </dict>
+			<key>old</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>old120x120</string>
+					<string>old167x167</string>
+					<string>old128x128</string>
+					<string>old152x152</string>
+					<string>old180x180</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<false/>
+			</dict>
+			<key>news</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>news120x120</string>
+					<string>news167x167</string>
+					<string>news128x128</string>
+					<string>news152x152</string>
+					<string>news180x180</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<false/>
+			</dict>
+			<key>weather</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>weather120x120</string>
+					<string>weather167x167</string>
+					<string>weather128x128</string>
+					<string>weather152x152</string>
+					<string>weather180x180</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<false/>
+			</dict>
 			<key>calculator</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
@@ -140,6 +140,7 @@
 	<string>$(CODEPUSH_KEY)</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>xhsdiscover</string>
 		<string>wechat</string>
 		<string>snssdk1128</string>
 		<string>bilibili</string>

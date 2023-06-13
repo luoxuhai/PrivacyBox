@@ -300,6 +300,7 @@ const en: Translations = {
     facebook: 'Facebook',
     twitter: 'Twitter',
     instagram: 'Instagram',
+    red: 'RED',
   },
   appIconName: {
     default: 'Default',

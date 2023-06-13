@@ -83,6 +83,11 @@ export function getUrgentOptions(colors: ThemeStore['colors']) {
           icon: <AppIcon icon="Bilibili" />,
           title: 'thirdPartyApp.bilibili',
         },
+        {
+          value: AppQueriesSchemes.RED,
+          icon: <AppIcon icon="RED" />,
+          title: 'thirdPartyApp.red',
+        },
       ] as UrgentOption[]),
     ];
   } else {

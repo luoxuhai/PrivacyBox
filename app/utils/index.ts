@@ -20,3 +20,4 @@ export * from './getVideoInfo';
 export * from './lockOrientation';
 export * from './showActionSheet';
 export * from './appUpdateCheck';
+export * from './EventTracking';

@@ -478,6 +478,19 @@ const en: Translations = {
       ignore: 'Ignore',
     },
   },
+  appPromote: {
+    title: 'My More Apps',
+    nightVision: {
+      id: '1668629667',
+      name: 'Night Vision',
+      description: 'Your exclusive "night crutch"',
+    },
+    iGrammar: {
+      id: '6447102989',
+      name: 'iGrammar',
+      description: 'Intelligent analysis of English grammar',
+    },
+  },
 };
 
 export default en;

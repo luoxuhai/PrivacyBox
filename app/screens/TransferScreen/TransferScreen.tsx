@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { View, Text, StyleSheet, Share, Alert, TouchableOpacity } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import QRCode from 'react-native-qrcode-svg';
@@ -21,6 +21,7 @@ import {
   LocalPathManager,
   reportException,
   generateUUID,
+  EventTracking,
 } from '@/utils';
 import { MoreFeatureNavigatorParamList } from '@/navigators';
 import { useTheme } from '@/theme';
@@ -43,6 +44,7 @@ const enum ConnectState {
 export const TransferScreen = observer<StackScreenProps<MoreFeatureNavigatorParamList, 'Transfer'>>(
   (props) => {
     const [url, setUrl] = useState<string | undefined>();
+    const isUsed = useRef(false);
     const [connectState, setConnectState] = useState<ConnectState>(ConnectState.Pending);
     const { colors } = useTheme();
     const {
@@ -113,6 +115,10 @@ export const TransferScreen = observer<StackScreenProps<MoreFeatureNavigatorPara
       const origin = `http://${ip}:${port}`;
 
       await HttpServer.start(port, 'http_service', async (request, response) => {
+        if (!isUsed.current) {
+          isUsed.current = true;
+          EventTracking.shared.track('transfer_used');
+        }
         if (request.method === 'OPTIONS') {
           response.send(200);
         }

@@ -13,7 +13,7 @@ import { BottomActionBar } from './BottomActionBar';
 import { InAppPurchase } from './helpers/InAppPurchase';
 import Config from '@/config';
 import { purchaseKeys } from './constants';
-import { Overlay } from '@/utils';
+import { EventTracking, Overlay } from '@/utils';
 import { translate } from '@/i18n';
 import * as Confetti from '@/lib/Confetti';
 
@@ -35,6 +35,8 @@ export const PurchaseScreen: FC<StackScreenProps<SettingStackParamList, 'Purchas
       });
       global.isPausePresentMask = true;
 
+      EventTracking.shared.track('purchase_view');
+
       return () => {
         global.isPausePresentMask = false;
         Overlay.dismissAllAlerts();
@@ -46,7 +48,10 @@ export const PurchaseScreen: FC<StackScreenProps<SettingStackParamList, 'Purchas
     useQuery({
       queryKey: purchaseKeys.product,
       queryFn: async () => {
-        await InAppPurchase.shared.init(Config.productId, handleBackDelay);
+        await InAppPurchase.shared.init(Config.productId, () => {
+          handleBackDelay();
+          EventTracking.shared.track('purchased');
+        });
         const product = await InAppPurchase.shared.getProduct();
         return product;
       },

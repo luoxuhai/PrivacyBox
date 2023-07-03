@@ -4,7 +4,6 @@
 #import "ExpoModulesCore-Swift.h"
 #import "RNBootSplash.h"
 #import "Orientation.h"
-#import <Firebase.h>
 #import <OverrideColorScheme.h>
 
 static NSString *const kRNConcurrentRoot = @"concurrentRoot";
@@ -21,11 +20,6 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
   [OverrideColorScheme enableAlertSupport];
 
   [RNBootSplash initWithStoryboard:@"LaunchScreen" rootView:self.window.rootViewController.view];
-
-#if !DEBUG
-  // Firebase https://rnfirebase.io/#3-ios-setup
-  [FIRApp configure];
-#endif
   
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }

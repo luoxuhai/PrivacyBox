@@ -294,7 +294,7 @@ const zh = {
     facebook: '脸书',
     twitter: '推特',
     instagram: 'Instagram',
-    red: "小红书"
+    red: '小红书',
   },
   appIconName: {
     default: '默认',
@@ -467,6 +467,19 @@ const zh = {
       ok: '更新',
       next: '下一次',
       ignore: '忽略',
+    },
+  },
+  appPromote: {
+    title: '我们的其他作品',
+    nightVision: {
+      id: '1668629667',
+      name: '夜视仪',
+      description: '您的专属 “夜间拐杖”',
+    },
+    iGrammar: {
+      id: '6447102989',
+      name: '爱语法',
+      description: '智能分析英语语法，从未如此热爱英语',
     },
   },
 };

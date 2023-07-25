@@ -1,24 +1,17 @@
-import Config from '@/config';
-import * as Sentry from '@sentry/react-native';
+// import Config from '@/config';
+// import * as Sentry from '@sentry/react-native';
 
-import { Device } from './device';
-
-export const routingInstrumentation = new Sentry.ReactNavigationInstrumentation();
+// import { Device } from './device';
 
 export const initCrashReporting = () => {
-  Sentry.init({
-    debug: __DEV__,
-    dsn: Config.sentry.dsn,
-    tracesSampleRate: Config.sentry.tracesSampleRate,
-    maxBreadcrumbs: 20,
-    integrations: [
-      new Sentry.ReactNativeTracing({
-        routingInstrumentation,
-      }),
-    ],
-  });
-  Sentry.setUser({ id: Device.uniqueId });
-  Sentry.setTag('device_name', Device.modelName);
+  // Sentry.init({
+  //   debug: __DEV__,
+  //   dsn: Config.sentry.dsn,
+  //   tracesSampleRate: Config.sentry.tracesSampleRate,
+  //   maxBreadcrumbs: 20,
+  // });
+  // Sentry.setUser({ id: Device.uniqueId });
+  // Sentry.setTag('device_name', Device.modelName);
 };
 
 type ErrorType = 'fatal' | 'error' | 'warning';
@@ -42,12 +35,12 @@ export const reportException = ({
   if (__DEV__) {
     console.error(_error);
   } else {
-    Sentry.captureException(_error, {
-      extra: {
-        customMessage: message,
-        ...extra,
-      },
-      level,
-    });
+    // Sentry.captureException(_error, {
+    //   extra: {
+    //     customMessage: message,
+    //     ...extra,
+    //   },
+    //   level,
+    // });
   }
 };

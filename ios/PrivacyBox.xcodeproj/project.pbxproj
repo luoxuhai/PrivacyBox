@@ -60,7 +60,6 @@
 		35861F672970484F00ABB9D1 /* calculator120x120.png in Resources */ = {isa = PBXBuildFile; fileRef = 35861F492970484F00ABB9D1 /* calculator120x120.png */; };
 		35861F692970484F00ABB9D1 /* password_box180x180.png in Resources */ = {isa = PBXBuildFile; fileRef = 35861F4B2970484F00ABB9D1 /* password_box180x180.png */; };
 		35861F6A2970484F00ABB9D1 /* password_box152x152.png in Resources */ = {isa = PBXBuildFile; fileRef = 35861F4C2970484F00ABB9D1 /* password_box152x152.png */; };
-		35A62201291898BC0059A53D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 35A62200291898BB0059A53D /* GoogleService-Info.plist */; };
 		400EB2C1E1807E6CBC68B7AB /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951E59D51E504BC9C5F46169 /* ExpoModulesProvider.swift */; };
 		850E30E481ED16412690D107 /* libPods-PrivacyBox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 20B192D0710B082D92A16178 /* libPods-PrivacyBox.a */; };
 		C7859DE9DD4B2FF444D84F1C /* libPods-PrivacyBox-PrivacyBoxTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2ECC5F792B11D6B337EC4F3C /* libPods-PrivacyBox-PrivacyBoxTests.a */; };
@@ -151,7 +150,11 @@
 		35861F492970484F00ABB9D1 /* calculator120x120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calculator120x120.png; sourceTree = "<group>"; };
 		35861F4B2970484F00ABB9D1 /* password_box180x180.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = password_box180x180.png; sourceTree = "<group>"; };
 		35861F4C2970484F00ABB9D1 /* password_box152x152.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = password_box152x152.png; sourceTree = "<group>"; };
-		35A62200291898BB0059A53D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "PrivacyBox/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		35E0496D2A700E06000C510D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		35E0496E2A700E0B000C510D /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		35E0496F2A700E27000C510D /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		35E049702A700E3D000C510D /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		35E049712A700E47000C510D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-PrivacyBox.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrivacyBox.debug.xcconfig"; path = "Target Support Files/Pods-PrivacyBox/Pods-PrivacyBox.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-PrivacyBox.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrivacyBox.release.xcconfig"; path = "Target Support Files/Pods-PrivacyBox/Pods-PrivacyBox.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-PrivacyBox-PrivacyBoxTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PrivacyBox-PrivacyBoxTests.debug.xcconfig"; path = "Target Support Files/Pods-PrivacyBox-PrivacyBoxTests/Pods-PrivacyBox-PrivacyBoxTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -205,7 +208,6 @@
 				35861F2E297047F500ABB9D1 /* Images */,
 				3520FF042955FD7200E618A6 /* ReactNativeModules */,
 				3510682929208F4400E8F0D7 /* PrivacyBox.entitlements */,
-				35A62200291898BB0059A53D /* GoogleService-Info.plist */,
 				351068342932017500E8F0D7 /* LaunchScreen.storyboard */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
@@ -422,7 +424,6 @@
 				00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */,
 				E235C05ADACE081382539298 /* [CP] Copy Pods Resources */,
 				3510682D292092ED00E8F0D7 /* CopyFiles */,
-				6903DC2DC1EB43A7895BE0A2 /* Upload Debug Symbols to Sentry */,
 			);
 			buildRules = (
 			);
@@ -458,6 +459,11 @@
 				en,
 				Base,
 				"zh-Hans",
+				de,
+				ja,
+				es,
+				"pt-BR",
+				fr,
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
@@ -523,7 +529,6 @@
 				35861F612970484F00ABB9D1 /* calculator167x167.png in Resources */,
 				35861F662970484F00ABB9D1 /* password_box128x128.png in Resources */,
 				35861F642970484F00ABB9D1 /* todo180x180.png in Resources */,
-				35A62201291898BC0059A53D /* GoogleService-Info.plist in Resources */,
 				35861F692970484F00ABB9D1 /* password_box180x180.png in Resources */,
 				35745D8B298E347200208D03 /* news167x167.png in Resources */,
 			);
@@ -546,7 +551,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export SENTRY_PROPERTIES=sentry.properties\nexport EXTRA_PACKAGER_ARGS=\"--sourcemap-output $DERIVED_FILE_DIR/main.jsbundle.map\"\nset -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT \\\"../node_modules/@sentry/cli/bin/sentry-cli react-native xcode $REACT_NATIVE_XCODE\\\"\"\n\n/bin/sh ../node_modules/@sentry/react-native/scripts/collect-modules.sh\n";
+			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
 		00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -564,20 +569,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PrivacyBox/Pods-PrivacyBox-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
-		};
-		6903DC2DC1EB43A7895BE0A2 /* Upload Debug Symbols to Sentry */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Upload Debug Symbols to Sentry";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\nexport SENTRY_PROPERTIES=sentry.properties\n[[ $SENTRY_INCLUDE_NATIVE_SOURCES == \"true\" ]] && INCLUDE_SOURCES_FLAG=\"--include-sources\" || INCLUDE_SOURCES_FLAG=\"\"\n../node_modules/@sentry/cli/bin/sentry-cli debug-files upload \"$INCLUDE_SOURCES_FLAG\"\n";
 		};
 		A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -735,6 +726,11 @@
 			children = (
 				35106826291FD2C000E8F0D7 /* en */,
 				35106828291FD2C400E8F0D7 /* zh-Hans */,
+				35E0496D2A700E06000C510D /* de */,
+				35E0496E2A700E0B000C510D /* ja */,
+				35E0496F2A700E27000C510D /* es */,
+				35E049702A700E3D000C510D /* pt-BR */,
+				35E049712A700E47000C510D /* fr */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -823,7 +819,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODEPUSH_KEY = 0mNXfKaZaV_TuVT76UDX5g1qHJO2ewQX8l36J;
 				CODE_SIGN_ENTITLEMENTS = PrivacyBox/PrivacyBox.entitlements;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = MH9G89WBAL;
@@ -840,7 +836,7 @@
 					"$(SDKROOT)/System/iOSSupport/usr/lib/swift",
 					"$(inherited)",
 				);
-				MARKETING_VERSION = 2.9.1;
+				MARKETING_VERSION = 2.10.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -854,6 +850,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "PrivacyBox/PrivacyBox-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -870,7 +867,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODEPUSH_KEY = "LsOfPzALBphX8m4PTjB72z1nvBX7CURq-Pj6f";
 				CODE_SIGN_ENTITLEMENTS = PrivacyBox/PrivacyBox.entitlements;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = MH9G89WBAL;
@@ -886,7 +883,7 @@
 					"$(SDKROOT)/System/iOSSupport/usr/lib/swift",
 					"$(inherited)",
 				);
-				MARKETING_VERSION = 2.9.1;
+				MARKETING_VERSION = 2.10.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -900,6 +897,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "PrivacyBox/PrivacyBox-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

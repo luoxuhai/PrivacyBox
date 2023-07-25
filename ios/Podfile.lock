@@ -1,4 +1,7 @@
 PODS:
+  - AppsFlyerFramework (6.12.1):
+    - AppsFlyerFramework/Main (= 6.12.1)
+  - AppsFlyerFramework/Main (6.12.1)
   - boost (1.76.0)
   - Burnt (0.9.0):
     - ExpoModulesCore
@@ -82,12 +85,6 @@ PODS:
   - lottie-ios (3.4.4)
   - lottie-react-native (5.1.6):
     - lottie-ios (~> 3.4.0)
-    - React-Core
-  - Mixpanel-swift (4.1.3):
-    - Mixpanel-swift/Complete (= 4.1.3)
-  - Mixpanel-swift/Complete (4.1.3)
-  - MixpanelReactNative (2.3.1):
-    - Mixpanel-swift (= 4.1.3)
     - React-Core
   - MMKV (1.2.15):
     - MMKVCore (~> 1.2.15)
@@ -884,9 +881,6 @@ PODS:
   - RNScreens (3.22.0):
     - React-Core
     - React-RCTImage
-  - RNSentry (5.3.0):
-    - React-Core
-    - Sentry/HybridSDK (= 8.3.3)
   - RNShare (8.2.1):
     - React-Core
   - RNSVG (13.9.0):
@@ -904,9 +898,6 @@ PODS:
   - SDWebImageWebPCoder (0.8.5):
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.10)
-  - Sentry/HybridSDK (8.3.3):
-    - SentryPrivate (= 8.3.3)
-  - SentryPrivate (8.3.3)
   - SPAlert (4.2.0)
   - SPConfetti (1.4.0)
   - SPIndicator (1.6.4)
@@ -914,6 +905,7 @@ PODS:
   - Yoga (1.14.0)
 
 DEPENDENCIES:
+  - AppsFlyerFramework
   - boost (from `../node_modules/react-native/third-party-podspecs/boost.podspec`)
   - Burnt (from `../node_modules/burnt/ios`)
   - BVLinearGradient (from `../node_modules/react-native-linear-gradient`)
@@ -942,7 +934,6 @@ DEPENDENCIES:
   - hermes-engine (from `../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
   - libevent (~> 2.1.12)
   - lottie-react-native (from `../node_modules/lottie-react-native`)
-  - MixpanelReactNative (from `../node_modules/mixpanel-react-native`)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCT-Folly/Fabric (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
@@ -1015,7 +1006,6 @@ DEPENDENCIES:
   - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
-  - "RNSentry (from `../node_modules/@sentry/react-native`)"
   - RNShare (from `../node_modules/react-native-share`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - RNZipArchive (from `../node_modules/react-native-zip-archive`)
@@ -1024,21 +1014,19 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - AppsFlyerFramework
     - ffmpeg-kit-ios-https
     - fmt
     - GCDWebServer
     - libevent
     - libwebp
     - lottie-ios
-    - Mixpanel-swift
     - MMKV
     - MMKVCore
     - PromisesObjC
     - PromisesSwift
     - SDWebImage
     - SDWebImageWebPCoder
-    - Sentry
-    - SentryPrivate
     - SPAlert
     - SPConfetti
     - SPIndicator
@@ -1099,8 +1087,6 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec"
   lottie-react-native:
     :path: "../node_modules/lottie-react-native"
-  MixpanelReactNative:
-    :path: "../node_modules/mixpanel-react-native"
   RCT-Folly:
     :podspec: "../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec"
   RCTRequired:
@@ -1241,8 +1227,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
-  RNSentry:
-    :path: "../node_modules/@sentry/react-native"
   RNShare:
     :path: "../node_modules/react-native-share"
   RNSVG:
@@ -1253,6 +1237,7 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
+  AppsFlyerFramework: e29b63fc5441400a38a31c5501c1da500b9d53d0
   boost: 57d2868c099736d80fcd648bf211b4431e51a558
   Burnt: 2a5f30dd49cb80c02c0c822df7ed60b58ee2860d
   BVLinearGradient: 34a999fda29036898a09c6a6b728b0b4189e1a44
@@ -1286,8 +1271,6 @@ SPEC CHECKSUMS:
   libwebp: f62cb61d0a484ba548448a4bd52aabf150ff6eef
   lottie-ios: 8f97d3271e155c2d688875c29cd3c74908aef5f8
   lottie-react-native: 8f9d4be452e23f6e5ca0fdc11669dc99ab52be81
-  Mixpanel-swift: d7c7c6a2f7c65f735af3cb4746ed61a5aab0e551
-  MixpanelReactNative: 07c808338a1eb69b0c9077668e3acfb0b2dd6689
   MMKV: 7f34558bbb5a33b0eaefae2de4b6a20a2ffdad6f
   MMKVCore: ddf41b9d9262f058419f9ba7598719af56c02cd3
   PromisesObjC: 09985d6d70fbe7878040aa746d78236e6946d2ef
@@ -1362,20 +1345,17 @@ SPEC CHECKSUMS:
   RNPermissions: 77b38425620b3a3d8a3013038d413d5bff845f0d
   RNReanimated: 9976fbaaeb8a188c36026154c844bf374b3b7eeb
   RNScreens: 68fd1060f57dd1023880bf4c05d74784b5392789
-  RNSentry: 8363f1eff1c685a502e15080b5e2f447969897c5
   RNShare: eaee3dd5a06dad397c7d3b14762007035c5de405
   RNSVG: 53c661b76829783cdaf9b7a57258f3d3b4c28315
   RNZipArchive: 68a0c6db4b1c103f846f1559622050df254a3ade
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SDWebImageWebPCoder: 908b83b6adda48effe7667cd2b7f78c897e5111d
-  Sentry: 8ffc397d98fe58d693e73959b26ed0eaee55646a
-  SentryPrivate: bf776a47a131648f5023097215987b40fbd47025
   SPAlert: 735da1f16a887e294719217572ce1f936d8c8782
   SPConfetti: 4ba720ff652d960f59c3e4eadee2c0c3ef6ce9a4
   SPIndicator: 93e0a4fb23de51294ac48e874c0f081a5e293e4f
   SSZipArchive: fe6a26b2a54d5a0890f2567b5cc6de5caa600aef
   Yoga: d56980c8914db0b51692f55533409e844b66133c
 
-PODFILE CHECKSUM: 08e48ac202f668dbe6865e3b5cf22201cce09ca1
+PODFILE CHECKSUM: 54fab08d669657da28bd368870b6f1b39368adf8
 
 COCOAPODS: 1.12.0

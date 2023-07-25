@@ -39,6 +39,7 @@ target 'PrivacyBox' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec', :modular_headers => false
 
   pod 'SPConfetti'
+  pod 'AppsFlyerFramework'
 
   target 'PrivacyBoxTests' do
     inherit! :complete

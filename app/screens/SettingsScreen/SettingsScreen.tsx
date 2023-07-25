@@ -15,7 +15,6 @@ import { Device, Application, openLinkInAppBrowser } from '@/utils';
 import { SupportedLanguage, i18n, LanguageReadable, translate } from '@/i18n';
 import { getUrgentOptions } from '../UrgentSwitchScreen/utils';
 import { AppQueriesSchemes } from '../UrgentSwitchScreen/type';
-import { AppPromoteSection } from './components/AppPromoteSection';
 
 export const SettingScreen: FC<StackScreenProps<SettingStackParamList, 'Settings'>> = observer(
   (props) => {
@@ -171,7 +170,6 @@ export const SettingScreen: FC<StackScreenProps<SettingStackParamList, 'Settings
               }}
             />
           </ListSection>
-          <AppPromoteSection />
         </SafeAreaScrollView>
       </Screen>
     );

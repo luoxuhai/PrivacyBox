@@ -9,18 +9,12 @@ import { initialWindowMetrics, SafeAreaProvider } from 'react-native-safe-area-c
 import { observer } from 'mobx-react-lite';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SheetProvider } from 'react-native-actions-sheet';
-import * as Sentry from '@sentry/react-native';
 
-import { useUpdateEffect, routingInstrumentation } from './utils';
+import { useUpdateEffect } from './utils';
 import { initTask } from './utils/task/initTask';
 import { useInitialRootStore } from './models';
 import { useInitialDataSource } from './database/helpers/useInitDataSource';
-import {
-  AppNavigator,
-  useNavigationPersistence,
-  RootNavigation,
-  navigationRef,
-} from './navigators';
+import { AppNavigator, useNavigationPersistence, RootNavigation } from './navigators';
 import { ErrorBoundary } from './screens/ErrorScreen/ErrorBoundary';
 import { useDataMigrator } from './screens/DataMigratorScreen/useDataMigrator';
 import { storage } from './utils/storage';
@@ -88,10 +82,6 @@ const App = observer(() => {
                     onStateChange: onNavigationStateChange,
                   }
                 : {})}
-              onReady={() => {
-                // Register the navigation container with the instrumentation
-                routingInstrumentation.registerNavigationContainer({ current: navigationRef });
-              }}
             />
             <AppMaskScreen />
           </SheetProvider>
@@ -109,4 +99,4 @@ export const queryClient = new QueryClient({
   },
 });
 
-export default Sentry.wrap(App);
+export default App;

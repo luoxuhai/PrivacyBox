@@ -1,0 +1,9 @@
+CFBundleDisplayName = "Privacy Box";
+NSAppleMusicUsageDescription = "インポートされた写真とビデオを削除するには";
+NSCameraUsageDescription = "写真やビデオをインポートするために、カメラから写真やビデオをインポートする機能を使用すると、アプリはカメラの権限にアクセスします。";
+NSFaceIDUsageDescription = "顔認証ロック解除機能を使用すると、アプリはすぐにロックを解除するために顔 ID 権限にアクセスします";
+NSLocationWhenInUseUsageDescription = "表示言語を自動的に切り替えるには、位置情報にアクセスする必要があります";
+NSMicrophoneUsageDescription = "カメラからビデオを録画する機能を使用する場合、ビデオ音声を録音するために、アプリはマイクの許可にアクセスします。";
+NSMotionUsageDescription = "デバイスの画面がダウンしているときにアプリをロックするため";
+NSPhotoLibraryAddUsageDescription = "写真やビデオをフォト アルバムに保存する場合";
+NSPhotoLibraryUsageDescription = "写真やビデオをインポートするために、アルバムから写真やビデオをインポートする機能を使用すると、アプリはアルバムの権限にアクセスします。";

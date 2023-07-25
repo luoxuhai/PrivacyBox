@@ -1,0 +1,9 @@
+CFBundleDisplayName = "Privacy Box";
+NSAppleMusicUsageDescription = "Pour supprimer les images et vidéos importées";
+NSCameraUsageDescription = "L'application accédera à votre appareil photo lorsque vous utiliserez la fonction d'importation d'images et de vidéos à partir de l'appareil photo, pour importer des images et des vidéos";
+NSFaceIDUsageDescription = "L'application accédera à votre identifiant facial lorsque vous utiliserez la fonction de déverrouillage avec Face ID, pour déverrouiller rapidement";
+NSLocationWhenInUseUsageDescription = "Nous avons besoin d'accéder à votre emplacement pour changer automatiquement la langue d'affichage";
+NSMicrophoneUsageDescription = "L'application accédera à votre microphone lorsque vous utiliserez la fonction d'enregistrement de vidéos à partir de l'appareil photo, pour enregistrer l'audio dans les vidéos";
+NSMotionUsageDescription = "Pour verrouiller l'application lorsque l'écran du dispositif est orienté vers le bas";
+NSPhotoLibraryAddUsageDescription = "Pour enregistrer des images et des vidéos dans la bibliothèque de photos";
+NSPhotoLibraryUsageDescription = "L'application accédera à votre bibliothèque de photos lorsque vous utiliserez la fonction d'importation d'images et de vidéos à partir de la bibliothèque de photos, pour importer des images et des vidéos";

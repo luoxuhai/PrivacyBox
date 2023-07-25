@@ -1,0 +1,60 @@
+workflows:
+  ios-workflow:
+    name: iOS Workflow
+    instance_type: mac_mini_m1
+    cache:
+      cache_paths:
+        - $CM_BUILD_DIR/node_modules
+    integrations:
+      app_store_connect: Codemagic
+    environment:
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: net.darkce.privatespace
+      vars:
+        APP_STORE_APPLE_ID: 1597534147
+        XCODE_WORKSPACE: "PrivacyBox.xcworkspace"
+        XCODE_SCHEME: "PrivacyBox"
+      node: v16.17.0
+      xcode: latest
+    scripts:
+      - name: Install npm dependencies
+        script: | 
+          yarn install
+      - name: Install CocoaPods dependencies
+        script: | 
+          cd ios && pod install
+      - name: Set Info.plist values
+        script: | 
+          PLIST=$CM_BUILD_DIR/$XCODE_SCHEME/Info.plist
+          PLIST_BUDDY=/usr/libexec/PlistBuddy
+          $PLIST_BUDDY -c "Add :ITSAppUsesNonExemptEncryption bool false" $PLIST
+      - name: Set up code signing settings on Xcode project
+        script: |
+          xcode-project use-profiles --warn-only
+      - name: Increment build number
+        script: |
+          cd $CM_BUILD_DIR/ios
+          LATEST_BUILD_NUMBER=$(app-store-connect get-latest-app-store-build-number "$APP_ID")
+          agvtool new-version -all $(($LATEST_BUILD_NUMBER + 1))
+      - name: Build ipa for distribution
+        script: |
+          xcode-project build-ipa \
+            --workspace "$CM_BUILD_DIR/ios/$XCODE_WORKSPACE" \
+            --scheme "$XCODE_SCHEME"
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
+    publishing: 
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: false
+        submit_to_app_store: false
+      email:
+        recipients:
+          - darkce97@gmail.com
+        notify:
+          success: true
+          failure: true

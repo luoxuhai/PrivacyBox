@@ -52,12 +52,10 @@ const BaseConfig: IBaseConfig = {
 
   iCloudContainerIdentifier: 'iCloud.net.darkce.privatespace',
 
+  // 用户反馈页面
   TXC_FEEDBACK_URL: 'https://support.qq.com/product/334350',
 
-  baseURL: 'https://ps.fastools.cn',
-
   email: 'darkce97@gmail.com',
-  qqGroup: '168380697',
 
   appId,
   appStoreUrl: {
@@ -66,10 +64,10 @@ const BaseConfig: IBaseConfig = {
     urlSchema: `itms-apps://itunes.apple.com/app/id${appId}`,
   },
 
-  sentry: {
-    dsn: 'https://cd90588a06004ec398afa1c15e9c5275@o264285.ingest.sentry.io/4504497505107968',
-    tracesSampleRate: 0.5,
-  },
+  // sentry: {
+  //   dsn: '',
+  //   tracesSampleRate: 0.5,
+  // },
 
   /** 隐私政策 */
   privacyPolicy: {

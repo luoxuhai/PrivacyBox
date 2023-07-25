@@ -1,11 +1,5 @@
-/*
-  InfoPlist.strings
-  PrivacyBox
-
-  Created by 罗绪海 on 2022/11/12.
-  
-*/
-
+CFBundleDisplayName = "Privacy Box";
+CFBundleDisplayName = "Privacy Box";
 CFBundleDisplayName = "Privacy Box";
 NSAppleMusicUsageDescription = "To delete imported pictures and videos";
 NSCameraUsageDescription = "The app will access your camera permissions when you use the import pictures and videos from camera function, in order to import pictures and videos";

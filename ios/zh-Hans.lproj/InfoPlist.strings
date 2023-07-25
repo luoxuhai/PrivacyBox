@@ -1,11 +1,3 @@
-/*
-  InfoPlist.strings
-  PrivacyBox
-
-  Created by 罗绪海 on 2022/11/12.
-  
-*/
-
 CFBundleDisplayName = "隐私盒子";
 NSAppleMusicUsageDescription = "为了删除已导入的图片和视频";
 NSCameraUsageDescription = "App会在您使用从相机导入图片和视频功能时，访问您的相机权限，为了导入图片和视频";

@@ -1,5 +1,6 @@
 #import "AppDelegate.h"
 
+#import <AppsFlyerLib/AppsFlyerLib.h>
 #import <React/RCTBundleURLProvider.h>
 #import "ExpoModulesCore-Swift.h"
 #import "RNBootSplash.h"
@@ -21,11 +22,18 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
 
   [RNBootSplash initWithStoryboard:@"LaunchScreen" rootView:self.window.rootViewController.view];
   
+  [[AppsFlyerLib shared] setAppsFlyerDevKey:@"<AF_DEV_KEY>"];
+  [[AppsFlyerLib shared] setAppleAppID:@"1597534147"];
+
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
 
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
   return [Orientation getOrientation];
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+  [[AppsFlyerLib shared] start];
 }
 
 /// This method controls whether the `concurrentRoot`feature of React18 is turned on or off.

@@ -3,6 +3,7 @@ import i18n from 'i18next';
 
 import en, { Translations } from './en';
 import zh from './zh';
+import ja from './ja';
 
 /* -> [
   { countryCode: "GB", languageTag: "en-GB", languageCode: "en", isRTL: false },
@@ -19,11 +20,21 @@ export const locale = {
 export enum SupportedLanguage {
   EN = 'en',
   ZH = 'zh',
+  JA = 'ja',
+  DE = 'de',
+  ES = 'es',
+  PT = 'pt',
+  FR = 'fr',
 }
 
 export const LanguageReadable = {
   [SupportedLanguage.ZH]: '简体中文',
   [SupportedLanguage.EN]: 'English',
+  [SupportedLanguage.JA]: '日本語',
+  [SupportedLanguage.DE]: 'Deutsch',
+  [SupportedLanguage.ES]: 'Español',
+  [SupportedLanguage.PT]: 'Português',
+  [SupportedLanguage.FR]: 'Français',
 };
 
 i18n.init({
@@ -31,7 +42,7 @@ i18n.init({
   debug: false,
   lng: locale.languageCode,
   fallbackLng: SupportedLanguage.EN,
-  supportedLngs: [SupportedLanguage.EN, SupportedLanguage.ZH],
+  supportedLngs: [SupportedLanguage.EN, SupportedLanguage.ZH, SupportedLanguage.JA],
   nonExplicitSupportedLngs: true,
   resources: {
     en: {
@@ -39,6 +50,9 @@ i18n.init({
     },
     zh: {
       translation: zh,
+    },
+    ja: {
+      translation: ja,
     },
   },
 });

@@ -10,10 +10,11 @@ export interface TextButtonProps extends TouchableOpacityProps {
   tkOptions?: TextProps['tkOptions'];
   text?: TextProps['text'];
   textStyle?: StyleProp<TextStyle>;
+  textProps?: TextProps;
 }
 
 export const TextButton = observer<TextButtonProps>((props) => {
-  const { tk, text, tkOptions, textStyle, ...rest } = props;
+  const { tk, text, tkOptions, textStyle, textProps, ...rest } = props;
   const { colors } = useTheme();
 
   return (
@@ -24,6 +25,7 @@ export const TextButton = observer<TextButtonProps>((props) => {
         text={text}
         tkOptions={tkOptions}
         adjustsFontSizeToFit
+        {...textProps}
       />
     </TouchableOpacity>
   );

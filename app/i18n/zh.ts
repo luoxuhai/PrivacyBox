@@ -185,7 +185,7 @@ const zh = {
     restoreSuccess: '恢复购买成功',
     restoreFail: '恢复购买失败',
     restoreFailMessage: '请先购买',
-    help: '用户确认购买并付款后将记入 Apple 账户。如果您有任何疑问，请 ',
+    help: '用户确认购买并付款后将记入 Apple 账户。',
     connect: '联系我们。',
     buyButton: '{{ price }}开通永久会员',
     moreFeatures: '更多功能即将推出...',

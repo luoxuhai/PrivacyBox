@@ -60,6 +60,7 @@
 		35861F672970484F00ABB9D1 /* calculator120x120.png in Resources */ = {isa = PBXBuildFile; fileRef = 35861F492970484F00ABB9D1 /* calculator120x120.png */; };
 		35861F692970484F00ABB9D1 /* password_box180x180.png in Resources */ = {isa = PBXBuildFile; fileRef = 35861F4B2970484F00ABB9D1 /* password_box180x180.png */; };
 		35861F6A2970484F00ABB9D1 /* password_box152x152.png in Resources */ = {isa = PBXBuildFile; fileRef = 35861F4C2970484F00ABB9D1 /* password_box152x152.png */; };
+		359CF81B2A74101200A0F859 /* wifi-transfer-web in Resources */ = {isa = PBXBuildFile; fileRef = 359CF81A2A74101200A0F859 /* wifi-transfer-web */; };
 		400EB2C1E1807E6CBC68B7AB /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951E59D51E504BC9C5F46169 /* ExpoModulesProvider.swift */; };
 		850E30E481ED16412690D107 /* libPods-PrivacyBox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 20B192D0710B082D92A16178 /* libPods-PrivacyBox.a */; };
 		C7859DE9DD4B2FF444D84F1C /* libPods-PrivacyBox-PrivacyBoxTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2ECC5F792B11D6B337EC4F3C /* libPods-PrivacyBox-PrivacyBoxTests.a */; };
@@ -150,6 +151,7 @@
 		35861F492970484F00ABB9D1 /* calculator120x120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calculator120x120.png; sourceTree = "<group>"; };
 		35861F4B2970484F00ABB9D1 /* password_box180x180.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = password_box180x180.png; sourceTree = "<group>"; };
 		35861F4C2970484F00ABB9D1 /* password_box152x152.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = password_box152x152.png; sourceTree = "<group>"; };
+		359CF81A2A74101200A0F859 /* wifi-transfer-web */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "wifi-transfer-web"; path = "../app/assets/wifi-transfer-web"; sourceTree = "<group>"; };
 		35E0496D2A700E06000C510D /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		35E0496E2A700E0B000C510D /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		35E0496F2A700E27000C510D /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 		13B07FAE1A68108700A75B9A /* PrivacyBox */ = {
 			isa = PBXGroup;
 			children = (
+				359CF81A2A74101200A0F859 /* wifi-transfer-web */,
 				35861F2E297047F500ABB9D1 /* Images */,
 				3520FF042955FD7200E618A6 /* ReactNativeModules */,
 				3510682929208F4400E8F0D7 /* PrivacyBox.entitlements */,
@@ -489,6 +492,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				35861F4E2970484F00ABB9D1 /* calculator152x152.png in Resources */,
+				359CF81B2A74101200A0F859 /* wifi-transfer-web in Resources */,
 				35745D94298E34AB00208D03 /* weather167x167.png in Resources */,
 				35861F602970484F00ABB9D1 /* password_box167x167.png in Resources */,
 				35861F542970484F00ABB9D1 /* clock128x128.png in Resources */,

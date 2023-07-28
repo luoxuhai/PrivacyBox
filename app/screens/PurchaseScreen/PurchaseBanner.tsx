@@ -38,7 +38,13 @@ export const PurchaseBanner = observer(() => {
       <View style={$content}>
         <View style={isPurchased && $compactTextContainer}>
           <View style={$titleContainer}>
-            <Text style={$title} tk="settingsScreen.purchaseBanner.title" />
+            <Text
+              style={$title}
+              tk="settingsScreen.purchaseBanner.title"
+              numberOfLines={2}
+              adjustsFontSizeToFit
+              minimumFontScale={0.9}
+            />
             <LottieView style={$lottie} source="Pro" autoPlay loop />
           </View>
           <Text
@@ -48,6 +54,9 @@ export const PurchaseBanner = observer(() => {
                 ? 'settingsScreen.purchaseBanner.purchasedSubtitle'
                 : 'settingsScreen.purchaseBanner.subtitle'
             }
+            numberOfLines={2}
+            adjustsFontSizeToFit
+            minimumFontScale={0.9}
           />
         </View>
         {isPurchased ? null : (
@@ -78,6 +87,7 @@ const $content: ViewStyle = {
   padding: spacing[5],
   flex: 1,
   justifyContent: 'space-between',
+  alignItems:'flex-start'
 };
 
 const $compactTextContainer: ViewStyle = {
@@ -94,6 +104,7 @@ const $title: TextStyle = {
   color: lightPalette.white,
   ...typography.title3,
   fontWeight: '500',
+  maxWidth: '80%',
 };
 
 const $lottie: TextStyle = {
@@ -105,6 +116,7 @@ const $subtitle: TextStyle = {
   ...typography.subhead,
   color: lightPalette.white,
   marginTop: spacing[4],
+  lineHeight: 16,
 };
 
 const $compactSubtitle: ViewStyle = {
@@ -117,7 +129,7 @@ const $background: ViewStyle = {
 };
 
 const $button: ViewStyle = {
-  width: 88,
+  minWidth: 88,
   height: 30,
   borderRadius: 15,
 };

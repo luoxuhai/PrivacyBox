@@ -199,7 +199,7 @@ const ja = {
     restoreSuccess: '購入復元成功',
     restoreFail: '購入復元失敗',
     restoreFailMessage: 'まず購入してください',
-    help: 'ユーザーが購入して支払うとAppleアカウントに記録されます。ご不明な点がありましたら、',
+    help: 'ユーザーが購入して支払うとAppleアカウントに記録されます。',
     connect: 'お問い合わせください。',
     buyButton: '{{price}}で永久会員権を取得',
     moreFeatures: '近日公開の新機能...',

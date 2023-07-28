@@ -52,8 +52,7 @@ export const TransferScreen = observer<StackScreenProps<MoreFeatureNavigatorPara
     } = useStores();
 
     useEffect(() => {
-      WebClient.update(true);
-      KeepAwake.activateKeepAwake();
+      KeepAwake.activateKeepAwakeAsync();
 
       subscribeNetInfo();
       return () => {

@@ -32,6 +32,7 @@ export interface ButtonProps extends TouchableOpacityProps {
    * An optional style override for the button text.
    */
   textStyle?: StyleProp<TextStyle>;
+  textProps?: TextProps;
   disabled?: boolean;
   isLoading?: boolean;
   color?: string;
@@ -39,7 +40,7 @@ export interface ButtonProps extends TouchableOpacityProps {
 }
 
 export function Button(props: ButtonProps) {
-  const { tk, text, tkOptions, style, textStyle, color, LeftAccessory, ...rest } = props;
+  const { tk, text, tkOptions, style, textStyle, color, LeftAccessory, textProps, ...rest } = props;
   const { colors } = useTheme();
 
   const _color = color || colors.palette.primary6;
@@ -65,7 +66,7 @@ export function Button(props: ButtonProps) {
     >
       {LeftAccessory}
       {tk || text ? (
-        <Text style={[$textStyle, textStyle]} tk={tk} tkOptions={tkOptions} text={text} />
+        <Text style={[$textStyle, textStyle]} tk={tk} tkOptions={tkOptions} text={text} {...textProps} />
       ) : null}
     </TouchableOpacity>
   );

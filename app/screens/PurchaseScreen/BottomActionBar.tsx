@@ -69,7 +69,6 @@ export const BottomActionBar = observer<BottomActionBarProps>((props) => {
       />
       <Text style={typography.footnote}>
         <Text tk="purchaseScreen.help" color={colors.secondaryLabel} />
-        <Text tk="purchaseScreen.connect" color={colors.link} onPress={openDeveloperEmail} />
       </Text>
 
       <View style={$body}>
@@ -84,6 +83,10 @@ export const BottomActionBar = observer<BottomActionBarProps>((props) => {
             textStyle={{
               fontSize,
             }}
+            textProps={{
+              numberOfLines: 2,
+              minimumFontScale: 0.7
+            }}
             tk="aboutScreen.private"
             onPress={() => openPrivacyPolicy(true)}
           />
@@ -92,12 +95,26 @@ export const BottomActionBar = observer<BottomActionBarProps>((props) => {
             textStyle={{
               fontSize,
             }}
+            textProps={{
+              numberOfLines: 2,
+              minimumFontScale: 0.7
+            }}
             tk="aboutScreen.userAgreement"
             onPress={() => openUserAgreement(true)}
           />
         </View>
         <Button
-          tk={isPurchased ? 'purchaseScreen.purchased' : 'purchaseScreen.buyButton'}
+          style={$button}
+          tk={
+            isPurchased
+              ? 'purchaseScreen.purchased'
+              : 'purchaseScreen.buyButton'
+          }
+          textProps={{
+            adjustsFontSizeToFit: true,
+            minimumFontScale: 0.7,
+            numberOfLines: 2,
+          }}
           tkOptions={
             isPurchased
               ? null
@@ -140,6 +157,9 @@ const $agreementWrapper: ViewStyle = {
   flexDirection: 'row',
   alignItems: 'center',
   width: '50%',
+  columnGap: spacing[3],
+  rowGap: spacing[3],
+  flexWrap: 'wrap',
 };
 
 const $body: ViewStyle = {
@@ -157,4 +177,8 @@ const $agreementText: ViewStyle = {
 
 const $activityIndicator: ViewStyle = {
   marginRight: spacing[2],
+};
+
+const $button: ViewStyle = {
+  width: '50%',
 };

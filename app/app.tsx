@@ -33,10 +33,7 @@ const App = observer(() => {
 
   useEffect(() => {
     setTimeout(() => {
-      if (!__DEV__) {
-        WebClient.update(true);
-      }
-
+      WebClient.update();
       initTask();
     }, 5000);
   }, []);

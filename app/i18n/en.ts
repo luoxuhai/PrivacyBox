@@ -187,7 +187,7 @@ const en: Translations = {
     restoreSuccess: 'Restore Purchase Successful',
     restoreFail: 'Failed to Restore Purchases',
     restoreFailMessage: 'Please Buy First',
-    help: 'The Apple account will be credited after the user confirms the purchase and pays. If you have any questions, please ',
+    help: 'The Apple account will be credited after the user confirms the purchase and pays.',
     connect: 'Contact us.',
     buyButton: '{{ price }} Purchase',
     moreFeatures: 'More features coming soon...',

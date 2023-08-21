@@ -123,7 +123,7 @@ export const SettingScreen: FC<StackScreenProps<SettingStackParamList, 'Settings
           </ListSection>
 
           <ListSection titleTk="settingsScreen.help">
-            <ListCell
+            {/* <ListCell
               tk="settingsScreen.FAQ"
               visible={!appLockStore.inFakeEnvironment}
               onPress={() => {
@@ -131,8 +131,8 @@ export const SettingScreen: FC<StackScreenProps<SettingStackParamList, 'Settings
                   preferredControlTintColor,
                 });
               }}
-            />
-            <ListCell
+            /> */}
+            {/* <ListCell
               tk="settingsScreen.feedback"
               visible={!appLockStore.inFakeEnvironment}
               onPress={() => {
@@ -140,7 +140,7 @@ export const SettingScreen: FC<StackScreenProps<SettingStackParamList, 'Settings
                   preferredControlTintColor,
                 });
               }}
-            />
+            /> */}
             <ListCell
               tk="settingsScreen.share"
               onPress={() => {

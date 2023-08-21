@@ -22,7 +22,7 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
 
   [RNBootSplash initWithStoryboard:@"LaunchScreen" rootView:self.window.rootViewController.view];
   
-  [[AppsFlyerLib shared] setAppsFlyerDevKey:@"<AF_DEV_KEY>"];
+  [[AppsFlyerLib shared] setAppsFlyerDevKey:@"3k2XQoA8Nk7nmqgktmG8K6"];
   [[AppsFlyerLib shared] setAppleAppID:@"1597534147"];
 
   return [super application:application didFinishLaunchingWithOptions:launchOptions];

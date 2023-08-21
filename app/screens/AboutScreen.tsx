@@ -80,14 +80,14 @@ export const AboutScreen: FC<StackScreenProps<SettingStackParamList, 'About'>> =
               onPress={() => openUserAgreement()}
             />
           </ListSection>
-          <ListSection titleTk="aboutScreen.connect">
+          {/* <ListSection titleTk="aboutScreen.connect">
             <ListCell
               tk="aboutScreen.email"
               bottomSeparator={false}
               RightAccessory={Config.email}
               onPress={openDeveloperEmail}
             />
-          </ListSection>
+          </ListSection> */}
         </SafeAreaScrollView>
       </Screen>
     );
